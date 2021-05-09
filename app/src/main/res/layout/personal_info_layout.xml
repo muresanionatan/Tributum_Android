@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/SubtitleText"
+        android:text="@string/information_label" />
+
+    <EditText
+        android:id="@+id/name_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="22dp"
+        android:hint="@string/full_name"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/address_edit_text"
+        style="@style/CustomEditText"
+        android:hint="@string/address_label"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/pps_number_edit_text"
+        style="@style/CustomEditText"
+        android:hint="@string/pps_number"
+        android:textAllCaps="true" />
+
+    <EditText
+        android:id="@+id/email_edit_text"
+        style="@style/CustomEditText"
+        android:hint="@string/mail_label" />
+
+    <EditText
+        android:id="@+id/occupation_edit_text"
+        style="@style/CustomEditText"
+        android:hint="@string/occupation_label"
+        android:inputType="textCapWords" />
+</LinearLayout>

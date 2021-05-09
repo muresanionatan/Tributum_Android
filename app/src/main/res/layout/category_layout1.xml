@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_category_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/info_layout"
+        android:layout_width="@dimen/global_small_image"
+        android:layout_height="@dimen/global_small_image"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/global_margin"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/black_circle">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="i"
+            android:textColor="@color/white"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/global_margin"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/welcome_label"
+        android:textColor="@color/black"
+        android:textSize="@dimen/title_size"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcome_text"
+        android:layout_marginStart="@dimen/global_margin"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/great_day_label"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/subtitle_size" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/global_margin"
+        android:layout_marginEnd="@dimen/global_margin"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="350dp"
+        android:visibility="visible"
+        tools:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/pps_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cta_height"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/black_rectangle_corners">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/button_text_margin"
+                android:layout_toStartOf="@+id/go_image_contract"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/pps_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/contract_label"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_title_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pps_description"
+                    android:textColor="@color/gray" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/go_image_contract"
+                android:layout_width="@dimen/global_cta_image"
+                android:layout_height="@dimen/global_cta_image"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/button_text_margin"
+                android:src="@drawable/arrow_svg"
+                android:tint="@color/white"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/payment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cta_height"
+            android:layout_below="@+id/pps_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/black_rectangle_corners"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/button_text_margin"
+                android:layout_toStartOf="@+id/go_image_payments"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/payments_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/payments_label"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/payment_description"
+                    android:textColor="@color/gray" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/go_image_payments"
+                android:layout_width="@dimen/global_cta_image"
+                android:layout_height="@dimen/global_cta_image"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/button_text_margin"
+                android:src="@drawable/arrow_svg"
+                android:tint="@color/white"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/faqs_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cta_height"
+            android:layout_below="@+id/payment_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/button_text_margin"
+            android:background="@drawable/black_rectangle_corners"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/button_text_margin"
+                android:layout_toStartOf="@+id/go_image_faqs"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/faqs_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/faqs_label"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/faqs_description"
+                    android:textColor="@color/gray" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/go_image_faqs"
+                android:layout_width="@dimen/global_cta_image"
+                android:layout_height="@dimen/global_cta_image"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/button_text_margin"
+                android:src="@drawable/arrow_svg"
+                android:tint="@color/white"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

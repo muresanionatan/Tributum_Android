@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/global_start_end_margin"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/global_start_end_margin">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/personal_info_layout" />
+
+                <include layout="@layout/marital_status_layout" />
+
+                <include layout="@layout/date_pickers_layout" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/self_employed_id"
+                        style="@style/CheckBox"
+                        android:checked="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_employed_label"
+                        android:textColor="@color/black" />
+
+                    <CheckBox
+                        android:id="@+id/employee_id"
+                        style="@style/CheckBox"
+                        android:layout_marginStart="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/employee_label"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/taxes_id"
+                    layout="@layout/applying_for_layout" />
+
+                <View style="@style/Divider" />
+
+                <TextView
+                    style="@style/SubtitleText"
+                    android:text="@string/add_pps" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/upload_pps"
+                        style="@style/CtaBlack"
+                        android:text="@string/upload_pps_label"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/take_picture_pps"
+                        style="@style/CtaWhite"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/take_photo_label"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/pps_remove_image"
+                        android:layout_width="@dimen/global_small_image"
+                        android:layout_height="@dimen/global_small_image"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:scaleType="center"
+                        android:src="@drawable/delete_svg"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/SubtitleText"
+                    android:text="@string/add_id" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/upload_id"
+                        style="@style/CtaBlack"
+                        android:text="@string/upload_id_label"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/take_picture_id"
+                        style="@style/CtaWhite"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/take_photo_id"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/id_remove_image"
+                        android:layout_width="@dimen/global_small_image"
+                        android:layout_height="@dimen/global_small_image"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:scaleType="center"
+                        android:src="@drawable/delete_svg"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/SubtitleText"
+                    android:text="@string/signature_label" />
+
+                <TextView
+                    android:id="@+id/make_signature"
+                    style="@style/CtaWhite"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/draw_signature"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/send_button"
+                    style="@style/SendButton" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/clear_image"
+        android:layout_width="@dimen/global_small_image"
+        android:layout_height="@dimen/global_small_image"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/selector_gray_circle"
+        android:elevation="8dp"
+        android:scaleType="center"
+        android:src="@drawable/delete_svg"
+        app:tint="@color/black"
+        tools:ignore="ContentDescription" />
+
+    <include layout="@layout/signature_drawing_layout" />
+</RelativeLayout>

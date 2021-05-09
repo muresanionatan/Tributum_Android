@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/payment_beneficiary_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="250dp"
+        android:hint="@string/name_label"
+        android:nextFocusForward="@+id/payment_pps_edit_text"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/payment_pps_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="110sp"
+        android:layout_below="@+id/payment_beneficiary_edit_text"
+        android:hint="@string/pps_label"
+        android:nextFocusForward="@+id/payment_amount_edit_text"
+        android:textAllCaps="true" />
+
+    <EditText
+        android:id="@+id/payment_amount_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="70dp"
+        android:layout_below="@+id/payment_beneficiary_edit_text"
+        android:layout_marginStart="30dp"
+        android:layout_toEndOf="@+id/payment_pps_edit_text"
+        android:hint="@string/amount_label"
+        android:inputType="numberDecimal|numberSigned" />
+
+    <ImageView
+        android:id="@+id/add_new_payment_image"
+        android:layout_width="@dimen/global_cta_image"
+        android:layout_height="@dimen/global_cta_image"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/selector_black_circle"
+        android:elevation="8dp"
+        android:scaleType="center"
+        android:src="@drawable/add_svg"
+        app:tint="@color/white"
+        tools:ignore="ContentDescription" />
+
+    <View
+        android:id="@+id/divider"
+        style="@style/Divider"
+        android:layout_below="@+id/payment_amount_edit_text" />
+</RelativeLayout>

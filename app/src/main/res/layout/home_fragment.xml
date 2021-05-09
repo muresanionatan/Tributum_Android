@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_main_id"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/info_layout"
+            android:layout_width="@dimen/global_small_image"
+            android:layout_height="@dimen/global_small_image"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/global_margin"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/selector_black_circle"
+            android:elevation="8dp"
+            android:src="@drawable/info_svg"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/falcon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="@dimen/global_start_end_margin"
+            android:layout_marginTop="140dp"
+            android:src="@drawable/falcon"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/welcome_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/falcon"
+            android:layout_marginStart="@dimen/global_start_end_margin"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="@string/welcome_label"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            tools:ignore="RelativeOverlap" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/welcome_text"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="@dimen/global_margin"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/start_new_contract_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/selector_black_corners"
+                android:elevation="8dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="@string/start_contract"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/white_circle"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/contract"
+                        app:tint="@color/black" />
+
+                    <TextView
+                        android:id="@+id/new_contract_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="@string/contract_label"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/start_new_contract_id"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="@dimen/global_start_end_margin"
+                android:background="@drawable/gray_rectangle_small_corners"
+                android:elevation="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/home_screen_info"
+                    android:textSize="18sp"
+                    app:tint="@color/black" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/welcome_text"
+            android:layout_marginStart="@dimen/global_margin"
+            android:layout_marginTop="@dimen/global_margin"
+            android:layout_marginEnd="@dimen/global_margin"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="@string/home_screen_info"
+            android:textColor="@color/gray"
+            android:textSize="20sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/language_id"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="@dimen/global_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/global_small_image"
+            android:layout_height="@dimen/global_small_image"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selector_gray_circle"
+            android:elevation="8dp"
+            android:src="@drawable/language_svg"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/language_change_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/english_label"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/language_layout_id"
+        layout="@layout/language_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="70dp"
+        android:visibility="gone" />
+</RelativeLayout>
