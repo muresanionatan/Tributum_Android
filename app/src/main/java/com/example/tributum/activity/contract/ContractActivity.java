@@ -54,6 +54,7 @@ import com.example.tributum.utils.NetworkUtils;
 import com.example.tributum.utils.StatusBarUtils;
 import com.example.tributum.utils.UploadAsyncTask;
 import com.example.tributum.utils.UtilsGeneral;
+import com.example.tributum.utils.ui.FileUtils;
 import com.example.tributum.utils.ui.LoadingScreen;
 
 import java.io.ByteArrayOutputStream;
@@ -122,6 +123,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
     private DrawingView signatureDraw;
 
     private EditText phoneNumberEditText;
+
+    private ContractModel contractModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -569,7 +572,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
     }
 
     private void sendInfo() {
-        ContractModel contractModel = new ContractModel(
+        contractModel = new ContractModel(
                 nameEditText.getText().toString(),
                 addressEditText.getText().toString(),
                 ppsNumberEditText.getText().toString(),
@@ -656,8 +659,31 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         uploadList.add(ppsFileFront);
         uploadList.add(ppsFileBack);
         uploadList.add(idFile);
-        UploadAsyncTask asyncTask = new UploadAsyncTask(nameEditText.getText().toString(), uploadList, this);
-        asyncTask.execute();
+        UploadAsyncTask uploadMultipleFilesTask = new UploadAsyncTask(
+                nameEditText.getText().toString(),
+                uploadList,
+                null,
+                UploadAsyncTask.UploadType.MULTIPLE);
+        uploadMultipleFilesTask.execute();
+        UploadAsyncTask uploadOneFileTask = new UploadAsyncTask(
+                nameEditText.getText().toString(),
+                FileUtils.createFile(this, generateUserInfo(),nameEditText.getText().toString() + "_info"),
+                this,
+                UploadAsyncTask.UploadType.ONE);
+        uploadOneFileTask.execute();
+    }
+
+    private String generateUserInfo() {
+        String message = "Name: " + contractModel.getName()
+                + "\nAddress: " + contractModel.getAddress()
+                + "\nPPS: " + contractModel.getPpsNumber()
+                + "\nmail: " + contractModel.getEmail()
+                + "\nOccupation: " + contractModel.getOccupation()
+                + "\nPhone: " + phoneNumberEditText.getText().toString()
+                + "\nMarital status: " + contractModel.getMaritalStatus()
+                + "\nDate of birth: " + contractModel.getBirthday()
+                + "\nContract date: " + contractModel.getDate();
+        return message;
     }
 
     @SuppressLint("ObsoleteSdkInt")

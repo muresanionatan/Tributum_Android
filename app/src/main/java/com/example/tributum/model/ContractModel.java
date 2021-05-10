@@ -92,4 +92,52 @@ public class ContractModel {
     public void setOther(String other) {
         this.other = other;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPpsNumber() {
+        return ppsNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public String getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public List<String> getEmployment() {
+        return employment;
+    }
+
+    public List<String> getTaxes() {
+        return taxes;
+    }
+
+    public byte[] getSignature() {
+        return signature;
+    }
+
+    public String getOther() {
+        return other;
+    }
 }

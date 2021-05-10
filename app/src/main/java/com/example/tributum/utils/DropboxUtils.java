@@ -22,12 +22,9 @@ public class DropboxUtils {
     }
 
     public static void uploadPdfOnDropbox(String username, String months, File uploadFile) throws FileNotFoundException {
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("tributum").build();
-        DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
-
         try {
             InputStream inputStream = new FileInputStream(uploadFile);
-            client.files().uploadBuilder("/VATS/" + username.toUpperCase() + "/" + months + ".pdf")
+            getDropBoxClient().files().uploadBuilder("/VATS/" + username.toUpperCase() + "/" + months + ".pdf")
                     .withMode(WriteMode.OVERWRITE)
                     .uploadAndFinish(inputStream);
             Log.d("Upload Status", "Success");
@@ -37,9 +34,6 @@ public class DropboxUtils {
     }
 
     public static void uploadPpsAndId(String username, List<String> uploadList) throws FileNotFoundException {
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("tributum").build();
-        DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
-
         try {
             InputStream inputStream;
             for (int i = 0; i < uploadList.size(); i++) {
@@ -51,7 +45,7 @@ public class DropboxUtils {
                     prefix = "PPS_BACK";
                 else
                     prefix = "ID";
-                client.files().uploadBuilder("/DATABASE/" + username.toUpperCase() + "/" + prefix + ".png")
+                getDropBoxClient().files().uploadBuilder("/DATABASE/" + username.toUpperCase() + "/" + prefix + ".png")
                         .withMode(WriteMode.OVERWRITE)
                         .uploadAndFinish(inputStream);
             }
@@ -59,5 +53,23 @@ public class DropboxUtils {
         } catch (DbxException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void addUserInfoFile(File uploadFile, String username) {
+        try {
+            InputStream inputStream = new FileInputStream(uploadFile);
+            getDropBoxClient().files().uploadBuilder("/DATABASE/" + username.toUpperCase() + "/" + "user_info.txt")
+                    .withMode(WriteMode.OVERWRITE)
+                    .uploadAndFinish(inputStream);
+            Log.d("Upload Status", "Success");
+        } catch (DbxException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static DbxClientV2 getDropBoxClient() {
+        DbxRequestConfig config = DbxRequestConfig.newBuilder("tributum").build();
+        DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
+        return client;
     }
 }
