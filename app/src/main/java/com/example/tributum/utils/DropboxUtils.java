@@ -44,7 +44,13 @@ public class DropboxUtils {
             InputStream inputStream;
             for (int i = 0; i < uploadList.size(); i++) {
                 inputStream = new FileInputStream(uploadList.get((i)));
-                String prefix = i == 0 ? "PPS" : "ID";
+                String prefix;
+                if (i == 0)
+                    prefix = "PPS_FRONT";
+                else if (i == 1)
+                    prefix = "PPS_BACK";
+                else
+                    prefix = "ID";
                 client.files().uploadBuilder("/DATABASE/" + username.toUpperCase() + "/" + prefix + ".png")
                         .withMode(WriteMode.OVERWRITE)
                         .uploadAndFinish(inputStream);

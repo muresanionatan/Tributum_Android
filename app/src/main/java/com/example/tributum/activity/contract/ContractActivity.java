@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -122,6 +121,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
 
     private DrawingView signatureDraw;
 
+    private EditText phoneNumberEditText;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +172,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         emailEditText = findViewById(R.id.email_edit_text);
         occupationEditText = findViewById(R.id.occupation_edit_text);
         previewLayout = findViewById(R.id.preview_layout_id);
+        phoneNumberEditText = findViewById(R.id.phone_edit_text);
 
         nameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         nameEditText.addTextChangedListener(new TextWatcher() {
@@ -197,7 +199,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         UtilsGeneral.setMaxLengthAndAllCapsToEditText(ppsNumberEditText, 9, true);
 
         emailEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        occupationEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        occupationEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
 
         singleCheck = findViewById(R.id.single_checkbox);
         marriedCheck = findViewById(R.id.married_checkbox);
@@ -285,24 +287,6 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
             @Override
             public void onClick(View v) {
                 handleSendButtonClick();
-            }
-        });
-
-        occupationEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    UtilsGeneral.removeFocusFromInput(ContractActivity.this, occupationEditText);
-                    return true;
-                }
-                return false;
-            }
-        });
-        occupationEditText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                UtilsGeneral.setFocusOnInput(ContractActivity.this, occupationEditText);
-                return false;
             }
         });
 
@@ -557,6 +541,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                 Toast.makeText(this, getString(R.string.please_enter_birthday), Toast.LENGTH_SHORT).show();
             } else if (contractDate.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.please_enter_contract_date), Toast.LENGTH_SHORT).show();
+            } else if (phoneNumberEditText.getText().toString().equals("")) {
+                Toast.makeText(this, getString(R.string.please_enter_phone), Toast.LENGTH_SHORT).show();
             } else if (((CheckBox) findViewById(R.id.self_employed_id)).isChecked()
                     && !((CheckBox) findViewById(R.id.first)).isChecked()
                     && !((CheckBox) findViewById(R.id.second)).isChecked()
@@ -826,6 +812,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         ppsNumberEditText.setText("");
         emailEditText.setText("");
         occupationEditText.setText("");
+        phoneNumberEditText.setText("");
         birthday.setText("");
         contractDate.setText("");
         otherCheck.setText("");

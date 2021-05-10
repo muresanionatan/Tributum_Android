@@ -116,4 +116,6 @@
     <string name="add_id_image">Add ID image</string>
     <string name="add_contract_files">Add contract files</string>
     <string name="add_from_gallery">Add from gallery</string>
+    <string name="phone_number_label">Phone number</string>
+    <string name="please_enter_phone">Please add a phone number</string>
 </resources>

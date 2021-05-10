@@ -109,4 +109,13 @@
     <string name="loading_label">Loading...</string>
     <string name="pdf_sent">Imagini trimise.</string>
     <string name="date_hint">ZZ/LL/AAAA</string>
+    <string name="invoices_message_email">\"Please add the receipts/invoices for \"</string>
+    <string name="invoices_message_email_part2">\" for period: \"</string>
+    <string name="add_pps_front">Adauga poza PPS fata</string>
+    <string name="add_pps_back">Adauga poza PPS spate</string>
+    <string name="add_id_image">Adauga poza Buletin</string>
+    <string name="add_contract_files">Adauga poze pentru contract</string>
+    <string name="add_from_gallery">Adauga din galerie poze</string>
+    <string name="phone_number_label">Numar telefon</string>
+    <string name="please_enter_phone">Te rugam adauga un numar de telefon</string>
 </resources>
