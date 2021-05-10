@@ -616,6 +616,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         if (otherCheck.isChecked())
             taxes.add(getString(R.string.other_label));
 
+        contractModel.setMessage(getString(R.string.contract_mail_message));
+
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         signatureFile.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
@@ -667,7 +669,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         uploadMultipleFilesTask.execute();
         UploadAsyncTask uploadOneFileTask = new UploadAsyncTask(
                 nameEditText.getText().toString(),
-                FileUtils.createFile(this, generateUserInfo(),nameEditText.getText().toString() + "_info"),
+                FileUtils.createFile(this, generateUserInfo(), nameEditText.getText().toString() + "_info"),
                 this,
                 UploadAsyncTask.UploadType.ONE);
         uploadOneFileTask.execute();
@@ -896,6 +898,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
     public void onBackPressed() {
         if (TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
             showCloseContractDialog();
+        } else if (fileChooser.getVisibility() == View.VISIBLE) {
+            fileChooser.setVisibility(View.GONE);
         } else {
             super.onBackPressed();
         }

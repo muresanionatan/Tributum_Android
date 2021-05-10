@@ -26,6 +26,8 @@ public class ContractModel {
 
     private byte[] signature;
 
+    private String message;
+
     /**
      * Used for the 'applying for' for the field which the client can input in
      */
@@ -91,6 +93,10 @@ public class ContractModel {
 
     public void setOther(String other) {
         this.other = other;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getName() {

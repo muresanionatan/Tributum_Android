@@ -169,9 +169,6 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
                     && !payerEmailEditText.getText().toString().equals("")
                     && !siteEditText.toString().equals("")
                     && !monthEditText.toString().equals("")
-                    && !paymentList.get(0).getName().equals("")
-                    && !paymentList.get(0).getPps().equals("")
-                    && !paymentList.get(0).getAmount().equals("")
                     && !adapter.areThereEmptyInputs()) {
                 saveListToPreferences();
                 sendEmail();
