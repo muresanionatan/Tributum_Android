@@ -26,6 +26,7 @@ import com.example.tributum.model.PaymentModel;
 import com.example.tributum.retrofit.InterfaceAPI;
 import com.example.tributum.retrofit.RetrofitClientInstance;
 import com.example.tributum.utils.CalendarUtils;
+import com.example.tributum.utils.ConstantsUtils;
 import com.example.tributum.utils.NetworkUtils;
 import com.example.tributum.utils.UtilsGeneral;
 import com.example.tributum.utils.ui.LoadingScreen;
@@ -136,7 +137,7 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
             }
         });
 
-        loadingScreen = new LoadingScreen(getActivity(), view.findViewById(android.R.id.content));
+        loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content));
     }
 
     private void handleClearButtonClick() {
@@ -171,7 +172,7 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
                     && !monthEditText.toString().equals("")
                     && !adapter.areThereEmptyInputs()) {
                 saveListToPreferences();
-                sendEmail();
+                sendInternalEmail();
             } else {
                 Toast.makeText(getActivity(), getString(R.string.add_all_info), Toast.LENGTH_SHORT).show();
             }
@@ -180,7 +181,7 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
         }
     }
 
-    private String concatenateMail() {
+    private String concatenateInternalMail() {
         String amountType;
         if (netCheckbox.isChecked())
             amountType = getString(R.string.net_label);
@@ -198,6 +199,23 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
         return message;
     }
 
+    private String concatenateClientMail() {
+        String amountType;
+        if (netCheckbox.isChecked())
+            amountType = getString(R.string.net_label);
+        else
+            amountType = getString(R.string.gross_label);
+
+        String message = "The following payments at " + siteEditText.getText().toString()
+                + " for " + monthEditText.getText().toString()
+                + " will be made for:\n\n";
+        for (PaymentModel model : paymentList) {
+            message = message + model.getName() + " (" + model.getPps() + ") - " + model.getAmount() + "\n";
+        }
+        message = message + "\n \n" + "All of them are " + amountType.toUpperCase() + ".";
+        return message;
+    }
+
     private void saveListToPreferences() {
         List<PaymentModel> paymentModels = new ArrayList<>();
         for (PaymentModel model : paymentList) {
@@ -210,12 +228,36 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
         TributumAppHelper.saveSetting(AppKeysValues.NET, netCheckbox.isChecked());
     }
 
-    private void sendEmail() {
+    private void sendInternalEmail() {
         loadingScreen.show();
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(payerEmailEditText.getText().toString(), concatenateMail()));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, concatenateInternalMail()));
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                System.out.println("ContractFragment.onResponse " + response.body());
+                if (response.isSuccessful())
+                    sendClientEmail();
+                else
+                    Toast.makeText(getActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+                loadingScreen.hide();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                loadingScreen.hide();
+                Toast.makeText(getActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sendClientEmail() {Retrofit retrofit = RetrofitClientInstance.getInstance();
+        final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+
+        Call<Object> call = api.sendEmail(new EmailBody(payerEmailEditText.getText().toString(), concatenateClientMail()));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

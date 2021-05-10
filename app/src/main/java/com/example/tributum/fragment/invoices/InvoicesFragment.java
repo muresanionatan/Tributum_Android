@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -69,7 +70,7 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
 
     private String pictureImagePath = "";
 
-    private EditText payerName;
+    private EditText name;
 
     private EditText payerEmail;
 
@@ -78,6 +79,10 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
     private TextView sendButton;
 
     private boolean isPreview;
+
+    private EditText startingMonth;
+
+    private EditText endingMonth;
 
     public InvoicesFragment() {
     }
@@ -93,9 +98,16 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
     private void setupViews(View view) {
         previewImage = view.findViewById(R.id.image_preview_id);
         previewLayout = view.findViewById(R.id.preview_layout_id);
-        payerName = view.findViewById(R.id.payer_edit_text);
+        name = view.findViewById(R.id.payer_edit_text);
         payerEmail = view.findViewById(R.id.payer_email_edit_text);
         sendButton = view.findViewById(R.id.invoices_send_id);
+        startingMonth = view.findViewById(R.id.start_month_edit_text);
+        endingMonth = view.findViewById(R.id.end_month_edit_text);
+
+        name.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        payerEmail.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        startingMonth.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        endingMonth.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content));
 
@@ -127,15 +139,15 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (payerName.getText().toString().equals("")
+                if (name.getText().toString().equals("")
                         || payerEmail.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), getString(R.string.add_all_info), Toast.LENGTH_SHORT).show();
                 } else if (PICTURE_NUMBER > 1) {
                     UtilsGeneral.hideSoftKeyboard(getActivity());
                     loadingScreen.show();
-                    PdfAsyncTask asyncTask = new PdfAsyncTask(InvoicesFragment.this, getActivity(), list, payerName.getText().toString(),
-                            ((EditText) getView().findViewById(R.id.start_month_edit_text)).getText().toString()
-                                    + "_" + ((EditText) getView().findViewById(R.id.end_month_edit_text)).getText().toString());
+                    PdfAsyncTask asyncTask = new PdfAsyncTask(InvoicesFragment.this, getActivity(), list, name.getText().toString(),
+                            startingMonth.getText().toString()
+                                    + "_" + endingMonth.getText().toString());
                     asyncTask.execute();
                 } else {
                     Toast.makeText(getActivity(), getString(R.string.no_photo_taken), Toast.LENGTH_SHORT).show();
@@ -153,7 +165,7 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
             }
         });
 
-        payerName.setText(TributumAppHelper.getStringSetting(AppKeysValues.INVOICE_NAME));
+        name.setText(TributumAppHelper.getStringSetting(AppKeysValues.INVOICE_NAME));
         payerEmail.setText(TributumAppHelper.getStringSetting(AppKeysValues.INVOICE_EMAIL));
     }
 
@@ -234,8 +246,8 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
     }
 
     private void saveListToPreferences() {
-        if (!payerName.getText().toString().equals(""))
-            TributumAppHelper.saveSetting(AppKeysValues.INVOICE_NAME, payerName.getText().toString());
+        if (!name.getText().toString().equals(""))
+            TributumAppHelper.saveSetting(AppKeysValues.INVOICE_NAME, name.getText().toString());
         if (!payerEmail.getText().toString().equals(""))
             TributumAppHelper.saveSetting(AppKeysValues.INVOICE_EMAIL, payerEmail.getText().toString());
     }
@@ -270,15 +282,38 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         return true;
     }
 
-    private void sendEmail() {
+    private void sendInternalEmail() {
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(payerEmail.getText().toString(), generateEmailMessage()));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage()));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                System.out.println("ContractFragment.onResponse " + response.body());
+                if (response.isSuccessful())
+                    sendClientEmail();
+                else
+                    Toast.makeText(getActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+                loadingScreen.hide();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                loadingScreen.hide();
+                Toast.makeText(getActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sendClientEmail() {
+        Retrofit retrofit = RetrofitClientInstance.getInstance();
+        final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+
+        Call<Object> call = api.sendEmail(new EmailBody(payerEmail.getText().toString(), generateClientEmailMessage()));
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (response.isSuccessful())
                     Toast.makeText(getActivity(), getString(R.string.email_sent), Toast.LENGTH_SHORT).show();
                 else
@@ -295,16 +330,28 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         });
     }
 
-    private String generateEmailMessage() {
-        return getString(R.string.invoices_message_email) + payerName.getText().toString()
-                + getString(R.string.invoices_message_email_part2) + ((EditText) getView().findViewById(R.id.start_month_edit_text)).getText().toString()
-                + " - " + ((EditText) getView().findViewById(R.id.end_month_edit_text)).getText().toString();
+    private String generateInternalEmailMessage() {
+        String formattedString = name.getText().toString().toUpperCase();
+        if (formattedString.contains(" "))
+            formattedString = formattedString.replace(" ", "%20");
+        return getString(R.string.invoices_message_email) + name.getText().toString()
+                + getString(R.string.invoices_message_email_part2) + startingMonth.getText().toString()
+                + " - " + endingMonth.getText().toString()
+                + "\n\n" + "Click on below link to access the pdf\n\n"
+                + "https://www.dropbox.com/home/Apps/Tributum/VATS/" + formattedString;
+    }
+
+    private String generateClientEmailMessage() {
+        return "The receipts"
+                + getString(R.string.invoices_message_email_part2) + startingMonth.getText().toString()
+                + " - " + endingMonth.getText().toString()
+                + "were sent and we'll be processed.";
     }
 
     @Override
     public void onTaskCompleted() {
         loadingScreen.hide();
-        sendEmail();
+        sendInternalEmail();
         Toast.makeText(getActivity(), R.string.pdf_sent, Toast.LENGTH_SHORT).show();
     }
 }

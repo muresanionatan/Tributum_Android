@@ -27,7 +27,7 @@
     <string name="payer_label">Platitor</string>
     <string name="payer_email_label">E-mail platitor</string>
     <string name="try_again">Verifica conexiunea la internet si reincearca. Modificari salvate.</string>
-    <string name="email_sent">Cerere trimisa. Veti primi si dumneavoastra un e-mail.</string>
+    <string name="email_sent">Cerere trimisa.</string>
     <string name="need_info">Ai nevoie de informatii?</string>
     <string name="need_info_body">Daca aveti intrebari legate de modul de utilizare al aplicatiei, trimiteti-ne un e-mail si va vom contacta noi cat de curand posibil.</string>
     <string name="send_email">Trimite e-mail</string>
@@ -109,8 +109,8 @@
     <string name="loading_label">Loading...</string>
     <string name="pdf_sent">Imagini trimise.</string>
     <string name="date_hint">ZZ/LL/AAAA</string>
-    <string name="invoices_message_email">\"Please add the receipts/invoices for \"</string>
-    <string name="invoices_message_email_part2">\" for period: \"</string>
+    <string name="invoices_message_email">Please add the receipts/invoices for\u0020</string>
+    <string name="invoices_message_email_part2">\u0020for period:\u0020</string>
     <string name="add_pps_front">Adauga poza PPS fata</string>
     <string name="add_pps_back">Adauga poza PPS spate</string>
     <string name="add_id_image">Adauga poza Buletin</string>
@@ -118,4 +118,5 @@
     <string name="add_from_gallery">Adauga din galerie poze</string>
     <string name="phone_number_label">Numar telefon</string>
     <string name="please_enter_phone">Te rugam adauga un numar de telefon</string>
+    <string name="contract_mail_message">Documentele de mai jos au fost generate.</string>
 </resources>

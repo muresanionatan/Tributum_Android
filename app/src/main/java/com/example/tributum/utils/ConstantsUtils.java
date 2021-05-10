@@ -46,4 +46,6 @@ public class ConstantsUtils {
             Manifest.permission.CAMERA};
 
     public static final int MAXIMUM_PICTURES_IN_ATTACHMENT = 500;
+
+    public static final String TRIBUTUM_EMAIL = "tributum@yahoo.com";
 }

@@ -27,7 +27,7 @@
     <string name="payer_label">Payer</string>
     <string name="payer_email_label">Payer email</string>
     <string name="try_again">Check internet connection and try again. All changes saved.</string>
-    <string name="email_sent">Request sent. You will also receive a copy.</string>
+    <string name="email_sent">Request sent.</string>
     <string name="need_info">Need information?</string>
     <string name="need_info_body">If you have any questions of how to use the app feel free to write us and we will get back to you as soon as possible.</string>
     <string name="send_email">Send e-mail</string>
@@ -105,12 +105,12 @@
     <string name="ending_month_label">Ending month</string>
     <string name="month_label">Month</string>
     <string name="start_contract">Click here if you are\ninterested into creating\na new contract</string>
-    <string name="you_receive_copy">"You will receive an email regarding the payment "</string>
+    <string name="you_receive_copy">You will receive an email regarding the payment </string>
     <string name="loading_label">Loading...</string>
     <string name="pdf_sent">Images sent.</string>
     <string name="date_hint">DD/MM/YYYY</string>
-    <string name="invoices_message_email">\"Please add the receipts/invoices for \"</string>
-    <string name="invoices_message_email_part2">\" for period: \"</string>
+    <string name="invoices_message_email">Please add the receipts/invoices for\u0020</string>
+    <string name="invoices_message_email_part2">\u0020for period:\u0020</string>
     <string name="add_pps_front">Add PPS front image</string>
     <string name="add_pps_back">Add PPS back image</string>
     <string name="add_id_image">Add ID image</string>
