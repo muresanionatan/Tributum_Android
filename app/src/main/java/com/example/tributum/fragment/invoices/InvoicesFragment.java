@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.tributum.R;
 import com.example.tributum.activity.MainActivity;
 import com.example.tributum.application.AppKeysValues;
@@ -41,9 +41,9 @@ import com.example.tributum.listener.InvoicesDeleteListener;
 import com.example.tributum.model.EmailBody;
 import com.example.tributum.retrofit.InterfaceAPI;
 import com.example.tributum.retrofit.RetrofitClientInstance;
-import com.example.tributum.utils.BitmapUtils;
 import com.example.tributum.utils.ConstantsUtils;
 import com.example.tributum.utils.UtilsGeneral;
+import com.example.tributum.utils.ui.FileUtils;
 import com.example.tributum.utils.ui.LoadingScreen;
 
 import java.io.File;
@@ -84,6 +84,8 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
 
     private EditText endingMonth;
 
+    private TextView addFromGallery;
+
     public InvoicesFragment() {
     }
 
@@ -103,6 +105,7 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         sendButton = view.findViewById(R.id.invoices_send_id);
         startingMonth = view.findViewById(R.id.start_month_edit_text);
         endingMonth = view.findViewById(R.id.end_month_edit_text);
+        addFromGallery = view.findViewById(R.id.add_from_gallery_invoices_id);
 
         name.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         payerEmail.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -165,6 +168,16 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
             }
         });
 
+        addFromGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), ConstantsUtils.SELECT_PICTURES);
+            }
+        });
+
         name.setText(TributumAppHelper.getStringSetting(AppKeysValues.INVOICE_NAME));
         payerEmail.setText(TributumAppHelper.getStringSetting(AppKeysValues.INVOICE_EMAIL));
     }
@@ -181,6 +194,19 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
                 if (!TributumAppHelper.getBooleanSetting(AppKeysValues.INVOICES_TAKEN)) {
                     TributumAppHelper.saveSetting(AppKeysValues.INVOICES_TAKEN, AppKeysValues.TRUE);
                 }
+            }
+        } else if (requestCode == ConstantsUtils.SELECT_PICTURES && resultCode == Activity.RESULT_OK) {
+            if (data.getClipData() != null) {
+                int count = data.getClipData().getItemCount();
+                PICTURE_NUMBER = count;
+                for (int i = 0; i < count; i++) {
+                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    adapter.addItemToList(new InvoiceModel(FileUtils.getPath(getActivity(), imageUri)));
+                }
+            } else if (data.getData() != null) {
+                PICTURE_NUMBER++;
+                String imagePath = data.getData().getPath();
+                adapter.addItemToList(new InvoiceModel(imagePath));
             }
         }
     }
@@ -214,8 +240,9 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
     public void onPreviewPhotoClick(String filePath, int photoIndex) {
         isPreview = true;
         photoClicked = photoIndex;
-        previewImage.setImageBitmap(BitmapFactory.decodeFile(BitmapUtils.compressBitmap(getActivity(), filePath, true)));
+        Glide.with(getActivity()).load("file://" + filePath).into(previewImage);
         previewLayout.setVisibility(View.VISIBLE);
+        addFromGallery.setVisibility(View.GONE);
         sendButton.setVisibility(View.GONE);
         ((MainActivity) getActivity()).getBottomNavigation().setVisibility(View.GONE);
     }
@@ -224,6 +251,7 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         isPreview = false;
         previewLayout.setVisibility(View.GONE);
         previewImage.setImageResource(0);
+        addFromGallery.setVisibility(View.VISIBLE);
         sendButton.setVisibility(View.VISIBLE);
         ((MainActivity) getActivity()).getBottomNavigation().setVisibility(View.VISIBLE);
     }

@@ -12,16 +12,23 @@
         android:id="@+id/invoice_title_id"
         style="@style/SubtitleText"
         android:layout_marginStart="@dimen/global_start_end_margin"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="18dp"
         android:text="@string/receipts_label" />
+
+    <TextView
+        android:id="@+id/add_from_gallery_invoices_id"
+        style="@style/CtaBlack"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:text="@string/add_from_gallery" />
 
     <LinearLayout
         android:id="@+id/invoices_info_layout_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/invoice_title_id"
+        android:layout_below="@+id/add_from_gallery_invoices_id"
         android:layout_marginStart="@dimen/global_start_end_margin"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="@dimen/global_start_end_margin"
         android:orientation="vertical">
 

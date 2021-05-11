@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Build;
@@ -46,7 +45,6 @@ import com.example.tributum.listener.SignatureListener;
 import com.example.tributum.model.ContractModel;
 import com.example.tributum.retrofit.InterfaceAPI;
 import com.example.tributum.retrofit.RetrofitClientInstance;
-import com.example.tributum.utils.BitmapUtils;
 import com.example.tributum.utils.ConstantsUtils;
 import com.example.tributum.utils.ImageUtils;
 import com.example.tributum.utils.MailUtils;
@@ -478,11 +476,11 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         previewLayout.setVisibility(View.VISIBLE);
         ImageView previewImage = findViewById(R.id.image_preview_id);
         if (id == R.id.pps_front_layout_id)
-            previewImage.setImageBitmap(BitmapFactory.decodeFile(BitmapUtils.compressBitmap(this, ppsFileFront, true)));
+            Glide.with(this).load("file://" + ppsFileFront).into(previewImage);
         else if (id == R.id.pps_back_layout_id)
-            previewImage.setImageBitmap(BitmapFactory.decodeFile(BitmapUtils.compressBitmap(this, ppsFileBack, true)));
+            Glide.with(this).load("file://" + ppsFileBack).into(previewImage);
         else
-            previewImage.setImageBitmap(BitmapFactory.decodeFile(BitmapUtils.compressBitmap(this, idFile, true)));
+            Glide.with(this).load("file://" + idFile).into(previewImage);
 
         findViewById(R.id.delete_photo_button_id).setOnClickListener(new View.OnClickListener() {
             @Override
