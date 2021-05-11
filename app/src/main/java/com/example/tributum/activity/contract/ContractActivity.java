@@ -54,6 +54,7 @@ import com.example.tributum.utils.UploadAsyncTask;
 import com.example.tributum.utils.UtilsGeneral;
 import com.example.tributum.utils.ui.FileUtils;
 import com.example.tributum.utils.ui.LoadingScreen;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -110,7 +111,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
 
     private LoadingScreen loadingScreen;
 
-    private View fileChooser;
+    private BottomSheetBehavior fileChooser;
 
     private View previewLayout;
 
@@ -402,7 +403,16 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         ((TextView) findViewById(R.id.pps_back_layout_id).findViewById(R.id.contract_file_text_id)).setText(R.string.add_pps_back);
         ((TextView) findViewById(R.id.id_layout_id).findViewById(R.id.contract_file_text_id)).setText(R.string.add_id);
 
-        fileChooser = findViewById(R.id.file_chooser_id);
+        // get the bottom sheet view
+        RelativeLayout llBottomSheet = (RelativeLayout) findViewById(R.id.file_chooser_id);
+        fileChooser = BottomSheetBehavior.from(llBottomSheet);
+        fileChooser.setDraggable(false);
+        findViewById(R.id.file_chooser_top_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                collapseBottomSheet();
+            }
+        });
 
         findViewById(R.id.pps_front_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -435,8 +445,25 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         });
     }
 
+    private void collapseBottomSheet() {
+        fileChooser.setHideable(true);
+        fileChooser.setState(BottomSheetBehavior.STATE_HIDDEN);
+    }
+
     private void setupFileChooserClicks(int button) {
-        fileChooser.setVisibility(View.VISIBLE);
+        fileChooser.setState(BottomSheetBehavior.STATE_EXPANDED);
+        fileChooser.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_EXPANDED)
+                    findViewById(R.id.file_chooser_top_id).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
         findViewById(R.id.add_from_gallery_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -447,7 +474,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                 else
                     pickPictureFromGallery(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID);
 
-                fileChooser.setVisibility(View.GONE);
+                collapseBottomSheet();
             }
         });
         findViewById(R.id.take_photo_id).setOnClickListener(new View.OnClickListener() {
@@ -460,13 +487,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                 else
                     openCamera(ConstantsUtils.CAMERA_REQUEST_ID);
 
-                fileChooser.setVisibility(View.GONE);
-            }
-        });
-        findViewById(R.id.file_chooser_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fileChooser.setVisibility(View.GONE);
+                collapseBottomSheet();
             }
         });
     }
@@ -906,8 +927,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
     public void onBackPressed() {
         if (TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
             showCloseContractDialog();
-        } else if (fileChooser.getVisibility() == View.VISIBLE) {
-            fileChooser.setVisibility(View.GONE);
+        } else if (fileChooser.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            collapseBottomSheet();
         } else {
             super.onBackPressed();
         }
