@@ -119,4 +119,5 @@
     <string name="phone_number_label">Numar telefon</string>
     <string name="please_enter_phone">Te rugam adauga un numar de telefon</string>
     <string name="contract_mail_message">Documentele de mai jos au fost generate.</string>
+    <string name="this_might_take_a_while">Aceasta operatiune poate sa dureze in functie de conexiunea de internet. Te rugam sa nu inchizi aplicatia.</string>
 </resources>
