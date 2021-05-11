@@ -17,11 +17,17 @@
 
     <TextView
         android:id="@+id/add_from_gallery_invoices_id"
-        style="@style/CtaBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
-        android:text="@string/add_from_gallery" />
+        android:background="@drawable/selector_black_corners"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/add_from_gallery"
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:id="@+id/invoices_info_layout_id"
