@@ -34,7 +34,7 @@
             android:background="@drawable/selector_white_stroke"
             android:gravity="center"
             android:padding="10dp"
-            android:text="@string/take_photo_label"
+            android:text="@string/take_photo"
             android:textColor="@color/black"
             android:textSize="18sp" />
     </LinearLayout>

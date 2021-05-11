@@ -538,12 +538,12 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                 Toast.makeText(this, getString(R.string.please_enter_correct_email), Toast.LENGTH_SHORT).show();
             } else if (occupationEditText.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.please_enter_occupation), Toast.LENGTH_SHORT).show();
-            } else if (birthday.getText().toString().equals("") && birthday.getText().toString().matches("\\d{2}-\\d{2}-\\d{4}")) {
+            } else if (phoneNumberEditText.getText().toString().equals("")) {
+                Toast.makeText(this, getString(R.string.please_enter_phone), Toast.LENGTH_SHORT).show();
+            } else if (birthday.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.please_enter_birthday), Toast.LENGTH_SHORT).show();
             } else if (contractDate.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.please_enter_contract_date), Toast.LENGTH_SHORT).show();
-            } else if (phoneNumberEditText.getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.please_enter_phone), Toast.LENGTH_SHORT).show();
             } else if (((CheckBox) findViewById(R.id.self_employed_id)).isChecked()
                     && !((CheckBox) findViewById(R.id.first)).isChecked()
                     && !((CheckBox) findViewById(R.id.second)).isChecked()
@@ -830,6 +830,16 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         removeImageToContractFile(R.id.pps_front_layout_id);
         removeImageToContractFile(R.id.pps_back_layout_id);
         removeImageToContractFile(R.id.id_layout_id);
+
+        ((CheckBox) findViewById(R.id.first)).setChecked(false);
+        ((CheckBox) findViewById(R.id.second)).setChecked(false);
+        ((CheckBox) findViewById(R.id.third)).setChecked(false);
+        ((CheckBox) findViewById(R.id.fourth)).setChecked(false);
+        ((CheckBox) findViewById(R.id.fifth)).setChecked(false);
+        ((CheckBox) findViewById(R.id.sixth)).setChecked(false);
+        ((CheckBox) findViewById(R.id.seventh)).setChecked(false);
+        ((CheckBox) findViewById(R.id.eight)).setChecked(false);
+        ((CheckBox) findViewById(R.id.ninth)).setChecked(false);
     }
 
     private void clearFieldsInPps() {
