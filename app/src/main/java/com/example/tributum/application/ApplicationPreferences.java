@@ -133,7 +133,6 @@ public class ApplicationPreferences {
             this.setPreference(AppKeysValues.PREFS_INITIALISED, AppKeysValues.TRUE);
             this.setPreference(AppKeysValues.CONTRACT_FORM_STARTED, AppKeysValues.FALSE);
             this.setPreference(AppKeysValues.INVOICES_TAKEN, AppKeysValues.FALSE);
-            this.setPreference(AppKeysValues.ALARM_SCHEDULED, AppKeysValues.FALSE);
 
             //Settings Save
             this.savePreferences();

@@ -24,8 +24,6 @@ public class AppKeysValues {
 
     public static final String INVOICES_TAKEN = "invoicesTaken";
 
-    public static final String ALARM_SCHEDULED = "alarmScheduled";
-
     public static final String INVOICE_NAME = "invoiceName";
 
     public static final String INVOICE_EMAIL = "invoiceEmail";

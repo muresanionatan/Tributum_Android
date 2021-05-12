@@ -1,6 +1,9 @@
 package com.example.tributum.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,8 +32,10 @@ import com.example.tributum.utils.StatusBarUtils;
 import com.example.tributum.utils.UtilsGeneral;
 import com.example.tributum.utils.notifications.NotificationExtra;
 import com.example.tributum.utils.notifications.NotificationIntentIds;
-import com.example.tributum.utils.service.AlarmService;
+import com.example.tributum.utils.receiver.AlarmReceiver;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener listener;
 
+    private PendingIntent pendingIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +55,6 @@ public class MainActivity extends AppCompatActivity {
         StatusBarUtils.makeStatusBarTransparent(this);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
-        if (!TributumAppHelper.getBooleanSetting(AppKeysValues.ALARM_SCHEDULED)) {
-            TributumAppHelper.saveSetting(AppKeysValues.ALARM_SCHEDULED, AppKeysValues.TRUE);
-            scheduleAlarm();
-        }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_id);
         listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -98,15 +100,31 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView.setOnNavigationItemSelectedListener(listener);
         chooseScreenToStartOn();
+
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
+
+        startNotificationAlarm();
+    }
+
+    public void startNotificationAlarm() {
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        long interval = ConstantsUtils.NOTIFICATION_INTERVAL;
+
+        Calendar calendar = Calendar.getInstance();
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                interval, pendingIntent);
     }
 
     private void chooseScreenToStartOn() {
         if (getIntent() != null && getIntent().getStringExtra(NotificationExtra.OPEN) != null
-                && getIntent().getStringExtra(NotificationExtra.OPEN).equals(NotificationIntentIds.VAT_INTENT))
+                && getIntent().getStringExtra(NotificationExtra.OPEN).equals(NotificationIntentIds.VAT_INTENT)) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame_layout,
                     new InvoicesFragment()).commit();
-        else
+            bottomNavigationView.setSelectedItemId(R.id.action_invoices);
+        } else {
             setHomeFragment();
+        }
     }
 
     private void showCloseContractDialog(Fragment selectedFragment, int itemId) {
@@ -124,11 +142,6 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton(android.R.string.no, null)
                 .show();
-    }
-
-    private void scheduleAlarm() {
-        AlarmService alarmService = new AlarmService(this);
-        alarmService.startAlarm();
     }
 
     private void setHomeFragment() {
@@ -152,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         if (getSupportFragmentManager().findFragmentById(R.id.fragment_frame_layout) instanceof InvoicesFragment) {
             InvoicesFragment fragment = (InvoicesFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_frame_layout);
             if (fragment.isPreview())

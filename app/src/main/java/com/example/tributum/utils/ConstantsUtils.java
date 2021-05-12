@@ -50,4 +50,6 @@ public class ConstantsUtils {
     public static final String TRIBUTUM_EMAIL = "tributum@yahoo.com";
 
     public static final int SELECT_PICTURES = 555;
+
+    public static long NOTIFICATION_INTERVAL = 1000 * 60 * 60 * 24 * 60;
 }
