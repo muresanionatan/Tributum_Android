@@ -101,13 +101,13 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(listener);
         chooseScreenToStartOn();
 
-        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
-
         startNotificationAlarm();
     }
 
     public void startNotificationAlarm() {
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
+
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         long interval = ConstantsUtils.NOTIFICATION_INTERVAL;
 

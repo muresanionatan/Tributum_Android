@@ -44,6 +44,9 @@ public class BitmapUtils {
         float maxHeight = highQuality ? 1632.0f : 102.0f;
         float maxWidth = highQuality ? 1224.0f : 76.0f;
 
+        if (actualWidth == 0 || actualHeight == 0) {
+            return "";
+        }
         float imgRatio = actualWidth / actualHeight;
         float maxRatio = maxWidth / maxHeight;
 

@@ -51,6 +51,8 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
                 for (int i = 0; i < list.size() - 1; i++) {
                     InvoiceModel model = list.get(i);
                     Bitmap myBitmap = BitmapFactory.decodeFile(BitmapUtils.compressBitmap(activity, model.getFilePath(), true));
+                    if (myBitmap == null)
+                        continue;
                     PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(myBitmap.getWidth(), myBitmap.getHeight(), (i + 1)).create();
                     PdfDocument.Page page = pdfDocument.startPage(pageInfo);
                     Canvas canvas = page.getCanvas();

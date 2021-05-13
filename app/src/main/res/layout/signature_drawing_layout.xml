@@ -6,6 +6,7 @@
     android:layout_centerInParent="true"
     android:background="@color/alpha_white"
     android:clickable="true"
+    android:elevation="8dp"
     android:visibility="gone">
 
     <RelativeLayout

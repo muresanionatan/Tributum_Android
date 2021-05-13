@@ -12,7 +12,7 @@
     <string name="mail_label">E-mail</string>
     <string name="pps_description">Ask for a new contract</string>
     <string name="payment_description">Send payments</string>
-    <string name="welcome_label">Welcome back!</string>
+    <string name="welcome_back_label">Welcome back!</string>
     <string name="great_day_label">Hope you\'re having a great day</string>
     <string name="information_label">Personal information</string>
     <string name="file_label">Add photo</string>
@@ -120,4 +120,5 @@
     <string name="please_enter_phone">Please add a phone number</string>
     <string name="contract_mail_message">The following contract PDF(s) was\\were generated.</string>
     <string name="this_might_take_a_while">This might take a while depending on your internet connection. Please do not close the app.</string>
+    <string name="welcome_tributum_label">Welcome to Tributum!</string>
 </resources>

@@ -2,7 +2,6 @@ package com.example.tributum.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -28,7 +27,6 @@ import com.example.tributum.retrofit.RetrofitClientInstance;
 import com.example.tributum.utils.CalendarUtils;
 import com.example.tributum.utils.ConstantsUtils;
 import com.example.tributum.utils.NetworkUtils;
-import com.example.tributum.utils.UtilsGeneral;
 import com.example.tributum.utils.ui.LoadingScreen;
 
 import java.util.ArrayList;
@@ -126,16 +124,6 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
             netCheckbox.setChecked(false);
             grossCheckbox.setChecked(true);
         }
-
-        view.findViewById(R.id.payments_main_layout_id).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event != null && event.getAction() == MotionEvent.ACTION_MOVE) {
-                    UtilsGeneral.hideSoftKeyboard(getActivity());
-                }
-                return false;
-            }
-        });
 
         loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content));
     }

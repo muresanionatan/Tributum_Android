@@ -131,6 +131,8 @@ public class ApplicationPreferences {
         // initialize with their default values
         if (!getBooleanPreference(AppKeysValues.PREFS_INITIALISED)) {
             this.setPreference(AppKeysValues.PREFS_INITIALISED, AppKeysValues.TRUE);
+            this.setPreference(AppKeysValues.APP_LANGUAGE, "en");
+            this.setPreference(AppKeysValues.FIRST_TIME_USER, AppKeysValues.TRUE);
             this.setPreference(AppKeysValues.CONTRACT_FORM_STARTED, AppKeysValues.FALSE);
             this.setPreference(AppKeysValues.INVOICES_TAKEN, AppKeysValues.FALSE);
 

@@ -27,7 +27,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="@dimen/global_start_end_margin"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="120dp"
             android:src="@drawable/falcon"
             app:tint="@color/black" />
 
@@ -39,17 +39,17 @@
             android:layout_marginStart="@dimen/global_start_end_margin"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/quicksand_bold"
-            android:text="@string/welcome_label"
             android:textColor="@color/black"
-            android:textSize="40sp"
-            tools:ignore="RelativeOverlap" />
+            android:textSize="32sp"
+            tools:ignore="RelativeOverlap"
+            tools:text="@string/welcome_back_label" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/welcome_text"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="@dimen/global_margin"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:orientation="horizontal">
 
@@ -159,9 +159,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="@string/english_label"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:text="@string/english_label" />
     </LinearLayout>
 
     <include
