@@ -12,7 +12,7 @@
     <string name="mail_label">E-mail</string>
     <string name="pps_description">Solicita un contract nou</string>
     <string name="payment_description">Trimite plati</string>
-    <string name="welcome_label">Bine ai revenit!</string>
+    <string name="welcome_back_label">Bine ai revenit!</string>
     <string name="great_day_label">Speram ca ai deja o zi buna.</string>
     <string name="information_label">Date personale</string>
     <string name="file_label">Adauga poza</string>
@@ -120,4 +120,5 @@
     <string name="please_enter_phone">Te rugam adauga un numar de telefon</string>
     <string name="contract_mail_message">Documentele de mai jos au fost generate.</string>
     <string name="this_might_take_a_while">Aceasta operatiune poate sa dureze in functie de conexiunea de internet. Te rugam sa nu inchizi aplicatia.</string>
+    <string name="welcome_tributum_label">Bine ai venit la Tributum!</string>
 </resources>

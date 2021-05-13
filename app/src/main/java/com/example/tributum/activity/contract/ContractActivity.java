@@ -654,9 +654,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                if (response.isSuccessful())
-                    Toast.makeText(ContractActivity.this, getString(R.string.email_sent), Toast.LENGTH_SHORT).show();
-                else
+                if (!response.isSuccessful())
                     Toast.makeText(ContractActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
 
                 //upload PPS and ID to Dropbox
@@ -745,7 +743,10 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data == null)
+        if ((requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT
+                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK
+                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_ID)
+                && data == null)
             return;
 
         switch (requestCode) {
@@ -921,6 +922,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
     @Override
     public void onTaskCompleted() {
         loadingScreen.hide();
+        Toast.makeText(ContractActivity.this, getString(R.string.email_sent), Toast.LENGTH_SHORT).show();
     }
 
     @Override

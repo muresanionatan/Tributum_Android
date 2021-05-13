@@ -49,6 +49,14 @@ public class HomeFragment extends Fragment {
             return;
 
         languageLayout = view.findViewById(R.id.language_layout_id);
+
+        TextView welcomeMessageText = view.findViewById(R.id.welcome_text);
+        if (TributumAppHelper.getBooleanSetting(AppKeysValues.FIRST_TIME_USER)) {
+            TributumAppHelper.saveSetting(AppKeysValues.FIRST_TIME_USER, AppKeysValues.FALSE);
+            welcomeMessageText.setText(getString(R.string.welcome_tributum_label));
+        } else {
+            welcomeMessageText.setText(getString(R.string.welcome_back_label));
+        }
         setLanguageLabel(view);
 
         view.findViewById(R.id.info_layout).setOnClickListener(new View.OnClickListener() {
