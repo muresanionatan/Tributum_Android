@@ -11,7 +11,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.tributum.R;
 import com.example.tributum.activity.MainActivity;
-import com.example.tributum.utils.AppState;
+import com.example.tributum.utils.ConstantsUtils;
 import com.example.tributum.utils.UtilsGeneral;
 import com.example.tributum.utils.notifications.NotificationAction;
 import com.example.tributum.utils.notifications.NotificationChannelIds;
@@ -26,7 +26,7 @@ import com.example.tributum.utils.notifications.SystemNotificationProperties;
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (AppState.isForeground()) {
+        if (System.currentTimeMillis() < ConstantsUtils.APP_START_TIME + 60 * 1000) {
             return;
         }
         Resources resources = context.getResources();

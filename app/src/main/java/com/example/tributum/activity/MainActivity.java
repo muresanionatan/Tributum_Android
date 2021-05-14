@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         UtilsGeneral.setAppLanguage(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.activity_main);
         StatusBarUtils.makeStatusBarTransparent(this);
+        ConstantsUtils.APP_START_TIME = System.currentTimeMillis();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
@@ -105,15 +106,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startNotificationAlarm() {
-        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
+        if (!TributumAppHelper.getBooleanSetting(AppKeysValues.NOTIFICATION_ALARM_SET)) {
+            TributumAppHelper.saveSetting(AppKeysValues.NOTIFICATION_ALARM_SET, AppKeysValues.TRUE);
 
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        long interval = ConstantsUtils.NOTIFICATION_INTERVAL;
+            Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+            pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
 
-        Calendar calendar = Calendar.getInstance();
-        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                interval, pendingIntent);
+            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            long interval = ConstantsUtils.NOTIFICATION_INTERVAL;
+
+            Calendar calendar = Calendar.getInstance();
+            manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    interval, pendingIntent);
+        }
     }
 
     private void chooseScreenToStartOn() {

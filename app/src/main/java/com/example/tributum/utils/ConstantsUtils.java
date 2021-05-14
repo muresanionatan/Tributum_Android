@@ -52,4 +52,10 @@ public class ConstantsUtils {
     public static final int SELECT_PICTURES = 555;
 
     public static long NOTIFICATION_INTERVAL = 1000 * 60 * 60 * 24 * 60;
+
+    /**
+     * constant that will be set when the app starts in order to ditch the first
+     * notification, and show only the next ones
+     */
+    public static long APP_START_TIME = 0;
 }
