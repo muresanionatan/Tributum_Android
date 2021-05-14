@@ -2,9 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/payments_main_layout_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/payments_main_layout_id"
     android:animateLayoutChanges="true"
     android:background="@drawable/white_rectangle_corners"
     android:fitsSystemWindows="true">
@@ -44,8 +44,8 @@
             <EditText
                 android:id="@+id/payer_edit_text"
                 style="@style/CustomEditText"
-                android:layout_marginTop="22dp"
                 android:layout_below="@+id/payer_id_subtitle"
+                android:layout_marginTop="22dp"
                 android:hint="@string/payer_label"
                 android:inputType="textCapWords" />
 

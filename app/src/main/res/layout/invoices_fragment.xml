@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/invoices_main_layout_id"
     android:layout_width="match_parent"
@@ -88,10 +87,10 @@
         android:id="@+id/invoices_recycler_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/invoices_send_id"
         android:layout_below="@+id/invoice_divider_id"
         android:layout_marginStart="@dimen/global_start_end_margin"
         android:layout_marginEnd="@dimen/global_start_end_margin"
+        android:layout_marginBottom="150dp"
         tools:listitem="@layout/invoices_item" />
 
     <include layout="@layout/image_preview_layout" />

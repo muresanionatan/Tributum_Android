@@ -16,9 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tributum.R;
+import com.example.tributum.activity.MainActivity;
 import com.example.tributum.adapter.PaymentsAdapter;
 import com.example.tributum.application.AppKeysValues;
 import com.example.tributum.application.TributumAppHelper;
+import com.example.tributum.listener.KeyboardListener;
 import com.example.tributum.listener.PaymentsItemClickListener;
 import com.example.tributum.model.EmailBody;
 import com.example.tributum.model.PaymentModel;
@@ -27,6 +29,8 @@ import com.example.tributum.retrofit.RetrofitClientInstance;
 import com.example.tributum.utils.CalendarUtils;
 import com.example.tributum.utils.ConstantsUtils;
 import com.example.tributum.utils.NetworkUtils;
+import com.example.tributum.utils.animation.AnimUtils;
+import com.example.tributum.utils.ui.KeyboardVisibility;
 import com.example.tributum.utils.ui.LoadingScreen;
 
 import java.util.ArrayList;
@@ -37,7 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class PaymentsFragment extends Fragment implements PaymentsItemClickListener {
+public class PaymentsFragment extends Fragment implements PaymentsItemClickListener, KeyboardListener {
 
     private RecyclerView recyclerView;
 
@@ -124,6 +128,9 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
             netCheckbox.setChecked(false);
             grossCheckbox.setChecked(true);
         }
+
+        KeyboardVisibility keyboardVisibility = new KeyboardVisibility(this);
+        keyboardVisibility.handleKeyboardVisibility(view.findViewById(R.id.payments_main_layout_id));
 
         loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content));
     }
@@ -296,5 +303,17 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
     public void onDestroyView() {
         saveListToPreferences();
         super.onDestroyView();
+    }
+
+    @Override
+    public void onKeyboardStateChanged(boolean opened) {
+        View sendButton = getView().findViewById(R.id.send_payment_button);
+        if (opened) {
+            AnimUtils.getTranslationYAnimator(sendButton, 250).start();
+            AnimUtils.getFadeOutAnimator(((MainActivity) getActivity()).getBottomNavigation()).start();
+        } else {
+            AnimUtils.getTranslationYAnimator(sendButton, 0).start();
+            AnimUtils.getFadeInAnimator(((MainActivity) getActivity()).getBottomNavigation(), AnimUtils.DURATION_50, AnimUtils.DURATION_50, null, null).start();
+        }
     }
 }

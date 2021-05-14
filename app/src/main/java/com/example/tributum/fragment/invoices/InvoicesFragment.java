@@ -38,12 +38,15 @@ import com.example.tributum.fragment.invoices.listener.InvoiceItemClickListener;
 import com.example.tributum.fragment.invoices.listener.AsyncListener;
 import com.example.tributum.fragment.invoices.model.InvoiceModel;
 import com.example.tributum.listener.InvoicesDeleteListener;
+import com.example.tributum.listener.KeyboardListener;
 import com.example.tributum.model.EmailBody;
 import com.example.tributum.retrofit.InterfaceAPI;
 import com.example.tributum.retrofit.RetrofitClientInstance;
 import com.example.tributum.utils.ConstantsUtils;
 import com.example.tributum.utils.UtilsGeneral;
+import com.example.tributum.utils.animation.AnimUtils;
 import com.example.tributum.utils.ui.FileUtils;
+import com.example.tributum.utils.ui.KeyboardVisibility;
 import com.example.tributum.utils.ui.LoadingScreen;
 
 import java.io.File;
@@ -56,7 +59,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class InvoicesFragment extends Fragment implements InvoiceItemClickListener, InvoicesDeleteListener, AsyncListener {
+public class InvoicesFragment extends Fragment implements InvoiceItemClickListener, InvoicesDeleteListener, AsyncListener, KeyboardListener {
 
     private InvoicesAdapter adapter;
 
@@ -180,6 +183,11 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
 
         name.setText(TributumAppHelper.getStringSetting(AppKeysValues.INVOICE_NAME));
         payerEmail.setText(TributumAppHelper.getStringSetting(AppKeysValues.INVOICE_EMAIL));
+
+        KeyboardVisibility keyboardVisibility = new KeyboardVisibility(this);
+        keyboardVisibility.handleKeyboardVisibility(view.findViewById(R.id.invoices_main_layout_id));
+
+        AnimUtils.getTranslationYAnimator(sendButton, 0).start();
     }
 
     @Override
@@ -381,5 +389,16 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         loadingScreen.hide();
         sendInternalEmail();
         Toast.makeText(getActivity(), R.string.pdf_sent, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onKeyboardStateChanged(boolean opened) {
+        if (opened) {
+            AnimUtils.getTranslationYAnimator(sendButton, 250).start();
+            AnimUtils.getFadeOutAnimator(((MainActivity) getActivity()).getBottomNavigation()).start();
+        } else {
+            AnimUtils.getTranslationYAnimator(sendButton, 0).start();
+            AnimUtils.getFadeInAnimator(((MainActivity) getActivity()).getBottomNavigation(), AnimUtils.DURATION_50, AnimUtils.DURATION_50, null, null).start();
+        }
     }
 }
