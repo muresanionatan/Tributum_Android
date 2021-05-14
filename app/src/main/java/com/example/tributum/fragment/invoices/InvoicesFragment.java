@@ -277,7 +277,6 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
     @Override
     public void onDestroyView() {
         clearFormStarted();
-        saveListToPreferences();
         super.onDestroyView();
     }
 
@@ -368,13 +367,16 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
 
     private String generateInternalEmailMessage() {
         String formattedString = name.getText().toString().toUpperCase();
-        if (formattedString.contains(" "))
-            formattedString = formattedString.replace(" ", "%20");
+        formattedString = formattedString.replace(" ", "%20");
         return getString(R.string.invoices_message_email) + name.getText().toString()
                 + getString(R.string.invoices_message_email_part2) + startingMonth.getText().toString()
                 + " - " + endingMonth.getText().toString()
                 + "\n\n" + "Click on below link to access the pdf\n\n"
-                + "https://www.dropbox.com/home/Apps/Tributum/VATS/" + formattedString;
+                + "https://www.dropbox.com/home/Apps/Tributum/VATS/"
+                + formattedString + "?preview="
+                + startingMonth.getText().toString()
+                + "_" + endingMonth.getText().toString()
+                + ".pdf";
     }
 
     private String generateClientEmailMessage() {
@@ -387,6 +389,7 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
     @Override
     public void onTaskCompleted() {
         loadingScreen.hide();
+        saveListToPreferences();
         sendInternalEmail();
         Toast.makeText(getActivity(), R.string.pdf_sent, Toast.LENGTH_SHORT).show();
     }
