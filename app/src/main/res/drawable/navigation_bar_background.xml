@@ -4,6 +4,7 @@
     <size
         android:width="10dp"
         android:height="10dp" />
-    <solid android:color="@color/blacker" />
+    <gradient android:startColor="@color/blacker" android:endColor="@color/less_blacker"
+        android:angle="315"/>
     <corners android:radius="30dp" />
 </shape>

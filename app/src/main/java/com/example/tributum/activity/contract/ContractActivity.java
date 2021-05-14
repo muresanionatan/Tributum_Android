@@ -530,6 +530,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         ImageView imageView = ((ImageView) findViewById(id).findViewById(R.id.preview_image_id));
         imageView.setImageResource(0);
         imageView.setVisibility(View.GONE);
+        findViewById(id).findViewById(R.id.contract_file_layout_id).setVisibility(View.VISIBLE);
     }
 
     private void saveSignatureImage() {
@@ -799,6 +800,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .thumbnail(0.5f).into(imageView);
+        findViewById(id).findViewById(R.id.contract_file_layout_id).setVisibility(View.GONE);
     }
 
     @Override
