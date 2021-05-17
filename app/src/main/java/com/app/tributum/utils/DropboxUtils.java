@@ -12,7 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
+import java.util.Map;
 
 public class DropboxUtils {
 
@@ -33,19 +33,15 @@ public class DropboxUtils {
         }
     }
 
-    public static void uploadPpsAndId(String username, List<String> uploadList) throws FileNotFoundException {
+    public static void uploadPpsAndId(String username, Map<String, String> uploadList) throws FileNotFoundException {
         try {
             InputStream inputStream;
-            for (int i = 0; i < uploadList.size(); i++) {
-                inputStream = new FileInputStream(uploadList.get((i)));
-                String prefix;
-                if (i == 0)
-                    prefix = "PPS_FRONT";
-                else if (i == 1)
-                    prefix = "PPS_BACK";
-                else
-                    prefix = "ID";
-                getDropBoxClient().files().uploadBuilder("/DATABASE/" + username.toUpperCase() + "/" + prefix + ".png")
+            for (String key : uploadList.keySet()) {
+                String file = uploadList.get(key);
+                if (file == null)
+                    continue;
+                inputStream = new FileInputStream(file);
+                getDropBoxClient().files().uploadBuilder("/DATABASE/" + username.toUpperCase() + "/" + key + ".png")
                         .withMode(WriteMode.OVERWRITE)
                         .uploadAndFinish(inputStream);
             }

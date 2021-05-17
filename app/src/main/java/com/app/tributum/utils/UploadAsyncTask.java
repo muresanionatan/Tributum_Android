@@ -8,13 +8,13 @@ import com.app.tributum.fragment.invoices.listener.AsyncListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
+import java.util.Map;
 
 public class UploadAsyncTask extends AsyncTask {
 
     private String userName;
 
-    private List<String> uploadList;
+    private Map<String, String> uploadList;
 
     private AsyncListener asyncListener;
 
@@ -23,7 +23,7 @@ public class UploadAsyncTask extends AsyncTask {
     @UploadType
     private int type;
 
-    public UploadAsyncTask(String userName, List<String> uploadList, AsyncListener asyncListener, @UploadType int type) {
+    public UploadAsyncTask(String userName, Map<String, String> uploadList, AsyncListener asyncListener, @UploadType int type) {
         this.userName = userName;
         this.uploadList = uploadList;
         this.asyncListener = asyncListener;

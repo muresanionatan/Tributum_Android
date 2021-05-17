@@ -62,7 +62,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -148,7 +150,14 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                             @SuppressLint("SetTextI18n")
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                                contractDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                String dayString = String.valueOf(dayOfMonth);
+                                if (dayOfMonth < 10)
+                                    dayString = "0" + dayOfMonth;
+                                monthOfYear = monthOfYear + 1;
+                                String monthString = String.valueOf(monthOfYear);
+                                if (monthOfYear < 10)
+                                    monthString = "0" + monthOfYear;
+                                contractDate.setText(dayString + "/" + monthString + "/" + year);
                             }
                         }, year, month, day);
                 picker.show();
@@ -564,6 +573,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                 Toast.makeText(this, getString(R.string.please_enter_phone), Toast.LENGTH_SHORT).show();
             } else if (birthday.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.please_enter_birthday), Toast.LENGTH_SHORT).show();
+            } else if (birthday.getText().toString().length() < 10) {
+                Toast.makeText(this, getString(R.string.please_enter_birthday_format), Toast.LENGTH_SHORT).show();
             } else if (contractDate.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.please_enter_contract_date), Toast.LENGTH_SHORT).show();
             } else if (((CheckBox) findViewById(R.id.self_employed_id)).isChecked()
@@ -577,7 +588,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                     && !((CheckBox) findViewById(R.id.eight)).isChecked()
                     && !otherCheck.isChecked()) {
                 Toast.makeText(this, getString(R.string.please_enter_applying_for), Toast.LENGTH_SHORT).show();
-            } else if (ppsFileFront == null || ppsFileBack == null) {
+            } else if (ppsFileFront == null) {
                 Toast.makeText(this, getString(R.string.please_add_pps), Toast.LENGTH_SHORT).show();
             } else if (idFile == null) {
                 Toast.makeText(this, getString(R.string.please_add_id), Toast.LENGTH_SHORT).show();
@@ -675,10 +686,10 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
     }
 
     private void uploadFiles() throws IOException {
-        List<String> uploadList = new ArrayList<>();
-        uploadList.add(ppsFileFront);
-        uploadList.add(ppsFileBack);
-        uploadList.add(idFile);
+        Map<String, String> uploadList = new HashMap<>();
+        uploadList.put("PPS_FRONT", ppsFileFront);
+        uploadList.put("PPS_BACK", ppsFileBack);
+        uploadList.put("ID", idFile);
         UploadAsyncTask uploadMultipleFilesTask = new UploadAsyncTask(
                 nameEditText.getText().toString(),
                 uploadList,

@@ -96,4 +96,9 @@
         <item name="android:drawableEnd">@drawable/send_svg</item>
     </style>
 
+    <style name="BottomNavigationStyle">
+        <item name="android:lines">2</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>
