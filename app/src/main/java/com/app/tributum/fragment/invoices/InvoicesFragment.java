@@ -115,7 +115,8 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         startingMonth.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         endingMonth.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-        loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content));
+        if (getActivity() != null)
+            loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content));
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
 
@@ -146,9 +147,11 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
             @Override
             public void onClick(View v) {
                 if (name.getText().toString().equals("")
-                        || payerEmail.getText().toString().equals("")) {
+                        || payerEmail.getText().toString().equals("")
+                        || startingMonth.getText().toString().equals("")
+                        || endingMonth.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), getString(R.string.add_all_info), Toast.LENGTH_SHORT).show();
-                } else if (PICTURE_NUMBER > 1) {
+                } else if (PICTURE_NUMBER > 1 && getActivity() != null) {
                     UtilsGeneral.hideSoftKeyboard(getActivity());
                     loadingScreen.show();
                     PdfAsyncTask asyncTask = new PdfAsyncTask(InvoicesFragment.this, getActivity(), list, name.getText().toString(),
@@ -164,7 +167,7 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         view.findViewById(R.id.invoices_recycler_id).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event != null && event.getAction() == MotionEvent.ACTION_MOVE) {
+                if (event != null && event.getAction() == MotionEvent.ACTION_MOVE && getActivity() != null) {
                     UtilsGeneral.hideSoftKeyboard(getActivity());
                 }
                 return false;
@@ -221,6 +224,8 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
 
     @Override
     public void onTakePhotoClick() {
+        if (getActivity() == null)
+            return;
         if (checkPermissions()) {
             @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String imageFileName = timeStamp + ".jpg";
@@ -246,6 +251,8 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
 
     @Override
     public void onPreviewPhotoClick(String filePath, int photoIndex) {
+        if (getActivity() == null)
+            return;
         isPreview = true;
         photoClicked = photoIndex;
         Glide.with(getActivity()).load("file://" + filePath).into(previewImage);
@@ -261,7 +268,8 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         previewImage.setImageResource(0);
         addFromGallery.setVisibility(View.VISIBLE);
         sendButton.setVisibility(View.VISIBLE);
-        ((MainActivity) getActivity()).getBottomNavigation().setVisibility(View.VISIBLE);
+        if ((MainActivity) getActivity() != null)
+            ((MainActivity) getActivity()).getBottomNavigation().setVisibility(View.VISIBLE);
     }
 
     public boolean isPreview() {
@@ -396,6 +404,8 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
 
     @Override
     public void onKeyboardStateChanged(boolean opened) {
+        if ((MainActivity) getActivity() == null)
+            return;
         if (opened) {
             AnimUtils.getTranslationYAnimator(sendButton, 250).start();
             AnimUtils.getFadeOutAnimator(((MainActivity) getActivity()).getBottomNavigation()).start();

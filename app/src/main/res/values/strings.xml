@@ -6,7 +6,7 @@
     <string name="gross_label">Gross</string>
     <string name="net_label">Net</string>
     <string name="full_name">Full name</string>
-    <string name="payments_label">Payments</string>
+    <string name="payments_label">RCT Payments</string>
     <string name="address_label">Address</string>
     <string name="pps_number">PPS number</string>
     <string name="mail_label">E-mail</string>
@@ -72,7 +72,7 @@
     <string name="something_went_wrong">Something went wrong. Please try again later</string>
     <string name="pps_label">PPS</string>
     <string name="under_construction_label">This section is under construction</string>
-    <string name="site_label">Site</string>
+    <string name="site_label">Site location/ID</string>
     <string name="english_label">English</string>
     <string name="romanian_label">Romanian</string>
     <string name="work_in_progress">You\'ve got work in progress</string>
@@ -95,7 +95,7 @@
     <string name="invoices_message_email">Please add the receipts/invoices for\u0020</string>
     <string name="invoices_message_email_part2">\u0020for period:\u0020</string>
     <string name="add_pps_front">Add PPS front image</string>
-    <string name="add_pps_back">Add PPS back image</string>
+    <string name="add_pps_back">Add PPS back image (optional)</string>
     <string name="add_contract_files">Add contract files</string>
     <string name="add_from_gallery">Add from gallery</string>
     <string name="phone_number_label">Phone number</string>
@@ -103,4 +103,5 @@
     <string name="contract_mail_message">The following contract PDF(s) was\\were generated.</string>
     <string name="this_might_take_a_while">This might take a while depending on your internet connection. Please do not close the app.</string>
     <string name="welcome_tributum_label">Welcome to Tributum!</string>
+    <string name="please_enter_birthday_format">Please enter birthday like DD/MM/YYYY</string>
 </resources>
