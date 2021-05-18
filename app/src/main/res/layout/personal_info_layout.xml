@@ -43,4 +43,9 @@
         style="@style/CustomEditText"
         android:hint="@string/phone_number_label"
         android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/bank_edit_text"
+        style="@style/CustomEditText"
+        android:hint="@string/iban_label" />
 </LinearLayout>

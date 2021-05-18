@@ -6,5 +6,6 @@ import androidx.annotation.IntDef;
 public @interface FileChooser {
     int PPS_FRONT = 1,
             PPS_BACK = 2,
-            ID = 3;
+            ID = 3,
+            MARRIAGE = 4;
 }

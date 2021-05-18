@@ -60,7 +60,7 @@
     <string name="date_of_birth">Date of birth</string>
     <string name="please_enter_name">Please enter your name</string>
     <string name="please_enter_address">Please enter your address</string>
-    <string name="please_enter_pps">Please enter your PPS number</string>
+    <string name="please_enter_pps">Please enter your correct PPS number</string>
     <string name="please_enter_correct_email">Please enter a correct email address</string>
     <string name="please_enter_occupation">Please enter your occupation</string>
     <string name="please_add_pps">Please add a picture with your PPS</string>
@@ -104,4 +104,10 @@
     <string name="this_might_take_a_while">This might take a while depending on your internet connection. Please do not close the app.</string>
     <string name="welcome_tributum_label">Welcome to Tributum!</string>
     <string name="please_enter_birthday_format">Please enter birthday like DD/MM/YYYY</string>
+    <string name="iban_label">Bank IBAN</string>
+    <string name="have_kids_label">Do you have any children?</string>
+    <string name="number_kids">Number of kids</string>
+    <string name="add_marriage_record">Add marriage certificate</string>
+    <string name="please_add_marriage">Please add a marital certificate</string>
+    <string name="please_add_bank">Please add a bank account</string>
 </resources>

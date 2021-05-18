@@ -60,7 +60,7 @@
     <string name="date_of_birth">Data nasterii</string>
     <string name="please_enter_name">Te rugam introdu numele</string>
     <string name="please_enter_address">Te rugam introdu adresa</string>
-    <string name="please_enter_pps">Te rugam introdu numarul PPS</string>
+    <string name="please_enter_pps">Te rugam introdu numarul PPS correct</string>
     <string name="please_enter_correct_email">Te rugam introdu o adresa e-mail corecta</string>
     <string name="please_enter_occupation">Te rugam introdu ocupatia</string>
     <string name="please_add_pps">Te rugam adauga o poza cu PPS</string>
@@ -104,4 +104,10 @@
     <string name="this_might_take_a_while">Aceasta operatiune poate sa dureze in functie de conexiunea de internet. Te rugam sa nu inchizi aplicatia.</string>
     <string name="welcome_tributum_label">Bine ai venit la Tributum!</string>
     <string name="please_enter_birthday_format">Te rugam adauga zi de nastere format ZZ/LL/AAAA</string>
+    <string name="iban_label">Cont IBAN</string>
+    <string name="have_kids_label">Aveti copii?</string>
+    <string name="number_kids">Numarul de copii</string>
+    <string name="add_marriage_record">Adauga certificatul de casatorie</string>
+    <string name="please_add_marriage">Te rugam adauga un certificat de casatorie</string>
+    <string name="please_add_bank">Te rugam adauga un cont IBAN</string>
 </resources>

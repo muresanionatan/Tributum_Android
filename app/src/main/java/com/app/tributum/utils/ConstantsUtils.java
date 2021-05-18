@@ -21,11 +21,15 @@ public class ConstantsUtils {
 
     public static final short SELECTED_PICTURE_REQUEST_ID = 1000;
 
+    public static final short SELECTED_PICTURE_REQUEST_MARRIAGE = 900;
+
     public static final short CAMERA_REQUEST_PPS_FRONT = 1001;
 
     public static final short CAMERA_REQUEST_PPS_BACK = 997;
 
     public static final short CAMERA_REQUEST_ID = 1002;
+
+    public static final short CAMERA_REQUEST_MARRIAGE = 1003;
 
     public static final short CAMERA_REQUEST_INVOICES_ID = 7;
 
@@ -35,11 +39,15 @@ public class ConstantsUtils {
 
     public static final byte STORAGE_PERMISSION_REQUEST_CODE_ID = 9;
 
+    public static final byte STORAGE_PERMISSION_REQUEST_CODE_MARRIAGE = 4;
+
     public static final byte MULTIPLE_PERMISSIONS_PPS_FRONT = 10;
 
     public static final byte MULTIPLE_PERMISSIONS_PPS_BACK = 5;
 
     public static final byte MULTIPLE_PERMISSIONS_ID = 11;
+
+    public static final byte MULTIPLE_PERMISSIONS_MARRIAGE = 3;
 
     public static final String[] PERMISSIONS = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,

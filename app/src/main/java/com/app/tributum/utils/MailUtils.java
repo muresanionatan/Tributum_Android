@@ -31,8 +31,4 @@ public class MailUtils {
             Toast.makeText(activity, resources.getString(R.string.no_email_client_installed), Toast.LENGTH_SHORT).show();
         }
     }
-
-    public static boolean isEmailValid(CharSequence email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
 }

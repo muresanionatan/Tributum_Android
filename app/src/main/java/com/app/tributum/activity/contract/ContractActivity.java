@@ -34,6 +34,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.app.tributum.utils.ValidationUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.app.tributum.R;
@@ -47,7 +48,6 @@ import com.app.tributum.retrofit.InterfaceAPI;
 import com.app.tributum.retrofit.RetrofitClientInstance;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.ImageUtils;
-import com.app.tributum.utils.MailUtils;
 import com.app.tributum.utils.NetworkUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UploadAsyncTask;
@@ -127,6 +127,10 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
 
     private ContractModel contractModel;
 
+    private String marriageCertificateFile;
+
+    private EditText bankAccount;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,6 +188,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         occupationEditText = findViewById(R.id.occupation_edit_text);
         previewLayout = findViewById(R.id.preview_layout_id);
         phoneNumberEditText = findViewById(R.id.phone_edit_text);
+        bankAccount = findViewById(R.id.bank_edit_text);
+        UtilsGeneral.setMaxLengthAndAllCapsToEditText(bankAccount, 34, true);
 
         nameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         nameEditText.addTextChangedListener(new TextWatcher() {
@@ -211,6 +217,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
 
         emailEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         occupationEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        phoneNumberEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
 
         singleCheck = findViewById(R.id.single_checkbox);
         marriedCheck = findViewById(R.id.married_checkbox);
@@ -339,6 +346,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         singleCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (marriedCheck.isChecked())
+                    findViewById(R.id.married_id).setVisibility(View.GONE);
                 singleCheck.setChecked(true);
                 marriedCheck.setChecked(false);
                 divorcedCheck.setChecked(false);
@@ -353,12 +362,15 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                 marriedCheck.setChecked(true);
                 divorcedCheck.setChecked(false);
                 cohabitingCheck.setChecked(false);
+                showMaritalLayout();
             }
         });
 
         divorcedCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (marriedCheck.isChecked())
+                    findViewById(R.id.married_id).setVisibility(View.GONE);
                 singleCheck.setChecked(false);
                 marriedCheck.setChecked(false);
                 divorcedCheck.setChecked(true);
@@ -369,6 +381,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         cohabitingCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (marriedCheck.isChecked())
+                    findViewById(R.id.married_id).setVisibility(View.GONE);
                 singleCheck.setChecked(false);
                 marriedCheck.setChecked(false);
                 divorcedCheck.setChecked(false);
@@ -405,6 +419,21 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         setupFilesLayout();
 
         loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content));
+    }
+
+    private void showMaritalLayout() {
+        View maritalLayout = findViewById(R.id.married_id);
+        maritalLayout.setVisibility(View.VISIBLE);
+        ((TextView) maritalLayout.findViewById(R.id.contract_file_text_id)).setText(R.string.add_marriage_record);
+        maritalLayout.findViewById(R.id.marriage_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (marriageCertificateFile == null)
+                    setupFileChooserClicks(FileChooser.MARRIAGE);
+                else
+                    openFilePreview(R.id.marriage_layout_id);
+            }
+        });
     }
 
     private void setupFilesLayout() {
@@ -480,8 +509,10 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                     pickPictureFromGallery(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT);
                 else if (button == FileChooser.PPS_BACK)
                     pickPictureFromGallery(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK);
-                else
+                else if (button == FileChooser.ID)
                     pickPictureFromGallery(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID);
+                else
+                    pickPictureFromGallery(ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE);
 
                 collapseBottomSheet();
             }
@@ -493,8 +524,10 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                     openCamera(ConstantsUtils.CAMERA_REQUEST_PPS_FRONT);
                 else if (button == FileChooser.PPS_BACK)
                     openCamera(ConstantsUtils.CAMERA_REQUEST_PPS_BACK);
-                else
+                else if (button == FileChooser.ID)
                     openCamera(ConstantsUtils.CAMERA_REQUEST_ID);
+                else
+                    openCamera(ConstantsUtils.CAMERA_REQUEST_MARRIAGE);
 
                 collapseBottomSheet();
             }
@@ -509,8 +542,10 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
             Glide.with(this).load("file://" + ppsFileFront).into(previewImage);
         else if (id == R.id.pps_back_layout_id)
             Glide.with(this).load("file://" + ppsFileBack).into(previewImage);
-        else
+        else if (id == R.id.id_layout_id)
             Glide.with(this).load("file://" + idFile).into(previewImage);
+        else
+            Glide.with(this).load("file://" + marriageCertificateFile).into(previewImage);
 
         findViewById(R.id.delete_photo_button_id).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -520,8 +555,10 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                     ppsFileFront = null;
                 else if (id == R.id.pps_back_layout_id)
                     ppsFileBack = null;
-                else
+                else if (id == R.id.id_layout_id)
                     idFile = null;
+                else
+                    marriageCertificateFile = null;
 
                 previewLayout.setVisibility(View.GONE);
             }
@@ -563,14 +600,18 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                 Toast.makeText(this, getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show();
             } else if (addressEditText.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.please_enter_address), Toast.LENGTH_SHORT).show();
-            } else if (ppsNumberEditText.getText().toString().equals("")) {
+            } else if (ppsNumberEditText.getText().toString().equals("") || !ValidationUtils.isPpsValid(ppsNumberEditText.getText().toString())) {
                 Toast.makeText(this, getString(R.string.please_enter_pps), Toast.LENGTH_SHORT).show();
-            } else if (!MailUtils.isEmailValid(emailEditText.getText().toString())) {
+            } else if (!ValidationUtils.isEmailValid(emailEditText.getText().toString())) {
                 Toast.makeText(this, getString(R.string.please_enter_correct_email), Toast.LENGTH_SHORT).show();
             } else if (occupationEditText.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.please_enter_occupation), Toast.LENGTH_SHORT).show();
             } else if (phoneNumberEditText.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.please_enter_phone), Toast.LENGTH_SHORT).show();
+            } else if (bankAccount.getText().toString().equals("")) {
+                Toast.makeText(this, getString(R.string.please_add_bank), Toast.LENGTH_SHORT).show();
+            } else if (marriedCheck.isChecked() && marriageCertificateFile == null) {
+                Toast.makeText(this, getString(R.string.please_add_marriage), Toast.LENGTH_SHORT).show();
             } else if (birthday.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.please_enter_birthday), Toast.LENGTH_SHORT).show();
             } else if (birthday.getText().toString().length() < 10) {
@@ -647,6 +688,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         if (otherCheck.isChecked())
             taxes.add(getString(R.string.other_label));
 
+        contractModel.setOccupation(occupationEditText.getText().toString());
         contractModel.setMessage(getString(R.string.contract_mail_message));
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -690,6 +732,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         uploadList.put("PPS_FRONT", ppsFileFront);
         uploadList.put("PPS_BACK", ppsFileBack);
         uploadList.put("ID", idFile);
+        uploadList.put("MARRIAGE", marriageCertificateFile);
         UploadAsyncTask uploadMultipleFilesTask = new UploadAsyncTask(
                 nameEditText.getText().toString(),
                 uploadList,
@@ -711,8 +754,12 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                 + "\nmail: " + contractModel.getEmail()
                 + "\nOccupation: " + contractModel.getOccupation()
                 + "\nPhone: " + phoneNumberEditText.getText().toString()
-                + "\nMarital status: " + contractModel.getMaritalStatus()
-                + "\nDate of birth: " + contractModel.getBirthday()
+                + "\nIBAN: " + bankAccount.getText().toString()
+                + "\nMarital status: " + contractModel.getMaritalStatus();
+        String noOfKids = ((EditText) findViewById(R.id.married_id).findViewById(R.id.number_kids_id)).getText().toString();
+        if (!noOfKids.equals(""))
+            message = message + "\nNumber of kids: " + noOfKids;
+        message = message + "\nDate of birth: " + contractModel.getBirthday()
                 + "\nContract date: " + contractModel.getDate();
         return message;
     }
@@ -757,7 +804,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT
                 || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK
-                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_ID)
+                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_ID
+                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE)
                 && data == null)
             return;
 
@@ -780,6 +828,12 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                     setImageToContractFile(R.id.id_layout_id, idFile);
                 }
                 break;
+            case ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE:
+                if (resultCode == Activity.RESULT_OK) {
+                    marriageCertificateFile = ImageUtils.getFilePathFromGallery(data, this);
+                    setImageToContractFile(R.id.marriage_layout_id, marriageCertificateFile);
+                }
+                break;
             case ConstantsUtils.CAMERA_REQUEST_PPS_FRONT:
                 if (resultCode == Activity.RESULT_OK) {
                     ppsFileFront = file.getAbsolutePath();
@@ -796,6 +850,12 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                 if (resultCode == Activity.RESULT_OK) {
                     idFile = file.getAbsolutePath();
                     setImageToContractFile(R.id.id_layout_id, idFile);
+                }
+                break;
+            case ConstantsUtils.CAMERA_REQUEST_MARRIAGE:
+                if (resultCode == Activity.RESULT_OK) {
+                    marriageCertificateFile = file.getAbsolutePath();
+                    setImageToContractFile(R.id.marriage_layout_id, marriageCertificateFile);
                 }
                 break;
             default:
@@ -832,6 +892,10 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID);
                 break;
+            case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_MARRIAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE);
+                break;
             case ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     takePicture(ConstantsUtils.CAMERA_REQUEST_PPS_FRONT);
@@ -843,6 +907,10 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
             case ConstantsUtils.MULTIPLE_PERMISSIONS_ID:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     takePicture(ConstantsUtils.CAMERA_REQUEST_ID);
+                break;
+            case ConstantsUtils.MULTIPLE_PERMISSIONS_MARRIAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    takePicture(ConstantsUtils.CAMERA_REQUEST_MARRIAGE);
                 break;
         }
     }
@@ -857,6 +925,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         ppsFileFront = null;
         ppsFileBack = null;
         idFile = null;
+        marriageCertificateFile = null;
         signatureFile = null;
         if (isSignatureSet) {
             isSignatureSet = false;
@@ -884,6 +953,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         emailEditText.setText("");
         occupationEditText.setText("");
         phoneNumberEditText.setText("");
+        bankAccount.setText("");
         birthday.setText("");
         contractDate.setText("");
         otherCheck.setText("");
