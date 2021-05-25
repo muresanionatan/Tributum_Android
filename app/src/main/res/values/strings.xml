@@ -110,4 +110,5 @@
     <string name="add_marriage_record">Add marriage certificate</string>
     <string name="please_add_marriage">Please add a marital certificate</string>
     <string name="please_add_bank">Please add a bank account</string>
+    <string name="please_enter_other">If you selected \'other\' taxes, please add which</string>
 </resources>

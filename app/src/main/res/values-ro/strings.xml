@@ -110,4 +110,5 @@
     <string name="add_marriage_record">Adauga certificatul de casatorie</string>
     <string name="please_add_marriage">Te rugam adauga un certificat de casatorie</string>
     <string name="please_add_bank">Te rugam adauga un cont IBAN</string>
+    <string name="please_enter_other">Daca ati selectat \'Altele\', va rugam introduceti specific taxele.</string>
 </resources>

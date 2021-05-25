@@ -274,7 +274,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
             }
         });
 
-        EditText otherEditText = (EditText) findViewById(R.id.other_edit_id);
+        EditText otherEditText = findViewById(R.id.other_edit_id);
         UtilsGeneral.setMaxLengthEditText(otherEditText, 60);
         otherCheck = findViewById(R.id.ninth);
         otherCheck.setOnClickListener(new View.OnClickListener() {
@@ -629,6 +629,8 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
                     && !((CheckBox) findViewById(R.id.eight)).isChecked()
                     && !otherCheck.isChecked()) {
                 Toast.makeText(this, getString(R.string.please_enter_applying_for), Toast.LENGTH_SHORT).show();
+            } else if (otherCheck.isChecked() && ((EditText) findViewById(R.id.other_edit_id)).getText().toString().equals("")) {
+                Toast.makeText(this, getString(R.string.please_enter_other), Toast.LENGTH_SHORT).show();
             } else if (ppsFileFront == null) {
                 Toast.makeText(this, getString(R.string.please_add_pps), Toast.LENGTH_SHORT).show();
             } else if (idFile == null) {

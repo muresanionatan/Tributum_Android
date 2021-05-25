@@ -132,7 +132,8 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
         KeyboardVisibility keyboardVisibility = new KeyboardVisibility(this);
         keyboardVisibility.handleKeyboardVisibility(view.findViewById(R.id.payments_main_layout_id));
 
-        loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content));
+        if (getActivity() != null)
+            loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content));
     }
 
     private void handleClearButtonClick() {
@@ -249,7 +250,8 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
         });
     }
 
-    private void sendClientEmail() {Retrofit retrofit = RetrofitClientInstance.getInstance();
+    private void sendClientEmail() {
+        Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
         Call<Object> call = api.sendEmail(new EmailBody(payerEmailEditText.getText().toString(), concatenateClientMail()));
@@ -307,6 +309,8 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
 
     @Override
     public void onKeyboardStateChanged(boolean opened) {
+        if (getView() == null || getActivity() == null)
+            return;
         View sendButton = getView().findViewById(R.id.send_payment_button);
         if (opened) {
             AnimUtils.getTranslationYAnimator(sendButton, 250).start();
