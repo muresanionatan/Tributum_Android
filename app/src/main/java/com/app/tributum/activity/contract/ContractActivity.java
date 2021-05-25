@@ -442,7 +442,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         ((TextView) findViewById(R.id.id_layout_id).findViewById(R.id.contract_file_text_id)).setText(R.string.add_id);
 
         // get the bottom sheet view
-        RelativeLayout llBottomSheet = (RelativeLayout) findViewById(R.id.file_chooser_id);
+        RelativeLayout llBottomSheet = findViewById(R.id.file_chooser_id);
         fileChooser = BottomSheetBehavior.from(llBottomSheet);
         fileChooser.setDraggable(false);
         findViewById(R.id.file_chooser_top_id).setOnClickListener(new View.OnClickListener() {
@@ -573,7 +573,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
     }
 
     private void removeImageToContractFile(int id) {
-        ImageView imageView = ((ImageView) findViewById(id).findViewById(R.id.preview_image_id));
+        ImageView imageView = findViewById(id).findViewById(R.id.preview_image_id);
         imageView.setImageResource(0);
         imageView.setVisibility(View.GONE);
         findViewById(id).findViewById(R.id.contract_file_layout_id).setVisibility(View.VISIBLE);

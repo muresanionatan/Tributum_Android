@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener listener;
 
-    private PendingIntent pendingIntent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             TributumAppHelper.saveSetting(AppKeysValues.NOTIFICATION_ALARM_SET, AppKeysValues.TRUE);
 
             Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-            pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
 
             AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             long interval = ConstantsUtils.NOTIFICATION_INTERVAL;
@@ -172,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (getSupportFragmentManager().findFragmentById(R.id.fragment_frame_layout) instanceof InvoicesFragment) {
             InvoicesFragment fragment = (InvoicesFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_frame_layout);
-            if (fragment.isPreview())
+            if (fragment != null && fragment.isPreview())
                 fragment.clearPreview();
             else {
                 if (twiceBackPressed) {

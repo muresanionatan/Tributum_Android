@@ -19,7 +19,6 @@ import com.app.tributum.fragment.invoices.listener.InvoiceItemClickListener;
 import com.app.tributum.listener.InvoicesDeleteListener;
 import com.app.tributum.utils.ConstantsUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesItemViewHolder> {
@@ -55,7 +54,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesItemViewHolder
         InvoiceModel model = list.get(position);
         ImageView imageView = holder.imageView;
         if (position == list.size() - 1 || imageView == null) {
-            if (list.size() - 1 < ConstantsUtils.MAXIMUM_PICTURES_IN_ATTACHMENT) {
+            if (list.size() - 1 < ConstantsUtils.MAXIMUM_PICTURES_IN_ATTACHMENT && imageView != null) {
                 imageView.setImageResource(R.drawable.camera_svg);
                 imageView.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
                 imageView.setBackgroundResource(R.drawable.selector_white_stroke);
@@ -94,14 +93,6 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesItemViewHolder
 
         if (getItemCount() == 1 && invoicesDeleteListener != null)
             invoicesDeleteListener.clearList();
-    }
-
-    public List<InvoiceModel> getList() {
-        List<InvoiceModel> newList = new ArrayList<>();
-        for (int i = 0; i < list.size() - 1; i++) {
-            newList.add(list.get(i));
-        }
-        return newList;
     }
 
     @Override

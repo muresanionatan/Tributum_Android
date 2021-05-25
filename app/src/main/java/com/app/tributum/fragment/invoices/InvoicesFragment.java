@@ -404,7 +404,7 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
 
     @Override
     public void onKeyboardStateChanged(boolean opened) {
-        if ((MainActivity) getActivity() == null)
+        if (getActivity() == null)
             return;
         if (opened) {
             AnimUtils.getTranslationYAnimator(sendButton, 250).start();
