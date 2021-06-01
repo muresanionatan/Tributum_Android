@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/invoices_main_layout_id"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_rectangle_corners"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:id="@+id/invoice_title_id"
+        style="@style/SubtitleText"
+        android:layout_marginStart="@dimen/global_start_end_margin"
+        android:layout_marginTop="18dp"
+        android:text="@string/receipts_label" />
+
+    <TextView
+        android:id="@+id/add_from_gallery_invoices_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/selector_black_corners"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/add_from_gallery"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/invoices_info_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_from_gallery_invoices_id"
+        android:layout_marginStart="@dimen/global_start_end_margin"
+        android:layout_marginEnd="@dimen/global_start_end_margin"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/payer_edit_text"
+            style="@style/CustomEditText"
+            android:hint="@string/name_label"
+            android:inputType="textCapWords" />
+
+        <EditText
+            android:id="@+id/payer_email_edit_text"
+            style="@style/CustomEditText"
+            android:hint="@string/email_label" />
+
+        <TextView
+            android:id="@+id/payer_id_subtitle"
+            style="@style/SubtitleText"
+            android:layout_marginTop="10dp"
+            android:text="@string/receipts_months" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/start_month_edit_text"
+                style="@style/CustomEditText"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="0.5"
+                android:hint="@string/starting_month_label"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/end_month_edit_text"
+                style="@style/CustomEditText"
+                android:layout_marginStart="10dp"
+                android:layout_weight="0.5"
+                android:hint="@string/ending_month_label"
+                android:inputType="textCapWords" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/invoice_divider_id"
+        style="@style/Divider"
+        android:layout_below="@+id/invoices_info_layout_id" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/invoices_recycler_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/invoice_divider_id"
+        android:layout_marginStart="@dimen/global_start_end_margin"
+        android:layout_marginEnd="@dimen/global_start_end_margin"
+        android:layout_marginBottom="150dp"
+        tools:listitem="@layout/invoices_item" />
+
+    <include layout="@layout/image_preview_layout" />
+
+    <TextView
+        android:id="@+id/invoices_send_id"
+        style="@style/SendButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="120dp" />
+</RelativeLayout>

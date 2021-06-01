@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/payments_main_layout_id"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/white_rectangle_corners"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/clear_image"
+            android:layout_width="@dimen/global_small_image"
+            android:layout_height="@dimen/global_small_image"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/selector_gray_circle"
+            android:elevation="8dp"
+            android:scaleType="center"
+            android:src="@drawable/delete_svg"
+            app:tint="@color/black"
+            tools:ignore="ContentDescription" />
+
+        <RelativeLayout
+            android:id="@+id/payments_recycler_view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/global_start_end_margin"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/global_start_end_margin"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/payer_id_subtitle"
+                style="@style/SubtitleText"
+                android:text="@string/payer_label" />
+
+            <EditText
+                android:id="@+id/payer_edit_text"
+                style="@style/CustomEditText"
+                android:layout_below="@+id/payer_id_subtitle"
+                android:layout_marginTop="22dp"
+                android:hint="@string/payer_label"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/payer_email_edit_text"
+                style="@style/CustomEditText"
+                android:layout_below="@+id/payer_edit_text"
+                android:hint="@string/payer_email_label" />
+
+            <TextView
+                android:id="@+id/you_receive_text_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payer_email_edit_text"
+                android:text="@string/you_receive_copy"
+                android:textColor="@color/light_gray"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/site_edit_text"
+                style="@style/CustomEditText"
+                android:layout_below="@+id/you_receive_text_id"
+                android:hint="@string/site_label"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/month_edit_text"
+                style="@style/CustomEditText"
+                android:layout_below="@+id/site_edit_text"
+                android:hint="@string/month_label"
+                android:inputType="textCapSentences" />
+
+            <LinearLayout
+                android:id="@+id/checkboxes_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/month_edit_text"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/net_checkbox"
+                    style="@style/CheckBox"
+                    android:checked="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="@string/net_label"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/gross_checkbox"
+                    style="@style/CheckBox"
+                    android:layout_marginStart="20dp"
+                    android:checked="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="@string/gross_label"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/payment_to_id"
+                style="@style/SubtitleText"
+                android:layout_below="@+id/checkboxes_layout"
+                android:text="@string/payment_to_label" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/payments_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/payment_to_id"
+                tools:listitem="@layout/payment_list_item" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/send_payment_button"
+            style="@style/SendButton"
+            android:layout_below="@+id/payments_recycler_view_layout"
+            android:layout_marginBottom="120dp" />
+    </RelativeLayout>
+</ScrollView>
