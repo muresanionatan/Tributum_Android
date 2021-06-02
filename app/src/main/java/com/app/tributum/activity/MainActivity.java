@@ -178,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 this.twiceBackPressed = true;
-                Toast.makeText(this, getString(R.string.press_back_twice), Toast.LENGTH_SHORT).show();
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -193,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             this.twiceBackPressed = true;
-            Toast.makeText(this, getString(R.string.press_back_twice), Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(new Runnable() {
                 @Override

@@ -10,11 +10,10 @@
     <string name="address_label">Address</string>
     <string name="pps_number">PPS number</string>
     <string name="mail_label">E-mail</string>
-    <string name="welcome_back_label">Welcome back!</string>
+    <string name="welcome_back_label">Welcome\nBack</string>
     <string name="information_label">Personal information</string>
     <string name="send">Send</string>
     <string name="add_all_info">Please complete all fields in order to send email</string>
-    <string name="press_back_twice">Press again to exit</string>
     <string name="payer_label">Payer</string>
     <string name="payer_email_label">Payer email</string>
     <string name="try_again">Check internet connection and try again. All changes saved.</string>
@@ -26,7 +25,7 @@
     <string name="info_email_subject">Need help with the app</string>
     <string name="info_email_message">I don\'t know how to make a payment. Please reach out to me.</string>
     <string name="contract_label">Contract</string>
-    <string name="faqs_label">FAQs</string>
+    <string name="faqs_label">FAQ</string>
     <string name="home_label">Home</string>
     <string name="receipts_label">VAT</string>
     <string name="home_screen_info">We just want to remind you that you can make (recurring) payments, add invoices and receipts right from the app.\n\nAnd if you have any questions there\'s always the FAQ section.\n\nJust head to the desired tab below and see how easy stuff can be. We\'ve got your back</string>
@@ -111,4 +110,14 @@
     <string name="please_add_marriage">Please add a marital certificate</string>
     <string name="please_add_bank">Please add a bank account</string>
     <string name="please_enter_other">If you selected \'other\' taxes, please add which</string>
+    <string name="what_do_you_want">What do you want\nto do today?</string>
+    <string name="new_contract">New Contract</string>
+    <string name="create_new_contract">Create a new contract</string>
+    <string name="rct_payment_label">RCT Payment</string>
+    <string name="add_new_rct_payment">Add a new RCT Payment</string>
+    <string name="add_vat_label">Add VAT</string>
+    <string name="send_vat">Send your VAT Receipts</string>
+    <string name="app_language_label">App\nLanguage</string>
+    <string name="choose_language">Choose your preffered language</string>
+    <string name="done_label">Done</string>
 </resources>

@@ -27,15 +27,6 @@
         <item name="android:fontFamily">@font/quicksand_medium</item>
     </style>
 
-    <style name="SubtitleText">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:fontFamily">@font/quicksand_bold</item>
-    </style>
-
     <style name="CtaBlack">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -99,6 +90,85 @@
     <style name="BottomNavigationStyle">
         <item name="android:lines">2</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="MainScreeButton">
+        <item name="android:layout_height">104dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:background">@drawable/white_rectangle_corners</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+
+    <style name="MainScreeButtonTextLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginStart">108dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MainScreeButtonArrow">
+        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_marginEnd">14dp</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:src">@drawable/arrow_svg</item>
+    </style>
+
+    <style name="MainScreeButtonImage">
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginStart">14dp</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+
+    <style name="MainScreeButtonTitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/quicksand_bold</item>
+    </style>
+
+    <style name="MainScreeButtonSubtitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/grey_5</item>
+        <item name="android:fontFamily">@font/quicksand_medium</item>
+    </style>
+
+    <style name="TitleText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/quicksand_bold</item>
+    </style>
+
+    <style name="SubtitleText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginTop">12sp</item>
+        <item name="android:textColor">@color/grey_5</item>
+        <item name="android:fontFamily">@font/quicksand_medium</item>
+    </style>
+
+    <style name="CtaWhiteButton">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:background">@drawable/white_rectangle_corners</item>
     </style>
 
 </resources>

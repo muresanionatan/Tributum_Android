@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/home_title_id"
+            style="@style/TitleText"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="158dp"
+            android:text="@string/welcome_back_label" />
+
+        <TextView
+            style="@style/SubtitleText"
+            android:layout_below="@+id/home_title_id"
+            android:layout_marginStart="48dp"
+            android:text="@string/what_do_you_want" />
+
+        <RelativeLayout
+            style="@style/MainScreeButton"
+            android:layout_above="@+id/payments_id"
+            android:layout_marginTop="52dp">
+
+            <ImageView
+                style="@style/MainScreeButtonImage"
+                android:src="@drawable/contract"
+                app:tint="@color/contract_1" />
+
+            <ImageView
+                style="@style/MainScreeButtonArrow"
+                app:tint="@color/contract_1" />
+
+            <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                <TextView
+                    style="@style/MainScreeButtonTitle"
+                    android:text="@string/new_contract"
+                    android:textColor="@color/contract_1" />
+
+                <TextView
+                    style="@style/MainScreeButtonSubtitle"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="@string/create_new_contract" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/payments_id"
+            style="@style/MainScreeButton"
+            android:layout_above="@+id/vat_id"
+            android:layout_marginTop="12dp">
+
+            <ImageView
+                style="@style/MainScreeButtonImage"
+                android:src="@drawable/contract"
+                app:tint="@color/rct" />
+
+            <ImageView
+                style="@style/MainScreeButtonArrow"
+                app:tint="@color/rct" />
+
+            <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                <TextView
+                    style="@style/MainScreeButtonTitle"
+                    android:text="@string/rct_payment_label"
+                    android:textColor="@color/rct" />
+
+                <TextView
+                    style="@style/MainScreeButtonSubtitle"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="@string/add_new_rct_payment" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/vat_id"
+            style="@style/MainScreeButton"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp">
+
+            <ImageView
+                style="@style/MainScreeButtonImage"
+                android:src="@drawable/contract"
+                app:tint="@color/vat_1" />
+
+            <ImageView
+                style="@style/MainScreeButtonArrow"
+                app:tint="@color/vat_1" />
+
+            <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                <TextView
+                    style="@style/MainScreeButtonTitle"
+                    android:text="@string/add_vat_label"
+                    android:textColor="@color/vat_1" />
+
+                <TextView
+                    style="@style/MainScreeButtonSubtitle"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="@string/send_vat" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="64sp"
+        android:layout_marginEnd="48dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/faqs_label"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/language_text_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="64dp"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/english_label"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:drawableStartCompat="@drawable/language_svg"
+        app:drawableTint="@color/white" />
+
+    <include
+        android:id="@+id/splash_id"
+        layout="@layout/splash_layout"
+        tools:visibility="gone" />
+
+    <include
+        android:id="@+id/language_id"
+        layout="@layout/language_layout"
+        android:visibility="gone" />
+</RelativeLayout>
