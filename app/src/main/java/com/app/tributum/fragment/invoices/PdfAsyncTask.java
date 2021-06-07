@@ -32,7 +32,7 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private String months;
 
-    PdfAsyncTask(AsyncListener listener, Activity activity, List<InvoiceModel> list, String username, String months) {
+    public PdfAsyncTask(AsyncListener listener, Activity activity, List<InvoiceModel> list, String username, String months) {
         this.listener = listener;
         this.activity = activity;
         this.list = list;

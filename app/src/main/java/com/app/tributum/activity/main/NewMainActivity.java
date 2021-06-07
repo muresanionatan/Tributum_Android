@@ -1,6 +1,7 @@
 package com.app.tributum.activity.main;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.tributum.R;
+import com.app.tributum.activity.vat.VatActivity;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.utils.ConstantsUtils;
@@ -66,6 +68,13 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
                 presenter.onLanguageDoneClick();
             }
         });
+
+        findViewById(R.id.vat_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onVatClick();
+            }
+        });
     }
 
     private void showSplashScreen() {
@@ -76,6 +85,11 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
                 presenter.onSplashFinished(getIntent());
             }
         }, ConstantsUtils.ONE_SECOND * 2);
+    }
+
+    @Override
+    public void startVatActivity() {
+        startActivity(new Intent(this, VatActivity.class));
     }
 
     @Override

@@ -11,10 +11,11 @@
     <color name="blacker">#F04393</color>
     <color name="less_blacker">#FF9190</color>
     <color name="les_black">#5E72EB</color>
-    <color name="alpha_white">#de8E8E8E</color>
+    <color name="alpha_white">#668E8E8E</color>
 
     <color name="white">#ffffff</color>
     <color name="grey_1">#f9f9f9</color>
+    <color name="grey_1_alpha">#CCf9f9f9</color>
     <color name="grey_2">#ebebeb</color>
     <color name="grey_3">#c3c5c9</color>
     <color name="grey_4">#9ea1a7</color>

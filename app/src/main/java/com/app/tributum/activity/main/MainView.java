@@ -16,4 +16,6 @@ public interface MainView {
     void unCheckRomanianBox();
 
     void setWelcomeMessage(String message);
+
+    void startVatActivity();
 }

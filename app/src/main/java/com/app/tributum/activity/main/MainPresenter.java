@@ -17,4 +17,6 @@ public interface MainPresenter {
     void onEnglishClick();
 
     void onRomanianClick();
+
+    void onVatClick();
 }

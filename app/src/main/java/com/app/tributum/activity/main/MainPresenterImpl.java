@@ -60,6 +60,14 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
+    public void onVatClick() {
+        if (view == null)
+            return;
+
+        view.startVatActivity();
+    }
+
+    @Override
     public void onLanguageClick() {
         if (view == null)
             return;

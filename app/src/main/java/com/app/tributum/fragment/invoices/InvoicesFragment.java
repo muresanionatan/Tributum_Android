@@ -129,19 +129,19 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         adapter = new InvoicesAdapter(getActivity(), list, this, this);
         recyclerView.setAdapter(adapter);
 
-        view.findViewById(R.id.delete_photo_button_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.remove(photoClicked);
-                clearPreview();
-            }
-        });
-        view.findViewById(R.id.close_camera_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearPreview();
-            }
-        });
+//        view.findViewById(R.id.delete_photo_button_id).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                adapter.remove(photoClicked);
+//                clearPreview();
+//            }
+//        });
+//        view.findViewById(R.id.close_camera_id).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                clearPreview();
+//            }
+//        });
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,7 +222,7 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         }
     }
 
-    @Override
+//    @Override
     public void onTakePhotoClick() {
         if (getActivity() == null)
             return;
@@ -260,6 +260,16 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         addFromGallery.setVisibility(View.GONE);
         sendButton.setVisibility(View.GONE);
         ((MainActivity) getActivity()).getBottomNavigation().setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onPlusCLick() {
+
+    }
+
+    @Override
+    public void onDeleteClick(String filePath, int photoIndex) {
+
     }
 
     public void clearPreview() {

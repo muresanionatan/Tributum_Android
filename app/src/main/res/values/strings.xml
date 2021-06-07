@@ -2,7 +2,7 @@
     <string name="app_name">Tributum</string>
 
     <string name="amount_label">Amount</string>
-    <string name="name_label">Name</string>
+    <string name="name_label">Full Name</string>
     <string name="gross_label">Gross</string>
     <string name="net_label">Net</string>
     <string name="full_name">Full name</string>
@@ -81,7 +81,7 @@
     <string name="no_photo_taken">You haven\'t taken any photo so far</string>
     <string name="vat_notification_string">Kind reminder to please submit your expenses and/or invoices for the last 2 months.</string>
     <string name="vats_action">Get started</string>
-    <string name="email_label">E-mail address</string>
+    <string name="email_label">Email</string>
     <string name="receipts_months">Receipts period (months)</string>
     <string name="starting_month_label">Starting month</string>
     <string name="ending_month_label">Ending month</string>
@@ -96,7 +96,7 @@
     <string name="add_pps_front">Add PPS front image</string>
     <string name="add_pps_back">Add PPS back image (optional)</string>
     <string name="add_contract_files">Add contract files</string>
-    <string name="add_from_gallery">Add from gallery</string>
+    <string name="add_from_gallery">Add From Gallery</string>
     <string name="phone_number_label">Phone number</string>
     <string name="please_enter_phone">Please add a phone number</string>
     <string name="contract_mail_message">The following contract PDF(s) was\\were generated.</string>
@@ -118,6 +118,11 @@
     <string name="add_vat_label">Add VAT</string>
     <string name="send_vat">Send your VAT Receipts</string>
     <string name="app_language_label">App\nLanguage</string>
-    <string name="choose_language">Choose your preffered language</string>
+    <string name="choose_language">Choose your preferred language</string>
     <string name="done_label">Done</string>
+    <string name="add_vat_receipts">Add VAT\nReceipts</string>
+    <string name="vat_subtitle">A VAT invoice must issue within fifteen days\nof the end of the month in which goods or\nservices are supplied.</string>
+    <string name="add_receipts">Add Receipts</string>
+    <string name="send_vat_receipts">Send VAT Receipts</string>
+    <string name="remove_photo">Remove photo</string>
 </resources>

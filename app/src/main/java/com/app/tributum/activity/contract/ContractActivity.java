@@ -547,29 +547,29 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         else
             Glide.with(this).load("file://" + marriageCertificateFile).into(previewImage);
 
-        findViewById(R.id.delete_photo_button_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeImageToContractFile(id);
-                if (id == R.id.pps_front_layout_id)
-                    ppsFileFront = null;
-                else if (id == R.id.pps_back_layout_id)
-                    ppsFileBack = null;
-                else if (id == R.id.id_layout_id)
-                    idFile = null;
-                else
-                    marriageCertificateFile = null;
-
-                previewLayout.setVisibility(View.GONE);
-            }
-        });
-        findViewById(R.id.close_camera_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                previewLayout.setVisibility(View.GONE);
-                clearImage.setVisibility(View.VISIBLE);
-            }
-        });
+//        findViewById(R.id.delete_photo_button_id).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                removeImageToContractFile(id);
+//                if (id == R.id.pps_front_layout_id)
+//                    ppsFileFront = null;
+//                else if (id == R.id.pps_back_layout_id)
+//                    ppsFileBack = null;
+//                else if (id == R.id.id_layout_id)
+//                    idFile = null;
+//                else
+//                    marriageCertificateFile = null;
+//
+//                previewLayout.setVisibility(View.GONE);
+//            }
+//        });
+//        findViewById(R.id.close_camera_id).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                previewLayout.setVisibility(View.GONE);
+//                clearImage.setVisibility(View.VISIBLE);
+//            }
+//        });
     }
 
     private void removeImageToContractFile(int id) {
