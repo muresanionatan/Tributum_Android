@@ -595,7 +595,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
     }
 
     private void handleSendButtonClick() {
-        if (NetworkUtils.isNetworkConnected(this)) {
+        if (NetworkUtils.isNetworkConnected()) {
             if (nameEditText.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show();
             } else if (addressEditText.getText().toString().equals("")) {

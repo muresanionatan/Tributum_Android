@@ -5,9 +5,7 @@ import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 
-import com.app.tributum.fragment.invoices.listener.InvoiceItemClickListener;
 import com.app.tributum.fragment.invoices.model.InvoiceModel;
-import com.app.tributum.listener.InvoicesDeleteListener;
 
 import java.util.List;
 
@@ -30,10 +28,6 @@ public interface VatPresenter {
     void onCreate();
 
     void onRequestPermissionsResult(int requestCode, @NonNull int[] grantResults);
-
-    InvoiceItemClickListener getItemClickListener();
-
-    InvoicesDeleteListener getDeleteListener();
 
     void onBackPressed();
 

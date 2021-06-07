@@ -139,7 +139,7 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
     private void handleClearButtonClick() {
         paymentList = new ArrayList<>();
         paymentList.add(new PaymentModel("", "", ""));
-        adapter.setList(paymentList);
+//        adapter.setList(paymentList);
         adapter.notifyDataSetChanged();
         payerEditText.setText("");
         payerEmailEditText.setText("");
@@ -161,7 +161,7 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
         if (getActivity() == null)
             return;
 
-        if (NetworkUtils.isNetworkConnected(getActivity())) {
+        if (NetworkUtils.isNetworkConnected()) {
             if (!payerEditText.getText().toString().equals("")
                     && !payerEmailEditText.getText().toString().equals("")
                     && !siteEditText.toString().equals("")
@@ -285,14 +285,6 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
     public void removeItem(int position) {
         paymentList.remove(position);
         adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void addItem() {
-        paymentList.add(new PaymentModel("", "", ""));
-        adapter.notifyItemChanged(paymentList.size() - 2);
-        adapter.notifyItemInserted(paymentList.size() - 1);
-        recyclerView.scrollToPosition(paymentList.size() - 1);
     }
 
     @Override

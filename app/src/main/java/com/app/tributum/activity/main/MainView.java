@@ -18,4 +18,6 @@ public interface MainView {
     void setWelcomeMessage(String message);
 
     void startVatActivity();
+
+    void startPaymentsActivity();
 }

@@ -60,6 +60,14 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
+    public void onPaymentsClick() {
+        if (view == null)
+            return;
+
+        view.startPaymentsActivity();
+    }
+
+    @Override
     public void onVatClick() {
         if (view == null)
             return;

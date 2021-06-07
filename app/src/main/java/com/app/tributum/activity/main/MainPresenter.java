@@ -19,4 +19,6 @@ public interface MainPresenter {
     void onRomanianClick();
 
     void onVatClick();
+
+    void onPaymentsClick();
 }

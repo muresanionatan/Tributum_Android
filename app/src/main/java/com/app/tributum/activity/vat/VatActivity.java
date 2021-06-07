@@ -63,7 +63,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     private EditText endingMonth;
 
-    private VatPresenter presenter;
+    private VatPresenterImpl presenter;
 
     private BottomSheetBehavior fileChooser;
 
@@ -73,7 +73,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         setContentView(R.layout.activity_vat);
         StatusBarUtils.makeStatusBarTransparent(this);
 
-        presenter = new VatPresenterImpl(this, getResources());
+        presenter = new VatPresenterImpl(this);
         presenter.onCreate();
         setupViews();
     }
@@ -98,7 +98,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new InvoicesAdapter(this, presenter.getList(), presenter.getItemClickListener(), presenter.getDeleteListener());
+        adapter = new InvoicesAdapter(this, presenter.getList(), presenter, presenter);
         recyclerView.setAdapter(adapter);
 
         findViewById(R.id.remove_photo_id).setOnClickListener(new View.OnClickListener() {

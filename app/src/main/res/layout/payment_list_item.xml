@@ -1,53 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/payment_to_label"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/payment_beneficiary_edit_text"
         style="@style/CustomEditText"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="20dp"
         android:hint="@string/name_label"
-        android:nextFocusForward="@+id/payment_pps_edit_text"
-        android:inputType="textCapWords" />
+        android:inputType="textCapWords"
+        android:nextFocusForward="@+id/payment_pps_edit_text" />
 
-    <EditText
-        android:id="@+id/payment_pps_edit_text"
-        style="@style/CustomEditText"
-        android:layout_width="110sp"
-        android:layout_below="@+id/payment_beneficiary_edit_text"
-        android:hint="@string/pps_label"
-        android:nextFocusForward="@+id/payment_amount_edit_text"
-        android:textAllCaps="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
-    <EditText
-        android:id="@+id/payment_amount_edit_text"
-        style="@style/CustomEditText"
-        android:layout_width="70dp"
-        android:layout_below="@+id/payment_beneficiary_edit_text"
-        android:layout_marginStart="30dp"
-        android:layout_toEndOf="@+id/payment_pps_edit_text"
-        android:hint="@string/amount_label"
-        android:inputType="numberDecimal|numberSigned" />
+        <EditText
+            android:id="@+id/payment_pps_edit_text"
+            style="@style/CustomEditText"
+            android:layout_width="0dp"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="0.5"
+            android:hint="@string/pps_label"
+            android:nextFocusForward="@+id/payment_amount_edit_text"
+            android:textAllCaps="true" />
 
-    <ImageView
-        android:id="@+id/add_new_payment_image"
-        android:layout_width="@dimen/global_cta_image"
-        android:layout_height="@dimen/global_cta_image"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/selector_black_circle"
-        android:elevation="8dp"
-        android:scaleType="center"
-        android:src="@drawable/add_svg"
-        app:tint="@color/white"
-        tools:ignore="ContentDescription" />
+        <EditText
+            android:id="@+id/payment_amount_edit_text"
+            style="@style/CustomEditText"
+            android:layout_width="0dp"
+            android:layout_marginStart="6dp"
+            android:layout_weight="0.5"
+            android:hint="@string/amount_label"
+            android:inputType="numberDecimal|numberSigned" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/remove_payment_text"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center"
+        android:text="@string/remove_label"
+        android:textColor="@color/error"
+        android:textSize="16sp" />
 
     <View
-        android:id="@+id/divider"
-        style="@style/Divider"
-        android:layout_below="@+id/payment_amount_edit_text" />
-</RelativeLayout>
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/white" />
+</LinearLayout>

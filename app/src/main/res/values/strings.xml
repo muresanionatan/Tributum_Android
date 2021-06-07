@@ -34,7 +34,7 @@
     <string name="add_id">Add ID</string>
     <string name="signature_label">Signature</string>
     <string name="draw_signature">Draw your signature</string>
-    <string name="payment_to_label">Payment to:</string>
+    <string name="payment_to_label">Payment To</string>
     <string name="occupation_label">Occupation</string>
     <string name="married_label">Married</string>
     <string name="single_label">Single</string>
@@ -69,7 +69,7 @@
     <string name="please_enter_birthday">Please enter your birthday</string>
     <string name="please_enter_applying_for">Please select the tax that you are applying for</string>
     <string name="something_went_wrong">Something went wrong. Please try again later</string>
-    <string name="pps_label">PPS</string>
+    <string name="pps_label">PPS Number</string>
     <string name="under_construction_label">This section is under construction</string>
     <string name="site_label">Site location/ID</string>
     <string name="english_label">English</string>
@@ -87,7 +87,7 @@
     <string name="ending_month_label">Ending month</string>
     <string name="month_label">Month</string>
     <string name="start_contract">Click here if you are\ninterested into creating\na new contract</string>
-    <string name="you_receive_copy">You will receive an email regarding the payment </string>
+    <string name="you_receive_copy">You will receive an email regarding this payment </string>
     <string name="loading_label">Loading...</string>
     <string name="pdf_sent">Images sent.</string>
     <string name="date_hint">DD/MM/YYYY</string>
@@ -122,7 +122,11 @@
     <string name="done_label">Done</string>
     <string name="add_vat_receipts">Add VAT\nReceipts</string>
     <string name="vat_subtitle">A VAT invoice must issue within fifteen days\nof the end of the month in which goods or\nservices are supplied.</string>
+    <string name="payments_subtitle">RCT is a withholding tax that applies to\ncertain payments by principal\ncontractors to subcontractors in the\nconstruction, forestry and meat-\nprocessing industries.</string>
     <string name="add_receipts">Add Receipts</string>
     <string name="send_vat_receipts">Send VAT Receipts</string>
     <string name="remove_photo">Remove photo</string>
+    <string name="send_payment_label">Send Payment</string>
+    <string name="add_new_label">Add New</string>
+    <string name="remove_label">Remove</string>
 </resources>

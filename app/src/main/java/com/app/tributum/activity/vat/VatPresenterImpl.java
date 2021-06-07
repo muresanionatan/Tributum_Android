@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.application.TributumApplication;
 import com.app.tributum.fragment.invoices.listener.InvoiceItemClickListener;
 import com.app.tributum.fragment.invoices.model.InvoiceModel;
 import com.app.tributum.listener.InvoicesDeleteListener;
@@ -49,9 +50,9 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     private List<InvoiceModel> list;
 
-    VatPresenterImpl(VatView vatView, Resources resources) {
+    VatPresenterImpl(VatView vatView) {
         this.vatView = vatView;
-        this.resources = resources;
+        this.resources = TributumApplication.getInstance().getResources();
     }
 
     @Override
@@ -334,16 +335,6 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
             } else {
                 onTakePhotoClick();
             }
-    }
-
-    @Override
-    public InvoiceItemClickListener getItemClickListener() {
-        return this;
-    }
-
-    @Override
-    public InvoicesDeleteListener getDeleteListener() {
-        return this;
     }
 
     @Override

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,10 +42,6 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         this.listener = listener;
     }
 
-    public void setList(List<PaymentModel> paymentList) {
-        this.paymentList = paymentList;
-    }
-
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -72,23 +68,12 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
             holder.amountEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         }
 
-        if (holder.getAdapterPosition() < getItemCount() - 1) {
-            holder.addRemoveImage.setImageResource(R.drawable.remove_svg);
-        } else {
-            holder.addRemoveImage.setImageResource(R.drawable.add_svg);
-        }
-        holder.addRemoveImage.setOnClickListener(new View.OnClickListener() {
+        holder.removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleItemImageClick(holder);
             }
         });
-
-        if (position == getItemCount() - 1) {
-            holder.divider.setVisibility(View.GONE);
-        } else {
-            holder.divider.setVisibility(View.VISIBLE);
-        }
     }
 
     /**
@@ -97,15 +82,9 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
      * @param holder the item holder
      */
     private void handleItemImageClick(ItemViewHolder holder) {
-        if (listener == null)
-            return;
-
-        if (holder.getAdapterPosition() == getItemCount() - 1) {
-            listener.addItem();
-        } else {
-            holder.nameEditText.removeTextChangedListener(holder.nameEditTextListener);
+        holder.nameEditText.removeTextChangedListener(holder.nameEditTextListener);
+        if (listener != null)
             listener.removeItem(holder.getAdapterPosition());
-        }
     }
 
     public boolean areThereEmptyInputs() {
@@ -133,9 +112,7 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
 
         EditText amountEditText;
 
-        ImageView addRemoveImage;
-
-        View divider;
+        TextView removeButton;
 
         NameEditTextListener nameEditTextListener;
 
@@ -150,8 +127,7 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
             nameEditText = itemView.findViewById(R.id.payment_beneficiary_edit_text);
             ppsEditText = itemView.findViewById(R.id.payment_pps_edit_text);
             amountEditText = itemView.findViewById(R.id.payment_amount_edit_text);
-            addRemoveImage = itemView.findViewById(R.id.add_new_payment_image);
-            divider = itemView.findViewById(R.id.divider);
+            removeButton = itemView.findViewById(R.id.remove_payment_text);
 
             this.nameEditTextListener = nameEditTextListener;
             nameEditText.addTextChangedListener(nameEditTextListener);
