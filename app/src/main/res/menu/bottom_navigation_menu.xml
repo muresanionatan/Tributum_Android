@@ -19,10 +19,4 @@
         android:icon="@drawable/camera_svg"
         android:title="@string/receipts_label"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_faqs"
-        android:enabled="true"
-        android:icon="@drawable/faqs"
-        android:title="@string/faqs_label"
-        app:showAsAction="always" />
 </menu>

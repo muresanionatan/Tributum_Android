@@ -18,12 +18,10 @@ import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
-import com.app.tributum.fragment.FaqsFragment;
 import com.app.tributum.fragment.HomeFragment;
 import com.app.tributum.fragment.invoices.InvoicesFragment;
 import com.app.tributum.fragment.PaymentsFragment;
@@ -75,10 +73,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_invoices:
                         selectedFragment = new InvoicesFragment();
                         itemId = R.id.action_invoices;
-                        break;
-                    case R.id.action_faqs:
-                        selectedFragment = new FaqsFragment();
-                        itemId = R.id.action_faqs;
                         break;
 
                 }

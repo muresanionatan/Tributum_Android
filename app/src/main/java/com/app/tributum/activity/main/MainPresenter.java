@@ -23,4 +23,6 @@ public interface MainPresenter {
     void onPaymentsClick();
 
     void onContractClick();
+
+    void onFaqClick();
 }

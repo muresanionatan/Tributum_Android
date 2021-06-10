@@ -61,27 +61,27 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onContractClick() {
-        if (view == null)
-            return;
-
-        view.startContractActivity();
+        if (view != null)
+            view.startContractActivity();
 
     }
 
     @Override
     public void onPaymentsClick() {
-        if (view == null)
-            return;
-
-        view.startPaymentsActivity();
+        if (view != null)
+            view.startPaymentsActivity();
     }
 
     @Override
     public void onVatClick() {
-        if (view == null)
-            return;
+        if (view != null)
+            view.startVatActivity();
+    }
 
-        view.startVatActivity();
+    @Override
+    public void onFaqClick() {
+        if (view != null)
+            view.startFaqActivity();
     }
 
     @Override

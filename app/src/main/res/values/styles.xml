@@ -141,7 +141,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">36sp</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:fontFamily">@font/quicksand_bold</item>
+        <item name="android:fontFamily">@font/merriweather_bold</item>
     </style>
 
     <style name="SubtitleText">
@@ -150,7 +150,7 @@
         <item name="android:textSize">15sp</item>
         <item name="android:layout_marginTop">12sp</item>
         <item name="android:textColor">@color/grey_5</item>
-        <item name="android:fontFamily">@font/quicksand_medium</item>
+        <item name="android:fontFamily">@font/manrope_medium</item>
     </style>
 
     <style name="CtaWhiteButton">

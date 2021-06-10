@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp">
+
+    <LinearLayout
+        android:id="@+id/faq_item_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_rectangle_corners"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/manrope_bold"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="What are the benefits?" />
+
+            <ImageView
+                android:id="@+id/expand_arrow_id"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/expand_svg" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/subtitle_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/manrope_medium"
+            android:textColor="@color/grey_5"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:text="Most banks offer online banking services that enable you to pay your bills, transfer money, and access a record of your checking account transactions from your mobile app. Banking from the comfort of your sofa, at any time of the day or night, makes everything you do with your finances a bit easier." />
+    </LinearLayout>
+</RelativeLayout>

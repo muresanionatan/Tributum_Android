@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.tributum.R;
+import com.app.tributum.activity.faq.FaqActivity;
 import com.app.tributum.activity.newcontract.NewContractActivity;
 import com.app.tributum.activity.payments.PaymentsActivity;
 import com.app.tributum.activity.vat.VatActivity;
@@ -91,6 +92,13 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
                 presenter.onVatClick();
             }
         });
+
+        findViewById(R.id.faq_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onFaqClick();
+            }
+        });
     }
 
     private void showSplashScreen() {
@@ -106,6 +114,7 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
     @Override
     public void startContractActivity() {
         startActivity(new Intent(this, NewContractActivity.class));
+        overridePendingTransition(R.anim.translate_left, R.anim.translate_right);
     }
 
     @Override
@@ -116,6 +125,11 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
     @Override
     public void startVatActivity() {
         startActivity(new Intent(this, VatActivity.class));
+    }
+
+    @Override
+    public void startFaqActivity() {
+        startActivity(new Intent(this, FaqActivity.class));
     }
 
     @Override

@@ -36,6 +36,7 @@
 
             <ImageView
                 style="@style/MainScreeButtonArrow"
+                android:rotation="180"
                 app:tint="@color/contract_1" />
 
             <LinearLayout style="@style/MainScreeButtonTextLayout">
@@ -65,6 +66,7 @@
 
             <ImageView
                 style="@style/MainScreeButtonArrow"
+                android:rotation="180"
                 app:tint="@color/rct" />
 
             <LinearLayout style="@style/MainScreeButtonTextLayout">
@@ -95,6 +97,7 @@
 
             <ImageView
                 style="@style/MainScreeButtonArrow"
+                android:rotation="180"
                 app:tint="@color/vat_1" />
 
             <LinearLayout style="@style/MainScreeButtonTextLayout">
@@ -113,12 +116,14 @@
     </RelativeLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/faq_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="64sp"
         android:layout_marginEnd="48dp"
-        android:fontFamily="@font/quicksand_bold"
+        android:fontFamily="@font/manrope_bold"
+        android:gravity="end"
         android:text="@string/faqs_label"
         android:textSize="15sp" />
 

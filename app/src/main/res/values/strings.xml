@@ -144,4 +144,6 @@
     <string name="ok_label">Ok</string>
     <string name="payment_sent_label">Payment\nSent</string>
     <string name="contract_sent_label">Contract\nSent</string>
+    <string name="frequently_label">Frequently\nAsked\nQuestions</string>
+    <string name="faq_subtitle">Everything You Need to Know</string>
 </resources>
