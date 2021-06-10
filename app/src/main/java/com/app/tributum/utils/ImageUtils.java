@@ -1,11 +1,12 @@
 package com.app.tributum.utils;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+
+import com.app.tributum.application.TributumApplication;
 
 import java.io.File;
 
@@ -20,13 +21,13 @@ public class ImageUtils {
         return storageDir.getAbsolutePath() + "/" + imageFileName;
     }
 
-    public static String getFilePathFromGallery(Intent data, Activity activity) {
+    public static String getFilePathFromGallery(Intent data) {
         Uri uri = data.getData();
         String[] projection = {MediaStore.Images.Media.DATA};
 
         if (uri == null)
             return "";
-        Cursor cursor = activity.getContentResolver().query(uri, projection, null, null, null);
+        Cursor cursor = TributumApplication.getInstance().getContentResolver().query(uri, projection, null, null, null);
 
         if (cursor == null)
             return "";

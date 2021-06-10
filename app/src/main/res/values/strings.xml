@@ -43,8 +43,8 @@
     <string name="draw_here">Draw signature here using your finger</string>
     <string name="start_date_label">Starting date:</string>
     <string name="select_date">Select date</string>
-    <string name="applying_for">What are you applying for?</string>
-    <string name="income_tax_label">Income Tax (incl. PAYE)</string>
+    <string name="applying_for">What Are You Applying For?</string>
+    <string name="income_tax_label">Income Tax</string>
     <string name="corporation_tax_label">Corporation Tax</string>
     <string name="value_added_tax_label">Value Added Tax (VAT)</string>
     <string name="employer_paye_label">Employer\'s PAYE (PRSI)</string>
@@ -56,7 +56,7 @@
     <string name="self_employed_label">Self employed</string>
     <string name="employee_label">Employee</string>
     <string name="please_specify_label">Please specify</string>
-    <string name="date_of_birth">Date of birth</string>
+    <string name="date_of_birth">Date of Birth</string>
     <string name="please_enter_name">Please enter your name</string>
     <string name="please_enter_address">Please enter your address</string>
     <string name="please_enter_pps">Please enter your correct PPS number</string>
@@ -93,8 +93,8 @@
     <string name="date_hint">DD/MM/YYYY</string>
     <string name="invoices_message_email">Please add the receipts/invoices for\u0020</string>
     <string name="invoices_message_email_part2">\u0020for period:\u0020</string>
-    <string name="add_pps_front">Add PPS front image</string>
-    <string name="add_pps_back">Add PPS back image (optional)</string>
+    <string name="add_pps_front">Add PPS Front Image</string>
+    <string name="add_pps_back">Add PPS Back Image (optional)</string>
     <string name="add_contract_files">Add contract files</string>
     <string name="add_from_gallery">Add From Gallery</string>
     <string name="phone_number_label">Phone number</string>
@@ -105,8 +105,8 @@
     <string name="please_enter_birthday_format">Please enter birthday like DD/MM/YYYY</string>
     <string name="iban_label">Bank IBAN</string>
     <string name="have_kids_label">Do you have any children?</string>
-    <string name="number_kids">Number of kids</string>
-    <string name="add_marriage_record">Add marriage certificate</string>
+    <string name="number_kids">Nr of children</string>
+    <string name="add_marriage_record">Add Your Marriage Certificate</string>
     <string name="please_add_marriage">Please add a marital certificate</string>
     <string name="please_add_bank">Please add a bank account</string>
     <string name="please_enter_other">If you selected \'other\' taxes, please add which</string>
@@ -129,4 +129,15 @@
     <string name="send_payment_label">Send Payment</string>
     <string name="add_new_label">Add New</string>
     <string name="remove_label">Remove</string>
+    <string name="personal_info_label">Personal\nInfo</string>
+    <string name="contract_subtitle">Please carefully enter your information,\nso we can generate a contract for you.</string>
+    <string name="add_your_id_label">Add Your ID</string>
+    <string name="marital_status_label">Marital Status</string>
+    <string name="any_children_label">Any Children?</string>
+    <string name="continue_label">Continue</string>
+    <string name="employment_info_label">Employment Info</string>
+    <string name="almost_done">Almost\nDone</string>
+    <string name="clear_label">Clear</string>
+    <string name="add_your_signature_below">Add Your Signature Below</string>
+    <string name="sign_send"><![CDATA[Sign & Send]]></string>
 </resources>

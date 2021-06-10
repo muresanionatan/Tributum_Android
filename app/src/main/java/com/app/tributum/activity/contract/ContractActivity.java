@@ -326,22 +326,22 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
             }
         });
 
-        findViewById(R.id.save_signature_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveSignatureImage();
-                findViewById(R.id.signature_layout).setVisibility(View.GONE);
-            }
-        });
-
-        findViewById(R.id.delete_signature_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signatureDraw.clear();
-                isSignatureSet = false;
-                findViewById(R.id.signature_layout).setVisibility(View.GONE);
-            }
-        });
+//        findViewById(R.id.save_signature_id).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                saveSignatureImage();
+//                findViewById(R.id.signature_layout).setVisibility(View.GONE);
+//            }
+//        });
+//
+//        findViewById(R.id.delete_signature_id).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                signatureDraw.clear();
+//                isSignatureSet = false;
+//                findViewById(R.id.signature_layout).setVisibility(View.GONE);
+//            }
+//        });
 
         singleCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -594,6 +594,11 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         signatureFile.compress(Bitmap.CompressFormat.PNG, 95, fos);
     }
 
+    @Override
+    public void onDrawingFinished() {
+
+    }
+
     private void handleSendButtonClick() {
         if (NetworkUtils.isNetworkConnected()) {
             if (nameEditText.getText().toString().equals("")) {
@@ -743,7 +748,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         uploadMultipleFilesTask.execute();
         UploadAsyncTask uploadOneFileTask = new UploadAsyncTask(
                 nameEditText.getText().toString(),
-                FileUtils.createFile(this, generateUserInfo(), nameEditText.getText().toString() + "_info"),
+                FileUtils.createFile(generateUserInfo(), nameEditText.getText().toString() + "_info"),
                 this,
                 UploadAsyncTask.UploadType.ONE);
         uploadOneFileTask.execute();
@@ -814,25 +819,25 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         switch (requestCode) {
             case ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT:
                 if (resultCode == Activity.RESULT_OK) {
-                    ppsFileFront = ImageUtils.getFilePathFromGallery(data, this);
+                    ppsFileFront = ImageUtils.getFilePathFromGallery(data);
                     setImageToContractFile(R.id.pps_front_layout_id, ppsFileFront);
                 }
                 break;
             case ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK:
                 if (resultCode == Activity.RESULT_OK) {
-                    ppsFileBack = ImageUtils.getFilePathFromGallery(data, this);
+                    ppsFileBack = ImageUtils.getFilePathFromGallery(data);
                     setImageToContractFile(R.id.pps_back_layout_id, ppsFileBack);
                 }
                 break;
             case ConstantsUtils.SELECTED_PICTURE_REQUEST_ID:
                 if (resultCode == Activity.RESULT_OK) {
-                    idFile = ImageUtils.getFilePathFromGallery(data, this);
+                    idFile = ImageUtils.getFilePathFromGallery(data);
                     setImageToContractFile(R.id.id_layout_id, idFile);
                 }
                 break;
             case ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE:
                 if (resultCode == Activity.RESULT_OK) {
-                    marriageCertificateFile = ImageUtils.getFilePathFromGallery(data, this);
+                    marriageCertificateFile = ImageUtils.getFilePathFromGallery(data);
                     setImageToContractFile(R.id.marriage_layout_id, marriageCertificateFile);
                 }
                 break;

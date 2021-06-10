@@ -24,6 +24,7 @@
             android:text="@string/what_do_you_want" />
 
         <RelativeLayout
+            android:id="@+id/contract_id"
             style="@style/MainScreeButton"
             android:layout_above="@+id/payments_id"
             android:layout_marginTop="52dp">

@@ -39,6 +39,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
+            android:name="com.app.tributum.activity.newcontract.NewContractActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
             android:name="com.app.tributum.activity.payments.PaymentsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"

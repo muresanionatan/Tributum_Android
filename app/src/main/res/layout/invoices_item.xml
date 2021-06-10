@@ -12,7 +12,7 @@
         android:id="@+id/plus_id"
         android:layout_width="match_parent"
         android:layout_height="126dp"
-        android:background="@drawable/photo_holder"
+        android:background="@drawable/photo_holder_vat"
         tools:visibility="gone">
 
         <ImageView

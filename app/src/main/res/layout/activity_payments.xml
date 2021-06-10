@@ -132,7 +132,8 @@
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/quicksand_medium"
                         android:text="@string/net_label"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -157,7 +158,8 @@
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/quicksand_medium"
                         android:text="@string/gross_label"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
 

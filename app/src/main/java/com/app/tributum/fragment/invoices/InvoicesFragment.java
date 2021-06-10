@@ -212,7 +212,7 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
                 PICTURE_NUMBER = count;
                 for (int i = 0; i < count; i++) {
                     Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                    adapter.addItemToList(new InvoiceModel(FileUtils.getPath(getActivity(), imageUri)));
+//                    adapter.addItemToList(new InvoiceModel(FileUtils.getPath(getActivity(), imageUri)));
                 }
             } else if (data.getData() != null) {
                 PICTURE_NUMBER++;

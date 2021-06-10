@@ -70,7 +70,6 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesItemViewHolder
         } else if (position < ConstantsUtils.MAXIMUM_PICTURES_IN_ATTACHMENT) {
             photoUploadedView.setVisibility(View.VISIBLE);
             Glide.with(activity).load("file://" + model.getFilePath()).thumbnail(0.5f)
-                    .centerCrop()
                     .transform(new CenterCrop(), new RoundedCorners(resources.getDimensionPixelOffset(R.dimen.global_radius)))
                     .into((ImageView) photoUploadedView.findViewById(R.id.vat_preview_image_id));
             holder.previewImage.setOnClickListener(new View.OnClickListener() {

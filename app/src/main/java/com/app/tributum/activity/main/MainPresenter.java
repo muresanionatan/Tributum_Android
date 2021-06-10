@@ -21,4 +21,6 @@ public interface MainPresenter {
     void onVatClick();
 
     void onPaymentsClick();
+
+    void onContractClick();
 }

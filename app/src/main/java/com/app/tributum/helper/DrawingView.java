@@ -79,6 +79,8 @@ public class DrawingView extends View {
         path.lineTo(mX, mY);
         // commit the path to our offscreen
         canvas.drawPath(path, paint);
+        if (signatureListener != null)
+            signatureListener.onDrawingFinished();
         // kill this so we don't double draw
         path.reset();
     }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_1"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/contract_back_id"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="44dp"
+            android:background="@drawable/white_circle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/invoice_title_id"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:rotation="180"
+                android:src="@drawable/arrow_svg"
+                app:tint="@color/contract_1" />
+        </LinearLayout>
+
+        <com.app.tributum.utils.ui.CustomScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/contract_back_id"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/contract_title_id"
+                    style="@style/TitleText"
+                    android:layout_width="200dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/personal_info_label"
+                    android:textColor="@color/contract_1" />
+
+                <TextView
+                    android:id="@+id/contract_subtitle_id"
+                    style="@style/SubtitleText"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/contract_subtitle" />
+
+                <include
+                    android:id="@+id/personal_info_layout_id"
+                    layout="@layout/personal_info_contract_layout"
+                    tools:visibility="gone" />
+
+                <include
+                    android:id="@+id/employment_info_layout_id"
+                    layout="@layout/employment_info_contract_layout"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/signature_layout_id"
+                    layout="@layout/signature_drawing_layout"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="48dp"
+                    android:background="@color/grey_2" />
+
+                <TextView
+                    android:id="@+id/contract_send_id"
+                    style="@style/SendButton"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:background="@drawable/contract_cta"
+                    android:text="@string/continue_label" />
+            </LinearLayout>
+        </com.app.tributum.utils.ui.CustomScrollView>
+    </RelativeLayout>
+
+    <include
+        layout="@layout/image_preview_layout" />
+
+    <include layout="@layout/file_chooser_layout" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -206,7 +206,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     @Override
     public void getFilesFromGallery(Uri imageUri) {
-        adapter.addItemToList(new InvoiceModel(FileUtils.getPath(this, imageUri)));
+        adapter.addItemToList(new InvoiceModel(FileUtils.getPath(imageUri)));
     }
 
     @Override

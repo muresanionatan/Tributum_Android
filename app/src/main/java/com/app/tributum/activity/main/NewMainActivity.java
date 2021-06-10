@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.tributum.R;
+import com.app.tributum.activity.newcontract.NewContractActivity;
 import com.app.tributum.activity.payments.PaymentsActivity;
 import com.app.tributum.activity.vat.VatActivity;
 import com.app.tributum.application.AppKeysValues;
@@ -70,6 +71,13 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
             }
         });
 
+        findViewById(R.id.contract_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onContractClick();
+            }
+        });
+
         findViewById(R.id.payments_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +101,11 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
                 presenter.onSplashFinished(getIntent());
             }
         }, ConstantsUtils.ONE_SECOND * 2);
+    }
+
+    @Override
+    public void startContractActivity() {
+        startActivity(new Intent(this, NewContractActivity.class));
     }
 
     @Override

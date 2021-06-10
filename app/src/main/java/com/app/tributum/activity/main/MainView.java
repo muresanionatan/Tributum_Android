@@ -20,4 +20,6 @@ public interface MainView {
     void startVatActivity();
 
     void startPaymentsActivity();
+
+    void startContractActivity();
 }

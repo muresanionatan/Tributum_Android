@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/name_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="48dp"
+        android:hint="@string/name_label"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/address_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="20dp"
+        android:hint="@string/address_label" />
+
+    <EditText
+        android:id="@+id/edittext_birthday_id"
+        style="@style/CustomEditText"
+        android:layout_marginTop="20dp"
+        android:hint="@string/date_of_birth"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/occupation_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="20dp"
+        android:hint="@string/occupation_label"
+        android:inputType="textCapWords" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/grey_2" />
+
+    <EditText
+        android:id="@+id/phone_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="20dp"
+        android:hint="@string/phone_number_label"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/email_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="20dp"
+        android:hint="@string/mail_label" />
+
+    <TextView
+        android:id="@+id/payer_id_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="@string/you_receive_copy"
+        android:textColor="@color/grey_3"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/bank_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="20dp"
+        android:hint="@string/iban_label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/add_your_id_label"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <include
+        android:id="@+id/personal_info_id"
+        layout="@layout/invoices_item" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/grey_2" />
+
+    <include layout="@layout/marital_status_layout" />
+</LinearLayout>

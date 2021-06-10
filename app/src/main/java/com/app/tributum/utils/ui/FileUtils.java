@@ -14,6 +14,8 @@ import android.provider.OpenableColumns;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.app.tributum.application.TributumApplication;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -25,10 +27,10 @@ public class FileUtils {
     private FileUtils() {
     }
 
-    public static File createFile(Activity activity, String message, String sFileName) {
+    public static File createFile(String message, String sFileName) {
         File file = null;
         try {
-            File root = new File(activity.getExternalFilesDir(null), "Files");
+            File root = new File(TributumApplication.getInstance().getExternalFilesDir(null), "Files");
             if (!root.exists()) {
                 root.mkdirs();
             }
@@ -45,7 +47,7 @@ public class FileUtils {
     }
 
     @SuppressLint("NewApi")
-    public static String getPath(Context context, final Uri uri) {
+    public static String getPath(final Uri uri) {
         String selection;
         String[] selectionArgs;
         // DocumentProvider
@@ -65,7 +67,7 @@ public class FileUtils {
         // DownloadsProvider
         if (isDownloadsDocument(uri)) {
             final String id;
-            try (Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.MediaColumns.DISPLAY_NAME}, null, null, null)) {
+            try (Cursor cursor = TributumApplication.getInstance().getContentResolver().query(uri, new String[]{MediaStore.MediaColumns.DISPLAY_NAME}, null, null, null)) {
                 if (cursor != null && cursor.moveToFirst()) {
                     String fileName = cursor.getString(0);
                     String path = Environment.getExternalStorageDirectory().toString() + "/Download/" + fileName;
@@ -88,7 +90,7 @@ public class FileUtils {
                         final Uri contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.parseLong(id));
 
 
-                        return getDataColumn(context, contentUri, null, null);
+                        return getDataColumn(TributumApplication.getInstance(), contentUri, null, null);
                     } catch (NumberFormatException e) {
                         //In Android 8 and Android P the id is not a number
                         return uri.getPath().replaceFirst("^/document/raw:", "").replaceFirst("^raw:", "");
@@ -115,16 +117,16 @@ public class FileUtils {
             selection = "_id=?";
             selectionArgs = new String[]{split[1]};
 
-            return getDataColumn(context, contentUri, selection,
+            return getDataColumn(TributumApplication.getInstance(), contentUri, selection,
                     selectionArgs);
         }
 
         if (isGoogleDriveUri(uri)) {
-            return getDriveFilePath(context, uri);
+            return getDriveFilePath(TributumApplication.getInstance(), uri);
         }
 
         if (isWhatsAppFile(uri)) {
-            return getFilePathForWhatsApp(context, uri);
+            return getFilePathForWhatsApp(TributumApplication.getInstance(), uri);
         }
 
         if ("content".equalsIgnoreCase(uri.getScheme())) {
@@ -133,15 +135,15 @@ public class FileUtils {
                 return uri.getLastPathSegment();
             }
             if (isGoogleDriveUri(uri)) {
-                return getDriveFilePath(context, uri);
+                return getDriveFilePath(TributumApplication.getInstance(), uri);
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 
                 // return getFilePathFromURI(context,uri);
-                return copyFileToInternalStorage(context, uri, "userfiles");
+                return copyFileToInternalStorage(TributumApplication.getInstance(), uri, "userfiles");
                 // return getRealPathFromURI(context,uri);
             } else {
-                return getDataColumn(context, uri, null, null);
+                return getDataColumn(TributumApplication.getInstance(), uri, null, null);
             }
 
         }
