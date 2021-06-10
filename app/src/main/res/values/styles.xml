@@ -23,7 +23,7 @@
         <item name="android:maxLines">1</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textCursorDrawable">@drawable/edittext_color_cursor</item>
-        <item name="android:fontFamily">@font/quicksand_medium</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
     </style>
 
     <style name="CtaBlack">
@@ -74,7 +74,7 @@
         <item name="android:layout_marginEnd">24dp</item>
         <item name="android:elevation">8dp</item>
         <item name="android:background">@drawable/vat_send</item>
-        <item name="android:fontFamily">@font/quicksand_bold</item>
+        <item name="android:fontFamily">@font/manrope_bold</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>

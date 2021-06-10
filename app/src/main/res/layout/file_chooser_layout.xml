@@ -37,6 +37,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/add_from_gallery"
+                android:fontFamily="@font/manrope_bold"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -50,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:fontFamily="@font/manrope_bold"
                 android:text="@string/take_photo"
                 android:textColor="@color/black"
                 android:textSize="16sp" />

@@ -22,8 +22,9 @@
         android:id="@+id/request_sent_text_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_centerInParent="true"
+        android:fontFamily="@font/merriweather_bold"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="36sp"
         tools:text="@string/vat_receipts_sent" />
@@ -40,6 +41,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/manrope_bold"
             android:gravity="center"
             android:text="@string/ok_label"
             android:textColor="@color/black"

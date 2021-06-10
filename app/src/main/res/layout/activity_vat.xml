@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="32dp"
-                        android:fontFamily="@font/quicksand_bold"
+                        android:fontFamily="@font/manrope_bold"
                         android:text="@string/receipts_months"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -121,7 +121,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="32dp"
-                        android:fontFamily="@font/quicksand_bold"
+                        android:fontFamily="@font/manrope_bold"
                         android:text="@string/add_receipts"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
