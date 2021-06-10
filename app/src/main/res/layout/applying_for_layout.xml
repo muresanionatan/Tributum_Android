@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
-        android:fontFamily="@font/quicksand_bold"
+        android:fontFamily="@font/manrope_bold"
         android:text="@string/applying_for"
         android:textColor="@color/black"
         android:textSize="16sp" />
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/income_tax_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/corporation_tax_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/value_added_tax_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -108,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/employer_paye_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -133,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/capital_gains_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -158,7 +158,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/relevant_contract_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -183,7 +183,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/environment_levy_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -208,7 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/divided_withholding_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -233,7 +233,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/other_label"
             android:textColor="@color/black"
             android:textSize="16sp" />

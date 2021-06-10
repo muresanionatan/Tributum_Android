@@ -27,6 +27,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/manrope_bold"
             android:gravity="center"
             android:text="@string/done_label"
             android:textColor="@color/black"
@@ -50,6 +51,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/english_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -71,6 +73,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/romanian_label"
             android:textColor="@color/black"
             android:textSize="16sp" />

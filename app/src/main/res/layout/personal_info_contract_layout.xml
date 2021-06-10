@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        android:fontFamily="@font/quicksand_medium"
+        android:fontFamily="@font/manrope_regular"
         android:text="@string/you_receive_copy"
         android:textColor="@color/grey_3"
         android:textSize="16sp" />
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/quicksand_bold"
+        android:fontFamily="@font/manrope_bold"
         android:text="@string/add_your_id_label"
         android:textColor="@color/black"
         android:textSize="16sp" />
