@@ -175,7 +175,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 System.out.println("ContractFragment.onResponse " + response.body());
                 if (response.isSuccessful())
-                    view.showToast(resources.getString(R.string.email_sent));
+                    view.showRequestSentScreen();
                 else
                     view.showToast(resources.getString(R.string.something_went_wrong));
 

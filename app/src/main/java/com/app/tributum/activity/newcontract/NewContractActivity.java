@@ -36,6 +36,7 @@ import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.ui.CustomScrollView;
 import com.app.tributum.utils.ui.LoadingScreen;
+import com.app.tributum.utils.ui.RequestSent;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -85,6 +86,8 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
     private NestedScrollView scrollView;
 
     private LoadingScreen loadingScreen;
+
+    private RequestSent requestSent;
 
     private ContractPresenterImpl presenter;
 
@@ -414,6 +417,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
         setupCheckboxes();
 
         loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.color.contract_1);
+        requestSent = new RequestSent(this, findViewById(android.R.id.content), R.drawable.request_sent_contract, getString(R.string.contract_sent_label));
     }
 
     private void setupCheckboxes() {
@@ -752,6 +756,11 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
     @Override
     public void hideLoadingScreen() {
         loadingScreen.hide();
+    }
+
+    @Override
+    public void showRequestSentScreen() {
+        requestSent.show();
     }
 
     @Override

@@ -39,4 +39,6 @@ public interface VatView {
     void collapseBottomSheet();
 
     void openPhotoChooserIntent();
+
+    void showRequestSentScreen();
 }

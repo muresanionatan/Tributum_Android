@@ -39,6 +39,7 @@ import com.app.tributum.utils.animation.AnimUtils;
 import com.app.tributum.utils.animation.CustomAnimatorListener;
 import com.app.tributum.utils.ui.FileUtils;
 import com.app.tributum.utils.ui.LoadingScreen;
+import com.app.tributum.utils.ui.RequestSent;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -67,6 +68,8 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     private BottomSheetBehavior fileChooser;
 
+    private RequestSent requestSent;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +96,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         endingMonth.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.color.vat_1);
+        requestSent = new RequestSent(this, findViewById(android.R.id.content), R.drawable.request_sent_vat, getString(R.string.vat_receipts_sent));
 
         RecyclerView recyclerView = findViewById(R.id.invoices_recycler_id);
         recyclerView.setHasFixedSize(true);
@@ -192,6 +196,11 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     public void hideLoadingScreen() {
         loadingScreen.hide();
+    }
+
+    @Override
+    public void showRequestSentScreen() {
+        requestSent.show();
     }
 
     @Override

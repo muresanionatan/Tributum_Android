@@ -17,6 +17,7 @@ import com.app.tributum.adapter.PaymentsAdapter;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.ui.LoadingScreen;
+import com.app.tributum.utils.ui.RequestSent;
 
 public class PaymentsActivity extends AppCompatActivity implements PaymentsView {
 
@@ -37,6 +38,8 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
     private EditText monthEditText;
 
     private LoadingScreen loadingScreen;
+
+    private RequestSent requestSent;
 
     private PaymentsPresenterImpl presenter;
 
@@ -116,6 +119,7 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
         });
 
         loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.color.rct);
+        requestSent = new RequestSent(this, findViewById(android.R.id.content), R.drawable.request_sent_rct, getString(R.string.payment_sent_label));
     }
 
     private void setupRecyclerView() {
@@ -168,6 +172,11 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
     @Override
     public void hideLoadingScreen() {
         loadingScreen.hide();
+    }
+
+    @Override
+    public void showRequestSentScreen() {
+        requestSent.show();
     }
 
     @Override

@@ -135,4 +135,6 @@ public interface ContractView {
     void setContractDateText(String s);
 
     void moveContractCursorToEnd();
+
+    void showRequestSentScreen();
 }

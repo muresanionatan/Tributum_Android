@@ -775,7 +775,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     public void onTaskCompleted() {
         if (view != null) {
             view.hideLoadingScreen();
-            view.showToast(resources.getString(R.string.email_sent));
+            view.showRequestSentScreen();
         }
     }
 

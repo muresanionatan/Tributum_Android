@@ -23,4 +23,6 @@ public interface PaymentsView {
     void populateInputsWithValues(String payer, String email, String site, String currentMonth);
 
     void closeActivity();
+
+    void showRequestSentScreen();
 }

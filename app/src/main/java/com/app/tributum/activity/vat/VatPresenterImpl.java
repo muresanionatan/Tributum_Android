@@ -147,10 +147,8 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     public void onTaskCompleted(String name, String email, String startingMonth, String endingMonth) {
         if (vatView == null)
             return;
-        vatView.hideLoadingScreen();
         saveListToPreferences(name, email);
         sendInternalEmail(name, email, startingMonth, endingMonth);
-        vatView.showToast(resources.getString(R.string.pdf_sent));
     }
 
     @Override
@@ -241,10 +239,12 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                if (response.isSuccessful())
-                    vatView.showToast(resources.getString(R.string.email_sent));
-                else
+                if (response.isSuccessful()) {
+                    vatView.hideLoadingScreen();
+                    vatView.showRequestSentScreen();
+                } else {
                     vatView.showToast(resources.getString(R.string.something_went_wrong));
+                }
 
                 vatView.hideLoadingScreen();
             }
