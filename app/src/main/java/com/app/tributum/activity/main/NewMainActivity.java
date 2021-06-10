@@ -114,7 +114,6 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
     @Override
     public void startContractActivity() {
         startActivity(new Intent(this, NewContractActivity.class));
-        overridePendingTransition(R.anim.translate_left, R.anim.translate_right);
     }
 
     @Override
@@ -135,8 +134,8 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showLanguageLayout() {
         View languageLayout = findViewById(R.id.language_id);
-        AnimUtils.getTranslationYAnimator(languageLayout,
-                AnimUtils.DURATION_300,
+        AnimUtils.getTranslationYAnimator(findViewById(R.id.main_layout_id),
+                AnimUtils.DURATION_500,
                 AnimUtils.NO_DELAY,
                 new DecelerateInterpolator(),
                 new CustomAnimatorListener() {
@@ -145,7 +144,7 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
                         languageLayout.setVisibility(View.VISIBLE);
                     }
                 },
-                3000, 0).start();
+                0, 2500).start();
     }
 
     @Override
@@ -177,8 +176,8 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
     @Override
     public void hideLanguageLayout() {
         View languageLayout = findViewById(R.id.language_id);
-        AnimUtils.getTranslationYAnimator(languageLayout,
-                AnimUtils.DURATION_300,
+        AnimUtils.getTranslationYAnimator(findViewById(R.id.main_layout_id),
+                AnimUtils.DURATION_500,
                 AnimUtils.NO_DELAY,
                 new AccelerateInterpolator(),
                 new CustomAnimatorListener() {
@@ -187,7 +186,7 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
                         languageLayout.setVisibility(View.GONE);
                     }
                 },
-                0, 3000).start();
+                0).start();
 
     }
 

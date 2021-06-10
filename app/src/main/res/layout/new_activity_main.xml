@@ -6,8 +6,16 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <include
+        android:id="@+id/language_id"
+        layout="@layout/language_layout"
+        android:visibility="gone" />
+
     <RelativeLayout
+        android:id="@+id/main_layout_id"
         android:layout_width="match_parent"
+        android:background="@color/grey_2"
+        android:clickable="true"
         android:layout_height="match_parent">
 
         <TextView
@@ -113,41 +121,37 @@
                     android:text="@string/send_vat" />
             </LinearLayout>
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/faq_id"
+            android:layout_width="60dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="54sp"
+            android:layout_marginEnd="48dp"
+            android:fontFamily="@font/manrope_bold"
+            android:gravity="center_vertical|end"
+            android:text="@string/faqs_label"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/language_text_id"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="48dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="50dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/manrope_bold"
+            android:text="@string/english_label"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:drawableStartCompat="@drawable/language_svg"
+            app:drawableTint="@color/white" />
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/faq_id"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="64sp"
-        android:layout_marginEnd="48dp"
-        android:fontFamily="@font/manrope_bold"
-        android:gravity="end"
-        android:text="@string/faqs_label"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/language_text_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="64dp"
-        android:drawablePadding="8dp"
-        android:fontFamily="@font/manrope_bold"
-        android:text="@string/english_label"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:drawableStartCompat="@drawable/language_svg"
-        app:drawableTint="@color/white" />
 
     <include
         android:id="@+id/splash_id"
         layout="@layout/splash_layout"
         tools:visibility="gone" />
-
-    <include
-        android:id="@+id/language_id"
-        layout="@layout/language_layout"
-        android:visibility="gone" />
 </RelativeLayout>
