@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/quicksand_bold"
+        android:fontFamily="@font/manrope_bold"
         android:text="@string/payment_to_label"
         android:textColor="@color/black"
         android:textSize="16sp" />
@@ -56,6 +56,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/white_rectangle_corners"
+        android:fontFamily="@font/manrope_bold"
         android:gravity="center"
         android:text="@string/remove_label"
         android:textColor="@color/error"
