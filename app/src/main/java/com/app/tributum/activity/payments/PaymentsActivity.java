@@ -115,7 +115,7 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
             }
         });
 
-        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content));
+        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.color.rct);
     }
 
     private void setupRecyclerView() {

@@ -418,7 +418,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
 
         setupFilesLayout();
 
-        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content));
+        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), 0);
     }
 
     private void showMaritalLayout() {

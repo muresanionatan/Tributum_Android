@@ -3,45 +3,13 @@
     android:id="@+id/loading_screen_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/alpha_white"
+    android:background="@color/alpha_white_90"
     android:clickable="true">
 
-    <ProgressBar
+    <ImageView
         android:id="@+id/loading_animation_id"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_centerInParent="true"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/black"
-        android:indeterminateTintMode="src_atop"
-        android:progress="90" />
-
-    <TextView
-        android:id="@+id/loading_title_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/loading_animation_id"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:text="@string/loading_label"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/loading_subtitle_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/loading_title_id"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="50dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:gravity="center"
-        android:text="@string/this_might_take_a_while"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:visibility="visible" />
+        android:src="@drawable/loading_contract" />
 </RelativeLayout>

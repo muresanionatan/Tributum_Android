@@ -413,7 +413,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
         setupFilesLayout();
         setupCheckboxes();
 
-        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content));
+        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.color.contract_1);
     }
 
     private void setupCheckboxes() {

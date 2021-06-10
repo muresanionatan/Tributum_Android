@@ -116,7 +116,7 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         endingMonth.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         if (getActivity() != null)
-            loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content));
+            loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content), 0);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
 
