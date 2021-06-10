@@ -104,6 +104,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void onCreate() {
+        if (view != null) {
+            view.selectSingle();
+            view.selectText(R.id.self_employed_text_id);
+        }
     }
 
     @Override
@@ -221,6 +225,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (maritalStatus == MaritalStatus.MARRIED)
             view.hideMaritalLayout();
         maritalStatus = MaritalStatus.SINGLE;
+        view.selectSingle();
         view.changeSingleState(true);
         view.changeMarriedState(false);
         view.changeDivorcedState(false);
@@ -232,6 +237,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view == null)
             return;
         maritalStatus = MaritalStatus.MARRIED;
+        view.selectMarriage();
         view.changeSingleState(false);
         view.changeMarriedState(true);
         view.changeDivorcedState(false);
@@ -247,6 +253,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (maritalStatus == MaritalStatus.MARRIED)
             view.hideMaritalLayout();
         maritalStatus = MaritalStatus.DIVORCED;
+        view.selectDivorced();
         view.changeSingleState(false);
         view.changeMarriedState(false);
         view.changeDivorcedState(true);
@@ -261,6 +268,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (maritalStatus == MaritalStatus.MARRIED)
             view.hideMaritalLayout();
         maritalStatus = MaritalStatus.COHABITING;
+        view.selectCohabiting();
         view.changeSingleState(false);
         view.changeMarriedState(false);
         view.changeDivorcedState(false);
@@ -272,11 +280,14 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         isSelf = !isSelf;
         if (isSelf) {
             view.showTaxesView();
+            view.selectText(R.id.self_employed_text_id);
         } else {
+            view.deselectText(R.id.self_employed_text_id);
             view.hideTaxesView();
             if (!isEmployee) {
                 isEmployee = true;
                 view.changeEmployeeState(true);
+                view.selectText(R.id.employee_text_id);
             }
         }
 
@@ -288,10 +299,17 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             isEmployee = !isEmployee;
             view.changeEmployeeState(isEmployee);
-            if (!isEmployee && !isSelf) {
-                isSelf = true;
-                view.showTaxesView();
-                view.changeSelfEmployedState(true);
+            if (!isEmployee) {
+                view.deselectText(R.id.employee_text_id);
+                if (!isSelf) {
+                    isSelf = true;
+                    view.showTaxesView();
+                    view.changeSelfEmployedState(true);
+                    view.selectText(R.id.self_employed_text_id);
+                    view.deselectText(R.id.employee_text_id);
+                }
+            } else {
+                view.selectText(R.id.employee_text_id);
             }
         }
     }
@@ -517,6 +535,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             first = !first;
             view.setFirstCheckboxState(first);
+            if (first)
+                view.selectText(R.id.first_text_id);
+            else
+                view.deselectText(R.id.first_text_id);
         }
     }
 
@@ -525,6 +547,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             second = !second;
             view.setSecondCheckboxState(second);
+            if (second)
+                view.selectText(R.id.second_text_id);
+            else
+                view.deselectText(R.id.second_text_id);
         }
     }
 
@@ -533,6 +559,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             third = !third;
             view.setThirdCheckboxState(third);
+            if (third)
+                view.selectText(R.id.third_text_id);
+            else
+                view.deselectText(R.id.third_text_id);
         }
     }
 
@@ -541,6 +571,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             fourth = !fourth;
             view.setFourthCheckboxState(fourth);
+            if (fourth)
+                view.selectText(R.id.fourth_text_id);
+            else
+                view.deselectText(R.id.fourth_text_id);
         }
     }
 
@@ -549,6 +583,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             fifth = !fifth;
             view.setFifthCheckboxState(fifth);
+            if (fifth)
+                view.selectText(R.id.fifth_text_id);
+            else
+                view.deselectText(R.id.fifth_text_id);
         }
     }
 
@@ -557,6 +595,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             sixth = !sixth;
             view.setSixthCheckboxState(sixth);
+            if (sixth)
+                view.selectText(R.id.sixth_text_id);
+            else
+                view.deselectText(R.id.sixth_text_id);
         }
     }
 
@@ -565,6 +607,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             seventh = !seventh;
             view.setSeventhCheckboxState(seventh);
+            if (seventh)
+                view.selectText(R.id.seventh_text_id);
+            else
+                view.deselectText(R.id.seventh_text_id);
         }
     }
 
@@ -573,6 +619,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             eight = !eight;
             view.setEightCheckboxState(eight);
+            if (eight)
+                view.selectText(R.id.eight_text_id);
+            else
+                view.deselectText(R.id.eight_text_id);
         }
     }
 
@@ -585,6 +635,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 view.hideOther();
             ninth = !ninth;
             view.setNinthCheckboxState(ninth);
+            if (ninth)
+                view.selectText(R.id.ninth_text_id);
+            else
+                view.deselectText(R.id.ninth_text_id);
         }
     }
 

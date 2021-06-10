@@ -37,6 +37,7 @@ import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.ui.CustomScrollView;
 import com.app.tributum.utils.ui.LoadingScreen;
 import com.app.tributum.utils.ui.RequestSent;
+import com.app.tributum.utils.ui.UiUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -969,6 +970,48 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
     @Override
     public Bitmap getSignatureFile() {
         return parentView.getDrawingCache();
+    }
+
+    @Override
+    public void selectSingle() {
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.single_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.married_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.divorced_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.cohabiting_text_id));
+    }
+
+    @Override
+    public void selectMarriage() {
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.single_text_id));
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.married_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.divorced_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.cohabiting_text_id));
+    }
+
+    @Override
+    public void selectDivorced() {
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.single_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.married_text_id));
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.divorced_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.cohabiting_text_id));
+    }
+
+    @Override
+    public void selectCohabiting() {
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.single_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.married_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.divorced_text_id));
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.cohabiting_text_id));
+    }
+
+    @Override
+    public void selectText(int textId) {
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(textId));
+    }
+
+    @Override
+    public void deselectText(int textId) {
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(textId));
     }
 
     @Override

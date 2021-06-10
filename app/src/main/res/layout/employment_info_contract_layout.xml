@@ -35,6 +35,7 @@
             android:checked="true" />
 
         <TextView
+            android:id="@+id/self_employed_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -60,6 +61,7 @@
             android:checked="false" />
 
         <TextView
+            android:id="@+id/employee_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

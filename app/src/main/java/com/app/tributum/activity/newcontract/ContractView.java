@@ -137,4 +137,16 @@ public interface ContractView {
     void moveContractCursorToEnd();
 
     void showRequestSentScreen();
+
+    void selectSingle();
+
+    void selectMarriage();
+
+    void selectDivorced();
+
+    void selectCohabiting();
+
+    void selectText(int textId);
+
+    void deselectText(int textId);
 }

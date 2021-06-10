@@ -1,14 +1,17 @@
 package com.app.tributum.activity.payments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +21,7 @@ import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.ui.LoadingScreen;
 import com.app.tributum.utils.ui.RequestSent;
+import com.app.tributum.utils.ui.UiUtils;
 
 public class PaymentsActivity extends AppCompatActivity implements PaymentsView {
 
@@ -142,12 +146,16 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
 
     @Override
     public void setNetViews() {
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.net_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.gross_text_id));
         netCheckbox.setChecked(true);
         grossCheckbox.setChecked(false);
     }
 
     @Override
     public void setGrossViews() {
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.net_text_id));
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.gross_text_id));
         netCheckbox.setChecked(false);
         grossCheckbox.setChecked(true);
     }

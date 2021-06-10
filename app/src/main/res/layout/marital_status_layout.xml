@@ -31,6 +31,7 @@
             android:checked="true" />
 
         <TextView
+            android:id="@+id/single_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -56,6 +57,7 @@
             android:checked="false" />
 
         <TextView
+            android:id="@+id/married_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -81,6 +83,7 @@
             android:checked="false" />
 
         <TextView
+            android:id="@+id/divorced_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -106,6 +109,7 @@
             android:checked="false" />
 
         <TextView
+            android:id="@+id/cohabiting_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
