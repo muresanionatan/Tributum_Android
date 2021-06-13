@@ -56,9 +56,9 @@ public interface ContractView {
 
     void hidePersonalInfoLayout();
 
-    void showEmploymentInfoLayout();
+    void showEmploymentInfoLayoutFromRight();
 
-    void hideEmploymentInfoLayout();
+    void hideEmploymentInfoLayoutToRight();
 
     void showSignatureLayout();
 
@@ -149,4 +149,8 @@ public interface ContractView {
     void selectText(int textId);
 
     void deselectText(int textId);
+
+    void showEmploymentInfoLayoutFromLeft();
+
+    void hideEmploymentInfoLayoutToLeft();
 }

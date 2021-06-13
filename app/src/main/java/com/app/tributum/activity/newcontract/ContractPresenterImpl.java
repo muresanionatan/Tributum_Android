@@ -345,10 +345,11 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             } else if (s.length() == 3) {
                 String birthday = String.valueOf(s);
                 if (!birthday.endsWith("/")) {
+                    String string = birthday.substring(0, birthday.length() - 1) + "/" + birthday.substring(birthday.length() - 1);
                     if (isBirthday)
-                        view.setBirthdayText(birthday.substring(0, birthday.length() - 1) + "/" + birthday.substring(birthday.length() - 1));
+                        view.setBirthdayText(string);
                     else
-                        view.setContractDateText(birthday.substring(0, birthday.length() - 1) + "/" + birthday.substring(birthday.length() - 1));
+                        view.setContractDateText(string);
                 }
                 if (isBirthday)
                     view.moveBirthdayCursorToEnd();
@@ -359,10 +360,11 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 try {
                     month = Integer.parseInt(s.toString().substring(s.toString().length() - 1));
                     if (month > 1) {
+                        String string = s.toString().substring(0, 3) + "0" + month + "/";
                         if (isBirthday)
-                            view.setBirthdayText(s.toString().substring(0, 3) + "0" + month + "/");
+                            view.setBirthdayText(string);
                         else
-                            view.setContractDateText(s.toString().substring(0, 3) + "0" + month + "/");
+                            view.setContractDateText(string);
                     }
                 } catch (NumberFormatException e) {
                     int currentMonth = java.util.Calendar.getInstance().get(Calendar.MONTH) + 1;
@@ -370,10 +372,11 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                     if (currentMonth < 10) {
                         monthString = "0" + monthString;
                     }
+                    String string = s.toString().substring(0, 3) + monthString + "/";
                     if (isBirthday)
-                        view.setBirthdayText(s.toString().substring(0, 3) + monthString + "/");
+                        view.setBirthdayText(string);
                     else
-                        view.setContractDateText(s.toString().substring(0, 3) + monthString + "/");
+                        view.setContractDateText(string);
                 }
                 if (isBirthday)
                     view.moveBirthdayCursorToEnd();
@@ -408,10 +411,11 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                         if (currentMonth < 10) {
                             month = "0" + month;
                         }
+                        String string1 = s.toString().substring(0, 3) + month + "/";
                         if (isBirthday)
-                            view.setBirthdayText(s.toString().substring(0, 3) + month + "/");
+                            view.setBirthdayText(string1);
                         else
-                            view.setContractDateText(s.toString().substring(0, 3) + month + "/");
+                            view.setContractDateText(string1);
                     }
                 }
                 if (isBirthday)
@@ -421,10 +425,11 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             } else if (s.length() == 6) {
                 String birthday = String.valueOf(s);
                 if (!birthday.endsWith("/")) {
+                    String string = birthday.substring(0, birthday.length() - 1) + "/" + birthday.substring(birthday.length() - 1);
                     if (isBirthday)
-                        view.setBirthdayText(birthday.substring(0, birthday.length() - 1) + "/" + birthday.substring(birthday.length() - 1));
+                        view.setBirthdayText(string);
                     else
-                        view.setContractDateText(birthday.substring(0, birthday.length() - 1) + "/" + birthday.substring(birthday.length() - 1));
+                        view.setContractDateText(string);
                 }
                 if (isBirthday)
                     view.moveBirthdayCursorToEnd();
@@ -443,10 +448,11 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                             view.setContractDateText(firstString.substring(0, 6) + currentYear);
                     }
                 } catch (NumberFormatException nfe) {
+                    String string1 = s.toString().substring(0, 6) + currentYear;
                     if (isBirthday)
-                        view.setBirthdayText(s.toString().substring(0, 6) + currentYear);
+                        view.setBirthdayText(string1);
                     else
-                        view.setContractDateText(s.toString().substring(0, 6) + currentYear);
+                        view.setContractDateText(string1);
                 }
                 if (isBirthday)
                     view.moveBirthdayCursorToEnd();
@@ -493,7 +499,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     private void moveToEmploymentScreen() {
         state = ProgressState.EMPLOYMENT;
         view.hidePersonalInfoLayout();
-        view.showEmploymentInfoLayout();
+        view.showEmploymentInfoLayoutFromRight();
         view.setTitle(resources.getString(R.string.employment_info_label));
         view.setSubtitle(resources.getString(R.string.contract_subtitle));
         view.setConfirmationButtonText(resources.getString(R.string.continue_label));
@@ -501,7 +507,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     private void moveToSignatureScreen() {
         state = ProgressState.SIGNATURE;
-        view.hideEmploymentInfoLayout();
+        view.hideEmploymentInfoLayoutToLeft();
         view.showSignatureLayout();
         view.setTitle(resources.getString(R.string.almost_done));
         view.setSubtitle(resources.getString(R.string.add_your_signature_below));
@@ -522,14 +528,14 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         } else if (state == ProgressState.SIGNATURE) {
             state = ProgressState.EMPLOYMENT;
             view.hideSignatureLayout();
-            view.showEmploymentInfoLayout();
+            view.showEmploymentInfoLayoutFromLeft();
             view.setTitle(resources.getString(R.string.employment_info_label));
             view.setConfirmationButtonText(resources.getString(R.string.continue_label));
             view.setSubtitle(resources.getString(R.string.contract_subtitle));
             view.setSendEnabled();
         } else if (state == ProgressState.EMPLOYMENT) {
             state = ProgressState.PERSONAL;
-            view.hideEmploymentInfoLayout();
+            view.hideEmploymentInfoLayoutToRight();
             view.showPersonalInfoLayout();
             view.setTitle(resources.getString(R.string.personal_info_label));
             view.setSendEnabled();

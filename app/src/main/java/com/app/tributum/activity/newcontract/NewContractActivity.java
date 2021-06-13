@@ -12,12 +12,12 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -709,38 +709,127 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
 
     @Override
     public void showPersonalInfoLayout() {
-        scrollView.fullScroll(ScrollView.FOCUS_UP);
-        findViewById(R.id.personal_info_layout_id).setVisibility(View.VISIBLE);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.personal_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        findViewById(R.id.personal_info_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                0).start();
     }
 
     @Override
     public void hidePersonalInfoLayout() {
-        findViewById(R.id.personal_info_layout_id).setVisibility(View.GONE);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.personal_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.personal_info_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                0, -UiUtils.getScreenWidth()).start();
     }
 
     @Override
-    public void showEmploymentInfoLayout() {
-        scrollView.fullScroll(ScrollView.FOCUS_UP);
-        findViewById(R.id.employment_info_layout_id).setVisibility(View.VISIBLE);
+    public void showEmploymentInfoLayoutFromRight() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.employment_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        scrollView.scrollTo(0,0);
+                        findViewById(R.id.employment_info_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                UiUtils.getScreenWidth(), 0).start();
         checkPersonalInfo();
     }
 
     @Override
-    public void hideEmploymentInfoLayout() {
-        findViewById(R.id.employment_info_layout_id).setVisibility(View.GONE);
+    public void showEmploymentInfoLayoutFromLeft() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.employment_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        findViewById(R.id.employment_info_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                0).start();
+    }
+
+    @Override
+    public void hideEmploymentInfoLayoutToRight() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.employment_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.employment_info_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                UiUtils.getScreenWidth()).start();
+    }
+
+    @Override
+    public void hideEmploymentInfoLayoutToLeft() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.employment_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd  (Animator animation) {
+                        findViewById(R.id.employment_info_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                -UiUtils.getScreenWidth()).start();
     }
 
     @Override
     public void showSignatureLayout() {
         ((CustomScrollView) scrollView).setScrollingEnabled(false);
-        scrollView.fullScroll(ScrollView.FOCUS_UP);
-        findViewById(R.id.signature_layout_id).setVisibility(View.VISIBLE);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.signature_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        scrollView.scrollTo(0,0);
+                        findViewById(R.id.signature_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                UiUtils.getScreenWidth(), 0).start();
     }
 
     @Override
     public void hideSignatureLayout() {
         ((CustomScrollView) scrollView).setScrollingEnabled(true);
-        findViewById(R.id.signature_layout_id).setVisibility(View.GONE);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.signature_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.signature_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                UiUtils.getScreenWidth()).start();
     }
 
     @Override

@@ -58,21 +58,26 @@
                     android:layout_marginStart="8dp"
                     android:text="@string/contract_subtitle" />
 
-                <include
-                    android:id="@+id/personal_info_layout_id"
-                    layout="@layout/personal_info_contract_layout"
-                    tools:visibility="gone" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                <include
-                    android:id="@+id/employment_info_layout_id"
-                    layout="@layout/employment_info_contract_layout"
-                    android:visibility="gone" />
+                    <include
+                        android:id="@+id/personal_info_layout_id"
+                        layout="@layout/personal_info_contract_layout"
+                        tools:visibility="gone" />
 
-                <include
-                    android:id="@+id/signature_layout_id"
-                    layout="@layout/signature_drawing_layout"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
+                    <include
+                        android:id="@+id/employment_info_layout_id"
+                        layout="@layout/employment_info_contract_layout"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/signature_layout_id"
+                        layout="@layout/signature_drawing_layout"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+                </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
