@@ -29,9 +29,7 @@
 
         <CheckBox
             android:id="@+id/self_employed_id"
-            style="@style/CheckBox"
-            android:layout_marginStart="20dp"
-            android:buttonTint="@color/contract_1"
+            style="@style/ContractCheckBox"
             android:checked="true" />
 
         <TextView
@@ -55,10 +53,7 @@
 
         <CheckBox
             android:id="@+id/employee_id"
-            style="@style/CheckBox"
-            android:layout_marginStart="20dp"
-            android:buttonTint="@color/contract_1"
-            android:checked="false" />
+            style="@style/ContractCheckBox" />
 
         <TextView
             android:id="@+id/employee_text_id"

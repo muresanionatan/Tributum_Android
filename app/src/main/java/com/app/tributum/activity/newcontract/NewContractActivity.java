@@ -370,6 +370,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
             }
         });
 
+        setImageHolderColor(R.id.pps_front_image_holder_id);
         findViewById(R.id.pps_front_image_holder_id).findViewById(R.id.plus_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -392,6 +393,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
             }
         });
 
+        setImageHolderColor(R.id.pps_back_image_holder_id);
         findViewById(R.id.pps_back_image_holder_id).findViewById(R.id.plus_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -413,6 +415,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
             }
         });
 
+        setImageHolderColor(R.id.personal_info_id);
         findViewById(R.id.personal_info_id).findViewById(R.id.plus_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -460,8 +463,16 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
         setupFilesLayout();
         setupCheckboxes();
 
-        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.color.contract_1);
+        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.drawable.ic_icon_loader_contract);
         requestSent = new RequestSent(this, findViewById(android.R.id.content), R.drawable.request_sent_contract, getString(R.string.contract_sent_label));
+    }
+
+    private void setImageHolderColor(int viewId) {
+        ((ImageView) findViewById(viewId).findViewById(R.id.contract_plus_id)).setImageResource(R.drawable.ic_btn_add_photo_contract);
+        ((ImageView) findViewById(viewId).findViewById(R.id.preview_thumbnail_id)).setImageResource(R.drawable.ic_btn_view_photo_contract);
+        ((ImageView) findViewById(viewId).findViewById(R.id.remove__thumbnail_photo_id)).setImageResource(R.drawable.ic_btn_remove_photo_contract);
+        findViewById(viewId).findViewById(R.id.photo_holder_divider_id)
+                .setBackgroundColor(ContextCompat.getColor(this, R.color.contract_1));
     }
 
     private void setupCheckboxes() {

@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
-import androidx.core.content.ContextCompat;
-
 import com.app.tributum.R;
-import com.app.tributum.application.TributumApplication;
 import com.app.tributum.utils.animation.AnimUtils;
 import com.app.tributum.utils.animation.CustomAnimatorListener;
 
@@ -27,12 +24,12 @@ public class LoadingScreen {
 
     private ImageView imageView;
 
-    private int colorId;
+    private int imageId;
 
-    public LoadingScreen(Activity activity, ViewGroup viewGroup, int colorId) {
+    public LoadingScreen(Activity activity, ViewGroup viewGroup, int imageId) {
         this.activity = activity;
         this.viewGroup = viewGroup;
-        this.colorId = colorId;
+        this.imageId = imageId;
     }
 
     @SuppressLint("ResourceType")
@@ -40,7 +37,7 @@ public class LoadingScreen {
         inflatedView = LayoutInflater.from(activity).inflate(R.layout.loading_screen, null);
         viewGroup.addView(inflatedView);
         imageView = inflatedView.findViewById(R.id.loading_animation_id);
-        imageView.setColorFilter(ContextCompat.getColor(TributumApplication.getInstance(), colorId));
+        imageView.setImageResource(imageId);
         animate();
     }
 

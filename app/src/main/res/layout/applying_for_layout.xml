@@ -24,10 +24,7 @@
 
         <CheckBox
             android:id="@+id/first"
-            style="@style/CheckBox"
-            android:layout_marginStart="20dp"
-            android:buttonTint="@color/contract_1"
-            android:checked="false" />
+            style="@style/ContractCheckBox" />
 
         <TextView
             android:id="@+id/first_text_id"
@@ -50,10 +47,7 @@
 
         <CheckBox
             android:id="@+id/second"
-            style="@style/CheckBox"
-            android:layout_marginStart="20dp"
-            android:buttonTint="@color/contract_1"
-            android:checked="false" />
+            style="@style/ContractCheckBox" />
 
         <TextView
             android:id="@+id/second_text_id"
@@ -76,10 +70,7 @@
 
         <CheckBox
             android:id="@+id/third"
-            style="@style/CheckBox"
-            android:layout_marginStart="20dp"
-            android:buttonTint="@color/contract_1"
-            android:checked="false" />
+            style="@style/ContractCheckBox" />
 
         <TextView
             android:id="@+id/third_text_id"
@@ -102,10 +93,7 @@
 
         <CheckBox
             android:id="@+id/fourth"
-            style="@style/CheckBox"
-            android:layout_marginStart="20dp"
-            android:buttonTint="@color/contract_1"
-            android:checked="false" />
+            style="@style/ContractCheckBox" />
 
         <TextView
             android:id="@+id/fourth_text_id"
@@ -128,10 +116,7 @@
 
         <CheckBox
             android:id="@+id/fifth"
-            style="@style/CheckBox"
-            android:layout_marginStart="20dp"
-            android:buttonTint="@color/contract_1"
-            android:checked="false" />
+            style="@style/ContractCheckBox" />
 
         <TextView
             android:id="@+id/fifth_text_id"
@@ -154,10 +139,7 @@
 
         <CheckBox
             android:id="@+id/sixth"
-            style="@style/CheckBox"
-            android:layout_marginStart="20dp"
-            android:buttonTint="@color/contract_1"
-            android:checked="false" />
+            style="@style/ContractCheckBox" />
 
         <TextView
             android:id="@+id/sixth_text_id"
@@ -180,10 +162,7 @@
 
         <CheckBox
             android:id="@+id/seventh"
-            style="@style/CheckBox"
-            android:layout_marginStart="20dp"
-            android:buttonTint="@color/contract_1"
-            android:checked="false" />
+            style="@style/ContractCheckBox" />
 
         <TextView
             android:id="@+id/seventh_text_id"
@@ -206,10 +185,7 @@
 
         <CheckBox
             android:id="@+id/eight"
-            style="@style/CheckBox"
-            android:layout_marginStart="20dp"
-            android:buttonTint="@color/contract_1"
-            android:checked="false" />
+            style="@style/ContractCheckBox" />
 
         <TextView
             android:id="@+id/eight_text_id"
@@ -232,10 +208,7 @@
 
         <CheckBox
             android:id="@+id/ninth"
-            style="@style/CheckBox"
-            android:layout_marginStart="20dp"
-            android:buttonTint="@color/contract_1"
-            android:checked="false" />
+            style="@style/ContractCheckBox"/>
 
         <TextView
             android:id="@+id/ninth_text_id"

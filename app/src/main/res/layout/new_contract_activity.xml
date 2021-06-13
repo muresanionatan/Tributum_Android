@@ -25,7 +25,8 @@
                 android:id="@+id/invoice_title_id"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/arrow_svg"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_icon_back"
                 app:tint="@color/contract_1" />
         </LinearLayout>
 

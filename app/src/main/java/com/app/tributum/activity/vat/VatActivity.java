@@ -95,7 +95,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         startingMonth.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         endingMonth.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.color.vat_1);
+        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.drawable.ic_icon_loader_vat);
         requestSent = new RequestSent(this, findViewById(android.R.id.content), R.drawable.request_sent_vat, getString(R.string.vat_receipts_sent));
 
         RecyclerView recyclerView = findViewById(R.id.invoices_recycler_id);

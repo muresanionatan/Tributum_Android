@@ -22,7 +22,8 @@
             android:id="@+id/invoice_title_id"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:src="@drawable/arrow_svg"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_icon_back"
             app:tint="@color/rct" />
     </LinearLayout>
 
@@ -124,7 +125,7 @@
                         android:id="@+id/net_checkbox"
                         style="@style/CheckBox"
                         android:layout_marginStart="14dp"
-                        android:buttonTint="@color/rct"
+                        android:button="@drawable/payment_selector"
                         android:checked="true" />
 
                     <TextView
@@ -151,7 +152,7 @@
                         android:id="@+id/gross_checkbox"
                         style="@style/CheckBox"
                         android:layout_marginStart="20dp"
-                        android:buttonTint="@color/rct"
+                        android:button="@drawable/payment_selector"
                         android:checked="false" />
 
                     <TextView
@@ -189,8 +190,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
                     android:fontFamily="@font/manrope_bold"
+                    android:gravity="center"
                     android:text="@string/add_new_label"
                     android:textColor="@color/black"
                     android:textSize="16sp" />

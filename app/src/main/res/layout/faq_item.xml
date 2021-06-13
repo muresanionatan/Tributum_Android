@@ -34,10 +34,12 @@
                 android:id="@+id/expand_arrow_id"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:scaleType="centerInside"
+                android:rotation="270"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/expand_svg" />
+                android:src="@drawable/ic_icon_back" />
         </RelativeLayout>
 
         <TextView

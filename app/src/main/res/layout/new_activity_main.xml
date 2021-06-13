@@ -160,7 +160,7 @@
             android:text="@string/english_label"
             android:textColor="@color/white"
             android:textSize="15sp"
-            app:drawableStartCompat="@drawable/language_svg"
+            app:drawableStartCompat="@drawable/ic_icon_language"
             app:drawableTint="@color/white" />
     </RelativeLayout>
 

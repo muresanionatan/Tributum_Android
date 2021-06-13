@@ -16,10 +16,11 @@
         tools:visibility="gone">
 
         <ImageView
+            android:id="@+id/contract_plus_id"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/camera_svg" />
+            android:src="@drawable/ic_btn_add_photo_vat" />
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView
@@ -50,9 +51,10 @@
                 android:layout_height="56dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="48dp"
-                android:src="@drawable/contract" />
+                android:src="@drawable/ic_btn_view_photo_vat" />
 
             <View
+                android:id="@+id/photo_holder_divider_id"
                 android:layout_width="2dp"
                 android:layout_height="64dp"
                 android:layout_centerInParent="true"
@@ -65,7 +67,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="48dp"
-                android:src="@drawable/language_svg" />
+                android:src="@drawable/ic_btn_remove_photo_vat" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

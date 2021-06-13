@@ -25,8 +25,9 @@
             <ImageView
                 android:id="@+id/invoice_title_id"
                 android:layout_width="36dp"
+                android:scaleType="centerInside"
                 android:layout_height="36dp"
-                android:src="@drawable/arrow_svg"
+                android:src="@drawable/ic_icon_back"
                 app:tint="@color/vat_1" />
         </LinearLayout>
 

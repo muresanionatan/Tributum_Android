@@ -72,7 +72,7 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqItemViewHolde
                 AnimUtils.NO_DELAY,
                 new DecelerateInterpolator(),
                 null,
-                180).start();
+                90).start();
     }
 
     public void collapseItem(FaqItemViewHolder holder) {
@@ -82,7 +82,7 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqItemViewHolde
                 AnimUtils.NO_DELAY,
                 new DecelerateInterpolator(),
                 null,
-                0).start();
+                270).start();
     }
 
     class FaqItemViewHolder extends RecyclerView.ViewHolder {
