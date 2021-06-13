@@ -103,6 +103,7 @@
     <string name="this_might_take_a_while">This might take a while depending on your internet connection. Please do not close the app.</string>
     <string name="welcome_tributum_label">Welcome to Tributum!</string>
     <string name="please_enter_birthday_format">Please enter birthday like DD/MM/YYYY</string>
+    <string name="please_enter_contract_format">Please enter contract date like DD/MM/YYYY</string>
     <string name="iban_label">Bank IBAN</string>
     <string name="have_kids_label">Do you have any children?</string>
     <string name="number_kids">Nr of children</string>
@@ -146,4 +147,5 @@
     <string name="contract_sent_label">Contract\nSent</string>
     <string name="frequently_label">Frequently\nAsked\nQuestions</string>
     <string name="faq_subtitle">Everything You Need to Know</string>
+    <string name="add_all_info_to_continue">Please complete all fields in order to continue</string>
 </resources>

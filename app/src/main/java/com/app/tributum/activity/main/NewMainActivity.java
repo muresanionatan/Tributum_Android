@@ -156,21 +156,25 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
     @Override
     public void checkEnglishBox() {
         ((CheckBox) findViewById(R.id.english_check_id)).setChecked(true);
+        findViewById(R.id.english_id).setBackgroundResource(R.drawable.white_rectangle_corners);
     }
 
     @Override
     public void checkRomanianBox() {
         ((CheckBox) findViewById(R.id.romanian_check_id)).setChecked(true);
+        findViewById(R.id.romanian_id).setBackgroundResource(R.drawable.white_rectangle_corners);
     }
 
     @Override
     public void unCheckEnglishBox() {
         ((CheckBox) findViewById(R.id.english_check_id)).setChecked(false);
+        findViewById(R.id.english_id).setBackgroundResource(R.drawable.grey_rectangle_corners);
     }
 
     @Override
     public void unCheckRomanianBox() {
         ((CheckBox) findViewById(R.id.romanian_check_id)).setChecked(false);
+        findViewById(R.id.romanian_id).setBackgroundResource(R.drawable.grey_rectangle_corners);
     }
 
     @Override
@@ -179,7 +183,7 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
         AnimUtils.getTranslationYAnimator(findViewById(R.id.main_layout_id),
                 AnimUtils.DURATION_500,
                 AnimUtils.NO_DELAY,
-                new AccelerateInterpolator(),
+                new DecelerateInterpolator(),
                 new CustomAnimatorListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {

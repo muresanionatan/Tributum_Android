@@ -24,6 +24,7 @@ import com.app.tributum.retrofit.RetrofitClientInstance;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.UploadAsyncTask;
+import com.app.tributum.utils.ValidationUtils;
 import com.app.tributum.utils.ui.FileUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -107,14 +108,34 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             view.selectSingle();
             view.selectText(R.id.self_employed_text_id);
+            view.setSendDisabled();
         }
     }
 
     @Override
-    public void onFormStarted(String name) {
+    public void onFormStarted(String name, String address, String birthday, String occupation, String phone,
+                              String email, String bankAccount) {
         if (!name.equals("")
                 && !TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
             TributumAppHelper.saveSetting(AppKeysValues.CONTRACT_FORM_STARTED, AppKeysValues.TRUE);
+        }
+        if (view != null)
+            validateContinueButton(name, address, birthday, occupation, phone, email, bankAccount);
+    }
+
+    private void validateContinueButton(String name, String address, String birthday, String occupation, String phone, String email, String bankAccount) {
+        if (arePersonalInfoAdded(name, address, birthday, occupation, phone, email, bankAccount)) {
+            view.setSendEnabled();
+        } else {
+            view.setSendDisabled();
+        }
+    }
+
+    private void validateEmployeeButton(String pps, String contractDate) {
+        if (areEmploymentInfoAdded(pps, contractDate)) {
+            view.setSendEnabled();
+        } else {
+            view.setSendDisabled();
         }
     }
 
@@ -215,6 +236,15 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 view.moveContractCursorToEnd();
             }
         }
+    }
+
+    @Override
+    public void checkPersonalValidation(String name, String address, String birthday, String occupation, String phone, String email, String bankAccount,
+                                        String pps, String contractDate) {
+        if (state == ProgressState.PERSONAL)
+            validateContinueButton(name, address, birthday, occupation, phone, email, bankAccount);
+        else if (state == ProgressState.EMPLOYMENT)
+            validateEmployeeButton(pps, contractDate);
     }
 
     @Override
@@ -331,29 +361,97 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     @Override
-    public void handleSendButtonClick(String name, String address, String pps, String email, String contractDate, String birthday, String occupation, String otherText,
-                                      String phone, String bankAccount, String noOfKids) {
+    public void handleSendButtonClick(String name, String address, String birthday, String occupation, String phone, String email, String bankAccount,
+                                      String pps, String contractDate, String noOfKids, String otherText) {
         if (view == null)
             return;
 
         if (state == ProgressState.PERSONAL) {
-            state = ProgressState.EMPLOYMENT;
-            view.hidePersonalInfoLayout();
-            view.showEmploymentInfoLayout();
-            view.setTitle(resources.getString(R.string.employment_info_label));
-            view.setConfirmationButtonText(resources.getString(R.string.continue_label));
+            if (arePersonalInfoAdded(name, address, email, birthday, occupation, phone, bankAccount)) {
+                if (!ValidationUtils.isEmailValid(email)) {
+                    view.showToast(resources.getString(R.string.please_enter_correct_email));
+                } else if (birthday.length() < 10) {
+                    view.showToast(resources.getString(R.string.please_enter_birthday_format));
+                } else if (bankAccount.length() < 34) {
+                    view.showToast(resources.getString(R.string.please_add_bank));
+                } else {
+                    moveToEmploymentScreen();
+                }
+            } else {
+                view.showToast(resources.getString(R.string.add_all_info));
+            }
         } else if (state == ProgressState.EMPLOYMENT) {
-            state = ProgressState.SIGNATURE;
-            view.hideEmploymentInfoLayout();
-            view.showSignatureLayout();
-            view.setTitle(resources.getString(R.string.almost_done));
-            view.setSubtitle(resources.getString(R.string.add_your_signature_below));
-            view.setConfirmationButtonText(resources.getString(R.string.sign_send));
-            view.setSendDisabled();
+            if (areEmploymentInfoAdded(pps, contractDate)) {
+                if (!ValidationUtils.isPpsValid(pps)) {
+                    view.showToast(resources.getString(R.string.please_enter_pps));
+                } else if (contractDate.length() < 10) {
+                    view.showToast(resources.getString(R.string.please_enter_contract_format));
+                } else {
+                    moveToSignatureScreen();
+                }
+            } else {
+                view.showToast(resources.getString(R.string.add_all_info_to_continue));
+            }
         } else if (state == ProgressState.SIGNATURE) {
             if (signatureFile != null)
                 sendInfo(name, address, pps, email, contractDate, birthday, occupation, otherText, phone, bankAccount, noOfKids);
         }
+    }
+
+    private boolean arePersonalInfoAdded(String name, String address, String email, String birthday, String occupation,
+                                         String phone, String bankAccount) {
+        if (!name.equals("")
+                && !address.equals("")
+                && !birthday.equals("")
+                && !occupation.equals("")
+                && !phone.equals("")
+                && !email.equals("")
+                && !bankAccount.equals("")
+                && idFile != null) {
+            if (maritalStatus == MaritalStatus.MARRIED) {
+                return marriageCertificateFile != null;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private boolean areEmploymentInfoAdded(String pps, String contractDate) {
+        if (!pps.equals("")
+                && !contractDate.equals("")
+                && ppsFileFront != null) {
+            if (isSelf) {
+                return first || second || third || fourth || fifth || sixth || seventh || eight || ninth;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private void moveToEmploymentScreen() {
+        state = ProgressState.EMPLOYMENT;
+        view.hidePersonalInfoLayout();
+        view.showEmploymentInfoLayout();
+        view.setTitle(resources.getString(R.string.employment_info_label));
+        view.setSubtitle(resources.getString(R.string.contract_subtitle));
+        view.setConfirmationButtonText(resources.getString(R.string.continue_label));
+    }
+
+    private void moveToSignatureScreen() {
+        state = ProgressState.SIGNATURE;
+        view.hideEmploymentInfoLayout();
+        view.showSignatureLayout();
+        view.setTitle(resources.getString(R.string.almost_done));
+        view.setSubtitle(resources.getString(R.string.add_your_signature_below));
+        view.setConfirmationButtonText(resources.getString(R.string.sign_send));
+        if (signatureFile == null)
+            view.setSendDisabled();
+        else
+            view.setSendEnabled();
     }
 
     @Override
@@ -369,18 +467,16 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             view.showEmploymentInfoLayout();
             view.setTitle(resources.getString(R.string.employment_info_label));
             view.setConfirmationButtonText(resources.getString(R.string.continue_label));
+            view.setSubtitle(resources.getString(R.string.contract_subtitle));
             view.setSendEnabled();
         } else if (state == ProgressState.EMPLOYMENT) {
             state = ProgressState.PERSONAL;
             view.hideEmploymentInfoLayout();
             view.showPersonalInfoLayout();
             view.setTitle(resources.getString(R.string.personal_info_label));
+            view.setSendEnabled();
         } else if (state == ProgressState.PERSONAL) {
-            if (TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
-
-            } else {
-                view.closeActivity();
-            }
+            view.closeActivity();
         }
     }
 

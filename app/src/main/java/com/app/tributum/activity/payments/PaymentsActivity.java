@@ -148,6 +148,8 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
     public void setNetViews() {
         UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.net_text_id));
         UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.gross_text_id));
+        findViewById(R.id.net_layout_id).setBackgroundResource(R.drawable.white_rectangle_corners);
+        findViewById(R.id.gross_layout_id).setBackgroundResource(R.drawable.grey_rectangle_corners);
         netCheckbox.setChecked(true);
         grossCheckbox.setChecked(false);
     }
@@ -156,6 +158,8 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
     public void setGrossViews() {
         UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.net_text_id));
         UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.gross_text_id));
+        findViewById(R.id.net_layout_id).setBackgroundResource(R.drawable.grey_rectangle_corners);
+        findViewById(R.id.gross_layout_id).setBackgroundResource(R.drawable.white_rectangle_corners);
         netCheckbox.setChecked(false);
         grossCheckbox.setChecked(true);
     }

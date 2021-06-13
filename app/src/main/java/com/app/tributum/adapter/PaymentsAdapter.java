@@ -68,12 +68,17 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
             holder.amountEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         }
 
-        holder.removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleItemImageClick(holder);
-            }
-        });
+        if (getItemCount() == 1) {
+            holder.removeButton.setVisibility(View.GONE);
+        } else {
+            holder.removeButton.setVisibility(View.VISIBLE);
+            holder.removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handleItemImageClick(holder);
+                }
+            });
+        }
     }
 
     /**

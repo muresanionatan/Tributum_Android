@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/language_id"
@@ -14,15 +13,15 @@
     <RelativeLayout
         android:id="@+id/main_layout_id"
         android:layout_width="match_parent"
-        android:background="@color/grey_2"
-        android:clickable="true"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_paper"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/home_title_id"
             style="@style/TitleText"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="158dp"
+            android:layout_marginTop="182dp"
             android:text="@string/welcome_back_label" />
 
         <TextView
@@ -30,6 +29,19 @@
             android:layout_below="@+id/home_title_id"
             android:layout_marginStart="48dp"
             android:text="@string/what_do_you_want" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_oval_orange" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_oval_purple" />
 
         <RelativeLayout
             android:id="@+id/contract_id"
@@ -39,8 +51,7 @@
 
             <ImageView
                 style="@style/MainScreeButtonImage"
-                android:src="@drawable/contract"
-                app:tint="@color/contract_1" />
+                android:src="@drawable/ic_icon_contract" />
 
             <ImageView
                 style="@style/MainScreeButtonArrow"
@@ -69,8 +80,7 @@
 
             <ImageView
                 style="@style/MainScreeButtonImage"
-                android:src="@drawable/contract"
-                app:tint="@color/rct" />
+                android:src="@drawable/ic_icon_rct" />
 
             <ImageView
                 style="@style/MainScreeButtonArrow"
@@ -100,8 +110,7 @@
 
             <ImageView
                 style="@style/MainScreeButtonImage"
-                android:src="@drawable/contract"
-                app:tint="@color/vat_1" />
+                android:src="@drawable/ic_icon_vat" />
 
             <ImageView
                 style="@style/MainScreeButtonArrow"
@@ -134,15 +143,20 @@
             android:text="@string/faqs_label"
             android:textSize="15sp" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_oval_blue" />
+
         <TextView
             android:id="@+id/language_text_id"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginStart="48dp"
-            android:gravity="center_vertical"
             android:layout_marginTop="50dp"
             android:drawablePadding="8dp"
             android:fontFamily="@font/manrope_bold"
+            android:gravity="center_vertical"
             android:text="@string/english_label"
             android:textColor="@color/white"
             android:textSize="15sp"

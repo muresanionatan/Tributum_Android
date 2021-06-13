@@ -147,7 +147,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (view != null) {
                     if (response.isSuccessful())
-                        sendClientEmail(payer, site, month);
+                        sendClientEmail(email, site, month);
                     else
                         view.showToast(resources.getString(R.string.something_went_wrong));
 
@@ -165,11 +165,11 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
         });
     }
 
-    private void sendClientEmail(String payer, String site, String month) {
+    private void sendClientEmail(String email, String site, String month) {
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(payer, concatenateClientMail(site, month)));
+        Call<Object> call = api.sendEmail(new EmailBody(email, concatenateClientMail(site, month)));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

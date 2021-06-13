@@ -12,12 +12,13 @@ public interface ContractPresenter {
 
     void onBackPressed();
 
-    void handleSendButtonClick(String name, String address, String pps, String email, String contractDate, String birthday, String occupation, String otherText,
-                               String phone, String bankAccount, String noOfKids);
+    void handleSendButtonClick(String name, String address, String birthday, String occupation, String phone, String email, String bankAccount,
+                               String pps, String contractDate, String noOfKids, String otherText);
 
     void onCreate();
 
-    void onFormStarted(String name);
+    void onFormStarted(String name, String address, String birthday, String occupation, String phone,
+                       String email, String bankAccount);
 
     void afterBirthdayChanged(Editable string);
 
@@ -100,4 +101,7 @@ public interface ContractPresenter {
     void onDestroy();
 
     void afterContractDateChanged(Editable s);
+
+    void checkPersonalValidation(String name, String address, String birthday, String occupation, String phone,
+                                 String email, String bankAccount, String pps, String contractDate);
 }
