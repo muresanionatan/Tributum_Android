@@ -30,6 +30,48 @@
                 app:tint="@color/contract_1" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="98dp"
+            android:layout_toEndOf="@+id/contract_back_id"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ProgressBar
+                android:id="@+id/first_progress_id"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1"
+                android:progress="100"
+                android:progressDrawable="@drawable/contract_progress" />
+
+            <ProgressBar
+                android:id="@+id/second_progress_id"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1"
+                android:progress="0"
+                android:progressDrawable="@drawable/contract_progress" />
+
+            <ProgressBar
+                android:id="@+id/third_progress_id"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:progress="0"
+                android:progressDrawable="@drawable/contract_progress" />
+        </LinearLayout>
+
         <com.app.tributum.utils.ui.CustomScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"

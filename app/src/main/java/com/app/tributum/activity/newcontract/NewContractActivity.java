@@ -739,6 +739,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
 
     @Override
     public void showEmploymentInfoLayoutFromRight() {
+        setCompletionProgress(R.id.second_progress_id, true);
         AnimUtils.getTranslationXAnimator(findViewById(R.id.employment_info_layout_id),
                 AnimUtils.DURATION_500,
                 AnimUtils.NO_DELAY,
@@ -771,6 +772,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
 
     @Override
     public void hideEmploymentInfoLayoutToRight() {
+        setCompletionProgress(R.id.second_progress_id, false);
         AnimUtils.getTranslationXAnimator(findViewById(R.id.employment_info_layout_id),
                 AnimUtils.DURATION_500,
                 AnimUtils.NO_DELAY,
@@ -801,6 +803,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
 
     @Override
     public void showSignatureLayout() {
+        setCompletionProgress(R.id.third_progress_id, true);
         ((CustomScrollView) scrollView).setScrollingEnabled(false);
         AnimUtils.getTranslationXAnimator(findViewById(R.id.signature_layout_id),
                 AnimUtils.DURATION_500,
@@ -818,6 +821,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
 
     @Override
     public void hideSignatureLayout() {
+        setCompletionProgress(R.id.third_progress_id, false);
         ((CustomScrollView) scrollView).setScrollingEnabled(true);
         AnimUtils.getTranslationXAnimator(findViewById(R.id.signature_layout_id),
                 AnimUtils.DURATION_500,
@@ -896,6 +900,15 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
                 contractDate.getText().toString());
     }
 
+    private void setCompletionProgress(int progressId, boolean forward) {
+        int progress = forward ? 100 : 0;
+        AnimUtils.getProgressAnimator(findViewById(progressId),
+                AnimUtils.DURATION_300,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                null,
+                progress).start();
+    }
 
     @Override
     public void changeSingleState(boolean check) {
