@@ -464,7 +464,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
         setupCheckboxes();
 
         loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.drawable.ic_icon_loader_contract);
-        requestSent = new RequestSent(this, findViewById(android.R.id.content), R.drawable.request_sent_contract, getString(R.string.contract_sent_label));
+        requestSent = new RequestSent(this, findViewById(android.R.id.content), R.drawable.request_sent_contract, getString(R.string.contract_sent_label), presenter);
     }
 
     private void setImageHolderColor(int viewId) {

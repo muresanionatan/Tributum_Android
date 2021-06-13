@@ -9,6 +9,7 @@ import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.PaymentsItemClickListener;
+import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
 import com.app.tributum.model.PaymentModel;
 import com.app.tributum.retrofit.InterfaceAPI;
@@ -25,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemClickListener {
+public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemClickListener, RequestSentListener {
 
     private final PaymentsView view;
 
@@ -230,6 +231,12 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
 
     @Override
     public void onBackPressed() {
+        if (view != null)
+            view.closeActivity();
+    }
+
+    @Override
+    public void onOkClicked() {
         if (view != null)
             view.closeActivity();
     }

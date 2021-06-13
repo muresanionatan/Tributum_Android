@@ -17,6 +17,7 @@ import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.fragment.invoices.listener.AsyncListener;
+import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.listener.SignatureListener;
 import com.app.tributum.model.ContractModel;
 import com.app.tributum.retrofit.InterfaceAPI;
@@ -42,7 +43,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ContractPresenterImpl implements ContractPresenter, SignatureListener, AsyncListener {
+public class ContractPresenterImpl implements ContractPresenter, SignatureListener, AsyncListener, RequestSentListener {
 
     private Bitmap signatureFile;
 
@@ -1008,5 +1009,11 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     @Override
     public void onDestroy() {
         clearFormStarted();
+    }
+
+    @Override
+    public void onOkClicked() {
+        if (view != null)
+            view.closeActivity();
     }
 }

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.tributum.R;
+import com.app.tributum.listener.RequestSentListener;
 
 public class RequestSent {
 
@@ -24,11 +25,14 @@ public class RequestSent {
 
     private String title;
 
-    public RequestSent(Activity activity, ViewGroup viewGroup, int drawableResourceId, String title) {
+    private RequestSentListener listener;
+
+    public RequestSent(Activity activity, ViewGroup viewGroup, int drawableResourceId, String title, RequestSentListener listener) {
         this.activity = activity;
         this.viewGroup = viewGroup;
         this.drawableResourceId = drawableResourceId;
         this.title = title;
+        this.listener =listener;
     }
 
     @SuppressLint("ResourceType")
@@ -43,6 +47,8 @@ public class RequestSent {
             @Override
             public void onClick(View v) {
                 hide();
+                if (listener != null)
+                    listener.onOkClicked();
             }
         });
         animate();

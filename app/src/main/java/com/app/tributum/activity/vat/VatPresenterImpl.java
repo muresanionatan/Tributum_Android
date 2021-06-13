@@ -19,6 +19,7 @@ import com.app.tributum.application.TributumApplication;
 import com.app.tributum.fragment.invoices.listener.InvoiceItemClickListener;
 import com.app.tributum.fragment.invoices.model.InvoiceModel;
 import com.app.tributum.listener.InvoicesDeleteListener;
+import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
 import com.app.tributum.retrofit.InterfaceAPI;
 import com.app.tributum.retrofit.RetrofitClientInstance;
@@ -32,7 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, InvoiceItemClickListener {
+public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, InvoiceItemClickListener, RequestSentListener {
 
     private VatView vatView;
 
@@ -346,6 +347,12 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         else if (isBottomSheetVisible)
             collapseBottomSheet();
         else
+            vatView.closeActivity();
+    }
+
+    @Override
+    public void onOkClicked() {
+        if (vatView != null)
             vatView.closeActivity();
     }
 }
