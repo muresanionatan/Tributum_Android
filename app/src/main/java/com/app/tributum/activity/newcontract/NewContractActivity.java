@@ -1,6 +1,7 @@
 package com.app.tributum.activity.newcontract;
 
 import android.Manifest;
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -33,6 +34,8 @@ import com.app.tributum.helper.DrawingView;
 import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
+import com.app.tributum.utils.animation.AnimUtils;
+import com.app.tributum.utils.animation.CustomAnimatorListener;
 import com.app.tributum.utils.ui.CustomScrollView;
 import com.app.tributum.utils.ui.LoadingScreen;
 import com.app.tributum.utils.ui.RequestSent;
@@ -621,6 +624,13 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
     private void collapseBottomSheet() {
         fileChooser.setHideable(true);
         fileChooser.setState(BottomSheetBehavior.STATE_HIDDEN);
+        AnimUtils.getFadeOutAnimator(findViewById(R.id.file_chooser_top_id), AnimUtils.DURATION_200, AnimUtils.NO_DELAY, null,
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.file_chooser_top_id).setVisibility(View.GONE);
+                    }
+                }).start();
     }
 
     @Override
@@ -738,6 +748,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
     @Override
     public void setFileChooserToVisible() {
         findViewById(R.id.file_chooser_top_id).setVisibility(View.VISIBLE);
+        AnimUtils.getFadeInAnimator(findViewById(R.id.file_chooser_top_id), AnimUtils.DURATION_200, AnimUtils.NO_DELAY, null, null).start();
     }
 
     @Override

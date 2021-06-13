@@ -160,6 +160,12 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     }
 
     @Override
+    public void onBottomSheetExpanded() {
+        if (vatView != null)
+            vatView.showTopViewBottomSheet();
+    }
+
+    @Override
     public void onTakePhotoClick() {
         collapseBottomSheet();
         if (vatView == null)

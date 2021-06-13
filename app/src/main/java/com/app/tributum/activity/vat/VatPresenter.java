@@ -38,4 +38,6 @@ public interface VatPresenter {
     void onTopViewClick();
 
     void setFilePath(String pictureImagePath);
+
+    void onBottomSheetExpanded();
 }

@@ -165,16 +165,28 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     public void openBottomSheet() {
         fileChooser.setState(BottomSheetBehavior.STATE_EXPANDED);
+        fileChooser.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_EXPANDED)
+                    presenter.onBottomSheetExpanded();
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
+
+    @Override
+    public void showTopViewBottomSheet() {
+        findViewById(R.id.file_chooser_top_id).setVisibility(View.VISIBLE);
         AnimUtils.getFadeInAnimator(findViewById(R.id.file_chooser_top_id),
                 AnimUtils.DURATION_200,
                 AnimUtils.NO_DELAY,
                 null,
-                new CustomAnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        findViewById(R.id.file_chooser_top_id).setVisibility(View.VISIBLE);
-                    }
-                }).start();
+                null).start();
     }
 
     @Override
@@ -185,7 +197,12 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
                 AnimUtils.DURATION_200,
                 AnimUtils.NO_DELAY,
                 null,
-                null).start();
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.file_chooser_top_id).setVisibility(View.GONE);
+                    }
+                }).start();
     }
 
     @Override
