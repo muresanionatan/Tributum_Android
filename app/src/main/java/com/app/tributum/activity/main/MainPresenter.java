@@ -1,10 +1,9 @@
 package com.app.tributum.activity.main;
 
-import android.content.Context;
 import android.content.Intent;
 
 public interface MainPresenter {
-    void onCreate(Context context);
+    void onCreate();
 
     void onSplashFinished(Intent intent);
 

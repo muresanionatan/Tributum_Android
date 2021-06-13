@@ -122,8 +122,8 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
             }
         });
 
-        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.drawable.ic_icon_loader_rct);
-        requestSent = new RequestSent(this, findViewById(android.R.id.content), R.drawable.request_sent_rct, getString(R.string.payment_sent_label), presenter);
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_rct);
+        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_rct, getString(R.string.payment_sent_label), presenter);
     }
 
     private void setupRecyclerView() {

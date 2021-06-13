@@ -3,7 +3,6 @@ package com.app.tributum.utils.ui;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,11 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.app.tributum.R;
+import com.app.tributum.application.TributumApplication;
 import com.app.tributum.utils.animation.AnimUtils;
 import com.app.tributum.utils.animation.CustomAnimatorListener;
 
 public class LoadingScreen {
-
-    private Activity activity;
 
     private ViewGroup viewGroup;
 
@@ -26,15 +24,14 @@ public class LoadingScreen {
 
     private int imageId;
 
-    public LoadingScreen(Activity activity, ViewGroup viewGroup, int imageId) {
-        this.activity = activity;
+    public LoadingScreen(ViewGroup viewGroup, int imageId) {
         this.viewGroup = viewGroup;
         this.imageId = imageId;
     }
 
     @SuppressLint("ResourceType")
     public void show() {
-        inflatedView = LayoutInflater.from(activity).inflate(R.layout.loading_screen, null);
+        inflatedView = LayoutInflater.from(TributumApplication.getInstance()).inflate(R.layout.loading_screen, null);
         viewGroup.addView(inflatedView);
         imageView = inflatedView.findViewById(R.id.loading_animation_id);
         imageView.setImageResource(imageId);

@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.app.tributum.activity.MainActivity;
 import com.app.tributum.activity.main.NewMainActivity;
+import com.app.tributum.application.TributumApplication;
 
 import java.util.Locale;
 
@@ -34,12 +34,12 @@ public class UtilsGeneral {
      *
      * @param editText the {@link EditText} that requests focus
      */
-    public static void setFocusOnInput(Activity activity, EditText editText) {
+    public static void setFocusOnInput(EditText editText) {
         if (editText != null && !editText.hasFocus()) {
             editText.setFocusable(true);
             editText.setFocusableInTouchMode(true);
             editText.setCursorVisible(true);
-            showSoftKeyboard(activity, editText);
+            showSoftKeyboard(editText);
         }
     }
 
@@ -73,8 +73,8 @@ public class UtilsGeneral {
     /**
      * Shows the soft keyboard
      */
-    private static void showSoftKeyboard(Activity activity, View view) {
-        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+    private static void showSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) TributumApplication.getInstance().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (inputMethodManager != null) {
             view.requestFocus();
             inputMethodManager.showSoftInput(view, 0);
@@ -96,9 +96,9 @@ public class UtilsGeneral {
         editText.setFilters(filterArray);
     }
 
-    public static void setAppLanguage(Activity activity, String language) {
+    public static void setAppLanguage(String language) {
         Locale myLocale = new Locale(language);
-        Resources resources = activity.getResources();
+        Resources resources = TributumApplication.getInstance().getResources();
         DisplayMetrics dm = resources.getDisplayMetrics();
         Configuration conf = resources.getConfiguration();
         conf.locale = myLocale;

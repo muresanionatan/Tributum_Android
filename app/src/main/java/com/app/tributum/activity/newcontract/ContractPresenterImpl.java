@@ -503,7 +503,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     @Override
     public void onPpsFrontClicked() {
         if (view != null)
-            view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT, ConstantsUtils.CAMERA_REQUEST_PPS_FRONT);
+            view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT,
+                    ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_FRONT,
+                    ConstantsUtils.CAMERA_REQUEST_PPS_FRONT,
+                    ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT);
     }
 
     @Override
@@ -523,7 +526,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     @Override
     public void onPpsBackClicked() {
         if (view != null)
-            view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK, ConstantsUtils.CAMERA_REQUEST_PPS_BACK);
+            view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK,
+                    ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_BACK,
+                    ConstantsUtils.CAMERA_REQUEST_PPS_BACK,
+                    ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_BACK);
     }
 
     @Override
@@ -543,7 +549,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     @Override
     public void onIdClicked() {
         if (view != null)
-            view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID, ConstantsUtils.CAMERA_REQUEST_ID);
+            view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID,
+                    ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_ID,
+                    ConstantsUtils.CAMERA_REQUEST_ID,
+                    ConstantsUtils.MULTIPLE_PERMISSIONS_ID);
     }
 
     @Override
@@ -563,7 +572,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     @Override
     public void onMarriageCertificateClicked() {
         if (view != null)
-            view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE, ConstantsUtils.CAMERA_REQUEST_MARRIAGE);
+            view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE,
+                    ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_MARRIAGE,
+                    ConstantsUtils.CAMERA_REQUEST_MARRIAGE,
+                    ConstantsUtils.MULTIPLE_PERMISSIONS_MARRIAGE);
     }
 
     @Override
@@ -587,17 +599,17 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     @Override
-    public void onAddFromGalleryClicked(int requestCode) {
-        pickPictureFromGallery(requestCode);
+    public void onAddFromGalleryClicked(int requestCode, int storagePermissionId) {
+        pickPictureFromGallery(requestCode, storagePermissionId);
         view.hideBottomSheet();
     }
 
     @Override
-    public void onTakePhotoClicked(String name, int requestId) {
+    public void onTakePhotoClicked(String name, int requestId, int permissionId) {
         if (view == null)
             return;
 
-        if (checkPermissions(requestId)) {
+        if (checkPermissions(permissionId)) {
             file = new File(ImageUtils.getImagePath(name + requestId));
             view.takePicture(requestId, file, filePath);
         }
@@ -863,7 +875,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     @SuppressLint("ObsoleteSdkInt")
-    private void pickPictureFromGallery(int requestId) {
+    private void pickPictureFromGallery(int requestId, int permissionId) {
         if (view == null)
             return;
 
@@ -871,7 +883,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             if (view.hasStoragePermission())
                 view.openFilePicker(requestId);
             else
-                view.requestOnePermission(requestId);
+                view.requestOnePermission(permissionId);
         }
     }
 
@@ -889,8 +901,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             permission = ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT;
         else if (requestId == ConstantsUtils.CAMERA_REQUEST_PPS_BACK)
             permission = ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_BACK;
-        else
+        else if (requestId == ConstantsUtils.CAMERA_REQUEST_ID)
             permission = ConstantsUtils.MULTIPLE_PERMISSIONS_ID;
+        else
+            permission = ConstantsUtils.MULTIPLE_PERMISSIONS_MARRIAGE;
 
         if (!listPermissionsNeeded.isEmpty()) {
             view.requestListOfPermissions(listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), permission);
@@ -927,6 +941,44 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             view.hideLoadingScreen();
             view.showRequestSentScreen();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionResult(String name, int requestCode, int[] grantResults) {
+        switch (requestCode) {
+            case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_FRONT:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    view.openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT);
+                break;
+            case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_BACK:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    view.openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK);
+                break;
+            case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_ID:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    view.openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID);
+                break;
+            case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_MARRIAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    view.openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE);
+                break;
+            case ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    onTakePhotoClicked(name, ConstantsUtils.CAMERA_REQUEST_PPS_FRONT, ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT);
+                break;
+            case ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_BACK:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    onTakePhotoClicked(name, ConstantsUtils.CAMERA_REQUEST_PPS_BACK, ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_BACK);
+                break;
+            case ConstantsUtils.MULTIPLE_PERMISSIONS_ID:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    onTakePhotoClicked(name, ConstantsUtils.CAMERA_REQUEST_ID, ConstantsUtils.MULTIPLE_PERMISSIONS_ID);
+                break;
+            case ConstantsUtils.MULTIPLE_PERMISSIONS_MARRIAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    onTakePhotoClicked(name, ConstantsUtils.CAMERA_REQUEST_MARRIAGE, ConstantsUtils.MULTIPLE_PERMISSIONS_MARRIAGE);
+                break;
         }
     }
 

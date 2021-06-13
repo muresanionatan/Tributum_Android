@@ -1,7 +1,6 @@
 package com.app.tributum.utils.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.tributum.R;
+import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.RequestSentListener;
 
 public class RequestSent {
-
-    private Activity activity;
 
     private ViewGroup viewGroup;
 
@@ -27,8 +25,7 @@ public class RequestSent {
 
     private RequestSentListener listener;
 
-    public RequestSent(Activity activity, ViewGroup viewGroup, int drawableResourceId, String title, RequestSentListener listener) {
-        this.activity = activity;
+    public RequestSent(ViewGroup viewGroup, int drawableResourceId, String title, RequestSentListener listener) {
         this.viewGroup = viewGroup;
         this.drawableResourceId = drawableResourceId;
         this.title = title;
@@ -37,7 +34,7 @@ public class RequestSent {
 
     @SuppressLint("ResourceType")
     public void show() {
-        inflatedView = LayoutInflater.from(activity).inflate(R.layout.request_sent_screen, null);
+        inflatedView = LayoutInflater.from(TributumApplication.getInstance()).inflate(R.layout.request_sent_screen, null);
         viewGroup.addView(inflatedView);
 //        imageView = inflatedView.findViewById(R.id.loading_animation_id);
 //        imageView.setColorFilter(ContextCompat.getColor(TributumApplication.getInstance(), colorId));

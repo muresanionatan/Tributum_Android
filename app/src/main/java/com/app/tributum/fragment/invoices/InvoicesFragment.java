@@ -45,7 +45,6 @@ import com.app.tributum.retrofit.RetrofitClientInstance;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
-import com.app.tributum.utils.ui.FileUtils;
 import com.app.tributum.utils.ui.KeyboardVisibility;
 import com.app.tributum.utils.ui.LoadingScreen;
 
@@ -116,7 +115,7 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
         endingMonth.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         if (getActivity() != null)
-            loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content), 0);
+            loadingScreen = new LoadingScreen(getActivity().findViewById(android.R.id.content), 0);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
 
@@ -154,10 +153,10 @@ public class InvoicesFragment extends Fragment implements InvoiceItemClickListen
                 } else if (PICTURE_NUMBER > 1 && getActivity() != null) {
                     UtilsGeneral.hideSoftKeyboard(getActivity());
                     loadingScreen.show();
-                    PdfAsyncTask asyncTask = new PdfAsyncTask(InvoicesFragment.this, getActivity(), list, name.getText().toString(),
-                            startingMonth.getText().toString()
-                                    + "_" + endingMonth.getText().toString());
-                    asyncTask.execute();
+//                    PdfAsyncTask asyncTask = new PdfAsyncTask(getActivity(), list, name.getText().toString(),
+//                            startingMonth.getText().toString()
+//                                    + "_" + endingMonth.getText().toString());
+//                    asyncTask.execute();
                 } else {
                     Toast.makeText(getActivity(), getString(R.string.no_photo_taken), Toast.LENGTH_SHORT).show();
                 }

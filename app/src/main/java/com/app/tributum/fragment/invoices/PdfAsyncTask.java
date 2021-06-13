@@ -1,12 +1,12 @@
 package com.app.tributum.fragment.invoices;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
 import android.os.AsyncTask;
 
+import com.app.tributum.application.TributumApplication;
 import com.app.tributum.fragment.invoices.listener.AsyncListener;
 import com.app.tributum.fragment.invoices.model.InvoiceModel;
 import com.app.tributum.utils.BitmapUtils;
@@ -22,8 +22,6 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private AsyncListener listener;
 
-    private Activity activity;
-
     private List<InvoiceModel> list;
 
     private String username;
@@ -32,9 +30,8 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private String months;
 
-    public PdfAsyncTask(AsyncListener listener, Activity activity, List<InvoiceModel> list, String username, String months) {
+    public PdfAsyncTask(AsyncListener listener, List<InvoiceModel> list, String username, String months) {
         this.listener = listener;
-        this.activity = activity;
         this.list = list;
         this.username = username;
         this.months = months;
@@ -42,7 +39,7 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        File file = getOutputFile(activity);
+        File file = getOutputFile();
         if (file != null) {
             try {
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -50,7 +47,7 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
                 for (int i = 0; i < list.size() - 1; i++) {
                     InvoiceModel model = list.get(i);
-                    Bitmap myBitmap = BitmapFactory.decodeFile(BitmapUtils.compressBitmap(activity, model.getFilePath(), true));
+                    Bitmap myBitmap = BitmapFactory.decodeFile(BitmapUtils.compressBitmap(model.getFilePath(), true));
                     if (myBitmap == null)
                         continue;
                     PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(myBitmap.getWidth(), myBitmap.getHeight(), (i + 1)).create();
@@ -82,8 +79,8 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
         super.onPostExecute(aVoid);
     }
 
-    private File getOutputFile(Activity activity) {
-        File root = new File(activity.getExternalFilesDir(null), "PDFs");
+    private File getOutputFile() {
+        File root = new File(TributumApplication.getInstance().getExternalFilesDir(null), "PDFs");
 
         boolean isFolderCreated = true;
 

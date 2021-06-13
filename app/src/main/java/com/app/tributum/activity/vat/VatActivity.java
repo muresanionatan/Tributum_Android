@@ -95,8 +95,8 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         startingMonth.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         endingMonth.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.drawable.ic_icon_loader_vat);
-        requestSent = new RequestSent(this, findViewById(android.R.id.content), R.drawable.request_sent_vat, getString(R.string.vat_receipts_sent), presenter);
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_vat);
+        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_vat, getString(R.string.vat_receipts_sent), presenter);
 
         RecyclerView recyclerView = findViewById(R.id.invoices_recycler_id);
         recyclerView.setHasFixedSize(true);
@@ -220,7 +220,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     @Override
     public void startPdfCreation() {
-        PdfAsyncTask asyncTask = new PdfAsyncTask(VatActivity.this, VatActivity.this, presenter.getList(), name.getText().toString(),
+        PdfAsyncTask asyncTask = new PdfAsyncTask(VatActivity.this, presenter.getList(), name.getText().toString(),
                 startingMonth.getText().toString()
                         + "_" + endingMonth.getText().toString());
         asyncTask.execute();

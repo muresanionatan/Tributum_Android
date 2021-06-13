@@ -1,9 +1,7 @@
 package com.app.tributum.utils.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.ContentUris;
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -90,7 +88,7 @@ public class FileUtils {
                         final Uri contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.parseLong(id));
 
 
-                        return getDataColumn(TributumApplication.getInstance(), contentUri, null, null);
+                        return getDataColumn(contentUri, null, null);
                     } catch (NumberFormatException e) {
                         //In Android 8 and Android P the id is not a number
                         return uri.getPath().replaceFirst("^/document/raw:", "").replaceFirst("^raw:", "");
@@ -117,16 +115,16 @@ public class FileUtils {
             selection = "_id=?";
             selectionArgs = new String[]{split[1]};
 
-            return getDataColumn(TributumApplication.getInstance(), contentUri, selection,
+            return getDataColumn(contentUri, selection,
                     selectionArgs);
         }
 
         if (isGoogleDriveUri(uri)) {
-            return getDriveFilePath(TributumApplication.getInstance(), uri);
+            return getDriveFilePath(uri);
         }
 
         if (isWhatsAppFile(uri)) {
-            return getFilePathForWhatsApp(TributumApplication.getInstance(), uri);
+            return getFilePathForWhatsApp(uri);
         }
 
         if ("content".equalsIgnoreCase(uri.getScheme())) {
@@ -135,15 +133,15 @@ public class FileUtils {
                 return uri.getLastPathSegment();
             }
             if (isGoogleDriveUri(uri)) {
-                return getDriveFilePath(TributumApplication.getInstance(), uri);
+                return getDriveFilePath(uri);
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 
                 // return getFilePathFromURI(context,uri);
-                return copyFileToInternalStorage(TributumApplication.getInstance(), uri, "userfiles");
+                return copyFileToInternalStorage(uri, "userfiles");
                 // return getRealPathFromURI(context,uri);
             } else {
-                return getDataColumn(TributumApplication.getInstance(), uri, null, null);
+                return getDataColumn(uri, null, null);
             }
 
         }
@@ -194,8 +192,8 @@ public class FileUtils {
         return fullPath;
     }
 
-    private static String getDriveFilePath(Context context, Uri uri) {
-        @SuppressLint("Recycle") Cursor returnCursor = context.getContentResolver().query(uri, null, null, null, null);
+    private static String getDriveFilePath(Uri uri) {
+        @SuppressLint("Recycle") Cursor returnCursor = TributumApplication.getInstance().getContentResolver().query(uri, null, null, null, null);
         /*
          * Get the column indexes of the data in the Cursor,
          *     * move to the first row in the Cursor, get the data,
@@ -206,9 +204,9 @@ public class FileUtils {
         returnCursor.moveToFirst();
         String name = (returnCursor.getString(nameIndex));
         String size = (Long.toString(returnCursor.getLong(sizeIndex)));
-        File file = new File(context.getCacheDir(), name);
+        File file = new File(TributumApplication.getInstance().getCacheDir(), name);
         try {
-            InputStream inputStream = context.getContentResolver().openInputStream(uri);
+            InputStream inputStream = TributumApplication.getInstance().getContentResolver().openInputStream(uri);
             FileOutputStream outputStream = new FileOutputStream(file);
             int read;
             int maxBufferSize = 1024 * 1024;
@@ -238,8 +236,8 @@ public class FileUtils {
      * @param newDirName if you want to create a directory, you can set this variable
      * @return
      */
-    private static String copyFileToInternalStorage(Context context, Uri uri, String newDirName) {
-        @SuppressLint("Recycle") Cursor returnCursor = context.getContentResolver().query(uri, new String[]{
+    private static String copyFileToInternalStorage(Uri uri, String newDirName) {
+        @SuppressLint("Recycle") Cursor returnCursor = TributumApplication.getInstance().getContentResolver().query(uri, new String[]{
                 OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE
         }, null, null, null);
 
@@ -257,16 +255,16 @@ public class FileUtils {
 
         File output;
         if (!newDirName.equals("")) {
-            File dir = new File(context.getFilesDir() + "/" + newDirName);
+            File dir = new File(TributumApplication.getInstance().getFilesDir() + "/" + newDirName);
             if (!dir.exists()) {
                 dir.mkdir();
             }
-            output = new File(context.getFilesDir() + "/" + newDirName + "/" + name);
+            output = new File(TributumApplication.getInstance().getFilesDir() + "/" + newDirName + "/" + name);
         } else {
-            output = new File(context.getFilesDir() + "/" + name);
+            output = new File(TributumApplication.getInstance().getFilesDir() + "/" + name);
         }
         try {
-            InputStream inputStream = context.getContentResolver().openInputStream(uri);
+            InputStream inputStream = TributumApplication.getInstance().getContentResolver().openInputStream(uri);
             FileOutputStream outputStream = new FileOutputStream(output);
             int read;
             int bufferSize = 1024;
@@ -286,17 +284,17 @@ public class FileUtils {
         return output.getPath();
     }
 
-    private static String getFilePathForWhatsApp(Context context, Uri uri) {
-        return copyFileToInternalStorage(context, uri, "whatsapp");
+    private static String getFilePathForWhatsApp(Uri uri) {
+        return copyFileToInternalStorage(uri, "whatsapp");
     }
 
-    private static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+    private static String getDataColumn(Uri uri, String selection, String[] selectionArgs) {
         Cursor cursor = null;
         final String column = "_data";
         final String[] projection = {column};
 
         try {
-            cursor = context.getContentResolver().query(uri, projection,
+            cursor = TributumApplication.getInstance().getContentResolver().query(uri, projection,
                     selection, selectionArgs, null);
 
             if (cursor != null && cursor.moveToFirst()) {

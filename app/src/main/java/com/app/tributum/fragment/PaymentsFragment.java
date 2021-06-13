@@ -133,7 +133,7 @@ public class PaymentsFragment extends Fragment implements PaymentsItemClickListe
         keyboardVisibility.handleKeyboardVisibility(view.findViewById(R.id.payments_main_layout_id));
 
         if (getActivity() != null)
-            loadingScreen = new LoadingScreen(getActivity(), getActivity().findViewById(android.R.id.content), 0);
+            loadingScreen = new LoadingScreen(getActivity().findViewById(android.R.id.content), 0);
     }
 
     private void handleClearButtonClick() {

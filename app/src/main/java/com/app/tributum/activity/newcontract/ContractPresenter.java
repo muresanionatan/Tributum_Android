@@ -52,9 +52,9 @@ public interface ContractPresenter {
 
     void onBottomSheetExpanded();
 
-    void onAddFromGalleryClicked(int requestCode);
+    void onAddFromGalleryClicked(int requestCode, int storagePermissionId);
 
-    void onTakePhotoClicked(String name, int requestId);
+    void onTakePhotoClicked(String name, int requestId, int permissionId);
 
     void onRemovePhotoClicked(String fileName);
 
@@ -104,4 +104,6 @@ public interface ContractPresenter {
 
     void checkPersonalValidation(String name, String address, String birthday, String occupation, String phone,
                                  String email, String bankAccount, String pps, String contractDate);
+
+    void onRequestPermissionResult(String name, int requestCode, int[] grantResults);
 }

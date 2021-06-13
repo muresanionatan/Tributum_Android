@@ -8,6 +8,7 @@ import android.content.Intent;
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.application.TributumApplication;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.notifications.NotificationExtra;
 import com.app.tributum.utils.notifications.NotificationIntentIds;
@@ -28,29 +29,29 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate() {
         if (view == null)
             return;
 
         appLanguage = TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE);
-        startNotificationAlarm(context);
+        startNotificationAlarm();
 
         if (TributumAppHelper.getBooleanSetting(AppKeysValues.FIRST_TIME_USER)) {
             TributumAppHelper.saveSetting(AppKeysValues.FIRST_TIME_USER, AppKeysValues.FALSE);
-            view.setWelcomeMessage(context.getString(R.string.welcome_tributum_label));
+            view.setWelcomeMessage(TributumApplication.getInstance().getResources().getString(R.string.welcome_tributum_label));
         } else {
-            view.setWelcomeMessage(context.getString(R.string.welcome_back_label));
+            view.setWelcomeMessage(TributumApplication.getInstance().getResources().getString(R.string.welcome_back_label));
         }
     }
 
-    public void startNotificationAlarm(Context context) {
+    public void startNotificationAlarm() {
         if (!TributumAppHelper.getBooleanSetting(AppKeysValues.NOTIFICATION_ALARM_SET)) {
             TributumAppHelper.saveSetting(AppKeysValues.NOTIFICATION_ALARM_SET, AppKeysValues.TRUE);
 
-            Intent alarmIntent = new Intent(context, AlarmReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+            Intent alarmIntent = new Intent(TributumApplication.getInstance(), AlarmReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(TributumApplication.getInstance(), 0, alarmIntent, 0);
 
-            AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            AlarmManager manager = (AlarmManager) TributumApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
             long interval = ConstantsUtils.NOTIFICATION_INTERVAL;
 
             Calendar calendar = Calendar.getInstance();

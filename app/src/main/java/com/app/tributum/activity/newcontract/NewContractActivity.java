@@ -234,7 +234,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
         otherCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilsGeneral.setFocusOnInput(NewContractActivity.this, otherEditText);
+                UtilsGeneral.setFocusOnInput(otherEditText);
             }
         });
         otherEditText.addTextChangedListener(new CustomTextWatcher() {
@@ -438,6 +438,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
             }
         });
 
+        setImageHolderColor(R.id.marriage_layout_id);
         findViewById(R.id.marriage_layout_id).findViewById(R.id.plus_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -463,8 +464,8 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
         setupFilesLayout();
         setupCheckboxes();
 
-        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), R.drawable.ic_icon_loader_contract);
-        requestSent = new RequestSent(this, findViewById(android.R.id.content), R.drawable.request_sent_contract, getString(R.string.contract_sent_label), presenter);
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_contract);
+        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_contract, getString(R.string.contract_sent_label), presenter);
     }
 
     private void setImageHolderColor(int viewId) {
@@ -623,7 +624,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
     }
 
     @Override
-    public void showFileChooser(int selectPictureRequest, int takePictureRequest) {
+    public void showFileChooser(int selectPictureRequest, int storagePermissionId, int takePictureRequest, int picturePermissionId) {
         fileChooser.setState(BottomSheetBehavior.STATE_EXPANDED);
         fileChooser.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -640,15 +641,21 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
         findViewById(R.id.add_from_gallery_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onAddFromGalleryClicked(selectPictureRequest);
+                presenter.onAddFromGalleryClicked(selectPictureRequest, storagePermissionId);
             }
         });
         findViewById(R.id.take_photo_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onTakePhotoClicked(nameEditText.getText().toString(), takePictureRequest);
+                presenter.onTakePhotoClicked(nameEditText.getText().toString(), takePictureRequest, picturePermissionId);
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        presenter.onRequestPermissionResult(nameEditText.getText().toString(), requestCode, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -951,7 +958,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
     public void setFocusOnOther() {
         EditText other = findViewById(R.id.other_edit_id);
         other.setVisibility(View.VISIBLE);
-        UtilsGeneral.setFocusOnInput(this, other);
+        UtilsGeneral.setFocusOnInput(other);
     }
 
     @Override

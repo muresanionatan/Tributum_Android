@@ -136,7 +136,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contract_activity);
         StatusBarUtils.makeStatusBarTransparent(this);
-        UtilsGeneral.setAppLanguage(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.setAppLanguage(TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setupViews();
     }
 
@@ -280,7 +280,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         otherCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilsGeneral.setFocusOnInput(ContractActivity.this, otherEditText);
+                UtilsGeneral.setFocusOnInput(otherEditText);
             }
         });
         otherEditText.addTextChangedListener(new TextWatcher() {
@@ -418,7 +418,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
 
         setupFilesLayout();
 
-        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content), 0);
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), 0);
     }
 
     private void showMaritalLayout() {

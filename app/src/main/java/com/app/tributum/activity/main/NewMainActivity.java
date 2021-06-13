@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -33,7 +32,7 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UtilsGeneral.setAppLanguage(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.setAppLanguage(TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.new_activity_main);
         StatusBarUtils.makeStatusBarTransparent(this);
         ConstantsUtils.APP_START_TIME = System.currentTimeMillis();
@@ -42,7 +41,7 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
 
         showSplashScreen();
         presenter = new MainPresenterImpl(this);
-        presenter.onCreate(this);
+        presenter.onCreate();
 
         findViewById(R.id.language_text_id).setOnClickListener(new View.OnClickListener() {
             @Override
