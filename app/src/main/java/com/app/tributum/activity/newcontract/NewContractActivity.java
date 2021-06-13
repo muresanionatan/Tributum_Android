@@ -143,14 +143,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
         nameEditText.addTextChangedListener(new CustomTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                presenter.onFormStarted(
-                        nameEditText.getText().toString(),
-                        addressEditText.getText().toString(),
-                        birthday.getText().toString(),
-                        occupationEditText.getText().toString(),
-                        phoneNumberEditText.getText().toString(),
-                        emailEditText.getText().toString(),
-                        bankAccount.getText().toString());
+                checkPersonalInfo();
             }
         });
         addressEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -224,6 +217,11 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
             }
         });
         contractDate.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                presenter.beforeContractDateChanged(s.length());
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 presenter.afterContractDateChanged(s);
@@ -1119,12 +1117,6 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
     @Override
     public void deselectText(int textId) {
         UiUtils.setFontFamily(R.font.manrope_medium, findViewById(textId));
-    }
-
-    @Override
-    protected void onDestroy() {
-        presenter.onDestroy();
-        super.onDestroy();
     }
 
     @Override

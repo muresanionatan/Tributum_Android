@@ -200,10 +200,6 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!nameEditText.getText().toString().equals("")
-                        && !TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
-                    TributumAppHelper.saveSetting(AppKeysValues.CONTRACT_FORM_STARTED, AppKeysValues.TRUE);
-                }
             }
 
             @Override
@@ -991,9 +987,9 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
     }
 
     private void clearFormStarted() {
-        if (TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
-            TributumAppHelper.saveSetting(AppKeysValues.CONTRACT_FORM_STARTED, AppKeysValues.FALSE);
-        }
+//        if (TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
+//            TributumAppHelper.saveSetting(AppKeysValues.CONTRACT_FORM_STARTED, AppKeysValues.FALSE);
+//        }
     }
 
     private void showCloseContractDialog() {
@@ -1017,13 +1013,13 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
 
     @Override
     public void onBackPressed() {
-        if (TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
-            showCloseContractDialog();
-        } else if (fileChooser.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-            collapseBottomSheet();
-        } else {
-            super.onBackPressed();
-        }
+//        if (TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
+//            showCloseContractDialog();
+//        } else if (fileChooser.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+//            collapseBottomSheet();
+//        } else {
+//            super.onBackPressed();
+//        }
     }
 
     @Override

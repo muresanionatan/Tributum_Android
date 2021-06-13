@@ -20,8 +20,6 @@ public class AppKeysValues {
 
     public static final String APP_LANGUAGE = "AppLanguage";
 
-    public static final String CONTRACT_FORM_STARTED = "contractFormStarted";
-
     public static final String INVOICES_TAKEN = "invoicesTaken";
 
     public static final String INVOICE_NAME = "invoiceName";

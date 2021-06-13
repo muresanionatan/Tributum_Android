@@ -3,10 +3,7 @@ package com.app.tributum.activity.newcontract;
 import android.content.Intent;
 import android.text.Editable;
 
-import com.app.tributum.model.PaymentModel;
-
 import java.io.File;
-import java.util.List;
 
 public interface ContractPresenter {
 
@@ -16,9 +13,6 @@ public interface ContractPresenter {
                                String pps, String contractDate, String noOfKids, String otherText);
 
     void onCreate();
-
-    void onFormStarted(String name, String address, String birthday, String occupation, String phone,
-                       String email, String bankAccount);
 
     void afterBirthdayChanged(Editable string);
 
@@ -98,7 +92,7 @@ public interface ContractPresenter {
 
     void setFile(File file);
 
-    void onDestroy();
+    void beforeContractDateChanged(int length);
 
     void afterContractDateChanged(Editable s);
 
