@@ -92,10 +92,13 @@ public class MainPresenterImpl implements MainPresenter {
 
         languageLayoutVisible = true;
         view.showLanguageLayout();
-        if (TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE).equals("en"))
+        if (TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE).equals("en")) {
             view.checkEnglishBox();
-        else
+            view.unCheckRomanianBox();
+        } else {
             view.checkRomanianBox();
+            view.unCheckEnglishBox();
+        }
     }
 
     @Override
