@@ -1,4 +1,4 @@
-package com.app.tributum.adapter;
+package com.app.tributum.activity.payments.adapter;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.tributum.R;
 import com.app.tributum.listener.PaymentsItemClickListener;
-import com.app.tributum.model.PaymentModel;
+import com.app.tributum.activity.payments.model.PaymentModel;
 import com.app.tributum.utils.UtilsGeneral;
 
 import java.util.List;

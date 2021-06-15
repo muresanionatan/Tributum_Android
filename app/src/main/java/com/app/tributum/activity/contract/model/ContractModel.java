@@ -1,4 +1,4 @@
-package com.app.tributum.model;
+package com.app.tributum.activity.contract.model;
 
 import java.util.List;
 

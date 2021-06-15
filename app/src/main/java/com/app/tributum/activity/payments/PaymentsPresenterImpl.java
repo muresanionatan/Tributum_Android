@@ -11,7 +11,7 @@ import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.PaymentsItemClickListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
-import com.app.tributum.model.PaymentModel;
+import com.app.tributum.activity.payments.model.PaymentModel;
 import com.app.tributum.retrofit.InterfaceAPI;
 import com.app.tributum.retrofit.RetrofitClientInstance;
 import com.app.tributum.utils.CalendarUtils;

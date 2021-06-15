@@ -1,4 +1,4 @@
-package com.app.tributum.fragment.invoices.adapter;
+package com.app.tributum.activity.vat.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.tributum.R;
 
-public class InvoicesItemViewHolder extends RecyclerView.ViewHolder {
+public class VatItemViewHolder extends RecyclerView.ViewHolder {
 
     public View plusImage;
 
@@ -18,7 +18,7 @@ public class InvoicesItemViewHolder extends RecyclerView.ViewHolder {
 
     public View photoUploadedView;
 
-    public InvoicesItemViewHolder(@NonNull View itemView) {
+    public VatItemViewHolder(@NonNull View itemView) {
         super(itemView);
 
         plusImage = itemView.findViewById(R.id.plus_id);

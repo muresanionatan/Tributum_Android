@@ -2,7 +2,7 @@ package com.app.tributum.activity.vat;
 
 import android.net.Uri;
 
-import com.app.tributum.fragment.invoices.model.InvoiceModel;
+import com.app.tributum.activity.vat.model.VatModel;
 
 public interface VatView {
 
@@ -16,7 +16,7 @@ public interface VatView {
 
     void hideLoadingScreen();
 
-    void addItemToList(InvoiceModel model);
+    void addItemToList(VatModel model);
 
     void removeItemFromList(int photoClicked);
 

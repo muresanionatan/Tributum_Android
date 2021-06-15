@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.app.tributum.model.PaymentModel;
+import com.app.tributum.activity.payments.model.PaymentModel;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

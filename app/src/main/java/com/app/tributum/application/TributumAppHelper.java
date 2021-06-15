@@ -1,6 +1,6 @@
 package com.app.tributum.application;
 
-import com.app.tributum.model.PaymentModel;
+import com.app.tributum.activity.payments.model.PaymentModel;
 
 import java.util.List;
 

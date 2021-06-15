@@ -1,4 +1,4 @@
-package com.app.tributum.fragment.invoices.listener;
+package com.app.tributum.listener;
 
 public interface AsyncListener {
 

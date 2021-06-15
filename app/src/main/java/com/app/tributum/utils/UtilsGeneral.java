@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.app.tributum.activity.main.NewMainActivity;
+import com.app.tributum.activity.main.MainActivity;
 import com.app.tributum.application.TributumApplication;
 
 import java.util.Locale;
@@ -106,7 +106,7 @@ public class UtilsGeneral {
     }
 
     public static void restartAppForLanguage(Activity activity) {
-        Intent refresh = new Intent(activity, NewMainActivity.class);
+        Intent refresh = new Intent(activity, MainActivity.class);
         activity.finish();
         activity.startActivity(refresh);
     }

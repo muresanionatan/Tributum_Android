@@ -28,10 +28,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
-import com.app.tributum.fragment.invoices.PdfAsyncTask;
-import com.app.tributum.fragment.invoices.adapter.InvoicesAdapter;
-import com.app.tributum.fragment.invoices.listener.AsyncListener;
-import com.app.tributum.fragment.invoices.model.InvoiceModel;
+import com.app.tributum.fragment.thread.PdfAsyncTask;
+import com.app.tributum.activity.vat.adapter.VatAdapter;
+import com.app.tributum.listener.AsyncListener;
+import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
@@ -48,7 +48,7 @@ import java.util.Date;
 
 public class VatActivity extends AppCompatActivity implements VatView, AsyncListener {
 
-    private InvoicesAdapter adapter;
+    private VatAdapter adapter;
 
     private ImageView previewImage;
 
@@ -102,7 +102,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new InvoicesAdapter(this, presenter.getList(), presenter, presenter);
+        adapter = new VatAdapter(this, presenter.getList(), presenter, presenter);
         recyclerView.setAdapter(adapter);
 
         findViewById(R.id.remove_photo_id).setOnClickListener(new View.OnClickListener() {
@@ -221,7 +221,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     }
 
     @Override
-    public void addItemToList(InvoiceModel model) {
+    public void addItemToList(VatModel model) {
         adapter.addItemToList(model);
     }
 
@@ -232,7 +232,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     @Override
     public void getFilesFromGallery(Uri imageUri) {
-        adapter.addItemToList(new InvoiceModel(FileUtils.getPath(imageUri)));
+        adapter.addItemToList(new VatModel(FileUtils.getPath(imageUri)));
     }
 
     @Override

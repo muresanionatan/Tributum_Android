@@ -1,4 +1,4 @@
-package com.app.tributum.activity.newcontract;
+package com.app.tributum.activity.contract;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -51,7 +51,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.File;
 
-public class NewContractActivity extends AppCompatActivity implements ContractView {
+public class ContractActivity extends AppCompatActivity implements ContractView {
 
     private EditText nameEditText;
 
@@ -120,7 +120,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event != null && event.getAction() == MotionEvent.ACTION_MOVE) {
-                    UtilsGeneral.hideSoftKeyboard(NewContractActivity.this);
+                    UtilsGeneral.hideSoftKeyboard(ContractActivity.this);
                 }
                 return false;
             }
@@ -205,7 +205,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
                 int month = calendar.get(Calendar.MONTH);
                 int year = calendar.get(Calendar.YEAR);
 
-                DatePickerDialog picker = new DatePickerDialog(NewContractActivity.this,
+                DatePickerDialog picker = new DatePickerDialog(ContractActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @SuppressLint("SetTextI18n")
                             @Override
@@ -225,7 +225,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
                 int month = calendar.get(Calendar.MONTH);
                 int year = calendar.get(Calendar.YEAR);
 
-                DatePickerDialog picker = new DatePickerDialog(NewContractActivity.this,
+                DatePickerDialog picker = new DatePickerDialog(ContractActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @SuppressLint("SetTextI18n")
                             @Override
@@ -308,7 +308,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
         });
 
         parentView = findViewById(R.id.signature_drawing_view);
-        signatureDraw = new DrawingView(NewContractActivity.this, presenter);
+        signatureDraw = new DrawingView(ContractActivity.this, presenter);
         parentView.addView(signatureDraw);
 
         findViewById(R.id.delete_signature_id).setOnClickListener(new View.OnClickListener() {
@@ -1027,7 +1027,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
 
     @Override
     public void showToast(String message) {
-        Toast.makeText(NewContractActivity.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ContractActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

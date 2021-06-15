@@ -1,4 +1,4 @@
-package com.app.tributum.activity.newcontract;
+package com.app.tributum.activity.contract;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -14,10 +14,10 @@ import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
 import com.app.tributum.application.TributumApplication;
-import com.app.tributum.fragment.invoices.listener.AsyncListener;
+import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.listener.SignatureListener;
-import com.app.tributum.model.ContractModel;
+import com.app.tributum.activity.contract.model.ContractModel;
 import com.app.tributum.retrofit.InterfaceAPI;
 import com.app.tributum.retrofit.RetrofitClientInstance;
 import com.app.tributum.utils.ConstantsUtils;

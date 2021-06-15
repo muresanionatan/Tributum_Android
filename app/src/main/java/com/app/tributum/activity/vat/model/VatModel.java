@@ -1,10 +1,10 @@
-package com.app.tributum.fragment.invoices.model;
+package com.app.tributum.activity.vat.model;
 
-public class InvoiceModel {
+public class VatModel {
 
     private String filePath;
 
-    public InvoiceModel(String filePath) {
+    public VatModel(String filePath) {
         this.filePath = filePath;
     }
 

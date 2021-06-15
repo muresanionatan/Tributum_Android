@@ -1,4 +1,4 @@
-package com.app.tributum.fragment.invoices;
+package com.app.tributum.fragment.thread;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,8 +7,8 @@ import android.graphics.pdf.PdfDocument;
 import android.os.AsyncTask;
 
 import com.app.tributum.application.TributumApplication;
-import com.app.tributum.fragment.invoices.listener.AsyncListener;
-import com.app.tributum.fragment.invoices.model.InvoiceModel;
+import com.app.tributum.listener.AsyncListener;
+import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.utils.BitmapUtils;
 import com.app.tributum.utils.DropboxUtils;
 
@@ -22,7 +22,7 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private AsyncListener listener;
 
-    private List<InvoiceModel> list;
+    private List<VatModel> list;
 
     private String username;
 
@@ -30,7 +30,7 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private String months;
 
-    public PdfAsyncTask(AsyncListener listener, List<InvoiceModel> list, String username, String months) {
+    public PdfAsyncTask(AsyncListener listener, List<VatModel> list, String username, String months) {
         this.listener = listener;
         this.list = list;
         this.username = username;
@@ -46,7 +46,7 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
                 PdfDocument pdfDocument = new PdfDocument();
 
                 for (int i = 0; i < list.size() - 1; i++) {
-                    InvoiceModel model = list.get(i);
+                    VatModel model = list.get(i);
                     Bitmap myBitmap = BitmapFactory.decodeFile(BitmapUtils.compressBitmap(model.getFilePath(), true));
                     if (myBitmap == null)
                         continue;

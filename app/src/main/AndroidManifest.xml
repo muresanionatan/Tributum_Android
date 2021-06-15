@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.app.tributum.activity.main.NewMainActivity"
+            android:name="com.app.tributum.activity.main.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.app.tributum.activity.newcontract.NewContractActivity"
+            android:name="com.app.tributum.activity.contract.ContractActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme.NoActionBar">
@@ -58,7 +58,7 @@
         </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.app.tributum.fragment.invoices.provider"
+            android:authorities="com.app.tributum.fragment.thread.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

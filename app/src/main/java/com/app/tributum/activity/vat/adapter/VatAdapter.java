@@ -1,4 +1,4 @@
-package com.app.tributum.fragment.invoices.adapter;
+package com.app.tributum.activity.vat.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.app.tributum.R;
-import com.app.tributum.fragment.invoices.model.InvoiceModel;
-import com.app.tributum.fragment.invoices.listener.InvoiceItemClickListener;
+import com.app.tributum.activity.vat.model.VatModel;
+import com.app.tributum.listener.InvoiceItemClickListener;
 import com.app.tributum.listener.InvoicesDeleteListener;
 import com.app.tributum.utils.ConstantsUtils;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -22,11 +22,11 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
 import java.util.List;
 
-public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesItemViewHolder> {
+public class VatAdapter extends RecyclerView.Adapter<VatItemViewHolder> {
 
     private Activity activity;
 
-    private List<InvoiceModel> list;
+    private List<VatModel> list;
 
     private InvoiceItemClickListener invoiceItemClickListener;
 
@@ -34,7 +34,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesItemViewHolder
 
     private Resources resources;
 
-    public InvoicesAdapter(Activity activity, List<InvoiceModel> list, InvoiceItemClickListener invoiceItemClickListener, InvoicesDeleteListener invoicesDeleteListener) {
+    public VatAdapter(Activity activity, List<VatModel> list, InvoiceItemClickListener invoiceItemClickListener, InvoicesDeleteListener invoicesDeleteListener) {
         this.activity = activity;
         this.list = list;
         this.invoiceItemClickListener = invoiceItemClickListener;
@@ -43,16 +43,16 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesItemViewHolder
 
     @NonNull
     @Override
-    public InvoicesItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public VatItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         resources = parent.getResources();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.invoices_item, parent, false);
-        return new InvoicesItemViewHolder(view);
+        return new VatItemViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull InvoicesItemViewHolder holder, int position) {
-        InvoiceModel model = list.get(position);
+    public void onBindViewHolder(@NonNull VatItemViewHolder holder, int position) {
+        VatModel model = list.get(position);
         View plusImage = holder.plusImage;
         View photoUploadedView = holder.photoUploadedView;
         if (position == list.size() - 1 || plusImage == null) {
@@ -89,7 +89,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesItemViewHolder
         }
     }
 
-    public void addItemToList(InvoiceModel model) {
+    public void addItemToList(VatModel model) {
         list.add(getItemCount() - 1, model);
         notifyDataSetChanged();
     }

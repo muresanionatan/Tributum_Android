@@ -16,8 +16,8 @@ import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.application.TributumApplication;
-import com.app.tributum.fragment.invoices.listener.InvoiceItemClickListener;
-import com.app.tributum.fragment.invoices.model.InvoiceModel;
+import com.app.tributum.listener.InvoiceItemClickListener;
+import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.listener.InvoicesDeleteListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
@@ -49,7 +49,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     private String pictureImagePath = "";
 
-    private List<InvoiceModel> list;
+    private List<VatModel> list;
 
     VatPresenterImpl(VatView vatView) {
         this.vatView = vatView;
@@ -59,7 +59,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     @Override
     public void onCreate() {
         list = new ArrayList<>();
-        list.add(new InvoiceModel(""));
+        list.add(new VatModel(""));
     }
 
     @Override
@@ -75,7 +75,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     }
 
     @Override
-    public List<InvoiceModel> getList() {
+    public List<VatModel> getList() {
         return list;
     }
 
@@ -106,7 +106,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
             return;
 
         if (requestCode == ConstantsUtils.CAMERA_REQUEST_INVOICES_ID && resultCode == Activity.RESULT_OK) {
-            vatView.addItemToList(new InvoiceModel(pictureImagePath));
+            vatView.addItemToList(new VatModel(pictureImagePath));
 
             if (PICTURE_NUMBER < ConstantsUtils.MAXIMUM_PICTURES_IN_ATTACHMENT) {
                 onTakePhotoClick();

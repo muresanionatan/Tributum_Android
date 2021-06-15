@@ -1,4 +1,4 @@
-package com.app.tributum.activity.newcontract;
+package com.app.tributum.activity.contract;
 
 import android.content.Intent;
 import android.text.Editable;

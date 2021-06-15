@@ -1,4 +1,4 @@
-package com.app.tributum.model;
+package com.app.tributum.activity.payments.model;
 
 /**
  * Model class that contains the payment information

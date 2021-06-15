@@ -18,7 +18,7 @@ import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
 import com.app.tributum.activity.faq.FaqActivity;
-import com.app.tributum.activity.newcontract.NewContractActivity;
+import com.app.tributum.activity.contract.ContractActivity;
 import com.app.tributum.activity.payments.PaymentsActivity;
 import com.app.tributum.activity.vat.VatActivity;
 import com.app.tributum.application.AppKeysValues;
@@ -29,7 +29,7 @@ import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
 import com.app.tributum.utils.animation.CustomAnimatorListener;
 
-public class NewMainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity implements MainView {
 
     private NestedScrollView scrollView;
 
@@ -181,7 +181,7 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void startContractActivity() {
-        startActivity(new Intent(this, NewContractActivity.class));
+        startActivity(new Intent(this, ContractActivity.class));
     }
 
     @Override

@@ -5,7 +5,7 @@ import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 
-import com.app.tributum.fragment.invoices.model.InvoiceModel;
+import com.app.tributum.activity.vat.model.VatModel;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public interface VatPresenter {
 
     void onTaskCompleted(String name, String email, String startingMonth, String endingMonth);
 
-    List<InvoiceModel> getList();
+    List<VatModel> getList();
 
     void onCreate();
 

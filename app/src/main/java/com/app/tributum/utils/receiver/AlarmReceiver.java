@@ -10,7 +10,7 @@ import android.content.res.Resources;
 import androidx.core.app.NotificationCompat;
 
 import com.app.tributum.R;
-import com.app.tributum.activity.main.NewMainActivity;
+import com.app.tributum.activity.main.MainActivity;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.notifications.NotificationAction;
@@ -30,7 +30,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             return;
         }
         Resources resources = context.getResources();
-        Intent openVatsIntent = new Intent(context, NewMainActivity.class);
+        Intent openVatsIntent = new Intent(context, MainActivity.class);
         openVatsIntent.setAction(NotificationAction.OPEN_ACTION);
         openVatsIntent.putExtra(NotificationExtra.OPEN, NotificationIntentIds.VAT_INTENT);
 
@@ -42,7 +42,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         SystemNotificationContent systemNotificationContent = new SystemNotificationContent(
                 resources.getString(R.string.app_name),
                 resources.getString(R.string.vat_notification_string),
-                R.drawable.camera_svg);
+                R.drawable.ic_logo);
         SystemNotificationProperties systemNotificationProperties = new SystemNotificationProperties(
                 false,
                 true,
