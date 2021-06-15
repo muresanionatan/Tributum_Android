@@ -67,7 +67,7 @@
 
                 <TextView
                     style="@style/MainScreeButtonSubtitle"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/manrope_medium"
                     android:text="@string/create_new_contract" />
             </LinearLayout>
         </RelativeLayout>
@@ -96,7 +96,7 @@
 
                 <TextView
                     style="@style/MainScreeButtonSubtitle"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/manrope_medium"
                     android:text="@string/add_new_rct_payment" />
             </LinearLayout>
         </RelativeLayout>
@@ -126,7 +126,7 @@
 
                 <TextView
                     style="@style/MainScreeButtonSubtitle"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/manrope_medium"
                     android:text="@string/send_vat" />
             </LinearLayout>
         </RelativeLayout>

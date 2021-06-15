@@ -104,8 +104,8 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
         StatusBarUtils.makeStatusBarTransparent(this);
 
         presenter = new ContractPresenterImpl(this);
-        presenter.onCreate();
         setupViews();
+        presenter.onCreate();
     }
 
     private void setupViews() {

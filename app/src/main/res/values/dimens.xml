@@ -1,9 +1,5 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
 
-    <dimen name="global_margin">40dp</dimen>
-    <dimen name="global_small_image">32dp</dimen>
-    <dimen name="global_cta_image">24dp</dimen>
-    <dimen name="global_start_end_margin">30dp</dimen>
     <dimen name="global_radius">24dp</dimen>
 </resources>

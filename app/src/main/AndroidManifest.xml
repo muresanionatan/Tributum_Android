@@ -33,12 +33,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.app.tributum.activity.contract.ContractActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name="com.app.tributum.activity.newcontract.NewContractActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
@@ -69,7 +63,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths"/>
         </provider>
         <receiver android:name="com.app.tributum.utils.receiver.AlarmReceiver">
             <intent-filter>
