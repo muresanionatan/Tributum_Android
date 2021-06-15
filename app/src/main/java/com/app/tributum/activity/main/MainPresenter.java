@@ -24,4 +24,16 @@ public interface MainPresenter {
     void onContractClick();
 
     void onFaqClick();
+
+    void onAcceptTermsClicked();
+
+    void oNDenyTermsClicked();
+
+    void scrollViewScrolledToBottom();
+
+    void scrollViewNotAtBottom();
+
+    void onArrowClicked();
+
+    void onUserDenyClicked();
 }

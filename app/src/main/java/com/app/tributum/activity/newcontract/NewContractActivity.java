@@ -3,9 +3,11 @@ package com.app.tributum.activity.newcontract;
 import android.Manifest;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -193,6 +196,46 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
         birthday = findViewById(R.id.edittext_birthday_id);
         UtilsGeneral.setMaxLengthEditText(birthday, 10);
         UtilsGeneral.setMaxLengthEditText(contractDate, 10);
+
+        findViewById(R.id.birthday_image_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                DatePickerDialog picker = new DatePickerDialog(NewContractActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                                presenter.onBirthdayDateSet(year, monthOfYear, dayOfMonth);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
+
+        findViewById(R.id.contract_date_image_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                DatePickerDialog picker = new DatePickerDialog(NewContractActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                                presenter.onContractDateSet(year, monthOfYear, dayOfMonth);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
 
         findViewById(R.id.personal_info_id).findViewById(R.id.plus_id).setBackgroundResource(R.drawable.photo_holder_contract);
         findViewById(R.id.pps_front_image_holder_id).findViewById(R.id.plus_id).setBackgroundResource(R.drawable.photo_holder_contract);
@@ -669,6 +712,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
     @Override
     public void openFilePreview(String fileName) {
         previewLayout.setVisibility(View.VISIBLE);
+        findViewById(R.id.progress_layout_id).setVisibility(View.GONE);
         ImageView previewImage = findViewById(R.id.image_preview_id);
         Glide.with(this).load("file://" + fileName).into(previewImage);
 
@@ -705,6 +749,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
     @Override
     public void closePreview() {
         previewLayout.setVisibility(View.GONE);
+        findViewById(R.id.progress_layout_id).setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -747,7 +792,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
                 new CustomAnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-                        scrollView.scrollTo(0,0);
+                        scrollView.scrollTo(0, 0);
                         findViewById(R.id.employment_info_layout_id).setVisibility(View.VISIBLE);
                     }
                 },
@@ -794,7 +839,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
                 new DecelerateInterpolator(),
                 new CustomAnimatorListener() {
                     @Override
-                    public void onAnimationEnd  (Animator animation) {
+                    public void onAnimationEnd(Animator animation) {
                         findViewById(R.id.employment_info_layout_id).setVisibility(View.GONE);
                     }
                 },
@@ -812,7 +857,7 @@ public class NewContractActivity extends AppCompatActivity implements ContractVi
                 new CustomAnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-                        scrollView.scrollTo(0,0);
+                        scrollView.scrollTo(0, 0);
                         findViewById(R.id.signature_layout_id).setVisibility(View.VISIBLE);
                     }
                 },

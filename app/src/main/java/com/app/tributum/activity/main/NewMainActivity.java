@@ -1,16 +1,20 @@
 package com.app.tributum.activity.main;
 
 import android.animation.Animator;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
 import com.app.tributum.activity.faq.FaqActivity;
@@ -27,6 +31,8 @@ import com.app.tributum.utils.animation.CustomAnimatorListener;
 
 public class NewMainActivity extends AppCompatActivity implements MainView {
 
+    private NestedScrollView scrollView;
+
     private MainPresenter presenter;
 
     @Override
@@ -42,6 +48,19 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
         showSplashScreen();
         presenter = new MainPresenterImpl(this);
         presenter.onCreate();
+
+        scrollView = findViewById(R.id.terms_scrollview_id).findViewById(R.id.nested_scroll_view_id);
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if (scrollView.getChildAt(0).getBottom()
+                        <= (scrollView.getHeight() + scrollView.getScrollY())) {
+                    presenter.scrollViewScrolledToBottom();
+                } else {
+                    presenter.scrollViewNotAtBottom();
+                }
+            }
+        });
 
         findViewById(R.id.language_text_id).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +127,56 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
                 presenter.onSplashFinished(getIntent());
             }
         }, ConstantsUtils.ONE_SECOND * 2);
+    }
+
+    @Override
+    public void setLanguageLabel(String language) {
+        ((TextView) findViewById(R.id.language_text_id)).setText(language);
+    }
+
+    @Override
+    public void hideScrollToBottomButton() {
+        View arrowView = findViewById(R.id.terms_scrollview_id).findViewById(R.id.scroll_toBottom_id);
+        AnimUtils.getScaleAnimatorSet(arrowView,
+                AnimUtils.DURATION_200,
+                AnimUtils.NO_DELAY,
+                null,
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        arrowView.setVisibility(View.GONE);
+                    }
+                },
+                false,
+                0).start();
+    }
+
+    @Override
+    public void showScrollToBottomButton() {
+        View arrowView = findViewById(R.id.terms_scrollview_id).findViewById(R.id.scroll_toBottom_id);
+        AnimUtils.getScaleAnimatorSet(arrowView,
+                AnimUtils.DURATION_200,
+                AnimUtils.NO_DELAY,
+                null,
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        arrowView.setVisibility(View.VISIBLE);
+                    }
+                },
+                false,
+                0, 1).start();
+        arrowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onArrowClicked();
+            }
+        });
+    }
+
+    @Override
+    public void scrollViewToBottom() {
+        scrollView.fullScroll(View.FOCUS_DOWN);
     }
 
     @Override
@@ -191,6 +260,47 @@ public class NewMainActivity extends AppCompatActivity implements MainView {
                 },
                 0).start();
 
+    }
+
+    @Override
+    public void showTermsAndConditionsScreen() {
+        findViewById(R.id.terms_scrollview_id).setVisibility(View.VISIBLE);
+        findViewById(R.id.accept_terms_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onAcceptTermsClicked();
+            }
+        });
+        findViewById(R.id.deny_terms_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.oNDenyTermsClicked();
+            }
+        });
+    }
+
+    @Override
+    public void hideTermsAndConditionsScreen() {
+        findViewById(R.id.terms_scrollview_id).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showPopup() {
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.are_you_sure))
+                .setMessage(getString(R.string.wont_use_app))
+                .setPositiveButton(getString(R.string.yes_label), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.onUserDenyClicked();
+                    }
+                })
+                .setNegativeButton(getString(R.string.no_label), null)
+                .show();
+    }
+
+    @Override
+    public void closeApp() {
+        finish();
     }
 
     @Override

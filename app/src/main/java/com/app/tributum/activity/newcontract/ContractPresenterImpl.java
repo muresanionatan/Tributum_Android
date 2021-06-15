@@ -283,8 +283,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                     view.showToast(resources.getString(R.string.please_enter_correct_email));
                 } else if (birthday.length() < 10) {
                     view.showToast(resources.getString(R.string.please_enter_birthday_format));
-                } else if (bankAccount.length() < 34) {
-                    view.showToast(resources.getString(R.string.please_add_bank));
                 } else {
                     moveToEmploymentScreen();
                 }
@@ -565,7 +563,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void onPpsFrontClicked() {
-        if (view != null)
+        if (ppsFileFront == null && view != null)
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT,
                     ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_FRONT,
                     ConstantsUtils.CAMERA_REQUEST_PPS_FRONT,
@@ -588,7 +586,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void onPpsBackClicked() {
-        if (view != null)
+        if (ppsFileBack == null && view != null)
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK,
                     ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_BACK,
                     ConstantsUtils.CAMERA_REQUEST_PPS_BACK,
@@ -611,7 +609,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void onIdClicked() {
-        if (view != null)
+        if (idFile == null && view != null)
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID,
                     ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_ID,
                     ConstantsUtils.CAMERA_REQUEST_ID,
@@ -634,7 +632,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void onMarriageCertificateClicked() {
-        if (view != null)
+        if (marriageCertificateFile == null && view != null)
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE,
                     ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_MARRIAGE,
                     ConstantsUtils.CAMERA_REQUEST_MARRIAGE,
@@ -1119,5 +1117,35 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     public void onOkClicked() {
         if (view != null)
             view.closeActivity();
+    }
+
+    @Override
+    public void onBirthdayDateSet(int year, int monthOfYear, int dayOfMonth) {
+        if (view == null)
+            return;
+
+        String dayString = String.valueOf(dayOfMonth);
+        if (dayOfMonth < 10)
+            dayString = "0" + dayOfMonth;
+        monthOfYear = monthOfYear + 1;
+        String monthString = String.valueOf(monthOfYear);
+        if (monthOfYear < 10)
+            monthString = "0" + monthOfYear;
+        view.setBirthdayText(dayString + "/" + monthString + "/" + year);
+    }
+
+    @Override
+    public void onContractDateSet(int year, int monthOfYear, int dayOfMonth) {
+        if (view == null)
+            return;
+
+        String dayString = String.valueOf(dayOfMonth);
+        if (dayOfMonth < 10)
+            dayString = "0" + dayOfMonth;
+        monthOfYear = monthOfYear + 1;
+        String monthString = String.valueOf(monthOfYear);
+        if (monthOfYear < 10)
+            monthString = "0" + monthOfYear;
+        view.setContractDateText(dayString + "/" + monthString + "/" + year);
     }
 }

@@ -18,11 +18,13 @@ import java.util.Calendar;
 
 public class MainPresenterImpl implements MainPresenter {
 
-    private MainView view;
+    private final MainView view;
 
     private boolean languageLayoutVisible;
 
     private String appLanguage;
+
+    private boolean isArrowVisible;
 
     public MainPresenterImpl(MainView view) {
         this.view = view;
@@ -33,15 +35,27 @@ public class MainPresenterImpl implements MainPresenter {
         if (view == null)
             return;
 
+        if (TributumAppHelper.getBooleanSetting(AppKeysValues.USER_DENIED_TERMS))
+            view.closeApp();
+
         appLanguage = TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE);
         startNotificationAlarm();
 
         if (TributumAppHelper.getBooleanSetting(AppKeysValues.FIRST_TIME_USER)) {
             TributumAppHelper.saveSetting(AppKeysValues.FIRST_TIME_USER, AppKeysValues.FALSE);
+            view.showTermsAndConditionsScreen();
             view.setWelcomeMessage(TributumApplication.getInstance().getResources().getString(R.string.welcome_tributum_label));
         } else {
             view.setWelcomeMessage(TributumApplication.getInstance().getResources().getString(R.string.welcome_back_label));
         }
+        setLanguageLabel();
+    }
+
+    private void setLanguageLabel() {
+        if (TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE).equals("en"))
+            view.setLanguageLabel(TributumApplication.getInstance().getResources().getString(R.string.english_label));
+        else
+            view.setLanguageLabel(TributumApplication.getInstance().getResources().getString(R.string.romanian_label));
     }
 
     public void startNotificationAlarm() {
@@ -138,8 +152,51 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void onSplashFinished(Intent intent) {
         if (intent != null && intent.getStringExtra(NotificationExtra.OPEN) != null
-                && intent.getStringExtra(NotificationExtra.OPEN).equals(NotificationIntentIds.VAT_INTENT)) {
-            //TODO: start VAT screen
+                && intent.getStringExtra(NotificationExtra.OPEN).equals(NotificationIntentIds.VAT_INTENT)
+                && view != null) {
+            view.startVatActivity();
+        }
+    }
+
+    @Override
+    public void onAcceptTermsClicked() {
+        if (view != null)
+            view.hideTermsAndConditionsScreen();
+    }
+
+    @Override
+    public void oNDenyTermsClicked() {
+        if (view != null)
+            view.showPopup();
+    }
+
+    @Override
+    public void scrollViewScrolledToBottom() {
+        if (view != null && isArrowVisible) {
+            isArrowVisible = false;
+            view.hideScrollToBottomButton();
+        }
+    }
+
+    @Override
+    public void scrollViewNotAtBottom() {
+        if (view != null && !isArrowVisible) {
+            isArrowVisible = true;
+            view.showScrollToBottomButton();
+        }
+    }
+
+    @Override
+    public void onUserDenyClicked() {
+        TributumAppHelper.saveSetting(AppKeysValues.USER_DENIED_TERMS, true);
+        if (view != null)
+            view.closeApp();
+    }
+
+    @Override
+    public void onArrowClicked() {
+        if (view != null) {
+            view.scrollViewToBottom();
         }
     }
 
@@ -147,6 +204,8 @@ public class MainPresenterImpl implements MainPresenter {
     public void onBackPressed() {
         if (languageLayoutVisible) {
             onLanguageDoneClick();
+        } else if (view != null) {
+            view.closeApp();
         }
     }
 }

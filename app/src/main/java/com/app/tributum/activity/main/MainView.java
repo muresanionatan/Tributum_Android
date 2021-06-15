@@ -24,4 +24,20 @@ public interface MainView {
     void startContractActivity();
 
     void startFaqActivity();
+
+    void showTermsAndConditionsScreen();
+
+    void hideTermsAndConditionsScreen();
+
+    void showPopup();
+
+    void setLanguageLabel(String language);
+
+    void hideScrollToBottomButton();
+
+    void showScrollToBottomButton();
+
+    void scrollViewToBottom();
+
+    void closeApp();
 }

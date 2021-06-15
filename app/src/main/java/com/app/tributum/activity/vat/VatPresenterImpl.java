@@ -282,7 +282,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         return "The receipts"
                 + resources.getString(R.string.invoices_message_email_part2) + startingMonth
                 + " - " + endingMonth
-                + "were sent and we'll be processed.";
+                + " were sent and we'll be processed.";
     }
 
     private boolean checkPermissions() {

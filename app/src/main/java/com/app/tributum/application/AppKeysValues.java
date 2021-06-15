@@ -30,6 +30,8 @@ public class AppKeysValues {
 
     public static final String NOTIFICATION_ALARM_SET = "notificationAlarmSet";
 
+    public static final String USER_DENIED_TERMS = "userDeniedTerms";
+
     public static final boolean TRUE = true;
 
     public static final boolean FALSE = false;

@@ -45,7 +45,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
     public void onCreate() {
         paymentList = new ArrayList<>(TributumAppHelper.getListSetting(AppKeysValues.PAYMENT_LIST));
         if (paymentList.size() == 0)
-            paymentList.add(new PaymentModel("", "", "0"));
+            paymentList.add(new PaymentModel("", "", ""));
         if (view == null)
             return;
 

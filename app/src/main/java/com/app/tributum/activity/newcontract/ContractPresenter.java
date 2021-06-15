@@ -100,4 +100,8 @@ public interface ContractPresenter {
                                  String email, String bankAccount, String pps, String contractDate);
 
     void onRequestPermissionResult(String name, int requestCode, int[] grantResults);
+
+    void onBirthdayDateSet(int year, int monthOfYear, int dayOfMonth);
+
+    void onContractDateSet(int year, int monthOfYear, int dayOfMonth);
 }
