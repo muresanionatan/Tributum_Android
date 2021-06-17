@@ -2,10 +2,10 @@
     <string name="app_name">MbAcc</string>
 
     <string name="amount_label">Suma</string>
-    <string name="name_label">Nume</string>
+    <string name="first_name_label">Nume</string>
     <string name="gross_label">Gros</string>
     <string name="net_label">Net</string>
-    <string name="address_label">Adresa</string>
+    <string name="address_label_1">Adresa</string>
     <string name="pps_number">Numar PPS</string>
     <string name="mail_label">E-mail</string>
     <string name="welcome_back_label">Bine ai revenit!</string>

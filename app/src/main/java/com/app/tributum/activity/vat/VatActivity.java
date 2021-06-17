@@ -7,6 +7,7 @@ import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +72,8 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     private RequestSent requestSent;
 
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +102,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_vat);
         requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_vat, getString(R.string.vat_receipts_sent), presenter);
 
-        RecyclerView recyclerView = findViewById(R.id.invoices_recycler_id);
+        recyclerView = findViewById(R.id.invoices_recycler_id);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -162,6 +166,17 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         });
     }
 
+    private void scrollListToBottom() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                recyclerView.scrollToPosition(adapter.getItemCount() - 1);
+                ScrollView scrollView = findViewById(R.id.vat_scroll_view_id);
+                scrollView.scrollTo(0, recyclerView.getBottom());
+            }
+        }, 100);
+    }
+
     @Override
     public void openBottomSheet() {
         fileChooser.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -223,6 +238,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     public void addItemToList(VatModel model) {
         adapter.addItemToList(model);
+        scrollListToBottom();
     }
 
     @Override
@@ -233,6 +249,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     public void getFilesFromGallery(Uri imageUri) {
         adapter.addItemToList(new VatModel(FileUtils.getPath(imageUri)));
+        scrollListToBottom();
     }
 
     @Override
@@ -262,7 +279,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         pictureImagePath = storageDir.getAbsolutePath() + "/" + imageFileName;
         File file = new File(pictureImagePath);
         Uri outputFileUri = FileProvider.getUriForFile(this,
-                "com.app.tributum.fragment.invoices.provider", file);
+                "com.app.tributum.activity.vat.provider", file);
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
         presenter.setFilePath(pictureImagePath);

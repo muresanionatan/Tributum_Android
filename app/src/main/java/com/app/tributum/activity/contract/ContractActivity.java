@@ -53,9 +53,17 @@ import java.io.File;
 
 public class ContractActivity extends AppCompatActivity implements ContractView {
 
-    private EditText nameEditText;
+    private EditText firstNameEditText;
 
-    private EditText addressEditText;
+    private EditText lastNameEditText;
+
+    private EditText address1EditText;
+
+    private EditText address2EditText;
+
+    private EditText address3EditText;
+
+    private EditText eircode;
 
     private EditText ppsNumberEditText;
 
@@ -100,7 +108,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_contract_activity);
+        setContentView(R.layout.contract_activity);
         StatusBarUtils.makeStatusBarTransparent(this);
 
         presenter = new ContractPresenterImpl(this);
@@ -126,8 +134,12 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             }
         });
 
-        nameEditText = findViewById(R.id.name_edit_text);
-        addressEditText = findViewById(R.id.address_edit_text);
+        firstNameEditText = findViewById(R.id.first_name_edit_text);
+        lastNameEditText = findViewById(R.id.last_name_edit_text);
+        address1EditText = findViewById(R.id.address_1_edit_text);
+        address2EditText = findViewById(R.id.address_2_edit_text);
+        address3EditText = findViewById(R.id.address_3_edit_text);
+        eircode = findViewById(R.id.eircode_edit_text);
         ppsNumberEditText = findViewById(R.id.pps_number_edit_text);
         emailEditText = findViewById(R.id.email_edit_text);
         occupationEditText = findViewById(R.id.occupation_edit_text);
@@ -142,20 +154,36 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         });
         UtilsGeneral.setMaxLengthAndAllCapsToEditText(bankAccount, 34, true);
 
-        nameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        nameEditText.addTextChangedListener(new CustomTextWatcher() {
+        firstNameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        firstNameEditText.addTextChangedListener(new CustomTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkPersonalInfo();
             }
         });
-        addressEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        addressEditText.addTextChangedListener(new CustomTextWatcher() {
+        lastNameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        lastNameEditText.addTextChangedListener(new CustomTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkPersonalInfo();
             }
         });
+        address1EditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        address1EditText.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                checkPersonalInfo();
+            }
+        });
+        address2EditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        address2EditText.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                checkPersonalInfo();
+            }
+        });
+        address3EditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        eircode.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         ppsNumberEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         phoneNumberEditText.addTextChangedListener(new CustomTextWatcher() {
             @Override
@@ -292,8 +320,12 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.handleSendButtonClick(
-                        nameEditText.getText().toString(),
-                        addressEditText.getText().toString(),
+                        firstNameEditText.getText().toString(),
+                        lastNameEditText.getText().toString(),
+                        address1EditText.getText().toString(),
+                        address2EditText.getText().toString(),
+                        address3EditText.getText().toString(),
+                        eircode.getText().toString(),
                         birthday.getText().toString(),
                         occupationEditText.getText().toString(),
                         phoneNumberEditText.getText().toString(),
@@ -698,14 +730,14 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         findViewById(R.id.take_photo_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onTakePhotoClicked(nameEditText.getText().toString(), takePictureRequest, picturePermissionId);
+                presenter.onTakePhotoClicked(firstNameEditText.getText().toString(), takePictureRequest, picturePermissionId);
             }
         });
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        presenter.onRequestPermissionResult(nameEditText.getText().toString(), requestCode, grantResults);
+        presenter.onRequestPermissionResult(firstNameEditText.getText().toString(), requestCode, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -934,13 +966,15 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     private void checkPersonalInfo() {
-        presenter.checkPersonalValidation(nameEditText.getText().toString(),
-                addressEditText.getText().toString(),
+        presenter.checkPersonalValidation(
+                firstNameEditText.getText().toString(),
+                lastNameEditText.getText().toString(),
+                address1EditText.getText().toString(),
+                address2EditText.getText().toString(),
                 birthday.getText().toString(),
                 occupationEditText.getText().toString(),
                 phoneNumberEditText.getText().toString(),
                 emailEditText.getText().toString(),
-                bankAccount.getText().toString(),
                 ppsNumberEditText.getText().toString(),
                 contractDate.getText().toString());
     }
@@ -1198,7 +1232,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void takePicture(int requestId, File file, String pictureImagePath) {
         Uri outputFileUri = FileProvider.getUriForFile(this,
-                "com.app.tributum.fragment.invoices.provider", file);
+                "com.app.tributum.activity.vat.provider", file);
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
         startActivityForResult(cameraIntent, requestId);
@@ -1264,6 +1298,11 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void deselectText(int textId) {
         UiUtils.setFontFamily(R.font.manrope_medium, findViewById(textId));
+    }
+
+    @Override
+    public void removeFocus() {
+        UtilsGeneral.removeFocusFromInput(this, (EditText) getCurrentFocus());
     }
 
     @Override

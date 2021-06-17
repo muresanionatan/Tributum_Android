@@ -113,8 +113,8 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         }
     }
 
-    private void validateContinueButton(String name, String address, String birthday, String occupation, String phone, String email, String bankAccount) {
-        if (arePersonalInfoAdded(name, address, birthday, occupation, phone, email, bankAccount)) {
+    private void validateContinueButton(String firstName, String lastName, String address1, String address2, String birthday, String occupation, String phone, String email) {
+        if (arePersonalInfoAdded(firstName, lastName, address1, address2, birthday, occupation, phone, email)) {
             view.setSendEnabled();
         } else {
             view.setSendDisabled();
@@ -150,10 +150,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     @Override
-    public void checkPersonalValidation(String name, String address, String birthday, String occupation, String phone, String email, String bankAccount,
+    public void checkPersonalValidation(String firstName, String lastName, String address1, String address2, String birthday, String occupation, String phone, String email,
                                         String pps, String contractDate) {
         if (state == ProgressState.PERSONAL)
-            validateContinueButton(name, address, birthday, occupation, phone, email, bankAccount);
+            validateContinueButton(firstName, lastName, address1, address2, birthday, occupation, phone, email);
         else if (state == ProgressState.EMPLOYMENT)
             validateEmployeeButton(pps, contractDate);
     }
@@ -272,13 +272,14 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     @Override
-    public void handleSendButtonClick(String name, String address, String birthday, String occupation, String phone, String email, String bankAccount,
+    public void handleSendButtonClick(String firstName, String lastName, String address1, String address2, String address3, String eircode,
+                                      String birthday, String occupation, String phone, String email, String bankAccount,
                                       String pps, String contractDate, String noOfKids, String otherText) {
         if (view == null)
             return;
 
         if (state == ProgressState.PERSONAL) {
-            if (arePersonalInfoAdded(name, address, email, birthday, occupation, phone, bankAccount)) {
+            if (arePersonalInfoAdded(firstName, lastName, address1, address2, email, birthday, occupation, phone)) {
                 if (!ValidationUtils.isEmailValid(email)) {
                     view.showToast(resources.getString(R.string.please_enter_correct_email));
                 } else if (birthday.length() < 10) {
@@ -303,7 +304,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             }
         } else if (state == ProgressState.SIGNATURE) {
             if (signatureFile != null)
-                sendInfo(name, address, pps, email, contractDate, birthday, occupation, otherText, phone, bankAccount, noOfKids);
+                sendInfo(firstName, lastName, address1, address2, address3, eircode, pps, email, contractDate, birthday, occupation, otherText, phone, bankAccount, noOfKids);
         }
     }
 
@@ -460,15 +461,16 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         }
     }
 
-    private boolean arePersonalInfoAdded(String name, String address, String email, String birthday, String occupation,
-                                         String phone, String bankAccount) {
-        if (!name.equals("")
-                && !address.equals("")
+    private boolean arePersonalInfoAdded(String firstName, String lastName, String address1, String address2, String email, String birthday, String occupation,
+                                         String phone) {
+        if (!firstName.equals("")
+                && !lastName.equals("")
+                && !address1.equals("")
+                && !address2.equals("")
                 && !birthday.equals("")
                 && !occupation.equals("")
                 && !phone.equals("")
                 && !email.equals("")
-                && !bankAccount.equals("")
                 && idFile != null) {
             if (maritalStatus == MaritalStatus.MARRIED) {
                 return marriageCertificateFile != null;
@@ -563,11 +565,13 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void onPpsFrontClicked() {
-        if (ppsFileFront == null && view != null)
+        if (ppsFileFront == null && view != null) {
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT,
                     ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_FRONT,
                     ConstantsUtils.CAMERA_REQUEST_PPS_FRONT,
                     ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT);
+            view.removeFocus();
+        }
     }
 
     @Override
@@ -586,11 +590,13 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void onPpsBackClicked() {
-        if (ppsFileBack == null && view != null)
+        if (ppsFileBack == null && view != null) {
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK,
                     ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_BACK,
                     ConstantsUtils.CAMERA_REQUEST_PPS_BACK,
                     ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_BACK);
+            view.removeFocus();
+        }
     }
 
     @Override
@@ -609,11 +615,13 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void onIdClicked() {
-        if (idFile == null && view != null)
+        if (idFile == null && view != null) {
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID,
                     ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_ID,
                     ConstantsUtils.CAMERA_REQUEST_ID,
                     ConstantsUtils.MULTIPLE_PERMISSIONS_ID);
+            view.removeFocus();
+        }
     }
 
     @Override
@@ -632,11 +640,13 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void onMarriageCertificateClicked() {
-        if (marriageCertificateFile == null && view != null)
+        if (marriageCertificateFile == null && view != null) {
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE,
                     ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_MARRIAGE,
                     ConstantsUtils.CAMERA_REQUEST_MARRIAGE,
                     ConstantsUtils.MULTIPLE_PERMISSIONS_MARRIAGE);
+            view.removeFocus();
+        }
     }
 
     @Override
@@ -812,11 +822,12 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         }
     }
 
-    private void sendInfo(String name, String address, String pps, String email, String contractDate, String birthday, String occupation, String otherText,
+    private void sendInfo(String firstName, String lastName, String address1, String address2, String address3, String eircode,
+                          String pps, String email, String contractDate, String birthday, String occupation, String otherText,
                           String phone, String bankAccount, String noOfKids) {
         contractModel = new ContractModel(
-                name,
-                address,
+                firstName + " " + lastName,
+                address1 + " " + address2 + " " + address3 + " " + eircode,
                 pps,
                 email,
                 contractDate,
@@ -885,7 +896,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
                 //upload PPS and ID to Dropbox
                 try {
-                    uploadFiles(name, phone, bankAccount, noOfKids);
+                    uploadFiles(firstName, phone, bankAccount, noOfKids);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

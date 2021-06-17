@@ -153,4 +153,6 @@ public interface ContractView {
     void showEmploymentInfoLayoutFromLeft();
 
     void hideEmploymentInfoLayoutToLeft();
+
+    void removeFocus();
 }

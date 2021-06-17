@@ -1,6 +1,7 @@
 package com.app.tributum.utils.ui;
 
 import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ public class LoadingScreen {
     private ImageView imageView;
 
     private int imageId;
+
+    private AnimatorSet scaleAnimator;
 
     public LoadingScreen(ViewGroup viewGroup, int imageId) {
         this.viewGroup = viewGroup;
@@ -55,5 +58,31 @@ public class LoadingScreen {
         });
         animator.setRepeatMode(ObjectAnimator.RESTART);
         animator.start();
+
+        scaleAnimator = AnimUtils.getScaleAnimatorSet(
+                imageView,
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                null,
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        AnimUtils.getScaleAnimatorSet(imageView,
+                                AnimUtils.DURATION_500,
+                                AnimUtils.NO_DELAY,
+                                null,
+                                new CustomAnimatorListener() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        scaleAnimator.start();
+                                    }
+                                },
+                                false,
+                                1.2f, 1).start();
+                    }
+                },
+                false,
+                1, 1.2f);
+        scaleAnimator.start();
     }
 }

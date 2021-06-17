@@ -2,10 +2,13 @@
     <string name="app_name">Tributum</string>
 
     <string name="amount_label">Amount</string>
-    <string name="name_label">Full Name</string>
+    <string name="first_name_label">First Name</string>
+    <string name="last_name_label">Last Name</string>
     <string name="gross_label">Gross</string>
     <string name="net_label">Net</string>
-    <string name="address_label">Address</string>
+    <string name="address_label_1">Address 1</string>
+    <string name="address_label_2">Address 2</string>
+    <string name="address_label_3">Address 3</string>
     <string name="pps_number">PPS number</string>
     <string name="mail_label">E-mail</string>
     <string name="welcome_back_label">Welcome\nBack</string>
@@ -90,7 +93,7 @@
     <string name="marital_status_label">Marital Status</string>
     <string name="any_children_label">Any Children?</string>
     <string name="continue_label">Continue</string>
-    <string name="employment_info_label">Employment Info</string>
+    <string name="employment_info_label">Employment\nInfo</string>
     <string name="almost_done">Almost\nDone</string>
     <string name="clear_label">Clear</string>
     <string name="add_your_signature_below">Add Your Signature Below</string>
@@ -112,4 +115,5 @@
     <string name="wont_use_app">If you deny the Terms and Conditions and Privacy Policy you won\'t be able to user the app</string>
     <string name="yes_label">YES</string>
     <string name="no_label">NO</string>
+    <string name="eircode_label">Eircode</string>
 </resources>

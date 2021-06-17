@@ -9,7 +9,8 @@ public interface ContractPresenter {
 
     void onBackPressed();
 
-    void handleSendButtonClick(String name, String address, String birthday, String occupation, String phone, String email, String bankAccount,
+    void handleSendButtonClick(String firstName, String lastName, String address1, String address2, String address3, String eircode,
+                               String birthday, String occupation, String phone, String email, String bankAccount,
                                String pps, String contractDate, String noOfKids, String otherText);
 
     void onCreate();
@@ -96,8 +97,8 @@ public interface ContractPresenter {
 
     void afterContractDateChanged(Editable s);
 
-    void checkPersonalValidation(String name, String address, String birthday, String occupation, String phone,
-                                 String email, String bankAccount, String pps, String contractDate);
+    void checkPersonalValidation(String firstName, String lastName, String address1, String address2, String birthday, String occupation, String phone,
+                                 String email, String pps, String contractDate);
 
     void onRequestPermissionResult(String name, int requestCode, int[] grantResults);
 
