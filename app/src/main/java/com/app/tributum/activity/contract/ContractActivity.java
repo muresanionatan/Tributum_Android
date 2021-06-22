@@ -33,6 +33,8 @@ import androidx.core.content.FileProvider;
 import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
+import com.app.tributum.application.AppKeysValues;
+import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.helper.DrawingView;
 import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.StatusBarUtils;
@@ -108,6 +110,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UtilsGeneral.setAppLanguage(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.contract_activity);
         StatusBarUtils.makeStatusBarTransparent(this);
 

@@ -77,6 +77,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UtilsGeneral.setAppLanguage(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.activity_vat);
         StatusBarUtils.makeStatusBarTransparent(this);
 

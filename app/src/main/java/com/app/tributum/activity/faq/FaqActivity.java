@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.tributum.R;
 import com.app.tributum.activity.faq.adapter.FaqAdapter;
 import com.app.tributum.activity.faq.model.FaqItem;
+import com.app.tributum.application.AppKeysValues;
+import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.utils.StatusBarUtils;
+import com.app.tributum.utils.UtilsGeneral;
 
 import java.util.List;
 
@@ -26,6 +29,7 @@ public class FaqActivity extends AppCompatActivity implements FaqView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UtilsGeneral.setAppLanguage(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.activity_faq);
         StatusBarUtils.makeStatusBarTransparent(this);
 

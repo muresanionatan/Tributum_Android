@@ -96,13 +96,12 @@ public class UtilsGeneral {
         editText.setFilters(filterArray);
     }
 
-    public static void setAppLanguage(String language) {
-        Locale myLocale = new Locale(language);
-        Resources resources = TributumApplication.getInstance().getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        Configuration conf = resources.getConfiguration();
-        conf.locale = myLocale;
-        resources.updateConfiguration(conf, dm);
+    public static void setAppLanguage(Activity activity, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.setLocale(locale);
+        activity.getResources().updateConfiguration(configuration, activity.getResources().getDisplayMetrics());
     }
 
     public static void restartAppForLanguage(Activity activity) {

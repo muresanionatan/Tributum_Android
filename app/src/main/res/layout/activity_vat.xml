@@ -70,7 +70,7 @@
                     <EditText
                         android:id="@+id/payer_edit_text"
                         style="@style/CustomEditText"
-                        android:hint="@string/first_name_label"
+                        android:hint="@string/full_name_label"
                         android:inputType="textCapWords" />
 
                     <EditText
