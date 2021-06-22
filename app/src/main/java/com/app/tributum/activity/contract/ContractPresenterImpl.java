@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.text.Editable;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
@@ -284,6 +285,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                     view.showToast(resources.getString(R.string.please_enter_correct_email));
                 } else if (birthday.length() < 10) {
                     view.showToast(resources.getString(R.string.please_enter_birthday_format));
+                } else if (!TextUtils.isEmpty(eircode)) {
+                    if (!ValidationUtils.isEircodeValid(eircode)) {
+                        view.showToast(resources.getString(R.string.please_enter_correct_eircode));
+                    }
                 } else {
                     moveToEmploymentScreen();
                 }

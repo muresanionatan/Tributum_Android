@@ -12,4 +12,8 @@ public class ValidationUtils {
     public static boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
+
+    public static boolean isEircodeValid(String eircode) {
+        return eircode.matches("[A-Z]{1}[0-9]{2}[A-Za-z0-9]{4}");
+    }
 }
