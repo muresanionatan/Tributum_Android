@@ -29,15 +29,13 @@ public class RequestSent {
         this.viewGroup = viewGroup;
         this.drawableResourceId = drawableResourceId;
         this.title = title;
-        this.listener =listener;
+        this.listener = listener;
     }
 
     @SuppressLint("ResourceType")
     public void show() {
         inflatedView = LayoutInflater.from(TributumApplication.getInstance()).inflate(R.layout.request_sent_screen, null);
         viewGroup.addView(inflatedView);
-//        imageView = inflatedView.findViewById(R.id.loading_animation_id);
-//        imageView.setColorFilter(ContextCompat.getColor(TributumApplication.getInstance(), colorId));
         inflatedView.findViewById(R.id.loading_screen_id).setBackgroundResource(drawableResourceId);
         ((TextView) inflatedView.findViewById(R.id.request_sent_text_id)).setText(title);
         inflatedView.findViewById(R.id.ok_id).setOnClickListener(new View.OnClickListener() {
@@ -48,7 +46,6 @@ public class RequestSent {
                     listener.onOkClicked();
             }
         });
-        animate();
     }
 
     @SuppressLint("ResourceType")
@@ -56,17 +53,4 @@ public class RequestSent {
         viewGroup.removeView(inflatedView);
     }
 
-    private void animate() {
-//        View imageView = inflatedView.findViewById(R.id.loading_animation_id);
-//        ObjectAnimator animator = AnimUtils.getRotationAnimator(imageView, AnimUtils.DURATION_500 * 3, AnimUtils.NO_DELAY, new DecelerateInterpolator(), null, 0, 360);
-//        animator.addListener(new CustomAnimatorListener() {
-//            @Override
-//            public void onAnimationEnd(Animator animation) {
-//                super.onAnimationEnd(animation);
-//                animator.start();
-//            }
-//        });
-//        animator.setRepeatMode(ObjectAnimator.RESTART);
-//        animator.start();
-    }
 }

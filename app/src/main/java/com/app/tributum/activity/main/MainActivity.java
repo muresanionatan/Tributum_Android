@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UtilsGeneral.setAppLanguage(TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
-        setContentView(R.layout.new_activity_main);
+        setContentView(R.layout.activity_main);
         StatusBarUtils.makeStatusBarTransparent(this);
         ConstantsUtils.APP_START_TIME = System.currentTimeMillis();
 
@@ -123,7 +123,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                findViewById(R.id.splash_id).setVisibility(View.GONE);
+                AnimUtils.getFadeOutAnimator(findViewById(R.id.splash_id),
+                        AnimUtils.DURATION_200,
+                        AnimUtils.NO_DELAY,
+                        null, new CustomAnimatorListener() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                findViewById(R.id.splash_id).setVisibility(View.GONE);
+                            }
+                        }
+                ).start();
                 presenter.onSplashFinished(getIntent());
             }
         }, ConstantsUtils.ONE_SECOND * 2);

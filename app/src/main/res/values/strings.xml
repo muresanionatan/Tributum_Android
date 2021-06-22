@@ -77,7 +77,7 @@
     <string name="add_vat_label">Add VAT</string>
     <string name="send_vat">Send your VAT Receipts</string>
     <string name="app_language_label">App\nLanguage</string>
-    <string name="choose_language">Choose your preferred language</string>
+    <string name="choose_language">Choose Your Preferred Language</string>
     <string name="done_label">Done</string>
     <string name="add_vat_receipts">Add VAT\nReceipts</string>
     <string name="vat_subtitle">A VAT invoice must issue within fifteen days\nof the end of the month in which goods or\nservices are supplied.</string>

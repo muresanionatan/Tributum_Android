@@ -36,7 +36,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="137dp"
-        android:background="@drawable/white_rectangle">
+        android:background="@drawable/white_rectangle_corners">
 
         <TextView
             android:layout_width="match_parent"
@@ -47,4 +47,27 @@
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="-214dp"
+        android:src="@drawable/white_circle_alpha" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-214dp"
+        android:layout_marginTop="78dp"
+        android:src="@drawable/white_circle_alpha" />
+
+    <ImageView
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-184dp"
+        android:layout_marginBottom="-261dp"
+        android:src="@drawable/white_circle_alpha" />
 </RelativeLayout>
