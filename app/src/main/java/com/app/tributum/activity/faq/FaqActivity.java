@@ -29,7 +29,7 @@ public class FaqActivity extends AppCompatActivity implements FaqView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UtilsGeneral.setAppLanguage(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.activity_faq);
         StatusBarUtils.makeStatusBarTransparent(this);
 

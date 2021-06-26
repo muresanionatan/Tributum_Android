@@ -5,12 +5,15 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.core.app.NotificationManagerCompat;
+
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.notifications.NotificationExtra;
+import com.app.tributum.utils.notifications.NotificationIds;
 import com.app.tributum.utils.notifications.NotificationIntentIds;
 import com.app.tributum.utils.receiver.AlarmReceiver;
 
@@ -154,6 +157,7 @@ public class MainPresenterImpl implements MainPresenter {
         if (intent != null && intent.getStringExtra(NotificationExtra.OPEN) != null
                 && intent.getStringExtra(NotificationExtra.OPEN).equals(NotificationIntentIds.VAT_INTENT)
                 && view != null) {
+            NotificationManagerCompat.from(TributumApplication.getInstance()).cancel(null, NotificationIds.INPUT_VAT_ID);
             view.startVatActivity();
         }
     }

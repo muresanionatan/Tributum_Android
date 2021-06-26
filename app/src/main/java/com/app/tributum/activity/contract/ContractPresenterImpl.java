@@ -685,7 +685,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view == null)
             return;
 
-        if (checkPermissions(permissionId)) {
+        if (checkPermissions(requestId)) {
             file = new File(ImageUtils.getImagePath(name + requestId));
             view.takePicture(requestId, file, filePath);
         }
@@ -901,7 +901,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
                 //upload PPS and ID to Dropbox
                 try {
-                    uploadFiles(firstName, phone, bankAccount, noOfKids);
+                    uploadFiles(firstName + " " + lastName, phone, bankAccount, noOfKids);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -110,7 +110,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UtilsGeneral.setAppLanguage(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.contract_activity);
         StatusBarUtils.makeStatusBarTransparent(this);
 

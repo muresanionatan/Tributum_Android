@@ -111,6 +111,21 @@ public class UtilsGeneral {
     }
 
     /**
+     * Changes the locale for the given context
+     */
+    public static void changeLocaleForContext(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+
+        context.createConfigurationContext(configuration);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+    }
+
+    /**
      * checks if the build version is bigger then API 26 Oreo
      *
      * @return true if build version is at least API 26

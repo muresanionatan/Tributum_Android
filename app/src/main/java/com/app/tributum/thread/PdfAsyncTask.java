@@ -1,4 +1,4 @@
-package com.app.tributum.fragment.thread;
+package com.app.tributum.thread;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

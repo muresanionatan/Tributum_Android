@@ -3,6 +3,8 @@ package com.app.tributum.application;
 import android.app.Application;
 import android.content.res.Configuration;
 
+import com.app.tributum.utils.UtilsGeneral;
+
 import java.util.Locale;
 
 /**
@@ -54,10 +56,6 @@ public class TributumApplication extends Application {
         initializeInstance(this);
         if (applicationPreferences == null)
             applicationPreferences = new ApplicationPreferences();
-        Locale locale = new Locale(TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
-        Locale.setDefault(locale);
-        Configuration configuration = new Configuration();
-        configuration.setLocale(locale);
-        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+        UtilsGeneral.changeLocaleForContext(TributumApplication.getInstance(), TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
     }
 }

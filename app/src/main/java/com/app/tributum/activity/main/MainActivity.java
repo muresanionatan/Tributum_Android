@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UtilsGeneral.setAppLanguage(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.activity_main);
         StatusBarUtils.makeStatusBarTransparent(this);
         ConstantsUtils.APP_START_TIME = System.currentTimeMillis();

@@ -30,10 +30,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
-import com.app.tributum.fragment.thread.PdfAsyncTask;
 import com.app.tributum.activity.vat.adapter.VatAdapter;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.activity.vat.model.VatModel;
+import com.app.tributum.thread.PdfAsyncTask;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
@@ -77,7 +77,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UtilsGeneral.setAppLanguage(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.activity_vat);
         StatusBarUtils.makeStatusBarTransparent(this);
 
