@@ -6,7 +6,7 @@ import java.io.File;
 
 public interface ContractView {
 
-    void showToast(String string);
+    void showToast(int stringId);
 
     void showLoadingScreen();
 
@@ -64,15 +64,15 @@ public interface ContractView {
 
     void hideSignatureLayout();
 
-    void setTitle(String title);
+    void setTitle(int stringId);
 
-    void setSubtitle(String subtitle);
+    void setSubtitle(int stringId);
 
     void showClearButton();
 
     void hideClearButton();
 
-    void setConfirmationButtonText(String string);
+    void setConfirmationButtonText(int stringId);
 
     void setSendDisabled();
 

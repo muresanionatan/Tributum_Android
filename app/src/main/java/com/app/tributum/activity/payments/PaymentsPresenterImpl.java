@@ -136,8 +136,11 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
     }
 
     private void sendInternalEmail(String payer, String email, String site, String month) {
-        if (view != null)
-            view.showLoadingScreen();
+        if (view == null)
+            return;
+
+        view.showLoadingScreen();
+        view.hideKeyboard();
 
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
@@ -146,22 +149,18 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                if (view != null) {
-                    if (response.isSuccessful())
-                        sendClientEmail(email, site, month);
-                    else
-                        view.showToast(resources.getString(R.string.something_went_wrong));
+                if (response.isSuccessful())
+                    sendClientEmail(email, site, month);
+                else
+                    view.showToast(resources.getString(R.string.something_went_wrong));
 
-                    view.hideLoadingScreen();
-                }
+                view.hideLoadingScreen();
             }
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
-                if (view != null) {
-                    view.hideLoadingScreen();
-                    view.showToast(resources.getString(R.string.something_went_wrong));
-                }
+                view.hideLoadingScreen();
+                view.showToast(resources.getString(R.string.something_went_wrong));
             }
         });
     }

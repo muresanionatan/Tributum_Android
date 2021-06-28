@@ -47,18 +47,18 @@ public class MainPresenterImpl implements MainPresenter {
         if (TributumAppHelper.getBooleanSetting(AppKeysValues.FIRST_TIME_USER)) {
             TributumAppHelper.saveSetting(AppKeysValues.FIRST_TIME_USER, AppKeysValues.FALSE);
             view.showTermsAndConditionsScreen();
-            view.setWelcomeMessage(TributumApplication.getInstance().getResources().getString(R.string.welcome_tributum_label));
+            view.setWelcomeMessage(R.string.welcome_tributum_label);
         } else {
-            view.setWelcomeMessage(TributumApplication.getInstance().getResources().getString(R.string.welcome_back_label));
+            view.setWelcomeMessage(R.string.welcome_back_label);
         }
         setLanguageLabel();
     }
 
     private void setLanguageLabel() {
         if (TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE).equals("en"))
-            view.setLanguageLabel(TributumApplication.getInstance().getResources().getString(R.string.english_label));
+            view.setLanguageLabel(R.string.english_label);
         else
-            view.setLanguageLabel(TributumApplication.getInstance().getResources().getString(R.string.romanian_label));
+            view.setLanguageLabel(R.string.romanian_label);
     }
 
     public void startNotificationAlarm() {

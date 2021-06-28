@@ -282,30 +282,30 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (state == ProgressState.PERSONAL) {
             if (arePersonalInfoAdded(firstName, lastName, address1, address2, email, birthday, occupation, phone)) {
                 if (!ValidationUtils.isEmailValid(email)) {
-                    view.showToast(resources.getString(R.string.please_enter_correct_email));
+                    view.showToast(R.string.please_enter_correct_email);
                 } else if (birthday.length() < 10) {
-                    view.showToast(resources.getString(R.string.please_enter_birthday_format));
+                    view.showToast(R.string.please_enter_birthday_format);
                 } else if (!TextUtils.isEmpty(eircode)) {
                     if (!ValidationUtils.isEircodeValid(eircode)) {
-                        view.showToast(resources.getString(R.string.please_enter_correct_eircode));
+                        view.showToast(R.string.please_enter_correct_eircode);
                     }
                 } else {
                     moveToEmploymentScreen();
                 }
             } else {
-                view.showToast(resources.getString(R.string.add_all_info));
+                view.showToast(R.string.add_all_info);
             }
         } else if (state == ProgressState.EMPLOYMENT) {
             if (areEmploymentInfoAdded(pps, contractDate)) {
                 if (!ValidationUtils.isPpsValid(pps)) {
-                    view.showToast(resources.getString(R.string.please_enter_pps));
+                    view.showToast(R.string.please_enter_pps);
                 } else if (contractDate.length() < 10) {
-                    view.showToast(resources.getString(R.string.please_enter_contract_format));
+                    view.showToast(R.string.please_enter_contract_format);
                 } else {
                     moveToSignatureScreen();
                 }
             } else {
-                view.showToast(resources.getString(R.string.add_all_info_to_continue));
+                view.showToast(R.string.add_all_info_to_continue);
             }
         } else if (state == ProgressState.SIGNATURE) {
             if (signatureFile != null)
@@ -505,18 +505,18 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         state = ProgressState.EMPLOYMENT;
         view.hidePersonalInfoLayout();
         view.showEmploymentInfoLayoutFromRight();
-        view.setTitle(resources.getString(R.string.employment_info_label));
-        view.setSubtitle(resources.getString(R.string.contract_subtitle));
-        view.setConfirmationButtonText(resources.getString(R.string.continue_label));
+        view.setTitle(R.string.employment_info_label);
+        view.setSubtitle(R.string.contract_subtitle);
+        view.setConfirmationButtonText(R.string.continue_label);
     }
 
     private void moveToSignatureScreen() {
         state = ProgressState.SIGNATURE;
         view.hideEmploymentInfoLayoutToLeft();
         view.showSignatureLayout();
-        view.setTitle(resources.getString(R.string.almost_done));
-        view.setSubtitle(resources.getString(R.string.add_your_signature_below));
-        view.setConfirmationButtonText(resources.getString(R.string.sign_send));
+        view.setTitle(R.string.almost_done);
+        view.setSubtitle(R.string.add_your_signature_below);
+        view.setConfirmationButtonText(R.string.sign_send);
         if (signatureFile == null)
             view.setSendDisabled();
         else
@@ -534,15 +534,15 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             state = ProgressState.EMPLOYMENT;
             view.hideSignatureLayout();
             view.showEmploymentInfoLayoutFromLeft();
-            view.setTitle(resources.getString(R.string.employment_info_label));
-            view.setConfirmationButtonText(resources.getString(R.string.continue_label));
-            view.setSubtitle(resources.getString(R.string.contract_subtitle));
+            view.setTitle(R.string.employment_info_label);
+            view.setConfirmationButtonText(R.string.continue_label);
+            view.setSubtitle(R.string.contract_subtitle);
             view.setSendEnabled();
         } else if (state == ProgressState.EMPLOYMENT) {
             state = ProgressState.PERSONAL;
             view.hideEmploymentInfoLayoutToRight();
             view.showPersonalInfoLayout();
-            view.setTitle(resources.getString(R.string.personal_info_label));
+            view.setTitle(R.string.personal_info_label);
             view.setSendEnabled();
         } else if (state == ProgressState.PERSONAL) {
             view.closeActivity();
@@ -896,7 +896,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (!response.isSuccessful()) {
                     view.hideLoadingScreen();
-                    view.showToast(resources.getString(R.string.something_went_wrong));
+                    view.showToast(R.string.something_went_wrong);
                 }
 
                 //upload PPS and ID to Dropbox
@@ -910,7 +910,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 view.hideLoadingScreen();
-                view.showToast(resources.getString(R.string.something_went_wrong));
+                view.showToast(R.string.something_went_wrong);
             }
         });
     }

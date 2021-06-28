@@ -1063,23 +1063,23 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
-    public void showToast(String message) {
-        Toast.makeText(ContractActivity.this, message, Toast.LENGTH_SHORT).show();
+    public void showToast(int stringId) {
+        Toast.makeText(ContractActivity.this, getResources().getString(stringId), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void setTitle(String title) {
-        ((TextView) findViewById(R.id.contract_title_id)).setText(title);
+    public void setTitle(int stringId) {
+        ((TextView) findViewById(R.id.contract_title_id)).setText(getResources().getString(stringId));
     }
 
     @Override
-    public void setSubtitle(String subtitle) {
-        ((TextView) findViewById(R.id.contract_subtitle_id)).setText(subtitle);
+    public void setSubtitle(int stringId) {
+        ((TextView) findViewById(R.id.contract_subtitle_id)).setText(getResources().getString(stringId));
     }
 
     @Override
-    public void setConfirmationButtonText(String string) {
-        ((TextView) findViewById(R.id.contract_send_id)).setText(string);
+    public void setConfirmationButtonText(int stringId) {
+        ((TextView) findViewById(R.id.contract_send_id)).setText(getResources().getString(stringId));
     }
 
     @Override

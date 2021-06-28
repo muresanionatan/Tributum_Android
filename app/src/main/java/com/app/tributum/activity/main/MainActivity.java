@@ -139,8 +139,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void setLanguageLabel(String language) {
-        ((TextView) findViewById(R.id.language_text_id)).setText(language);
+    public void setLanguageLabel(int languageId) {
+        ((TextView) findViewById(R.id.language_text_id)).setText(getResources().getString(languageId));
     }
 
     @Override
@@ -225,9 +225,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void setWelcomeMessage(String message) {
+    public void setWelcomeMessage(int stringId) {
         TextView welcomeMessageText = findViewById(R.id.home_title_id);
-        welcomeMessageText.setText(message);
+        welcomeMessageText.setText(getResources().getString(stringId));
     }
 
     @Override

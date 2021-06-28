@@ -15,7 +15,7 @@ public interface MainView {
 
     void unCheckRomanianBox();
 
-    void setWelcomeMessage(String message);
+    void setWelcomeMessage(int stringId);
 
     void startVatActivity();
 
@@ -31,7 +31,7 @@ public interface MainView {
 
     void showPopup();
 
-    void setLanguageLabel(String language);
+    void setLanguageLabel(int languageId);
 
     void hideScrollToBottomButton();
 
