@@ -39,7 +39,7 @@ public class MainPresenterImpl implements MainPresenter {
             return;
 
         if (TributumAppHelper.getBooleanSetting(AppKeysValues.USER_DENIED_TERMS))
-            view.closeApp();
+            view.showTermsAndConditionsScreen();
 
         appLanguage = TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE);
         startNotificationAlarm();
