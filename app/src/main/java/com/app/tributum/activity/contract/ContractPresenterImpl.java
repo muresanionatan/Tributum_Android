@@ -311,7 +311,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 view.showToast(R.string.add_all_info_to_continue);
             }
         } else if (state == ProgressState.SIGNATURE) {
-            if (signatureFile != null)
                 sendInfo(firstName, lastName, address1, address2, address3, eircode, pps, email, contractDate, birthday, occupation, otherText, phone, bankAccount, noOfKids);
         }
     }
@@ -558,11 +557,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             view.showClearButton();
             view.setSendEnabled();
         }
-    }
-
-    @Override
-    public void onDrawingFinished() {
-        saveSignatureImage();
     }
 
     @Override
@@ -895,6 +889,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         contractModel.setOccupation(occupation);
         contractModel.setMessage(resources.getString(R.string.contract_mail_message));
 
+        saveSignatureImage();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         signatureFile.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();

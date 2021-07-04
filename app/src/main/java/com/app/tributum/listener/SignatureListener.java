@@ -7,6 +7,4 @@ package com.app.tributum.listener;
 public interface SignatureListener {
 
     void onDrawingStarted();
-
-    void onDrawingFinished();
 }

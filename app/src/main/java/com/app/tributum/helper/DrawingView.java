@@ -16,9 +16,13 @@ public class DrawingView extends View {
     private SignatureListener signatureListener;
 
     private Bitmap bitmap;
+
     private Canvas canvas;
+
     private Path path;
+
     private Paint bitmapPaint;
+
     private Paint paint;
 
     public DrawingView(Context context, SignatureListener signatureListener) {
@@ -55,7 +59,7 @@ public class DrawingView extends View {
     private float mX, mY;
     private static final float TOUCH_TOLERANCE = 4;
 
-    private void touch_start(float x, float y) {
+    private void touchStart(float x, float y) {
         path.reset();
         path.moveTo(x, y);
         mX = x;
@@ -65,7 +69,7 @@ public class DrawingView extends View {
             signatureListener.onDrawingStarted();
     }
 
-    private void touch_move(float x, float y) {
+    private void touchMove(float x, float y) {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
@@ -75,12 +79,10 @@ public class DrawingView extends View {
         }
     }
 
-    private void touch_up() {
+    private void touchUp() {
         path.lineTo(mX, mY);
         // commit the path to our offscreen
         canvas.drawPath(path, paint);
-        if (signatureListener != null)
-            signatureListener.onDrawingFinished();
         // kill this so we don't double draw
         path.reset();
     }
@@ -92,15 +94,15 @@ public class DrawingView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                touch_start(x, y);
+                touchStart(x, y);
                 invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
-                touch_move(x, y);
+                touchMove(x, y);
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                touch_up();
+                touchUp();
                 invalidate();
                 break;
         }
