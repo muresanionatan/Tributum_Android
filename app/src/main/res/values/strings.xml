@@ -116,4 +116,8 @@
     <string name="no_label">NO</string>
     <string name="eircode_label">Eircode</string>
     <string name="please_enter_correct_eircode">Please enter correct eircode</string>
+    <string name="dismiss_label">Dismiss</string>
+    <string name="go_to_settings">Go to settings</string>
+    <string name="permission_denied">Permission denied previously</string>
+    <string name="permission_denied_explained">In order to use this feature you need to go to app settings and enable permissions</string>
 </resources>

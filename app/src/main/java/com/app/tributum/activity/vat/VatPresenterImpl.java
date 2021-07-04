@@ -35,7 +35,7 @@ import retrofit2.Retrofit;
 
 public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, InvoiceItemClickListener, RequestSentListener {
 
-    private VatView vatView;
+    private final VatView vatView;
 
     private int photoClicked;
 
@@ -45,7 +45,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     private boolean isBottomSheetVisible;
 
-    private Resources resources;
+    private final Resources resources;
 
     private String pictureImagePath = "";
 
@@ -171,10 +171,23 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         if (vatView == null)
             return;
 
+        if (vatView.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED) && vatView.shouldShowCameraRationale()) {
+                vatView.takeUserToApPSettings();
+                return;
+            }
+        }
+
         if (checkPermissions()) {
             vatView.takePhoto(pictureImagePath);
         } else {
-            vatView.requestPermissions(new String[]{android.Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_INVOICES_ID);
+            if (vatView.shouldShowCameraRationale())
+                vatView.requestPermissions(new String[]{android.Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_INVOICES_ID);
+            else if (TributumAppHelper.getBooleanSetting(AppKeysValues.CAMERA_FIRST_DENIED)) {
+                vatView.takeUserToApPSettings();
+            } else {
+                vatView.requestPermissions(new String[]{android.Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_INVOICES_ID);
+            }
         }
     }
 
@@ -190,7 +203,13 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
             if (vatView.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 vatView.openPhotoChooserIntent();
             } else {
-                vatView.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_VAT);
+                if (vatView.shouldShowStorageRationale())
+                    vatView.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_VAT);
+                else if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED)) {
+                    vatView.takeUserToApPSettings();
+                } else {
+                    vatView.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_VAT);
+                }
             }
         }
     }
@@ -282,7 +301,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         return "The receipts"
                 + resources.getString(R.string.invoices_message_email_part2) + startingMonth
                 + " - " + endingMonth
-                + " were sent and we'll be processed.";
+                + " were sent and will be processed.";
     }
 
     private boolean checkPermissions() {
@@ -295,7 +314,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
             }
         }
         if (!listPermissionsNeeded.isEmpty() && vatView != null) {
-            vatView.requestPermissions(listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT);
+            vatView.requestPermissions(listPermissionsNeeded.toArray(new String[0]), ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT);
             return false;
         }
         return true;
@@ -336,12 +355,22 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            if (requestCode == ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_VAT) {
-                pickPictureFromGallery();
-            } else {
-                onTakePhotoClick();
+        if (grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                if (requestCode == ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_VAT) {
+                    pickPictureFromGallery();
+                } else {
+                    onTakePhotoClick();
+                }
+            else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                if (requestCode == ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_VAT) {
+                    TributumAppHelper.saveSetting(AppKeysValues.STORAGE_FIRST_DENIED, AppKeysValues.TRUE);
+                } else {
+                    TributumAppHelper.saveSetting(AppKeysValues.CAMERA_FIRST_DENIED, AppKeysValues.TRUE);
+                }
             }
+        }
+
     }
 
     @Override

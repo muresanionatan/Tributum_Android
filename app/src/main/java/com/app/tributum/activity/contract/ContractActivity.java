@@ -37,6 +37,7 @@ import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.helper.DrawingView;
 import com.app.tributum.utils.CustomTextWatcher;
+import com.app.tributum.utils.DialogUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
@@ -87,8 +88,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     private EditText birthday;
 
-    private CheckBox otherCheck;
-
     private BottomSheetBehavior fileChooser;
 
     private View previewLayout;
@@ -119,6 +118,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         presenter.onCreate();
     }
 
+    @SuppressLint({"ClickableViewAccessibility", "CutPasteId"})
     private void setupViews() {
         scrollView = findViewById(R.id.scrollView);
         findViewById(R.id.contract_back_id).setOnClickListener(new View.OnClickListener() {
@@ -305,7 +305,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
         EditText otherEditText = findViewById(R.id.other_edit_id);
         UtilsGeneral.setMaxLengthEditText(otherEditText, 60);
-        otherCheck = findViewById(R.id.ninth);
+        CheckBox otherCheck = findViewById(R.id.ninth);
         otherCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1306,6 +1306,21 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void removeFocus() {
         UtilsGeneral.removeFocusFromInput(this, (EditText) getCurrentFocus());
+    }
+
+    @Override
+    public boolean shouldShowStorageRationale() {
+        return ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    @Override
+    public boolean shouldShowCameraRationale() {
+        return ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA);
+    }
+
+    @Override
+    public void takeUserToApPSettings() {
+        DialogUtils.showPermissionDeniedDialog(this);
     }
 
     @Override

@@ -43,4 +43,10 @@ public interface VatView {
     void showRequestSentScreen();
 
     void showTopViewBottomSheet();
+
+    void takeUserToApPSettings();
+
+    boolean shouldShowStorageRationale();
+
+    boolean shouldShowCameraRationale();
 }

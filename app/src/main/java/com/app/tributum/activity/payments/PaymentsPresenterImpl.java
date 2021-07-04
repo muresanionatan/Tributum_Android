@@ -95,15 +95,15 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
         else
             amountType = resources.getString(R.string.gross_label);
 
-        String message = "Payment from " + payer + " at " + site
+        StringBuilder message = new StringBuilder("Payment from " + payer + " at " + site
                 + " for " + month
-                + "\n \n" + "Please register the following payments: " + "\n";
+                + "\n \n" + "Please register the following payments: " + "\n");
         for (PaymentModel model : paymentList) {
-            message = message + model.getName() + " (" + model.getPps() + ") - " + model.getAmount() + "\n";
+            message.append(model.getName()).append(" (").append(model.getPps()).append(") - ").append(model.getAmount()).append("\n");
         }
-        message = message + "\n \n" + "All of them are " + amountType.toUpperCase() + "\n \n";
-        message = message + "Please respond to " + email + ".";
-        return message;
+        message.append("\n \n").append("All of them are ").append(amountType.toUpperCase()).append("\n \n");
+        message.append("Please respond to ").append(email).append(".");
+        return message.toString();
     }
 
     private String concatenateClientMail(String site, String month) {
@@ -113,14 +113,14 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
         else
             amountType = resources.getString(R.string.gross_label);
 
-        String message = "The following payments at " + site
+        StringBuilder message = new StringBuilder("The following payments at " + site
                 + " for " + month
-                + " will be made for:\n\n";
+                + " will be made for:\n\n");
         for (PaymentModel model : paymentList) {
-            message = message + model.getName() + " (" + model.getPps() + ") - " + model.getAmount() + "\n";
+            message.append(model.getName()).append(" (").append(model.getPps()).append(") - ").append(model.getAmount()).append("\n");
         }
-        message = message + "\n \n" + "All of them are " + amountType.toUpperCase() + ".";
-        return message;
+        message.append("\n \n").append("All of them are ").append(amountType.toUpperCase()).append(".");
+        return message.toString();
     }
 
     private void saveListToPreferences(String payer, String email, String site) {

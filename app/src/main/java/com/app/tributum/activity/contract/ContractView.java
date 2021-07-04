@@ -155,4 +155,10 @@ public interface ContractView {
     void hideEmploymentInfoLayoutToLeft();
 
     void removeFocus();
+
+    boolean shouldShowStorageRationale();
+
+    boolean shouldShowCameraRationale();
+
+    void takeUserToApPSettings();
 }

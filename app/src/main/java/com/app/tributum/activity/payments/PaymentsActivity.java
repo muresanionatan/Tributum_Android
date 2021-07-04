@@ -1,5 +1,6 @@
 package com.app.tributum.activity.payments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -59,6 +60,7 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
         setupRecyclerView();
     }
 
+    @SuppressLint("CutPasteId")
     private void populateList() {
         netCheckbox = findViewById(R.id.net_checkbox);
         grossCheckbox = findViewById(R.id.gross_checkbox);

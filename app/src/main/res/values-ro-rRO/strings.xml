@@ -116,4 +116,8 @@
     <string name="no_label">NU</string>
     <string name="eircode_label">Eircode</string>
     <string name="please_enter_correct_eircode">Te rugam introdu un eircode corect</string>
+    <string name="dismiss_label">Inchide</string>
+    <string name="go_to_settings">Mergi la setari</string>
+    <string name="permission_denied">Permisiune respinsa anterior</string>
+    <string name="permission_denied_explained">Pentru a putea folosi aceasta functie este nevoie sa mergi la setarile aplicatie si sa fii de acord cu permisiunile.</string>
 </resources>

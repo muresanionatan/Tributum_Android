@@ -166,13 +166,13 @@
     </RelativeLayout>
 
     <include
-        android:id="@+id/splash_id"
-        layout="@layout/splash_layout"
-        tools:visibility="gone" />
-
-    <include
         android:id="@+id/terms_scrollview_id"
         layout="@layout/terms_gdpr_layout"
         android:visibility="gone"
+        tools:visibility="gone" />
+
+    <include
+        android:id="@+id/splash_id"
+        layout="@layout/splash_layout"
         tools:visibility="gone" />
 </RelativeLayout>
