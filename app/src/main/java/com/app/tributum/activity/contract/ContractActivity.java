@@ -319,7 +319,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             }
         });
 
-        findViewById(R.id.contract_send_id).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.contract_send_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.handleSendButtonClick(
