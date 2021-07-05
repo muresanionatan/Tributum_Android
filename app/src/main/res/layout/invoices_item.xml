@@ -8,7 +8,7 @@
     android:gravity="center"
     android:layerType="software">
 
-    <RelativeLayout
+    <com.app.tributum.utils.ui.CustomButton
         android:id="@+id/plus_id"
         android:layout_width="match_parent"
         android:layout_height="126dp"
@@ -21,7 +21,7 @@
             android:layout_height="56dp"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_btn_add_photo_vat" />
-    </RelativeLayout>
+    </com.app.tributum.utils.ui.CustomButton>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/photo_uploaded_id"
@@ -45,13 +45,19 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/white_alpha_rectangle_corners" />
 
-            <ImageView
+            <com.app.tributum.utils.ui.CustomButton
                 android:id="@+id/preview_thumbnail_id"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="48dp"
-                android:src="@drawable/ic_btn_view_photo_vat" />
+                android:layout_marginStart="48dp">
+
+                <ImageView
+                    android:id="@+id/preview_image_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_btn_view_photo_vat" />
+            </com.app.tributum.utils.ui.CustomButton>
 
             <View
                 android:id="@+id/photo_holder_divider_id"
@@ -60,14 +66,20 @@
                 android:layout_centerInParent="true"
                 android:background="@color/vat_1" />
 
-            <ImageView
+            <com.app.tributum.utils.ui.CustomButton
                 android:id="@+id/remove__thumbnail_photo_id"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="48dp"
-                android:src="@drawable/ic_btn_remove_photo_vat" />
+                android:layout_marginEnd="48dp">
+
+                <ImageView
+                    android:id="@+id/delete_image_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_btn_remove_photo_vat" />
+            </com.app.tributum.utils.ui.CustomButton>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

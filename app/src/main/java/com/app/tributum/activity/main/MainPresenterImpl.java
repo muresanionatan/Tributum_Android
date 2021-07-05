@@ -38,7 +38,7 @@ public class MainPresenterImpl implements MainPresenter {
         if (view == null)
             return;
 
-        if (TributumAppHelper.getBooleanSetting(AppKeysValues.USER_DENIED_TERMS))
+        if (TributumAppHelper.getBooleanSetting(AppKeysValues.USER_DENIED_TERMS) || !TributumAppHelper.getBooleanSetting(AppKeysValues.USER_ACCEPTED_TERMS))
             view.showTermsAndConditionsScreen();
 
         appLanguage = TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE);
@@ -164,6 +164,8 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onAcceptTermsClicked() {
+        TributumAppHelper.saveSetting(AppKeysValues.USER_ACCEPTED_TERMS, AppKeysValues.TRUE);
+        TributumAppHelper.saveSetting(AppKeysValues.USER_DENIED_TERMS, AppKeysValues.FALSE);
         if (view != null)
             view.hideTermsAndConditionsScreen();
     }

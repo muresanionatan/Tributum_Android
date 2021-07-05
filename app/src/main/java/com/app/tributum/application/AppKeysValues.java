@@ -32,6 +32,8 @@ public class AppKeysValues {
 
     public static final String USER_DENIED_TERMS = "userDeniedTerms";
 
+    public static final String USER_ACCEPTED_TERMS = "userAcceptedTerms";
+
     public static final String STORAGE_FIRST_DENIED = "storageFirstDenied";
 
     public static final String CAMERA_FIRST_DENIED = "cameraFirstDenied";

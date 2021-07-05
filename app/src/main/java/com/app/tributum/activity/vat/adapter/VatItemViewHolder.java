@@ -1,20 +1,20 @@
 package com.app.tributum.activity.vat.adapter;
 
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.tributum.R;
+import com.app.tributum.utils.ui.CustomButton;
 
 public class VatItemViewHolder extends RecyclerView.ViewHolder {
 
     public View plusImage;
 
-    public ImageView previewImage;
+    public CustomButton previewImage;
 
-    public ImageView deleteImage;
+    public CustomButton deleteImage;
 
     public View photoUploadedView;
 

@@ -17,7 +17,7 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
 
-    <LinearLayout
+    <com.app.tributum.utils.ui.CustomButton
         android:id="@+id/delete_signature_id"
         style="@style/CtaWhiteButton"
         android:layout_marginStart="0dp"
@@ -34,5 +34,5 @@
             android:text="@string/clear_label"
             android:textColor="@color/error"
             android:textSize="16sp" />
-    </LinearLayout>
+    </com.app.tributum.utils.ui.CustomButton>
 </LinearLayout>

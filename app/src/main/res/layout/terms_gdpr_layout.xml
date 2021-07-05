@@ -44,7 +44,7 @@
                 android:text="@string/privacy_policy_content"
                 tools:visibility="gone" />
 
-            <LinearLayout
+            <com.app.tributum.utils.ui.CustomButton
                 android:id="@+id/accept_terms_id"
                 style="@style/CtaWhiteButton"
                 android:layout_marginStart="0dp"
@@ -59,9 +59,9 @@
                     android:text="@string/accept_terms_label"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
-            </LinearLayout>
+            </com.app.tributum.utils.ui.CustomButton>
 
-            <LinearLayout
+            <com.app.tributum.utils.ui.CustomButton
                 android:id="@+id/deny_terms_id"
                 style="@style/CtaWhiteButton"
                 android:layout_marginStart="0dp"
@@ -77,11 +77,11 @@
                     android:text="@string/deny_label"
                     android:textColor="@color/error"
                     android:textSize="16sp" />
-            </LinearLayout>
+            </com.app.tributum.utils.ui.CustomButton>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout
+    <com.app.tributum.utils.ui.CustomButton
         android:id="@+id/scroll_toBottom_id"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -90,14 +90,14 @@
         android:layout_marginEnd="4dp"
         android:background="@drawable/white_circle"
         android:elevation="4dp"
-        android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
 
         <ImageView
             android:layout_width="36dp"
             android:layout_height="36dp"
+            android:layout_centerInParent="true"
             android:rotation="270"
             android:src="@drawable/arrow_svg" />
-    </LinearLayout>
+    </com.app.tributum.utils.ui.CustomButton>
 </RelativeLayout>

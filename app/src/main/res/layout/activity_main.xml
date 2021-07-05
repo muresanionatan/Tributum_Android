@@ -43,7 +43,7 @@
             android:layout_centerVertical="true"
             android:src="@drawable/ic_oval_purple" />
 
-        <RelativeLayout
+        <com.app.tributum.utils.ui.CustomButton
             android:id="@+id/contract_id"
             style="@style/MainScreeButton"
             android:layout_above="@+id/payments_id"
@@ -70,9 +70,9 @@
                     android:fontFamily="@font/manrope_medium"
                     android:text="@string/create_new_contract" />
             </LinearLayout>
-        </RelativeLayout>
+        </com.app.tributum.utils.ui.CustomButton>
 
-        <RelativeLayout
+        <com.app.tributum.utils.ui.CustomButton
             android:id="@+id/payments_id"
             style="@style/MainScreeButton"
             android:layout_above="@+id/vat_id"
@@ -99,9 +99,9 @@
                     android:fontFamily="@font/manrope_medium"
                     android:text="@string/add_new_rct_payment" />
             </LinearLayout>
-        </RelativeLayout>
+        </com.app.tributum.utils.ui.CustomButton>
 
-        <RelativeLayout
+        <com.app.tributum.utils.ui.CustomButton
             android:id="@+id/vat_id"
             style="@style/MainScreeButton"
             android:layout_alignParentBottom="true"
@@ -129,7 +129,7 @@
                     android:fontFamily="@font/manrope_medium"
                     android:text="@string/send_vat" />
             </LinearLayout>
-        </RelativeLayout>
+        </com.app.tributum.utils.ui.CustomButton>
 
         <TextView
             android:id="@+id/faq_id"
@@ -138,10 +138,10 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="54sp"
             android:layout_marginEnd="48dp"
-            android:textColor="@color/black"
             android:fontFamily="@font/manrope_bold"
             android:gravity="center_vertical|end"
             android:text="@string/faqs_label"
+            android:textColor="@color/black"
             android:textSize="15sp" />
 
         <ImageView

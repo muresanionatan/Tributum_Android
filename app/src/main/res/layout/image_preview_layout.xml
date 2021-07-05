@@ -8,8 +8,8 @@
     android:background="@color/grey_1"
     android:clickable="true"
     android:gravity="center"
-    tools:visibility="visible"
-    android:visibility="gone">
+    android:visibility="gone"
+    tools:visibility="visible">
 
     <ImageView
         android:id="@+id/image_preview_id"
@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="114dp" />
 
-    <LinearLayout
+    <com.app.tributum.utils.ui.CustomButton
         android:id="@+id/remove_photo_id"
         style="@style/CtaWhiteButton"
         android:layout_alignParentBottom="true"
@@ -31,5 +31,5 @@
             android:text="@string/remove_photo"
             android:textColor="@color/error"
             android:textSize="16sp" />
-    </LinearLayout>
+    </com.app.tributum.utils.ui.CustomButton>
 </RelativeLayout>

@@ -290,7 +290,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void hideTermsAndConditionsScreen() {
-        findViewById(R.id.terms_scrollview_id).setVisibility(View.GONE);
+        AnimUtils.getFadeOutAnimator(findViewById(R.id.terms_scrollview_id),
+                AnimUtils.DURATION_200,
+                AnimUtils.NO_DELAY,
+                null, new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.terms_scrollview_id).setVisibility(View.GONE);
+                    }
+                }
+        ).start();
     }
 
     @Override

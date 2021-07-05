@@ -29,7 +29,7 @@
         android:textSize="36sp"
         tools:text="@string/vat_receipts_sent" />
 
-    <LinearLayout
+    <com.app.tributum.utils.ui.CustomButton
         android:id="@+id/ok_id"
         android:layout_width="152dp"
         android:layout_height="48dp"
@@ -46,7 +46,7 @@
             android:text="@string/ok_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
-    </LinearLayout>
+    </com.app.tributum.utils.ui.CustomButton>
 
     <ImageView
         android:layout_width="wrap_content"

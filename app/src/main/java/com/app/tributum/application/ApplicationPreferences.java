@@ -134,6 +134,8 @@ public class ApplicationPreferences {
             this.setPreference(AppKeysValues.APP_LANGUAGE, "en");
             this.setPreference(AppKeysValues.FIRST_TIME_USER, AppKeysValues.TRUE);
             this.setPreference(AppKeysValues.INVOICES_TAKEN, AppKeysValues.FALSE);
+            this.setPreference(AppKeysValues.USER_DENIED_TERMS, AppKeysValues.FALSE);
+            this.setPreference(AppKeysValues.USER_ACCEPTED_TERMS, AppKeysValues.FALSE);
 
             //Settings Save
             this.savePreferences();

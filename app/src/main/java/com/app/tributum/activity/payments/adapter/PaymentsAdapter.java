@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +15,7 @@ import com.app.tributum.R;
 import com.app.tributum.listener.PaymentsItemClickListener;
 import com.app.tributum.activity.payments.model.PaymentModel;
 import com.app.tributum.utils.UtilsGeneral;
+import com.app.tributum.utils.ui.CustomButton;
 
 import java.util.List;
 
@@ -117,7 +117,7 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
 
         EditText amountEditText;
 
-        TextView removeButton;
+        CustomButton removeButton;
 
         NameEditTextListener nameEditTextListener;
 

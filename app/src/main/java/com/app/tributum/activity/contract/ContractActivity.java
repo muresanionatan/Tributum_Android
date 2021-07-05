@@ -549,8 +549,8 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     private void setImageHolderColor(int viewId) {
         ((ImageView) findViewById(viewId).findViewById(R.id.contract_plus_id)).setImageResource(R.drawable.ic_btn_add_photo_contract);
-        ((ImageView) findViewById(viewId).findViewById(R.id.preview_thumbnail_id)).setImageResource(R.drawable.ic_btn_view_photo_contract);
-        ((ImageView) findViewById(viewId).findViewById(R.id.remove__thumbnail_photo_id)).setImageResource(R.drawable.ic_btn_remove_photo_contract);
+        ((ImageView) findViewById(viewId).findViewById(R.id.preview_image_id)).setImageResource(R.drawable.ic_btn_view_photo_contract);
+        ((ImageView) findViewById(viewId).findViewById(R.id.delete_image_id)).setImageResource(R.drawable.ic_btn_remove_photo_contract);
         findViewById(viewId).findViewById(R.id.photo_holder_divider_id)
                 .setBackgroundColor(ContextCompat.getColor(this, R.color.contract_1));
     }

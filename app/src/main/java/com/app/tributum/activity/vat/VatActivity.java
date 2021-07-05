@@ -95,7 +95,6 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         previewLayout = findViewById(R.id.preview_layout_id);
         name = findViewById(R.id.payer_edit_text);
         payerEmail = findViewById(R.id.payer_email_edit_text);
-        TextView sendButton = findViewById(R.id.invoices_send_id);
         startingMonth = findViewById(R.id.start_month_edit_text);
         endingMonth = findViewById(R.id.end_month_edit_text);
 
@@ -121,7 +120,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
             }
         });
 
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.invoices_send_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onSendClick(name.getText().toString(),

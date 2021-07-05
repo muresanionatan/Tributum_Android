@@ -182,7 +182,7 @@
                 android:layout_marginTop="8dp"
                 tools:listitem="@layout/payment_list_item" />
 
-            <LinearLayout
+            <com.app.tributum.utils.ui.CustomButton
                 android:id="@+id/add_new_id"
                 style="@style/CtaWhiteButton"
                 android:layout_marginTop="32dp">
@@ -195,7 +195,7 @@
                     android:text="@string/add_new_label"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
-            </LinearLayout>
+            </com.app.tributum.utils.ui.CustomButton>
 
             <View
                 android:layout_width="match_parent"
@@ -205,13 +205,18 @@
                 android:layout_marginEnd="48dp"
                 android:background="@color/grey_2" />
 
-            <TextView
+            <com.app.tributum.utils.ui.CustomButton
                 android:id="@+id/invoices_send_id"
-                style="@style/SendButton"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
-                android:background="@drawable/payments_send"
-                android:text="@string/send_payment_label" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/SendButton"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:background="@drawable/payments_send"
+                    android:text="@string/send_payment_label" />
+            </com.app.tributum.utils.ui.CustomButton>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>
