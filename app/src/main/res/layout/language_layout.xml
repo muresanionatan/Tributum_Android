@@ -18,7 +18,7 @@
         android:layout_marginStart="32dp"
         android:text="@string/choose_language" />
 
-    <LinearLayout
+    <com.app.tributum.utils.ui.CustomButton
         android:id="@+id/language_done_id"
         style="@style/CtaWhiteButton"
         android:layout_alignParentBottom="true"
@@ -32,7 +32,7 @@
             android:text="@string/done_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
-    </LinearLayout>
+    </com.app.tributum.utils.ui.CustomButton>
 
     <LinearLayout
         android:id="@+id/english_id"

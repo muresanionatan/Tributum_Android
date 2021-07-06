@@ -291,6 +291,8 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 } else if (!TextUtils.isEmpty(eircode)) {
                     if (!ValidationUtils.isEircodeValid(eircode)) {
                         view.showToast(R.string.please_enter_correct_eircode);
+                    } else {
+                        moveToEmploymentScreen();
                     }
                 } else {
                     moveToEmploymentScreen();
