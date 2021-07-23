@@ -53,9 +53,9 @@ public class UploadAsyncTask extends AsyncTask {
 
     @Override
     protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
         if (asyncListener != null)
             asyncListener.onTaskCompleted();
-        super.onPostExecute(o);
     }
 
     @IntDef

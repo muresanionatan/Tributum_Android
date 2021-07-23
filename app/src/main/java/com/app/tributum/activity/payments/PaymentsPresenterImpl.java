@@ -79,7 +79,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
                 view.setFocusOnRecyclerView();
             } else {
                 saveListToPreferences(payer, email, site);
-//                sendInternalEmail(payer, email, site, month);
+                sendInternalEmail(payer, email, site, month);
                 view.showToast("good");
             }
         } else {

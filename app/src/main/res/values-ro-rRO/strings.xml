@@ -137,4 +137,16 @@
     <string name="please_select_taxes">Te rugam alege cel putin un tip de taxa</string>
     <string name="please_specify_other">Te rugam specifica altele</string>
     <string name="please_add_pps_front">Te rugam adauga poza PPS fata</string>
+    <string name="faq_question_1">Cum adaug bonuri/facturi?</string>
+    <string name="faq_question_answer_1">Trebuie sa completezi campurile obligatorii pentru a finaliza aceasta operatiune. Acestea sunt: numele, email, luna de inceput si sfarsit a bonurilor/facturilor. Apoi trebuie sa apesi pe plusul portocaliu, iar pe urma adaugi bonurile/facturile. Poti sa le adaugi din galeria telefonului (daca le ai salvate acolo) folosind butonul \'Adauga poze din galerie\', sau poti sa faci acum poze fara limita folosind butonul \'Fa o poza\'. Odata adaugate acestea, apasa butonul \'Trimite\' din josul paginii.</string>
+    <string name="faq_question_2">Cum trimit o plata?</string>
+    <string name="faq_question_answer_2">Prima data e nevoie sa completezi campurile obligatorii: nume, email (e nevoie de aceasta pentru a primi o confirmare a cererii de plata), santier si luna platii. Apoi poti adauga cate plati doresti. Apasa pe \'Adauga o noua Plata RCT\' pentru a adauga o noua persoana sau apasa pe \'Sterge\' pentru a sterge o persoana. Pentru a trimite o plata e nevoie ca toate campurile sa fie completate. O data ce plata a fost trimisa, toate informatiile introduse in acest screen vor fi salvate pentru urmatoarea plata, chiar si daca ai inchis aplicatia. Poti doar sa modifici ce e de modificat.</string>
+    <string name="faq_question_3">Cum creez un contract nou?</string>
+    <string name="faq_question_answer_3">E foarte simplu. Completeaza pe rand toate campurile si adauga toate pozele necesare. Pozele pot fi adaugate din galeria telefonului sau se pot face pe loc din aplicatie. Poze obligatorii pentru contract: buletinul, PPS fata, certificat de casatorie unde e cazul.</string>
+    <string name="faq_question_4">De ce este butonul \'Trimite\' gri?</string>
+    <string name="faq_question_answer_4">Butonul \'Trimite\' e gri doar atunci cand campurile obligatorii nu au fost completate. Odata ce acetea au fost introduse, butonul isi va schimba culoarea. Pentru a vedea ce campuri nu sunt completate si sunt necesare, apasa pe butonul gri si vei fii informat in josul paginii cu informatia de care ai nevoie si vei fi dus la campul care trebuie introdus.</string>
+    <string name="faq_question_5">Nu pot adauga poze din telefon.</string>
+    <string name="faq_question_answer_5">Poti oricand sa faci poze actelor tale: buletin, PPS, certificat de casatorie, bonuri, facturi. Apasa pe buton cu plus si apoi pe \'Fa o poza\'.</string>
+    <string name="faq_question_6">Nu stiu cum sa fac poze actelor mele folosind aplicatia</string>
+    <string name="faq_question_answer_6">Nicio grija. Fa poze actelor tale folosing camera telefonului. Apoi le poti adauga in aplicatie apasand pe plus si apoi pe \'Adauga poze din galerie\'.</string>
 </resources>

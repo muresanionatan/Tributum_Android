@@ -276,7 +276,6 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (response.isSuccessful()) {
-                    vatView.hideLoadingScreen();
                     vatView.showRequestSentScreen();
                 } else {
                     vatView.showToast(resources.getString(R.string.something_went_wrong));

@@ -137,4 +137,16 @@
     <string name="please_select_taxes">Please select at least one of taxes</string>
     <string name="please_specify_other">Please specify which other</string>
     <string name="please_add_pps_front">Please add pps front</string>
+    <string name="faq_question_1">How do I send VAT receipts?</string>
+    <string name="faq_question_answer_1">You need to add the mandatory fields in order to complete the action. These are: name, e-mail, starting and ending month of the invoices/receipts. Then click on the orange plus and you\'ll need to add the receipts/invoices. You can add those that are already in your phone (using the \'Add From Gallery\' button) or by taking unlimited pictures by clicking on \'Take photo\'. Once you\'ve added all your receipts/invoices, click on the \'Send VAT Receipts\' button on the bottom of the page.</string>
+    <string name="faq_question_2">How do I send RCT Payments?</string>
+    <string name="faq_question_answer_2">First complete the mandatory fields: name, email (this is required in order for you to receive a copy of the request as well), site and month. Then you can add as much payments as you want. Click the \'Add New\' button to add a new person or click on \'Remove\' button in order to delete one person. In order to send the payment request you\'ll need to complete all the fields. Once a payment is sent, all the information you\'ve added will be saved for the next time you\'ll want to make a payment, even-though you\'ve closed the app. You can only change what you need.</string>
+    <string name="faq_question_3">How do I create a new contract?</string>
+    <string name="faq_question_answer_3">It\'s simple. Complete the fields one by one and add all the necessary files. Files can be added from the phone or by taking a photo directly from the app. Mandatory files: ID, PPS front and marriage certificate if you are married.</string>
+    <string name="faq_question_4">Why is the \'Send\' button gray?</string>
+    <string name="faq_question_answer_4">The \'Send\' button is gray only when the mandatory fields are not completed. Once those are completed, the button will turn to color. In order to see what fields you are missing, click on the grayed button and you will be prompted with an information on the bottom of the screen and you will be taken to the field that needs to be completed.</string>
+    <string name="faq_question_5">I cannot add photos from the device.</string>
+    <string name="faq_question_answer_5">You can always take pictures of your files: IDs, PPS, marriage certificate, receipts, invoices. Click the plus image and then on \'Take photo\' button and you\'re all set.</string>
+    <string name="faq_question_6">I don\'t know how to take photos with the app</string>
+    <string name="faq_question_answer_6">No worries. Take the photos using the phone camera and then you can add them by clicking on the plus image and then on \'Add From Gallery\' button.</string>
 </resources>

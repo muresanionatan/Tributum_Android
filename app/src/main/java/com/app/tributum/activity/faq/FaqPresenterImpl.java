@@ -1,7 +1,11 @@
 package com.app.tributum.activity.faq;
 
+import android.content.res.Resources;
+
+import com.app.tributum.R;
 import com.app.tributum.activity.faq.model.FaqItem;
 import com.app.tributum.activity.faq.model.FaqItemState;
+import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.FaqClickListener;
 
 import java.util.ArrayList;
@@ -19,17 +23,20 @@ public class FaqPresenterImpl implements FaqPresenter, FaqClickListener {
 
     @Override
     public void onCreate() {
+        Resources resources = TributumApplication.getInstance().getResources();
         faqItems = new ArrayList<>();
-        faqItems.add(new FaqItem("shjdfsjdgfhjsdgfhjsdgfhjsdgfhjsdghfsg",
-                "jdhfkjshdjfhsdk jfhdsjkfhskjdfskdfhjks dfhksdfkjdhfkjsdhfkjshfk sdhfkjshdfkjshdfjk shdfj shdfk jshdkf jshdkfjshfuwehfiu sfhew hfiuasehfk uehf sirugf dsrg "));
-        faqItems.add(new FaqItem("shjdfsjdgfhjsdgfhjsdgfhjsdgfhjsdghfsg",
-                "8w3975c94c89237c489b2b7c4823b4798237498c2b3748cb23794cb823bx49823cv7b 4982 34798 23794 e827er f987d g98df7g9s8d7fg98sdf7gsdfg "));
-        faqItems.add(new FaqItem("shjdfsjdgfhjsdgfhjsdgfhj sdkjfs kdjf hsjd fhskd jfhsj dhfkj sdhkf skjdf skjdf skjdhf sdgfhjsdghfsg",
-                "8w3975c94c89237c489b2b7c4823b4798237498c2b3748cb23794cb823bx49823cv7b 4982 34798 23794 e827er f987d g98df7g9s8d7fg98sdf7gsdfg "));
-        faqItems.add(new FaqItem("shjdfsjdgfhjsdgfhjsdgfhjsdgfhjsdghfsg",
-                "8w3975c94c89237c489b2b7c4823b4798237498c2b3748cb23794cb823bx49823cv7b 4982 34798 23794 e827er f987d g98df7g9s8d7fg98sdf7gsdfg "));
-        faqItems.add(new FaqItem("shjdfsjdgfhjsdgfhjsdgfhjsdgfhjsdghfsg",
-                "8w3975c94c89237c489b2b7c4823b4798237498c2b3748cb23794cb823bx49823cv7b 4982 34798 23794 e827er f987d g98df7g9s8d7fg98sdf7gsdfg "));
+        faqItems.add(new FaqItem(resources.getString(R.string.faq_question_1),
+                resources.getString(R.string.faq_question_answer_1)));
+        faqItems.add(new FaqItem(resources.getString(R.string.faq_question_2),
+                resources.getString(R.string.faq_question_answer_2)));
+        faqItems.add(new FaqItem(resources.getString(R.string.faq_question_3),
+                resources.getString(R.string.faq_question_answer_3)));
+        faqItems.add(new FaqItem(resources.getString(R.string.faq_question_4),
+                resources.getString(R.string.faq_question_answer_4)));
+        faqItems.add(new FaqItem(resources.getString(R.string.faq_question_5),
+                resources.getString(R.string.faq_question_answer_5)));
+        faqItems.add(new FaqItem(resources.getString(R.string.faq_question_6),
+                resources.getString(R.string.faq_question_answer_6)));
     }
 
     public List<FaqItem> getFaqItems() {

@@ -939,7 +939,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (!response.isSuccessful()) {
-                    view.hideLoadingScreen();
                     view.showToast(R.string.something_went_wrong);
                 }
 
