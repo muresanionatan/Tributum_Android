@@ -13,11 +13,11 @@ import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
+import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.InvoiceItemClickListener;
-import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.listener.InvoicesDeleteListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
@@ -60,6 +60,9 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     public void onCreate() {
         list = new ArrayList<>();
         list.add(new VatModel(""));
+
+        if (vatView != null)
+            vatView.disableSendButton();
     }
 
     @Override
@@ -370,7 +373,22 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
                 }
             }
         }
+    }
 
+    @Override
+    public void onTextChanged(String name, String email, String startingMonth, String endingMonth) {
+        if (vatView == null)
+            return;
+
+        if (name.equals("")
+                || email.equals("")
+                || startingMonth.equals("")
+                || endingMonth.equals("")
+                || list.size() == 1) {
+            vatView.disableSendButton();
+        } else {
+            vatView.enableSendButton();
+        }
     }
 
     @Override

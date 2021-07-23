@@ -145,13 +145,15 @@
                         android:background="@color/grey_2" />
 
                     <com.app.tributum.utils.ui.CustomButton
-                        android:id="@+id/invoices_send_id"
+                        android:id="@+id/vat_send_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp">
 
                         <TextView
+                            android:id="@+id/vat_send_text_id"
                             style="@style/SendButton"
+                            android:background="@drawable/vat_cta"
                             android:layout_marginBottom="16dp"
                             android:text="@string/send_vat_receipts" />
                     </com.app.tributum.utils.ui.CustomButton>

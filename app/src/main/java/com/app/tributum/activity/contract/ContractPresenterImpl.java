@@ -15,13 +15,13 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
+import com.app.tributum.activity.contract.model.ContractModel;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.listener.SignatureListener;
-import com.app.tributum.activity.contract.model.ContractModel;
 import com.app.tributum.retrofit.InterfaceAPI;
 import com.app.tributum.retrofit.RetrofitClientInstance;
 import com.app.tributum.utils.ConstantsUtils;
@@ -102,6 +102,8 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     private boolean isPreview;
 
     private String filePath;
+
+    private boolean signatureDrawn;
 
     ContractPresenterImpl(ContractView contractView) {
         this.view = contractView;
@@ -273,6 +275,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         view.hideClearButton();
         view.setSendDisabled();
         signatureFile = null;
+        signatureDrawn = false;
     }
 
     @Override
@@ -313,6 +316,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 view.showToast(R.string.add_all_info_to_continue);
             }
         } else if (state == ProgressState.SIGNATURE) {
+            if (signatureDrawn)
                 sendInfo(firstName, lastName, address1, address2, address3, eircode, pps, email, contractDate, birthday, occupation, otherText, phone, bankAccount, noOfKids);
         }
     }
@@ -521,7 +525,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         view.setTitle(R.string.almost_done);
         view.setSubtitle(R.string.add_your_signature_below);
         view.setConfirmationButtonText(R.string.sign_send);
-        if (signatureFile == null)
+        if (!signatureDrawn)
             view.setSendDisabled();
         else
             view.setSendEnabled();
@@ -558,6 +562,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             view.showClearButton();
             view.setSendEnabled();
+            signatureDrawn = true;
         }
     }
 

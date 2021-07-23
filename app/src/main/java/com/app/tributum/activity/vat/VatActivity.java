@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,13 +29,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.tributum.R;
+import com.app.tributum.activity.vat.adapter.VatAdapter;
+import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
-import com.app.tributum.activity.vat.adapter.VatAdapter;
 import com.app.tributum.listener.AsyncListener;
-import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.thread.PdfAsyncTask;
 import com.app.tributum.utils.ConstantsUtils;
+import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.DialogUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
@@ -120,7 +120,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
             }
         });
 
-        findViewById(R.id.invoices_send_id).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.vat_send_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onSendClick(name.getText().toString(),
@@ -169,6 +169,38 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
                 presenter.onTopViewClick();
             }
         });
+
+        name.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateAddedInformation();
+            }
+        });
+        payerEmail.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateAddedInformation();
+            }
+        });
+        startingMonth.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateAddedInformation();
+            }
+        });
+        endingMonth.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateAddedInformation();
+            }
+        });
+    }
+
+    private void validateAddedInformation() {
+        presenter.onTextChanged(name.getText().toString(),
+                payerEmail.getText().toString(),
+                startingMonth.getText().toString(),
+                endingMonth.getText().toString());
     }
 
     private void scrollListToBottom() {
@@ -244,17 +276,20 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     public void addItemToList(VatModel model) {
         adapter.addItemToList(model);
         scrollListToBottom();
+        validateAddedInformation();
     }
 
     @Override
     public void removeItemFromList(int photoClicked) {
         adapter.remove(photoClicked);
+        validateAddedInformation();
     }
 
     @Override
     public void getFilesFromGallery(Uri imageUri) {
         adapter.addItemToList(new VatModel(FileUtils.getPath(imageUri)));
         scrollListToBottom();
+        validateAddedInformation();
     }
 
     @Override
@@ -356,6 +391,16 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     public boolean shouldShowCameraRationale() {
         return ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA);
+    }
+
+    @Override
+    public void disableSendButton() {
+        findViewById(R.id.vat_send_text_id).setEnabled(false);
+    }
+
+    @Override
+    public void enableSendButton() {
+        findViewById(R.id.vat_send_text_id).setEnabled(true);
     }
 
     @Override

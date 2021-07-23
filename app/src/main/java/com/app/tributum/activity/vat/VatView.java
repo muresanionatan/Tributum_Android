@@ -49,4 +49,8 @@ public interface VatView {
     boolean shouldShowStorageRationale();
 
     boolean shouldShowCameraRationale();
+
+    void disableSendButton();
+
+    void enableSendButton();
 }

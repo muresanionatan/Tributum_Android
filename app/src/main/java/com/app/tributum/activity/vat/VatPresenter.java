@@ -40,4 +40,6 @@ public interface VatPresenter {
     void setFilePath(String pictureImagePath);
 
     void onBottomSheetExpanded();
+
+    void onTextChanged(String name, String email, String startingMonth, String endingMonth);
 }
