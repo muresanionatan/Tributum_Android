@@ -9,7 +9,6 @@ import com.app.tributum.activity.payments.model.PaymentModel;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.application.TributumApplication;
-import com.app.tributum.listener.PaymentsItemClickListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
 import com.app.tributum.retrofit.InterfaceAPI;
@@ -26,13 +25,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemClickListener, RequestSentListener {
+public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentListener {
 
     private final PaymentsView view;
 
     private final Resources resources;
-
-    private List<PaymentModel> paymentList;
 
     private boolean isNet = TributumAppHelper.getBooleanSetting(AppKeysValues.NET);
 
@@ -46,9 +43,6 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
         if (view == null)
             return;
 
-        paymentList = new ArrayList<>(TributumAppHelper.getListSetting(AppKeysValues.PAYMENT_LIST));
-        if (paymentList.size() == 0)
-            paymentList.add(new PaymentModel("", "", ""));
         view.populateInputsWithValues(
                 TributumAppHelper.getStringSetting(AppKeysValues.PAYER_NAME),
                 TributumAppHelper.getStringSetting(AppKeysValues.CLIENT_PAYMENT_EMAIL),
@@ -60,11 +54,6 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
             view.setNetViews();
         else
             view.setGrossViews();
-    }
-
-    @Override
-    public List<PaymentModel> getPaymentsList() {
-        return paymentList;
     }
 
     @Override
@@ -90,7 +79,8 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
                 view.setFocusOnRecyclerView();
             } else {
                 saveListToPreferences(payer, email, site);
-                sendInternalEmail(payer, email, site, month);
+//                sendInternalEmail(payer, email, site, month);
+                view.showToast("good");
             }
         } else {
             view.showToast(resources.getString(R.string.try_again));
@@ -107,7 +97,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
         StringBuilder message = new StringBuilder("Payment from " + payer + " at " + site
                 + " for " + month
                 + "\n \n" + "Please register the following payments: " + "\n");
-        for (PaymentModel model : paymentList) {
+        for (PaymentModel model : view.getPaymentList()) {
             message.append(model.getName()).append(" (").append(model.getPps()).append(") - ").append(model.getAmount()).append("\n");
         }
         message.append("\n \n").append("All of them are ").append(amountType.toUpperCase()).append("\n \n");
@@ -125,7 +115,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
         StringBuilder message = new StringBuilder("The following payments at " + site
                 + " for " + month
                 + " will be made for:\n\n");
-        for (PaymentModel model : paymentList) {
+        for (PaymentModel model : view.getPaymentList()) {
             message.append(model.getName()).append(" (").append(model.getPps()).append(") - ").append(model.getAmount()).append("\n");
         }
         message.append("\n \n").append("All of them are ").append(amountType.toUpperCase()).append(".");
@@ -134,7 +124,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
 
     private void saveListToPreferences(String payer, String email, String site) {
         List<PaymentModel> paymentModels = new ArrayList<>();
-        for (PaymentModel model : paymentList) {
+        for (PaymentModel model : view.getPaymentList()) {
             paymentModels.add(new PaymentModel(model.getName(), model.getPps(), model.getAmount()));
         }
         TributumAppHelper.saveSetting(AppKeysValues.PAYMENT_LIST, paymentModels);
@@ -211,26 +201,6 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
         isNet = false;
         if (view != null)
             view.setGrossViews();
-    }
-
-    @Override
-    public void onAddNewPaymentClick() {
-        paymentList.add(new PaymentModel("", "", ""));
-        if (view != null)
-            view.addModel(paymentList.size() - 2, paymentList.size() - 1);
-    }
-
-    @Override
-    public void removeItem(int position) {
-        paymentList.remove(position);
-        if (view != null)
-            view.removeModel();
-    }
-
-    @Override
-    public void onTextChanged() {
-        if (view != null)
-            view.inputsChanged();
     }
 
     @Override

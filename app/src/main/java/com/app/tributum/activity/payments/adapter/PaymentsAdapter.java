@@ -52,6 +52,12 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
     @Override
     public void onBindViewHolder(@NonNull final ItemViewHolder holder, int position) {
         PaymentModel paymentModel = paymentList.get(holder.getAdapterPosition());
+
+        holder.nameEditText.addTextChangedListener(holder.nameEditTextListener);
+        holder.ppsEditText.addTextChangedListener(holder.ppsEditTextListener);
+        holder.amountEditText.addTextChangedListener(holder.amountEditTextListener);
+
+
         holder.nameEditTextListener.updatePosition(holder.getAdapterPosition());
         holder.ppsEditTextListener.updatePosition(holder.getAdapterPosition());
         holder.amountEditTextListener.updatePosition(holder.getAdapterPosition());
@@ -88,27 +94,38 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
      */
     private void handleItemImageClick(ItemViewHolder holder) {
         holder.nameEditText.removeTextChangedListener(holder.nameEditTextListener);
+        holder.ppsEditText.removeTextChangedListener(holder.ppsEditTextListener);
+        holder.amountEditText.removeTextChangedListener(holder.amountEditTextListener);
         if (listener != null)
             listener.removeItem(holder.getAdapterPosition());
     }
 
     public boolean areThereEmptyInputs() {
         for (PaymentModel model : paymentList) {
-            if (model.getName().trim().equals("") || model.getAmount().trim().equals("")) {
+            if (model.getName().trim().equals("") || model.getPps().trim().equals("") || model.getAmount().trim().equals("")) {
                 return true;
             }
         }
         return false;
     }
 
-    public void setPaymentList(List<PaymentModel> paymentList) {
-        this.paymentList = paymentList;
-        notifyDataSetChanged();
+    public List<PaymentModel> getPaymentList() {
+        return paymentList;
     }
 
     @Override
     public int getItemCount() {
         return paymentList != null ? paymentList.size() : 0;
+    }
+
+    public void addModel() {
+        paymentList.add(new PaymentModel("", "", ""));
+        notifyDataSetChanged();
+    }
+
+    public void remove(int position) {
+        paymentList.remove(position);
+        notifyDataSetChanged();
     }
 
     /**

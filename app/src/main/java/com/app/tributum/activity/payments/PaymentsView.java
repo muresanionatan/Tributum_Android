@@ -1,5 +1,9 @@
 package com.app.tributum.activity.payments;
 
+import com.app.tributum.activity.payments.model.PaymentModel;
+
+import java.util.List;
+
 public interface PaymentsView {
 
     void showToast(String string);
@@ -11,10 +15,6 @@ public interface PaymentsView {
     void hideLoadingScreen();
 
     boolean areThereEmptyInputs();
-
-    void addModel(int itemNotified, int itemInserted);
-
-    void removeModel();
 
     void setNetViews();
 
@@ -30,8 +30,6 @@ public interface PaymentsView {
 
     void enableSend();
 
-    void inputsChanged();
-
     void setFocusOnName();
 
     void setFocusOnEmail();
@@ -41,4 +39,6 @@ public interface PaymentsView {
     void setFocusOnMonth();
 
     void setFocusOnRecyclerView();
+
+    List<PaymentModel> getPaymentList();
 }

@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.tributum.R;
 import com.app.tributum.activity.payments.adapter.PaymentsAdapter;
+import com.app.tributum.activity.payments.model.PaymentModel;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.listener.PaymentsItemClickListener;
 import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
@@ -25,8 +27,9 @@ import com.app.tributum.utils.ui.RequestSent;
 import com.app.tributum.utils.ui.UiUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class PaymentsActivity extends AppCompatActivity implements PaymentsView {
+public class PaymentsActivity extends AppCompatActivity implements PaymentsView, PaymentsItemClickListener {
 
     private RecyclerView recyclerView;
 
@@ -61,7 +64,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
         setupViews();
         setupRecyclerView();
         presenter.onCreate();
-        adapter.setPaymentList(presenter.getPaymentsList());
         validateAddedInformation();
     }
 
@@ -99,7 +101,9 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
         findViewById(R.id.add_new_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onAddNewPaymentClick();
+                adapter.addModel();
+                recyclerView.scrollToPosition(adapter.getItemCount() - 1);
+                validateAddedInformation();
             }
         });
 
@@ -170,7 +174,11 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
 
-        adapter = new PaymentsAdapter(new ArrayList<>(), presenter);
+        List<PaymentModel> paymentList = new ArrayList<>(TributumAppHelper.getListSetting(AppKeysValues.PAYMENT_LIST));
+        if (paymentList.size() == 0)
+            paymentList.add(new PaymentModel("", "", ""));
+
+        adapter = new PaymentsAdapter(paymentList, this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -212,20 +220,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
     }
 
     @Override
-    public void removeModel() {
-        adapter.notifyDataSetChanged();
-        validateAddedInformation();
-    }
-
-    @Override
-    public void addModel(int itemNotified, int itemInserted) {
-        adapter.notifyItemChanged(itemNotified);
-        adapter.notifyItemInserted(itemInserted);
-        recyclerView.scrollToPosition(itemInserted);
-        validateAddedInformation();
-    }
-
-    @Override
     public void showLoadingScreen() {
         loadingScreen.show();
     }
@@ -261,11 +255,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
     }
 
     @Override
-    public void inputsChanged() {
-        validateAddedInformation();
-    }
-
-    @Override
     public void setFocusOnName() {
         UtilsGeneral.setFocusOnInput(payerEditText);
         scrollToEditText(payerEditText);
@@ -296,6 +285,11 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
     }
 
     @Override
+    public List<PaymentModel> getPaymentList() {
+        return adapter.getPaymentList();
+    }
+
+    @Override
     public void closeActivity() {
         finish();
     }
@@ -315,5 +309,16 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
     @Override
     public void showToast(String message) {
         Toast.makeText(PaymentsActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void removeItem(int position) {
+        adapter.remove(position);
+        validateAddedInformation();
+    }
+
+    @Override
+    public void onTextChanged() {
+        validateAddedInformation();
     }
 }
