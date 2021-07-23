@@ -5,13 +5,13 @@ import android.content.res.Resources;
 import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
+import com.app.tributum.activity.payments.model.PaymentModel;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.PaymentsItemClickListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
-import com.app.tributum.activity.payments.model.PaymentModel;
 import com.app.tributum.retrofit.InterfaceAPI;
 import com.app.tributum.retrofit.RetrofitClientInstance;
 import com.app.tributum.utils.CalendarUtils;
@@ -43,12 +43,12 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
 
     @Override
     public void onCreate() {
-        paymentList = new ArrayList<>(TributumAppHelper.getListSetting(AppKeysValues.PAYMENT_LIST));
-        if (paymentList.size() == 0)
-            paymentList.add(new PaymentModel("", "", ""));
         if (view == null)
             return;
 
+        paymentList = new ArrayList<>(TributumAppHelper.getListSetting(AppKeysValues.PAYMENT_LIST));
+        if (paymentList.size() == 0)
+            paymentList.add(new PaymentModel("", "", ""));
         view.populateInputsWithValues(
                 TributumAppHelper.getStringSetting(AppKeysValues.PAYER_NAME),
                 TributumAppHelper.getStringSetting(AppKeysValues.CLIENT_PAYMENT_EMAIL),
@@ -73,15 +73,24 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
             return;
 
         if (NetworkUtils.isNetworkConnected()) {
-            if (!payer.equals("")
-                    && !email.equals("")
-                    && !site.equals("")
-                    && !month.equals("")
-                    && !view.areThereEmptyInputs()) {
+            if (payer.equals("")) {
+                view.showToast(resources.getString(R.string.please_enter_name));
+                view.setFocusOnName();
+            } else if (email.equals("")) {
+                view.showToast(resources.getString(R.string.please_enter_correct_email));
+                view.setFocusOnEmail();
+            } else if (site.equals("")) {
+                view.showToast(resources.getString(R.string.please_enter_site));
+                view.setFocusOnSite();
+            } else if (month.equals("")) {
+                view.showToast(resources.getString(R.string.please_enter_payment_month));
+                view.setFocusOnMonth();
+            } else if (view.areThereEmptyInputs()) {
+                view.showToast(resources.getString(R.string.please_enter_payments_details));
+                view.setFocusOnRecyclerView();
+            } else {
                 saveListToPreferences(payer, email, site);
                 sendInternalEmail(payer, email, site, month);
-            } else {
-                view.showToast(resources.getString(R.string.add_all_info));
             }
         } else {
             view.showToast(resources.getString(R.string.try_again));
@@ -219,6 +228,12 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
     }
 
     @Override
+    public void onTextChanged() {
+        if (view != null)
+            view.inputsChanged();
+    }
+
+    @Override
     public void onPause(String payer, String email, String site) {
         saveListToPreferences(payer, email, site);
     }
@@ -238,5 +253,21 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, PaymentsItemCli
     public void onOkClicked() {
         if (view != null)
             view.closeActivity();
+    }
+
+    @Override
+    public void onTextChanged(String name, String email, String site, String month) {
+        if (view == null)
+            return;
+
+        if (name.equals("")
+                || email.equals("")
+                || site.equals("")
+                || month.equals("")
+                || view.areThereEmptyInputs()) {
+            view.disableSend();
+        } else {
+            view.enableSend();
+        }
     }
 }

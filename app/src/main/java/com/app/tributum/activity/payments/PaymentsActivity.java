@@ -17,11 +17,14 @@ import com.app.tributum.R;
 import com.app.tributum.activity.payments.adapter.PaymentsAdapter;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.ui.LoadingScreen;
 import com.app.tributum.utils.ui.RequestSent;
 import com.app.tributum.utils.ui.UiUtils;
+
+import java.util.ArrayList;
 
 public class PaymentsActivity extends AppCompatActivity implements PaymentsView {
 
@@ -55,13 +58,15 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
         StatusBarUtils.makeStatusBarTransparent(this);
 
         presenter = new PaymentsPresenterImpl(this);
-        populateList();
-        presenter.onCreate();
+        setupViews();
         setupRecyclerView();
+        presenter.onCreate();
+        adapter.setPaymentList(presenter.getPaymentsList());
+        validateAddedInformation();
     }
 
     @SuppressLint("CutPasteId")
-    private void populateList() {
+    private void setupViews() {
         netCheckbox = findViewById(R.id.net_checkbox);
         grossCheckbox = findViewById(R.id.gross_checkbox);
         netCheckbox.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +119,7 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
         siteEditText = findViewById(R.id.site_edit_text);
         monthEditText = findViewById(R.id.month_edit_text);
 
-        findViewById(R.id.invoices_send_id).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.payments_send_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.handleSendButtonClick(payerEditText.getText().toString(),
@@ -123,9 +128,40 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
                         monthEditText.getText().toString());
             }
         });
+        payerEditText.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateAddedInformation();
+            }
+        });
+        payerEmailEditText.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateAddedInformation();
+            }
+        });
+        siteEditText.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateAddedInformation();
+            }
+        });
+        monthEditText.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateAddedInformation();
+            }
+        });
 
         loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_rct);
         requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_rct, getString(R.string.payment_sent_label), presenter);
+    }
+
+    private void validateAddedInformation() {
+        presenter.onTextChanged(payerEditText.getText().toString(),
+                payerEmailEditText.getText().toString(),
+                siteEditText.getText().toString(),
+                monthEditText.getText().toString());
     }
 
     private void setupRecyclerView() {
@@ -134,8 +170,17 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
 
-        adapter = new PaymentsAdapter(presenter.getPaymentsList(), presenter);
+        adapter = new PaymentsAdapter(new ArrayList<>(), presenter);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void scrollToEditText(View view) {
+        findViewById(R.id.vat_scroll_view_id).post(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.vat_scroll_view_id).scrollTo(0, view.getTop());
+            }
+        });
     }
 
     @Override
@@ -169,6 +214,7 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
     @Override
     public void removeModel() {
         adapter.notifyDataSetChanged();
+        validateAddedInformation();
     }
 
     @Override
@@ -176,6 +222,7 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
         adapter.notifyItemChanged(itemNotified);
         adapter.notifyItemInserted(itemInserted);
         recyclerView.scrollToPosition(itemInserted);
+        validateAddedInformation();
     }
 
     @Override
@@ -201,6 +248,51 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView 
     @Override
     public void hideKeyboard() {
         UtilsGeneral.hideSoftKeyboard(this);
+    }
+
+    @Override
+    public void disableSend() {
+        findViewById(R.id.payments_send_text_id).setEnabled(false);
+    }
+
+    @Override
+    public void enableSend() {
+        findViewById(R.id.payments_send_text_id).setEnabled(true);
+    }
+
+    @Override
+    public void inputsChanged() {
+        validateAddedInformation();
+    }
+
+    @Override
+    public void setFocusOnName() {
+        UtilsGeneral.setFocusOnInput(payerEditText);
+        scrollToEditText(payerEditText);
+    }
+
+    @Override
+    public void setFocusOnEmail() {
+        UtilsGeneral.setFocusOnInput(payerEmailEditText);
+        scrollToEditText(payerEmailEditText);
+    }
+
+    @Override
+    public void setFocusOnSite() {
+        UtilsGeneral.setFocusOnInput(siteEditText);
+        scrollToEditText(siteEditText);
+    }
+
+    @Override
+    public void setFocusOnMonth() {
+        UtilsGeneral.setFocusOnInput(monthEditText);
+        scrollToEditText(monthEditText);
+    }
+
+    @Override
+    public void setFocusOnRecyclerView() {
+//        UtilsGeneral.setFocusOnInput(adapter);
+//        scrollToEditText(payerEditText);
     }
 
     @Override

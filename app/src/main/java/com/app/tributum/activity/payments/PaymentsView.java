@@ -25,4 +25,20 @@ public interface PaymentsView {
     void closeActivity();
 
     void showRequestSentScreen();
+
+    void disableSend();
+
+    void enableSend();
+
+    void inputsChanged();
+
+    void setFocusOnName();
+
+    void setFocusOnEmail();
+
+    void setFocusOnSite();
+
+    void setFocusOnMonth();
+
+    void setFocusOnRecyclerView();
 }

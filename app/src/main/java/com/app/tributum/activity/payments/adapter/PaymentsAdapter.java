@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.tributum.R;
-import com.app.tributum.listener.PaymentsItemClickListener;
 import com.app.tributum.activity.payments.model.PaymentModel;
+import com.app.tributum.listener.PaymentsItemClickListener;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.ui.CustomButton;
 
@@ -101,9 +101,14 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         return false;
     }
 
+    public void setPaymentList(List<PaymentModel> paymentList) {
+        this.paymentList = paymentList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return paymentList.size();
+        return paymentList != null ? paymentList.size() : 0;
     }
 
     /**
@@ -161,6 +166,8 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             paymentList.get(position).setName(charSequence.toString());
+            if (listener != null)
+                listener.onTextChanged();
         }
 
         @Override
@@ -187,6 +194,8 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             paymentList.get(position).setPps(charSequence.toString());
+            if (listener != null)
+                listener.onTextChanged();
         }
 
         @Override
@@ -213,6 +222,8 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             paymentList.get(position).setAmount(charSequence.toString());
+            if (listener != null)
+                listener.onTextChanged();
         }
 
         @Override

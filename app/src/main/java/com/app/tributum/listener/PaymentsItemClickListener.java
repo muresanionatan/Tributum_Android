@@ -10,4 +10,6 @@ public interface PaymentsItemClickListener {
      * @param position the position of the item that needs to be deleted
      */
     void removeItem(int position);
+
+    void onTextChanged();
 }

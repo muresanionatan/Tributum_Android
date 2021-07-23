@@ -23,4 +23,6 @@ public interface PaymentsPresenter {
     void onGrossClick();
 
     void onAddNewPaymentClick();
+
+    void onTextChanged(String name, String email, String site, String month);
 }

@@ -206,15 +206,16 @@
                 android:background="@color/grey_2" />
 
             <com.app.tributum.utils.ui.CustomButton
-                android:id="@+id/invoices_send_id"
+                android:id="@+id/payments_send_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/payments_send_text_id"
                     style="@style/SendButton"
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="32dp"
-                    android:background="@drawable/payments_send"
+                    android:background="@drawable/payments_cta"
                     android:text="@string/send_payment_label" />
             </com.app.tributum.utils.ui.CustomButton>
         </LinearLayout>

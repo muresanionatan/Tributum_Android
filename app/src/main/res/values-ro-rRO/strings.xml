@@ -120,4 +120,10 @@
     <string name="go_to_settings">Mergi la setari</string>
     <string name="permission_denied">Permisiune respinsa anterior</string>
     <string name="permission_denied_explained">Pentru a putea folosi aceasta functie este nevoie sa mergi la setarile aplicatie si sa fii de acord cu permisiunile.</string>
+    <string name="please_enter_name">Te rugam introdu numele</string>
+    <string name="please_enter_starting_month">Te rugam introdu luna de incepe a VAT-urilor</string>
+    <string name="please_enter_ending_month">Te rugam introdu luna de final a VAT-urilor</string>
+    <string name="please_enter_site">Te rugam introdu santierul</string>
+    <string name="please_enter_payment_month">Te rugam introdu luna pentru care se face plata</string>
+    <string name="please_enter_payments_details">Te rugam adauga detaliile platii</string>
 </resources>
