@@ -84,11 +84,18 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     @Override
     public void onSendClick(String name, String email, String startingMonth, String endingMonth) {
-        if (name.equals("")
-                || email.equals("")
-                || startingMonth.equals("")
-                || endingMonth.equals("")) {
-            vatView.showToast(resources.getString(R.string.add_all_info));
+        if (name.equals("")) {
+            vatView.showToast(resources.getString(R.string.please_enter_name));
+            vatView.setFocusOnName();
+        } else if (email.equals("")) {
+            vatView.showToast(resources.getString(R.string.please_enter_correct_email));
+            vatView.setFocusOnEmail();
+        } else if (startingMonth.equals("")) {
+            vatView.showToast(resources.getString(R.string.please_enter_starting_month));
+            vatView.setFocusOnStartingMonth();
+        } else if (endingMonth.equals("")) {
+            vatView.showToast(resources.getString(R.string.please_enter_ending_month));
+            vatView.setFocusOnEndingMonth();
         } else if (PICTURE_NUMBER > 1) {
             vatView.hideKeyboard();
             vatView.showLoadingScreen();

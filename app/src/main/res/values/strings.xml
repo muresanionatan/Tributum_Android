@@ -120,4 +120,7 @@
     <string name="go_to_settings">Go to settings</string>
     <string name="permission_denied">Permission denied previously</string>
     <string name="permission_denied_explained">In order to use this feature you need to go to app settings and enable permissions</string>
+    <string name="please_enter_name">Please enter a name</string>
+    <string name="please_enter_starting_month">Please enter the VAT starting month</string>
+    <string name="please_enter_ending_month">Please enter VAT ending month</string>
 </resources>

@@ -53,4 +53,12 @@ public interface VatView {
     void disableSendButton();
 
     void enableSendButton();
+
+    void setFocusOnName();
+
+    void setFocusOnEmail();
+
+    void setFocusOnStartingMonth();
+
+    void setFocusOnEndingMonth();
 }

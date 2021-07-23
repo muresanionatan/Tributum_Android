@@ -77,6 +77,8 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     private RecyclerView recyclerView;
 
+    private ScrollView scrollView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +99,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         payerEmail = findViewById(R.id.payer_email_edit_text);
         startingMonth = findViewById(R.id.start_month_edit_text);
         endingMonth = findViewById(R.id.end_month_edit_text);
+        scrollView = findViewById(R.id.vat_scroll_view_id);
 
         name.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         payerEmail.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -208,7 +211,6 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         handler.postDelayed(new Runnable() {
             public void run() {
                 recyclerView.scrollToPosition(adapter.getItemCount() - 1);
-                ScrollView scrollView = findViewById(R.id.vat_scroll_view_id);
                 scrollView.scrollTo(0, recyclerView.getBottom());
             }
         }, 100);
@@ -350,14 +352,14 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     public void showImagePreview(String filePath) {
         previewLayout.setVisibility(View.VISIBLE);
         Glide.with(this).load("file://" + filePath).into(previewImage);
-        findViewById(R.id.vat_scroll_view_id).setVisibility(View.GONE);
+        scrollView.setVisibility(View.GONE);
     }
 
     @Override
     public void hidePreview() {
         previewLayout.setVisibility(View.GONE);
         previewImage.setImageResource(0);
-        findViewById(R.id.vat_scroll_view_id).setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -404,6 +406,30 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     }
 
     @Override
+    public void setFocusOnName() {
+        UtilsGeneral.setFocusOnInput(name);
+        scrollToEditText(name);
+    }
+
+    @Override
+    public void setFocusOnEmail() {
+        UtilsGeneral.setFocusOnInput(payerEmail);
+        scrollToEditText(payerEmail);
+    }
+
+    @Override
+    public void setFocusOnStartingMonth() {
+        UtilsGeneral.setFocusOnInput(startingMonth);
+        scrollToEditText(startingMonth);
+    }
+
+    @Override
+    public void setFocusOnEndingMonth() {
+        UtilsGeneral.setFocusOnInput(endingMonth);
+        scrollToEditText(endingMonth);
+    }
+
+    @Override
     public void closeActivity() {
         finish();
     }
@@ -411,5 +437,14 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     public void onBackPressed() {
         presenter.onBackPressed();
+    }
+
+    private void scrollToEditText(View view) {
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.scrollTo(0, view.getTop());
+            }
+        });
     }
 }
