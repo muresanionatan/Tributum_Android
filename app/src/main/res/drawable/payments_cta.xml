@@ -7,5 +7,5 @@
     <!-- disabled -->
     <item android:drawable="@drawable/cta_disabled" android:state_enabled="false" />
     <!-- default -->
-    <item android:drawable="@drawable/contract_send" />
+    <item android:drawable="@drawable/payments_send" />
 </selector>

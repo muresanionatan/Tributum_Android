@@ -91,6 +91,7 @@
     <EditText
         android:id="@+id/email_edit_text"
         style="@style/CustomEditText"
+        android:inputType="textEmailAddress"
         android:layout_marginTop="20dp"
         android:hint="@string/mail_label" />
 
