@@ -555,6 +555,15 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                 .setBackgroundColor(ContextCompat.getColor(this, R.color.contract_1));
     }
 
+    private void scrollToEditText(View view) {
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.scrollTo(0, view.getTop());
+            }
+        });
+    }
+
     private void setupCheckboxes() {
         findViewById(R.id.first_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1053,11 +1062,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
-    public void hideKeyboard() {
-        UtilsGeneral.hideSoftKeyboard(this);
-    }
-
-    @Override
     public void closeActivity() {
         finish();
     }
@@ -1305,7 +1309,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     @Override
     public void removeFocus() {
-        UtilsGeneral.removeFocusFromInput(this, (EditText) getCurrentFocus());
+        UtilsGeneral.hideSoftKeyboard(this);
     }
 
     @Override
@@ -1321,6 +1325,88 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void takeUserToApPSettings() {
         DialogUtils.showPermissionDeniedDialog(this);
+    }
+
+    @Override
+    public void focusOnFirstName() {
+        UtilsGeneral.setFocusOnInput(firstNameEditText);
+        scrollToEditText(firstNameEditText);
+    }
+
+    @Override
+    public void focusOnLastName() {
+        UtilsGeneral.setFocusOnInput(lastNameEditText);
+        scrollToEditText(lastNameEditText);
+    }
+
+    @Override
+    public void focusOnAddress1() {
+        UtilsGeneral.setFocusOnInput(address1EditText);
+        scrollToEditText(address1EditText);
+    }
+
+    @Override
+    public void focusOnAddress2() {
+        UtilsGeneral.setFocusOnInput(address2EditText);
+        scrollToEditText(address2EditText);
+    }
+
+    @Override
+    public void focusOnBirthday() {
+        UtilsGeneral.setFocusOnInput(birthday);
+        scrollToEditText(birthday);
+    }
+
+    @Override
+    public void focusOnOccupation() {
+        UtilsGeneral.setFocusOnInput(occupationEditText);
+        scrollToEditText(occupationEditText);
+    }
+
+    @Override
+    public void focusOnPhone() {
+        UtilsGeneral.setFocusOnInput(phoneNumberEditText);
+        scrollToEditText(phoneNumberEditText);
+    }
+
+    @Override
+    public void focusOnEmail() {
+        UtilsGeneral.setFocusOnInput(emailEditText);
+        scrollToEditText(emailEditText);
+    }
+
+    @Override
+    public void focusOnEircode() {
+        UtilsGeneral.setFocusOnInput(eircode);
+        scrollToEditText(eircode);
+    }
+
+    @Override
+    public void focusOnPps() {
+        UtilsGeneral.setFocusOnInput(ppsNumberEditText);
+        scrollToEditText(ppsNumberEditText);
+    }
+
+    @Override
+    public void focusOnContractDate() {
+        UtilsGeneral.setFocusOnInput(contractDate);
+        scrollToEditText(contractDate);
+    }
+
+    @Override
+    public void focusOnOther() {
+        UtilsGeneral.setFocusOnInput(findViewById(R.id.other_edit_id));
+        scrollToEditText(findViewById(R.id.other_edit_id));
+    }
+
+    @Override
+    public void scrollToPpsFront() {
+        scrollToEditText(findViewById(R.id.pps_front_image_holder_id));
+    }
+
+    @Override
+    public void scrollToId() {
+        scrollToEditText(findViewById(R.id.personal_info_id));
     }
 
     @Override

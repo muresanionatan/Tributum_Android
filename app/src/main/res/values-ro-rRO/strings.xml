@@ -126,4 +126,15 @@
     <string name="please_enter_site">Te rugam introdu santierul</string>
     <string name="please_enter_payment_month">Te rugam introdu luna pentru care se face plata</string>
     <string name="please_enter_payments_details">Te rugam adauga detaliile platii</string>
+    <string name="please_enter_first_name">Te rugam sa introduci prenumele</string>
+    <string name="please_enter_last_name">Te rugam sa introduci numele de familie</string>
+    <string name="please_enter_address1">Te rugam sa introduci addresa 1</string>
+    <string name="please_enter_address2">Te rugam sa introduci addresa 2</string>
+    <string name="please_enter_occupation">Te rugam sa introduci ocupatia</string>
+    <string name="please_enter_phone">Te rugam sa introduci numarul de telefon</string>
+    <string name="please_add_id">Te rugam adauga poza cu buletinul</string>
+    <string name="please_add_marriage">Te rugam adauga certificatul de casatorie</string>
+    <string name="please_select_taxes">Te rugam alege cel putin un tip de taxa</string>
+    <string name="please_specify_other">Te rugam specifica altele</string>
+    <string name="please_add_pps_front">Te rugam adauga poza PPS fata</string>
 </resources>

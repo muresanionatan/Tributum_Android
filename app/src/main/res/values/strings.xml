@@ -126,4 +126,15 @@
     <string name="please_enter_site">Please enter site</string>
     <string name="please_enter_payment_month">Please enter payment month</string>
     <string name="please_enter_payments_details">Please enter payments details</string>
+    <string name="please_enter_first_name">Please enter first name</string>
+    <string name="please_enter_last_name">Please enter last name</string>
+    <string name="please_enter_address1">Please enter address1</string>
+    <string name="please_enter_address2">Please enter address2</string>
+    <string name="please_enter_occupation">Please enter occupation</string>
+    <string name="please_enter_phone">Please enter phone number</string>
+    <string name="please_add_id">Please add ID photo</string>
+    <string name="please_add_marriage">Please add marriage certificate</string>
+    <string name="please_select_taxes">Please select at least one of taxes</string>
+    <string name="please_specify_other">Please specify which other</string>
+    <string name="please_add_pps_front">Please add pps front</string>
 </resources>

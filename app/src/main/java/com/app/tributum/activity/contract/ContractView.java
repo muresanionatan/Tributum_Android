@@ -10,8 +10,6 @@ public interface ContractView {
 
     void showLoadingScreen();
 
-    void hideKeyboard();
-
     void hideLoadingScreen();
 
     void closeActivity();
@@ -161,4 +159,32 @@ public interface ContractView {
     boolean shouldShowCameraRationale();
 
     void takeUserToApPSettings();
+
+    void focusOnFirstName();
+
+    void focusOnLastName();
+
+    void focusOnAddress1();
+
+    void focusOnAddress2();
+
+    void focusOnBirthday();
+
+    void focusOnOccupation();
+
+    void focusOnPhone();
+
+    void focusOnEmail();
+
+    void focusOnEircode();
+
+    void focusOnPps();
+
+    void focusOnContractDate();
+
+    void focusOnOther();
+
+    void scrollToPpsFront();
+
+    void scrollToId();
 }

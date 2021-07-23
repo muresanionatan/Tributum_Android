@@ -286,34 +286,58 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             return;
 
         if (state == ProgressState.PERSONAL) {
-            if (arePersonalInfoAdded(firstName, lastName, address1, address2, email, birthday, occupation, phone)) {
-                if (!ValidationUtils.isEmailValid(email)) {
-                    view.showToast(R.string.please_enter_correct_email);
-                } else if (birthday.length() < 10) {
-                    view.showToast(R.string.please_enter_birthday_format);
-                } else if (!TextUtils.isEmpty(eircode)) {
-                    if (!ValidationUtils.isEircodeValid(eircode)) {
-                        view.showToast(R.string.please_enter_correct_eircode);
-                    } else {
-                        moveToEmploymentScreen();
-                    }
-                } else {
-                    moveToEmploymentScreen();
-                }
+            if (firstName.equals("")) {
+                view.showToast(R.string.please_enter_first_name);
+                view.focusOnFirstName();
+            } else if (lastName.equals("")) {
+                view.showToast(R.string.please_enter_last_name);
+                view.focusOnLastName();
+            } else if (address1.equals("")) {
+                view.showToast(R.string.please_enter_address1);
+                view.focusOnAddress1();
+            } else if (address2.equals("")) {
+                view.showToast(R.string.please_enter_address2);
+                view.focusOnAddress2();
+            } else if (!TextUtils.isEmpty(eircode) && !ValidationUtils.isEircodeValid(eircode)) {
+                view.showToast(R.string.please_enter_correct_eircode);
+                view.focusOnEircode();
+            } else if (birthday.equals("") || birthday.length() < 10) {
+                view.showToast(R.string.please_enter_birthday_format);
+                view.focusOnBirthday();
+            } else if (occupation.equals("")) {
+                view.showToast(R.string.please_enter_occupation);
+                view.focusOnOccupation();
+            } else if (phone.equals("")) {
+                view.showToast(R.string.please_enter_phone);
+                view.focusOnPhone();
+            } else if (!ValidationUtils.isEmailValid(email)) {
+                view.showToast(R.string.please_enter_correct_email);
+                view.focusOnEmail();
+            } else if (idFile == null) {
+                view.showToast(R.string.please_add_id);
+                view.scrollToId();
+            } else if (maritalStatus == MaritalStatus.MARRIED && marriageCertificateFile == null) {
+                view.showToast(R.string.please_add_marriage);
             } else {
-                view.showToast(R.string.add_all_info);
+                moveToEmploymentScreen();
             }
         } else if (state == ProgressState.EMPLOYMENT) {
-            if (areEmploymentInfoAdded(pps, contractDate)) {
-                if (!ValidationUtils.isPpsValid(pps)) {
-                    view.showToast(R.string.please_enter_pps);
-                } else if (contractDate.length() < 10) {
-                    view.showToast(R.string.please_enter_contract_format);
-                } else {
-                    moveToSignatureScreen();
-                }
+            if (!ValidationUtils.isPpsValid(pps)) {
+                view.showToast(R.string.please_enter_pps);
+                view.focusOnPps();
+            } else if (contractDate.equals("") || contractDate.length() < 10) {
+                view.showToast(R.string.please_enter_contract_format);
+                view.focusOnContractDate();
+            } else if (isSelf && (!first && !second && !third && !fourth && !fifth && !sixth && !seventh && !eight && !ninth)) {
+                view.showToast(R.string.please_select_taxes);
+            } else if (isSelf && ninth && otherText.equals("")) {
+                view.showToast(R.string.please_specify_other);
+                view.focusOnOther();
+            } else if (ppsFileFront == null) {
+                view.showToast(R.string.please_add_pps_front);
+                view.scrollToPpsFront();
             } else {
-                view.showToast(R.string.add_all_info_to_continue);
+                moveToSignatureScreen();
             }
         } else if (state == ProgressState.SIGNATURE) {
             if (signatureDrawn)
@@ -1087,15 +1111,15 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (view == null)
+        if (view == null || data == null)
             return;
 
-        if ((requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT
-                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK
-                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_ID
-                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE)
-                && data == null)
-            return;
+//        if ((requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT
+//                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK
+//                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_ID
+//                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE)
+//                && data == null)
+//            return;
 
         switch (requestCode) {
             case ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT:
