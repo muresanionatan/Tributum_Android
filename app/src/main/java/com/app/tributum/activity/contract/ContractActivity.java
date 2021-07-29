@@ -555,7 +555,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                 .setBackgroundColor(ContextCompat.getColor(this, R.color.contract_1));
     }
 
-    private void scrollToEditText(View view) {
+    private void scrollToView(View view) {
         scrollView.post(new Runnable() {
             @Override
             public void run() {
@@ -1330,83 +1330,88 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void focusOnFirstName() {
         UtilsGeneral.setFocusOnInput(firstNameEditText);
-        scrollToEditText(firstNameEditText);
+        scrollToView(firstNameEditText);
     }
 
     @Override
     public void focusOnLastName() {
         UtilsGeneral.setFocusOnInput(lastNameEditText);
-        scrollToEditText(lastNameEditText);
+        scrollToView(lastNameEditText);
     }
 
     @Override
     public void focusOnAddress1() {
         UtilsGeneral.setFocusOnInput(address1EditText);
-        scrollToEditText(address1EditText);
+        scrollToView(address1EditText);
     }
 
     @Override
     public void focusOnAddress2() {
         UtilsGeneral.setFocusOnInput(address2EditText);
-        scrollToEditText(address2EditText);
+        scrollToView(address2EditText);
     }
 
     @Override
     public void focusOnBirthday() {
         UtilsGeneral.setFocusOnInput(birthday);
-        scrollToEditText(birthday);
+        scrollToView(birthday);
     }
 
     @Override
     public void focusOnOccupation() {
         UtilsGeneral.setFocusOnInput(occupationEditText);
-        scrollToEditText(occupationEditText);
+        scrollToView(occupationEditText);
     }
 
     @Override
     public void focusOnPhone() {
         UtilsGeneral.setFocusOnInput(phoneNumberEditText);
-        scrollToEditText(phoneNumberEditText);
+        scrollToView(phoneNumberEditText);
     }
 
     @Override
     public void focusOnEmail() {
         UtilsGeneral.setFocusOnInput(emailEditText);
-        scrollToEditText(emailEditText);
+        scrollToView(emailEditText);
     }
 
     @Override
     public void focusOnEircode() {
         UtilsGeneral.setFocusOnInput(eircode);
-        scrollToEditText(eircode);
+        scrollToView(eircode);
     }
 
     @Override
     public void focusOnPps() {
         UtilsGeneral.setFocusOnInput(ppsNumberEditText);
-        scrollToEditText(ppsNumberEditText);
+        scrollToView(ppsNumberEditText);
     }
 
     @Override
     public void focusOnContractDate() {
         UtilsGeneral.setFocusOnInput(contractDate);
-        scrollToEditText(contractDate);
+        scrollToView(contractDate);
     }
 
     @Override
     public void focusOnOther() {
         UtilsGeneral.setFocusOnInput(findViewById(R.id.other_edit_id));
-        scrollToEditText(findViewById(R.id.other_edit_id));
+        scrollToView(findViewById(R.id.other_edit_id));
     }
 
     @Override
     public void scrollToPpsFront() {
-        scrollToEditText(findViewById(R.id.pps_front_image_holder_id));
+        scrollToView(findViewById(R.id.pps_front_image_holder_id));
     }
 
     @Override
     public void scrollToId() {
-        scrollToEditText(findViewById(R.id.personal_info_id));
+        scrollToView(findViewById(R.id.personal_info_id));
+    }
+
+    @Override
+    public void scrollToTaxes() {
+        scrollToView(findViewById(R.id.taxes_id));
     }
 
     @Override

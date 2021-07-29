@@ -126,10 +126,10 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
         findViewById(R.id.payments_send_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.handleSendButtonClick(payerEditText.getText().toString(),
-                        payerEmailEditText.getText().toString(),
-                        siteEditText.getText().toString(),
-                        monthEditText.getText().toString());
+                presenter.handleSendButtonClick(payerEditText.getText().toString().trim(),
+                        payerEmailEditText.getText().toString().trim(),
+                        siteEditText.getText().toString().trim(),
+                        monthEditText.getText().toString().trim());
             }
         });
         payerEditText.addTextChangedListener(new CustomTextWatcher() {
@@ -162,10 +162,10 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
     }
 
     private void validateAddedInformation() {
-        presenter.onTextChanged(payerEditText.getText().toString(),
-                payerEmailEditText.getText().toString(),
-                siteEditText.getText().toString(),
-                monthEditText.getText().toString());
+        presenter.onTextChanged(payerEditText.getText().toString().trim(),
+                payerEmailEditText.getText().toString().trim(),
+                siteEditText.getText().toString().trim(),
+                monthEditText.getText().toString().trim());
     }
 
     private void setupRecyclerView() {

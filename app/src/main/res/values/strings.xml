@@ -149,4 +149,5 @@
     <string name="faq_question_answer_5">You can always take pictures of your files: IDs, PPS, marriage certificate, receipts, invoices. Click the plus image and then on \'Take photo\' button and you\'re all set.</string>
     <string name="faq_question_6">I don\'t know how to take photos with the app</string>
     <string name="faq_question_answer_6">No worries. Take the photos using the phone camera and then you can add them by clicking on the plus image and then on \'Add From Gallery\' button.</string>
+    <string name="please_add_signature">Please add your signature in the above rectangle</string>
 </resources>

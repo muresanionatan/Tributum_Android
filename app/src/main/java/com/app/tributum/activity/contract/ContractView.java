@@ -187,4 +187,6 @@ public interface ContractView {
     void scrollToPpsFront();
 
     void scrollToId();
+
+    void scrollToTaxes();
 }

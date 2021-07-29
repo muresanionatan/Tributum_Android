@@ -126,10 +126,10 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         findViewById(R.id.vat_send_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onSendClick(name.getText().toString(),
-                        payerEmail.getText().toString(),
-                        startingMonth.getText().toString(),
-                        endingMonth.getText().toString());
+                presenter.onSendClick(name.getText().toString().trim(),
+                        payerEmail.getText().toString().trim(),
+                        startingMonth.getText().toString().trim(),
+                        endingMonth.getText().toString().trim());
             }
         });
 
@@ -200,10 +200,10 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     }
 
     private void validateAddedInformation() {
-        presenter.onTextChanged(name.getText().toString(),
-                payerEmail.getText().toString(),
-                startingMonth.getText().toString(),
-                endingMonth.getText().toString());
+        presenter.onTextChanged(name.getText().toString().trim(),
+                payerEmail.getText().toString().trim(),
+                startingMonth.getText().toString().trim(),
+                endingMonth.getText().toString().trim());
     }
 
     private void scrollListToBottom() {
@@ -296,7 +296,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     @Override
     public void startPdfCreation() {
-        PdfAsyncTask asyncTask = new PdfAsyncTask(VatActivity.this, presenter.getList(), name.getText().toString(),
+        PdfAsyncTask asyncTask = new PdfAsyncTask(VatActivity.this, presenter.getList(), name.getText().toString().trim(),
                 startingMonth.getText().toString()
                         + "_" + endingMonth.getText().toString());
         asyncTask.execute();
@@ -369,10 +369,10 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     @Override
     public void onTaskCompleted() {
-        presenter.onTaskCompleted(name.getText().toString(),
-                payerEmail.getText().toString(),
-                startingMonth.getText().toString(),
-                endingMonth.getText().toString());
+        presenter.onTaskCompleted(name.getText().toString().trim(),
+                payerEmail.getText().toString().trim(),
+                startingMonth.getText().toString().trim(),
+                endingMonth.getText().toString().trim());
     }
 
     @Override

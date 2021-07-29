@@ -330,6 +330,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 view.focusOnContractDate();
             } else if (isSelf && (!first && !second && !third && !fourth && !fifth && !sixth && !seventh && !eight && !ninth)) {
                 view.showToast(R.string.please_select_taxes);
+                view.scrollToTaxes();
             } else if (isSelf && ninth && otherText.equals("")) {
                 view.showToast(R.string.please_specify_other);
                 view.focusOnOther();
@@ -342,6 +343,8 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         } else if (state == ProgressState.SIGNATURE) {
             if (signatureDrawn)
                 sendInfo(firstName, lastName, address1, address2, address3, eircode, pps, email, contractDate, birthday, occupation, otherText, phone, bankAccount, noOfKids);
+            else
+                view.showToast(R.string.please_add_signature);
         }
     }
 

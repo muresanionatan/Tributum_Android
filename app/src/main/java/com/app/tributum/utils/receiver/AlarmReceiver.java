@@ -42,7 +42,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         SystemNotificationContent systemNotificationContent = new SystemNotificationContent(
                 resources.getString(R.string.app_name),
                 resources.getString(R.string.vat_notification_string),
-                R.drawable.ic_logo);
+                R.drawable.notification);
         SystemNotificationProperties systemNotificationProperties = new SystemNotificationProperties(
                 false,
                 true,
