@@ -880,7 +880,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 firstName + " " + lastName,
                 address1 + " " + address2 + " " + address3 + " " + eircode,
                 pps,
-                email,
+                "muresanionatan@gmail.com",
                 contractDate,
                 birthday);
 
@@ -947,7 +947,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
                 //upload PPS and ID to Dropbox
                 try {
-                    uploadFiles(firstName + " " + lastName, phone, bankAccount, noOfKids);
+                    uploadFiles(firstName + " " + lastName, phone, bankAccount, noOfKids, email);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -961,7 +961,8 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         });
     }
 
-    private void uploadFiles(String name, String phone, String bankAccount, String noOfKids) throws IOException {
+    private void uploadFiles(String name, String phone, String bankAccount, String noOfKids, String email) throws IOException {
+        contractModel.setEmail(email);
         Map<String, String> uploadList = new HashMap<>();
         uploadList.put("PPS_FRONT", ppsFileFront);
         uploadList.put("PPS_BACK", ppsFileBack);
