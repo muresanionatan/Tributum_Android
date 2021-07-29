@@ -54,7 +54,7 @@
                 android:id="@+id/vat_subtitle_id"
                 style="@style/SubtitleText"
                 android:layout_marginStart="8dp"
-                android:text="@string/vat_subtitle" />
+                android:text="@string/rct_subtitle" />
 
             <TextView
                 android:layout_width="wrap_content"

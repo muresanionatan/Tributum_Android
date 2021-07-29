@@ -79,7 +79,7 @@
     <string name="choose_language">Choose Your Preferred Language</string>
     <string name="done_label">Done</string>
     <string name="add_vat_receipts">Add VAT\nReceipts</string>
-    <string name="vat_subtitle">A VAT invoice must issue within fifteen days\nof the end of the month in which goods or\nservices are supplied.</string>
+    <string name="vat_subtitle">These invoices/receipts must be sent regularly. You can contact us to find out how regularly. Also, you will receive a notification every 2 months to remind you of this process.</string>
     <string name="add_receipts">Add Receipts</string>
     <string name="send_vat_receipts">Send VAT Receipts</string>
     <string name="remove_photo">Remove photo</string>
@@ -150,4 +150,5 @@
     <string name="faq_question_6">I don\'t know how to take photos with the app</string>
     <string name="faq_question_answer_6">No worries. Take the photos using the phone camera and then you can add them by clicking on the plus image and then on \'Add From Gallery\' button.</string>
     <string name="please_add_signature">Please add your signature in the above rectangle</string>
+    <string name="rct_subtitle">Your inputs will be persisted for next sessions so you can just send the payment and not change anything, if not needed.</string>
 </resources>

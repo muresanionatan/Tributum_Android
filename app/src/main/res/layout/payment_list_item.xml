@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="20dp"
-        android:hint="@string/first_name_label"
+        android:hint="@string/full_name_label"
         android:inputType="textCapWords"
         android:nextFocusForward="@+id/payment_pps_edit_text" />
 

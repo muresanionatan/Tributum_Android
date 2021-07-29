@@ -49,7 +49,7 @@
     <string name="no_photo_taken">Inca nu ati facut nici o poza</string>
     <string name="vat_notification_string">Nu uita sa trimiti bonurile si/sau facturile pentru ultimele doua luni.</string>
     <string name="vats_action">Incepe</string>
-    <string name="email_label">E-mail address</string>
+    <string name="email_label">Adresa e-mail</string>
     <string name="receipts_months">Perioada bonurilor (luni)</string>
     <string name="starting_month_label">Luna inceput</string>
     <string name="ending_month_label">Luna sfarsit</string>
@@ -79,7 +79,7 @@
     <string name="choose_language">Alege limba dorita</string>
     <string name="done_label">Gata</string>
     <string name="add_vat_receipts">Adauga VAT\nBonuri/Facturi</string>
-    <string name="vat_subtitle">A VAT invoice must issue within fifteen days\nof the end of the month in which goods or\nservices are supplied.</string>
+    <string name="vat_subtitle">Aceste bonuri/facturi trebuie introduse regulat. Poti sa ne contactezi pentru a afla cat de des trebuie trimise. De asemenea, o data la 2 luni vei primi o notificare pentru a-ti aminti de acest proces.</string>
     <string name="add_receipts">Adauga Bonuri</string>
     <string name="send_vat_receipts">Trimite</string>
     <string name="remove_photo">Sterge poza</string>
@@ -87,7 +87,7 @@
     <string name="add_new_label">Adauga</string>
     <string name="remove_label">Sterge</string>
     <string name="personal_info_label">Informatii\nPersonale</string>
-    <string name="contract_subtitle">Te rugam adauga cu grija datele,\nca sa putem genera un contract pentru tine.</string>
+    <string name="contract_subtitle">Te rugam adauga cu grija datele,\npentru a genera un contract.</string>
     <string name="add_your_id_label">Adauga CI</string>
     <string name="marital_status_label">Stare Civila</string>
     <string name="any_children_label">Aveti Copii?</string>
@@ -150,4 +150,5 @@
     <string name="faq_question_6">Nu stiu cum sa fac poze actelor mele folosind aplicatia</string>
     <string name="faq_question_answer_6">Nicio grija. Fa poze actelor tale folosing camera telefonului. Apoi le poti adauga in aplicatie apasand pe plus si apoi pe \'Adauga poze din galerie\'.</string>
     <string name="please_add_signature">Te rugam segmneaza in dreptunghiul de mai sus</string>
+    <string name="rct_subtitle">Datele introduse vor fi salvate pentru urmatorele plati asa ca poti direct sa trimiti o plata fara sa faci vreo modificare, daca nu e necesar.</string>
 </resources>

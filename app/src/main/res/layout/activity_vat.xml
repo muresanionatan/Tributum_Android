@@ -55,6 +55,7 @@
                     style="@style/SubtitleText"
                     android:layout_below="@+id/home_title_id"
                     android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
                     android:text="@string/vat_subtitle" />
 
                 <LinearLayout
@@ -153,8 +154,8 @@
                         <TextView
                             android:id="@+id/vat_send_text_id"
                             style="@style/SendButton"
-                            android:background="@drawable/vat_cta"
                             android:layout_marginBottom="16dp"
+                            android:background="@drawable/vat_cta"
                             android:text="@string/send_vat_receipts" />
                     </com.app.tributum.utils.ui.CustomButton>
 

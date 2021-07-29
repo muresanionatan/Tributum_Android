@@ -95,17 +95,6 @@
         android:layout_marginTop="20dp"
         android:hint="@string/mail_label" />
 
-    <TextView
-        android:id="@+id/payer_id_subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/manrope_regular"
-        android:text="@string/you_receive_copy"
-        android:textColor="@color/grey_3"
-        android:textSize="16sp" />
-
     <EditText
         android:id="@+id/bank_edit_text"
         style="@style/CustomEditText"

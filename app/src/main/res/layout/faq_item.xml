@@ -25,6 +25,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="12dp"
+                android:layout_toStartOf="@+id/expand_arrow_id"
                 android:fontFamily="@font/manrope_bold"
                 android:textColor="@color/black"
                 android:textSize="16sp"
