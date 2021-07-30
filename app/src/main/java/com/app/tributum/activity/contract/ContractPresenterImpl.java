@@ -880,7 +880,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 firstName + " " + lastName,
                 address1 + " " + address2 + " " + address3 + " " + eircode,
                 pps,
-                "muresanionatan@gmail.com",
+                "marius.bumbu@gmail.com",
                 contractDate,
                 birthday);
 
@@ -1114,15 +1114,8 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (view == null || data == null)
+        if (view == null)
             return;
-
-//        if ((requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT
-//                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK
-//                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_ID
-//                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE)
-//                && data == null)
-//            return;
 
         switch (requestCode) {
             case ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT:
@@ -1184,11 +1177,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     @Override
-    public void setFile(File file) {
-        this.file = file;
-    }
-
-    @Override
     public void onOkClicked() {
         if (view != null)
             view.closeActivity();
@@ -1222,5 +1210,22 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (monthOfYear < 10)
             monthString = "0" + monthOfYear;
         view.setContractDateText(dayString + "/" + monthString + "/" + year);
+    }
+
+    @Override
+    public void onDestroy() {
+        deleteImage(idFile);
+        deleteImage(marriageCertificateFile);
+        deleteImage(ppsFileFront);
+        deleteImage(ppsFileBack);
+    }
+
+    private void deleteImage(String file) {
+        if (file == null)
+            return;
+        
+        File fileToDelete = new File(file);
+        if (fileToDelete.exists())
+            fileToDelete.delete();
     }
 }

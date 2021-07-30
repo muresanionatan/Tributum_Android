@@ -323,8 +323,8 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.handleSendButtonClick(
-                        firstNameEditText.getText().toString(),
-                        lastNameEditText.getText().toString(),
+                        firstNameEditText.getText().toString().trim(),
+                        lastNameEditText.getText().toString().trim(),
                         address1EditText.getText().toString(),
                         address2EditText.getText().toString(),
                         address3EditText.getText().toString(),
@@ -742,14 +742,14 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         findViewById(R.id.take_photo_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onTakePhotoClicked(firstNameEditText.getText().toString(), takePictureRequest, picturePermissionId);
+                presenter.onTakePhotoClicked(firstNameEditText.getText().toString().trim(), takePictureRequest, picturePermissionId);
             }
         });
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        presenter.onRequestPermissionResult(firstNameEditText.getText().toString(), requestCode, grantResults);
+        presenter.onRequestPermissionResult(firstNameEditText.getText().toString().trim(), requestCode, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -758,7 +758,11 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         previewLayout.setVisibility(View.VISIBLE);
         findViewById(R.id.progress_layout_id).setVisibility(View.GONE);
         ImageView previewImage = findViewById(R.id.image_preview_id);
-        Glide.with(this).load("file://" + fileName).into(previewImage);
+        Glide.with(this)
+                .load("file://" + fileName)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(previewImage);
 
         findViewById(R.id.remove_photo_id).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -979,8 +983,8 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     private void checkPersonalInfo() {
         presenter.checkPersonalValidation(
-                firstNameEditText.getText().toString(),
-                lastNameEditText.getText().toString(),
+                firstNameEditText.getText().toString().trim(),
+                lastNameEditText.getText().toString().trim(),
                 address1EditText.getText().toString(),
                 address2EditText.getText().toString(),
                 birthday.getText().toString(),
@@ -1242,6 +1246,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                 "com.app.tributum.activity.vat.provider", file);
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+        presenter.setFilePath(pictureImagePath);
         startActivityForResult(cameraIntent, requestId);
     }
 
@@ -1417,5 +1422,11 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void onBackPressed() {
         presenter.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
     }
 }

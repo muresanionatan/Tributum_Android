@@ -91,8 +91,6 @@ public interface ContractPresenter {
 
     void setFilePath(String pictureImagePath);
 
-    void setFile(File file);
-
     void beforeContractDateChanged(int length);
 
     void afterContractDateChanged(Editable s);
@@ -105,4 +103,6 @@ public interface ContractPresenter {
     void onBirthdayDateSet(int year, int monthOfYear, int dayOfMonth);
 
     void onContractDateSet(int year, int monthOfYear, int dayOfMonth);
+
+    void onDestroy();
 }

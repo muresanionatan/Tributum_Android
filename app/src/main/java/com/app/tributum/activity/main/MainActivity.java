@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         StatusBarUtils.makeStatusBarTransparent(this);
         ConstantsUtils.APP_START_TIME = System.currentTimeMillis();
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         showSplashScreen();
         presenter = new MainPresenterImpl(this);
