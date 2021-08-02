@@ -38,6 +38,7 @@ public class UtilsGeneral {
             editText.setFocusable(true);
             editText.setFocusableInTouchMode(true);
             editText.setCursorVisible(true);
+            editText.setSelection(editText.getText().length());
             showSoftKeyboard(editText);
         }
     }

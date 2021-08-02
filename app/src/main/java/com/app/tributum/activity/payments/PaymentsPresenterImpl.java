@@ -75,8 +75,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
                 view.showToast(resources.getString(R.string.please_enter_payment_month));
                 view.setFocusOnMonth();
             } else if (view.areThereEmptyInputs()) {
-                view.showToast(resources.getString(R.string.please_enter_payments_details));
-                view.setFocusOnRecyclerView();
+                view.focusOnEmptyInputFromRecyclerView();
             } else {
                 saveListToPreferences(payer, email, site);
                 sendInternalEmail(payer, email, site, month);

@@ -151,4 +151,5 @@
     <string name="faq_question_answer_6">No worries. Take the photos using the phone camera and then you can add them by clicking on the plus image and then on \'Add From Gallery\' button.</string>
     <string name="please_add_signature">Please add your signature in the above rectangle</string>
     <string name="rct_subtitle">Your inputs will be persisted for next sessions so you can just send the payment and not change anything, if not needed.</string>
+    <string name="please_enter_amount">Please enter amount</string>
 </resources>

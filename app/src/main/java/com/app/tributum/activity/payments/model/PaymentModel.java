@@ -20,6 +20,12 @@ public class PaymentModel {
      */
     private String amount;
 
+    private boolean nameFocus;
+
+    private boolean ppsFocus;
+
+    private boolean amountFocus;
+
     public PaymentModel(String name, String pps, String amount) {
         this.name = name;
         this.pps = pps;
@@ -48,5 +54,29 @@ public class PaymentModel {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public boolean isNameFocus() {
+        return nameFocus;
+    }
+
+    public void setNameFocus(boolean nameFocus) {
+        this.nameFocus = nameFocus;
+    }
+
+    public boolean isPpsFocus() {
+        return ppsFocus;
+    }
+
+    public void setPpsFocus(boolean ppsFocus) {
+        this.ppsFocus = ppsFocus;
+    }
+
+    public boolean isAmountFocus() {
+        return amountFocus;
+    }
+
+    public void setAmountFocus(boolean amountFocus) {
+        this.amountFocus = amountFocus;
     }
 }

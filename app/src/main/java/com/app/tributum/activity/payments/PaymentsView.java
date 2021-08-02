@@ -41,4 +41,6 @@ public interface PaymentsView {
     void setFocusOnRecyclerView();
 
     List<PaymentModel> getPaymentList();
+
+    void focusOnEmptyInputFromRecyclerView();
 }

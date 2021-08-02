@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.tributum.R;
 import com.app.tributum.activity.payments.model.PaymentModel;
 import com.app.tributum.listener.PaymentsItemClickListener;
+import com.app.tributum.listener.RecyclerViewInputListener;
 import com.app.tributum.utils.UtilsGeneral;
+import com.app.tributum.utils.ValidationUtils;
 import com.app.tributum.utils.ui.CustomButton;
 
 import java.util.List;
@@ -29,17 +31,20 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
     /**
      * Listener used when user clicks on the item image at the right side of the screen
      */
-    private PaymentsItemClickListener listener;
+    private PaymentsItemClickListener paymentsItemClickListener;
+
+    private RecyclerViewInputListener recyclerViewInputListener;
 
     /**
      * class constructor
      *
-     * @param paymentList the list containing payments
-     * @param listener    nameEditTextListener used when user presses the image on the right side of the row
+     * @param paymentList               the list containing payments
+     * @param paymentsItemClickListener nameEditTextListener used when user presses the image on the right side of the row
      */
-    public PaymentsAdapter(List<PaymentModel> paymentList, PaymentsItemClickListener listener) {
+    public PaymentsAdapter(List<PaymentModel> paymentList, PaymentsItemClickListener paymentsItemClickListener, RecyclerViewInputListener recyclerViewInputListener) {
         this.paymentList = paymentList;
-        this.listener = listener;
+        this.paymentsItemClickListener = paymentsItemClickListener;
+        this.recyclerViewInputListener = recyclerViewInputListener;
     }
 
     @NonNull
@@ -56,7 +61,6 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         holder.nameEditText.addTextChangedListener(holder.nameEditTextListener);
         holder.ppsEditText.addTextChangedListener(holder.ppsEditTextListener);
         holder.amountEditText.addTextChangedListener(holder.amountEditTextListener);
-
 
         holder.nameEditTextListener.updatePosition(holder.getAdapterPosition());
         holder.ppsEditTextListener.updatePosition(holder.getAdapterPosition());
@@ -85,6 +89,16 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
                 }
             });
         }
+        if (paymentModel.isNameFocus()) {
+            paymentModel.setNameFocus(false);
+            UtilsGeneral.setFocusOnInput(holder.nameEditText);
+        } else if (paymentModel.isPpsFocus()) {
+            paymentModel.setPpsFocus(false);
+            UtilsGeneral.setFocusOnInput(holder.ppsEditText);
+        } else if (paymentModel.isAmountFocus()) {
+            paymentModel.setAmountFocus(false);
+            UtilsGeneral.setFocusOnInput(holder.amountEditText);
+        }
     }
 
     /**
@@ -96,17 +110,39 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         holder.nameEditText.removeTextChangedListener(holder.nameEditTextListener);
         holder.ppsEditText.removeTextChangedListener(holder.ppsEditTextListener);
         holder.amountEditText.removeTextChangedListener(holder.amountEditTextListener);
-        if (listener != null)
-            listener.removeItem(holder.getAdapterPosition());
+        if (paymentsItemClickListener != null)
+            paymentsItemClickListener.removeItem(holder.getAdapterPosition());
     }
 
     public boolean areThereEmptyInputs() {
         for (PaymentModel model : paymentList) {
-            if (model.getName().trim().equals("") || model.getPps().trim().equals("") || model.getAmount().trim().equals("")) {
+            if (model.getName().trim().equals("") || model.getPps().trim().equals("") || model.getAmount().trim().equals("") || !ValidationUtils.isPpsValid(model.getPps())) {
                 return true;
             }
         }
         return false;
+    }
+
+    public void findEmptyInputs() {
+        if (recyclerViewInputListener == null)
+            return;
+
+        for (int i = 0; i < getItemCount(); i++) {
+            PaymentModel model = paymentList.get(i);
+            if (model.getName().trim().equals("")) {
+                notifyDataSetChanged();
+                recyclerViewInputListener.scrollToNameItem(i);
+                break;
+            } else if (model.getName().trim().equals("") || !ValidationUtils.isPpsValid(model.getPps().trim())) {
+                notifyDataSetChanged();
+                recyclerViewInputListener.scrollToPpsItem(i);
+                break;
+            } else if (model.getAmount().trim().equals("")) {
+                notifyDataSetChanged();
+                recyclerViewInputListener.scrollToAmountItem(i);
+                break;
+            }
+        }
     }
 
     public List<PaymentModel> getPaymentList() {
@@ -183,8 +219,9 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             paymentList.get(position).setName(charSequence.toString());
-            if (listener != null)
-                listener.onTextChanged();
+            if (paymentsItemClickListener != null)
+                paymentsItemClickListener.onTextChanged();
+            paymentList.get(position).setNameFocus(charSequence.toString().equals(""));
         }
 
         @Override
@@ -211,8 +248,9 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             paymentList.get(position).setPps(charSequence.toString());
-            if (listener != null)
-                listener.onTextChanged();
+            if (paymentsItemClickListener != null)
+                paymentsItemClickListener.onTextChanged();
+            paymentList.get(position).setPpsFocus(charSequence.toString().equals("") || !ValidationUtils.isPpsValid(charSequence.toString()));
         }
 
         @Override
@@ -239,8 +277,9 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             paymentList.get(position).setAmount(charSequence.toString());
-            if (listener != null)
-                listener.onTextChanged();
+            if (paymentsItemClickListener != null)
+                paymentsItemClickListener.onTextChanged();
+            paymentList.get(position).setAmountFocus(charSequence.toString().equals(""));
         }
 
         @Override

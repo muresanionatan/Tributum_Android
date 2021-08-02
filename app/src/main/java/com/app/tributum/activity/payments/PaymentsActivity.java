@@ -19,6 +19,7 @@ import com.app.tributum.activity.payments.model.PaymentModel;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.listener.PaymentsItemClickListener;
+import com.app.tributum.listener.RecyclerViewInputListener;
 import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
@@ -29,7 +30,7 @@ import com.app.tributum.utils.ui.UiUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentsActivity extends AppCompatActivity implements PaymentsView, PaymentsItemClickListener {
+public class PaymentsActivity extends AppCompatActivity implements PaymentsView, PaymentsItemClickListener, RecyclerViewInputListener {
 
     private RecyclerView recyclerView;
 
@@ -178,11 +179,14 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
         if (paymentList.size() == 0)
             paymentList.add(new PaymentModel("", "", ""));
 
-        adapter = new PaymentsAdapter(paymentList, this);
+        adapter = new PaymentsAdapter(paymentList, this, this);
         recyclerView.setAdapter(adapter);
     }
 
     private void scrollToEditText(View view) {
+        if (view == null)
+            return;
+
         findViewById(R.id.vat_scroll_view_id).post(new Runnable() {
             @Override
             public void run() {
@@ -320,5 +324,31 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
     @Override
     public void onTextChanged() {
         validateAddedInformation();
+    }
+
+    @Override
+    public void focusOnEmptyInputFromRecyclerView() {
+        adapter.findEmptyInputs();
+    }
+
+    @Override
+    public void scrollToNameItem(int position) {
+        recyclerView.smoothScrollToPosition(position);
+        Toast.makeText(PaymentsActivity.this, getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show();
+        scrollToEditText(recyclerView);
+    }
+
+    @Override
+    public void scrollToPpsItem(int position) {
+        recyclerView.smoothScrollToPosition(position);
+        Toast.makeText(PaymentsActivity.this, getString(R.string.please_enter_pps), Toast.LENGTH_SHORT).show();
+        scrollToEditText(recyclerView);
+    }
+
+    @Override
+    public void scrollToAmountItem(int position) {
+        recyclerView.smoothScrollToPosition(position);
+        Toast.makeText(PaymentsActivity.this, getString(R.string.please_enter_amount), Toast.LENGTH_SHORT).show();
+        scrollToEditText(recyclerView);
     }
 }
