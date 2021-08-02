@@ -333,21 +333,21 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
 
     @Override
     public void scrollToNameItem(int position) {
-        recyclerView.smoothScrollToPosition(position);
+//        recyclerView.scrollToPosition(position);
         Toast.makeText(PaymentsActivity.this, getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show();
         scrollToEditText(recyclerView);
     }
 
     @Override
     public void scrollToPpsItem(int position) {
-        recyclerView.smoothScrollToPosition(position);
+//        recyclerView.scrollToPosition(position);
         Toast.makeText(PaymentsActivity.this, getString(R.string.please_enter_pps), Toast.LENGTH_SHORT).show();
         scrollToEditText(recyclerView);
     }
 
     @Override
     public void scrollToAmountItem(int position) {
-        recyclerView.smoothScrollToPosition(position);
+//        recyclerView.scrollToPosition(position);
         Toast.makeText(PaymentsActivity.this, getString(R.string.please_enter_amount), Toast.LENGTH_SHORT).show();
         scrollToEditText(recyclerView);
     }
