@@ -1,6 +1,6 @@
 package com.app.tributum.retrofit;
 
-import com.app.tributum.model.ContractModel;
+import com.app.tributum.activity.contract.model.ContractModel;
 import com.app.tributum.model.EmailBody;
 
 import retrofit2.Call;

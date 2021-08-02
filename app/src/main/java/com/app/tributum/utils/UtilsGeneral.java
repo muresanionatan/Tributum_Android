@@ -7,12 +7,12 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.text.InputFilter;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.app.tributum.activity.MainActivity;
+import com.app.tributum.activity.main.MainActivity;
+import com.app.tributum.application.TributumApplication;
 
 import java.util.Locale;
 
@@ -33,12 +33,13 @@ public class UtilsGeneral {
      *
      * @param editText the {@link EditText} that requests focus
      */
-    public static void setFocusOnInput(Activity activity, EditText editText) {
+    public static void setFocusOnInput(EditText editText) {
         if (editText != null && !editText.hasFocus()) {
             editText.setFocusable(true);
             editText.setFocusableInTouchMode(true);
             editText.setCursorVisible(true);
-            showSoftKeyboard(activity, editText);
+            editText.setSelection(editText.getText().length());
+            showSoftKeyboard(editText);
         }
     }
 
@@ -72,8 +73,8 @@ public class UtilsGeneral {
     /**
      * Shows the soft keyboard
      */
-    private static void showSoftKeyboard(Activity activity, View view) {
-        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+    private static void showSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) TributumApplication.getInstance().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (inputMethodManager != null) {
             view.requestFocus();
             inputMethodManager.showSoftInput(view, 0);
@@ -96,18 +97,32 @@ public class UtilsGeneral {
     }
 
     public static void setAppLanguage(Activity activity, String language) {
-        Locale myLocale = new Locale(language);
-        Resources resources = activity.getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        Configuration conf = resources.getConfiguration();
-        conf.locale = myLocale;
-        resources.updateConfiguration(conf, dm);
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.setLocale(locale);
+        activity.getResources().updateConfiguration(configuration, activity.getResources().getDisplayMetrics());
     }
 
     public static void restartAppForLanguage(Activity activity) {
         Intent refresh = new Intent(activity, MainActivity.class);
         activity.finish();
         activity.startActivity(refresh);
+    }
+
+    /**
+     * Changes the locale for the given context
+     */
+    public static void changeLocaleForContext(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+
+        context.createConfigurationContext(configuration);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
     /**

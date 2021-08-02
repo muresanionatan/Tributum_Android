@@ -11,8 +11,5 @@ public interface PaymentsItemClickListener {
      */
     void removeItem(int position);
 
-    /**
-     * will add an item at the end of the list
-     */
-    void addItem();
+    void onTextChanged();
 }

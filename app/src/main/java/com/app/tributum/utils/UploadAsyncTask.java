@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import androidx.annotation.IntDef;
 
-import com.app.tributum.fragment.invoices.listener.AsyncListener;
+import com.app.tributum.listener.AsyncListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,9 +53,9 @@ public class UploadAsyncTask extends AsyncTask {
 
     @Override
     protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
         if (asyncListener != null)
             asyncListener.onTaskCompleted();
-        super.onPostExecute(o);
     }
 
     @IntDef

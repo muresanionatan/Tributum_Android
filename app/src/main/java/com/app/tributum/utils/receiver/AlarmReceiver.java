@@ -10,7 +10,7 @@ import android.content.res.Resources;
 import androidx.core.app.NotificationCompat;
 
 import com.app.tributum.R;
-import com.app.tributum.activity.MainActivity;
+import com.app.tributum.activity.main.MainActivity;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.notifications.NotificationAction;
@@ -42,7 +42,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         SystemNotificationContent systemNotificationContent = new SystemNotificationContent(
                 resources.getString(R.string.app_name),
                 resources.getString(R.string.vat_notification_string),
-                R.drawable.camera_svg);
+                R.drawable.notification);
         SystemNotificationProperties systemNotificationProperties = new SystemNotificationProperties(
                 false,
                 true,

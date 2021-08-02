@@ -41,6 +41,8 @@ public class ConstantsUtils {
 
     public static final byte STORAGE_PERMISSION_REQUEST_CODE_MARRIAGE = 4;
 
+    public static final byte STORAGE_PERMISSION_REQUEST_CODE_VAT = 3;
+
     public static final byte MULTIPLE_PERMISSIONS_PPS_FRONT = 10;
 
     public static final byte MULTIPLE_PERMISSIONS_PPS_BACK = 5;

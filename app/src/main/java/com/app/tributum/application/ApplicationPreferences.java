@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.app.tributum.model.PaymentModel;
+import com.app.tributum.activity.payments.model.PaymentModel;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -133,8 +133,9 @@ public class ApplicationPreferences {
             this.setPreference(AppKeysValues.PREFS_INITIALISED, AppKeysValues.TRUE);
             this.setPreference(AppKeysValues.APP_LANGUAGE, "en");
             this.setPreference(AppKeysValues.FIRST_TIME_USER, AppKeysValues.TRUE);
-            this.setPreference(AppKeysValues.CONTRACT_FORM_STARTED, AppKeysValues.FALSE);
             this.setPreference(AppKeysValues.INVOICES_TAKEN, AppKeysValues.FALSE);
+            this.setPreference(AppKeysValues.USER_DENIED_TERMS, AppKeysValues.FALSE);
+            this.setPreference(AppKeysValues.USER_ACCEPTED_TERMS, AppKeysValues.FALSE);
 
             //Settings Save
             this.savePreferences();
