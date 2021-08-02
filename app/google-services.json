@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "374834258951",
+    "project_id": "tributum-caff4",
+    "storage_bucket": "tributum-caff4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374834258951:android:8827c079d5d97432b3f6a2",
+        "android_client_info": {
+          "package_name": "com.app.mbacc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374834258951-ug3i72n4iug34ajoqtbecmlpjohgi46e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwq8tSf7yo8xR5folf066oDlnYRSM7sc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374834258951-ug3i72n4iug34ajoqtbecmlpjohgi46e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

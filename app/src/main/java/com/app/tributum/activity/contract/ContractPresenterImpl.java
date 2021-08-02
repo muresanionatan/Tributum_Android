@@ -1223,7 +1223,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     private void deleteImage(String file) {
         if (file == null)
             return;
-        
+
         File fileToDelete = new File(file);
         if (fileToDelete.exists())
             fileToDelete.delete();

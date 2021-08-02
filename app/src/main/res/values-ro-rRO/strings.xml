@@ -47,7 +47,7 @@
     <string name="romanian_label">Romana</string>
     <string name="take_photo">Fa o poza</string>
     <string name="no_photo_taken">Inca nu ati facut nici o poza</string>
-    <string name="vat_notification_string">Nu uita sa trimiti bonurile si/sau facturile pentru ultimele doua luni.</string>
+    <string name="vat_notification_string">Nu uita sa trimiti bonurile/facturile pentru ultimele doua luni.</string>
     <string name="vats_action">Incepe</string>
     <string name="email_label">Adresa e-mail</string>
     <string name="receipts_months">Perioada bonurilor (luni)</string>

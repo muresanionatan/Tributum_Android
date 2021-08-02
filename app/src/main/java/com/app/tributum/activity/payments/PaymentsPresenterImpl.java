@@ -80,7 +80,6 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
             } else {
                 saveListToPreferences(payer, email, site);
                 sendInternalEmail(payer, email, site, month);
-                view.showToast("good");
             }
         } else {
             view.showToast(resources.getString(R.string.try_again));

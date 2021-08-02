@@ -47,7 +47,7 @@
     <string name="romanian_label">Romanian</string>
     <string name="take_photo">Take photo</string>
     <string name="no_photo_taken">You haven\'t taken any photo so far</string>
-    <string name="vat_notification_string">Kind reminder to please submit your expenses and/or invoices for the last 2 months.</string>
+    <string name="vat_notification_string">Kind reminder to submit your expenses/invoices for the last 2 months.</string>
     <string name="vats_action">Get started</string>
     <string name="email_label">Email</string>
     <string name="receipts_months">Receipts period (months)</string>
