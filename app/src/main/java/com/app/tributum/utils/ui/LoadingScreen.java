@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.app.tributum.R;
 import com.app.tributum.application.TributumApplication;
@@ -27,6 +28,8 @@ public class LoadingScreen {
 
     private AnimatorSet scaleAnimator;
 
+    private String loadingText;
+
     public LoadingScreen(ViewGroup viewGroup, int imageId) {
         this.viewGroup = viewGroup;
         this.imageId = imageId;
@@ -38,12 +41,18 @@ public class LoadingScreen {
         viewGroup.addView(inflatedView);
         imageView = inflatedView.findViewById(R.id.loading_animation_id);
         imageView.setImageResource(imageId);
+        if (loadingText != null)
+            ((TextView) inflatedView.findViewById(R.id.loading_screen_text_id)).setText(loadingText);
         animate();
     }
 
     @SuppressLint("ResourceType")
     public void hide() {
         viewGroup.removeView(inflatedView);
+    }
+
+    public void setText(String text) {
+        loadingText = text;
     }
 
     private void animate() {

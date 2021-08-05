@@ -66,6 +66,12 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
         setupRecyclerView();
         presenter.onCreate();
         validateAddedInformation();
+        recyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setFocusOnName();
+            }
+        }, 100);
     }
 
     @SuppressLint("CutPasteId")

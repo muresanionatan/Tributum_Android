@@ -544,6 +544,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         setupCheckboxes();
 
         loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_contract);
+        loadingScreen.setText(getString(R.string.might_take));
         requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_contract, getString(R.string.contract_sent_label), presenter);
     }
 

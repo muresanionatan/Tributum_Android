@@ -152,4 +152,6 @@
     <string name="please_add_signature">Te rugam segmneaza in dreptunghiul de mai sus</string>
     <string name="rct_subtitle">Datele introduse vor fi salvate pentru urmatorele plati asa ca poti direct sa trimiti o plata fara sa faci vreo modificare, daca nu e necesar.</string>
     <string name="please_enter_amount">Te rugam introdu suma</string>
+    <string name="might_take">Poate dura putin in functie de conexiunea de internet</string>
+    <string name="might_take_pictures">Poate dura putin in functie de conexiunea de internet si numarul de poze adaugate</string>
 </resources>
