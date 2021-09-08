@@ -123,7 +123,7 @@
     <string name="please_enter_name">Te rugam introdu numele</string>
     <string name="please_enter_starting_month">Te rugam introdu luna de incepe a VAT-urilor</string>
     <string name="please_enter_ending_month">Te rugam introdu luna de final a VAT-urilor</string>
-    <string name="please_enter_site">Te rugam introdu santierul</string>
+    <string name="please_enter_site">Te rugam introdu locul de munca</string>
     <string name="please_enter_payment_month">Te rugam introdu luna pentru care se face plata</string>
     <string name="please_enter_payments_details">Te rugam adauga detaliile platii</string>
     <string name="please_enter_first_name">Te rugam sa introduci prenumele</string>

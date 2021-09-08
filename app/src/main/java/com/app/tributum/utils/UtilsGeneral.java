@@ -121,7 +121,7 @@ public class UtilsGeneral {
         Configuration configuration = resources.getConfiguration();
         configuration.setLocale(locale);
 
-        context.createConfigurationContext(configuration);
+//        context.createConfigurationContext(configuration);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
