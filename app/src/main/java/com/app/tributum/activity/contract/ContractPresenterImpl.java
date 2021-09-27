@@ -880,7 +880,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 firstName + " " + lastName,
                 address1 + " " + address2 + " " + address3 + " " + eircode,
                 pps,
-                "marius.bumbu@gmail.com",
+                email,
                 contractDate,
                 birthday);
 

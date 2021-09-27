@@ -61,7 +61,7 @@
     <string name="add_pps_back">Add PPS Back Image (optional)</string>
     <string name="add_from_gallery">Add From Gallery</string>
     <string name="phone_number_label">Phone number</string>
-    <string name="contract_mail_message">The following contract PDF(s) was\\were generated.</string>
+    <string name="contract_mail_message">Your request was received and it will be processed in the shortest time.</string>
     <string name="welcome_tributum_label">Welcome to Tributum!</string>
     <string name="please_enter_birthday_format">Please enter birthday like DD/MM/YYYY</string>
     <string name="please_enter_contract_format">Please enter starting contract date like DD/MM/YYYY</string>
