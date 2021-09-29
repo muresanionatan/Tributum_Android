@@ -11,6 +11,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.app.tributum.R;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.utils.animation.AnimUtils;
@@ -30,9 +32,12 @@ public class LoadingScreen {
 
     private String loadingText;
 
-    public LoadingScreen(ViewGroup viewGroup, int imageId) {
+    private int colorId;
+
+    public LoadingScreen(ViewGroup viewGroup, int imageId, int colorId) {
         this.viewGroup = viewGroup;
         this.imageId = imageId;
+        this.colorId = colorId;
     }
 
     @SuppressLint("ResourceType")
@@ -43,6 +48,7 @@ public class LoadingScreen {
         imageView.setImageResource(imageId);
         if (loadingText != null)
             ((TextView) inflatedView.findViewById(R.id.loading_screen_text_id)).setText(loadingText);
+        ((TextView) inflatedView.findViewById(R.id.loading_screen_text_id)).setTextColor(ContextCompat.getColor(TributumApplication.getInstance(), colorId));
         animate();
     }
 

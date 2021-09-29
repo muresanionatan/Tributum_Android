@@ -222,20 +222,4 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
         if (view != null)
             view.closeActivity();
     }
-
-    @Override
-    public void onTextChanged(String name, String email, String site, String month) {
-        if (view == null)
-            return;
-
-        if (name.equals("")
-                || email.equals("")
-                || site.equals("")
-                || month.equals("")
-                || view.areThereEmptyInputs()) {
-            view.disableSend();
-        } else {
-            view.enableSend();
-        }
-    }
 }

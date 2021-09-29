@@ -101,6 +101,12 @@
                     android:layout_marginStart="8dp"
                     android:text="@string/contract_subtitle" />
 
+                <TextView
+                    android:id="@+id/asterisk_text_view_id"
+                    android:layout_marginStart="8dp"
+                    style="@style/SubtitleText"
+                    android:text="@string/mandatory_fields"/>
+
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">

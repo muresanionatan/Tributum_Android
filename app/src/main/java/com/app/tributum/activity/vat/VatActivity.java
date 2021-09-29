@@ -36,7 +36,6 @@ import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.thread.PdfAsyncTask;
 import com.app.tributum.utils.ConstantsUtils;
-import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.DialogUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
@@ -106,7 +105,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         startingMonth.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         endingMonth.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_vat);
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_vat, R.color.vat_1);
         loadingScreen.setText(getString(R.string.might_take_pictures));
         requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_vat, getString(R.string.vat_receipts_sent), presenter);
 
@@ -173,38 +172,6 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
                 presenter.onTopViewClick();
             }
         });
-
-        name.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateAddedInformation();
-            }
-        });
-        payerEmail.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateAddedInformation();
-            }
-        });
-        startingMonth.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateAddedInformation();
-            }
-        });
-        endingMonth.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateAddedInformation();
-            }
-        });
-    }
-
-    private void validateAddedInformation() {
-        presenter.onTextChanged(name.getText().toString().trim(),
-                payerEmail.getText().toString().trim(),
-                startingMonth.getText().toString().trim(),
-                endingMonth.getText().toString().trim());
     }
 
     private void scrollListToBottom() {
@@ -279,20 +246,17 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     public void addItemToList(VatModel model) {
         adapter.addItemToList(model);
         scrollListToBottom();
-        validateAddedInformation();
     }
 
     @Override
     public void removeItemFromList(int photoClicked) {
         adapter.remove(photoClicked);
-        validateAddedInformation();
     }
 
     @Override
     public void getFilesFromGallery(Uri imageUri) {
         adapter.addItemToList(new VatModel(FileUtils.getPath(imageUri)));
         scrollListToBottom();
-        validateAddedInformation();
     }
 
     @Override
@@ -394,16 +358,6 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     public boolean shouldShowCameraRationale() {
         return ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA);
-    }
-
-    @Override
-    public void disableSendButton() {
-        findViewById(R.id.vat_send_text_id).setEnabled(false);
-    }
-
-    @Override
-    public void enableSendButton() {
-        findViewById(R.id.vat_send_text_id).setEnabled(true);
     }
 
     @Override

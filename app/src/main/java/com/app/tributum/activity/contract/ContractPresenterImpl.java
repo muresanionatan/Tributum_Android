@@ -115,23 +115,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             view.selectSingle();
             view.selectText(R.id.self_employed_text_id);
-            view.setSendDisabled();
-        }
-    }
-
-    private void validateContinueButton(String firstName, String lastName, String address1, String address2, String birthday, String occupation, String phone, String email) {
-        if (arePersonalInfoAdded(firstName, lastName, address1, address2, birthday, occupation, phone, email)) {
-            view.setSendEnabled();
-        } else {
-            view.setSendDisabled();
-        }
-    }
-
-    private void validateEmployeeButton(String pps, String contractDate) {
-        if (areEmploymentInfoAdded(pps, contractDate)) {
-            view.setSendEnabled();
-        } else {
-            view.setSendDisabled();
         }
     }
 
@@ -153,15 +136,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     @Override
     public void afterContractDateChanged(Editable s) {
         handleDates(s, previousContractDateLength, false);
-    }
-
-    @Override
-    public void checkPersonalValidation(String firstName, String lastName, String address1, String address2, String birthday, String occupation, String phone, String email,
-                                        String pps, String contractDate) {
-        if (state == ProgressState.PERSONAL)
-            validateContinueButton(firstName, lastName, address1, address2, birthday, occupation, phone, email);
-        else if (state == ProgressState.EMPLOYMENT)
-            validateEmployeeButton(pps, contractDate);
     }
 
     @Override
@@ -273,7 +247,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             return;
         view.clearSignature();
         view.hideClearButton();
-        view.setSendDisabled();
         signatureFile = null;
         signatureDrawn = false;
     }
@@ -501,41 +474,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         }
     }
 
-    private boolean arePersonalInfoAdded(String firstName, String lastName, String address1, String address2, String email, String birthday, String occupation,
-                                         String phone) {
-        if (!firstName.equals("")
-                && !lastName.equals("")
-                && !address1.equals("")
-                && !address2.equals("")
-                && !birthday.equals("")
-                && !occupation.equals("")
-                && !phone.equals("")
-                && !email.equals("")
-                && idFile != null) {
-            if (maritalStatus == MaritalStatus.MARRIED) {
-                return marriageCertificateFile != null;
-            } else {
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    private boolean areEmploymentInfoAdded(String pps, String contractDate) {
-        if (!pps.equals("")
-                && !contractDate.equals("")
-                && ppsFileFront != null) {
-            if (isSelf) {
-                return first || second || third || fourth || fifth || sixth || seventh || eight || ninth;
-            } else {
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
-
     private void moveToEmploymentScreen() {
         state = ProgressState.EMPLOYMENT;
         view.hidePersonalInfoLayout();
@@ -551,11 +489,8 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         view.showSignatureLayout();
         view.setTitle(R.string.almost_done);
         view.setSubtitle(R.string.add_your_signature_below);
+        view.hideAsteriskView();
         view.setConfirmationButtonText(R.string.sign_send);
-        if (!signatureDrawn)
-            view.setSendDisabled();
-        else
-            view.setSendEnabled();
     }
 
     @Override
@@ -572,13 +507,12 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             view.setTitle(R.string.employment_info_label);
             view.setConfirmationButtonText(R.string.continue_label);
             view.setSubtitle(R.string.contract_subtitle);
-            view.setSendEnabled();
+            view.showAsteriskView();
         } else if (state == ProgressState.EMPLOYMENT) {
             state = ProgressState.PERSONAL;
             view.hideEmploymentInfoLayoutToRight();
             view.showPersonalInfoLayout();
             view.setTitle(R.string.personal_info_label);
-            view.setSendEnabled();
         } else if (state == ProgressState.PERSONAL) {
             view.closeActivity();
         }
@@ -588,7 +522,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     public void onDrawingStarted() {
         if (view != null) {
             view.showClearButton();
-            view.setSendEnabled();
             signatureDrawn = true;
         }
     }

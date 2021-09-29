@@ -1,30 +1,30 @@
 <resources>
     <string name="app_name">Tributum</string>
 
-    <string name="amount_label">Suma</string>
-    <string name="first_name_label">Prenume</string>
-    <string name="last_name_label">Nume familie</string>
-    <string name="full_name_label">Nume si prenume</string>
+    <string name="amount_label">Suma<font color='#f65b94'>*</font></string>
+    <string name="first_name_label">Prenume<font color='#f65b94'>*</font></string>
+    <string name="last_name_label">Nume familie<font color='#f65b94'>*</font></string>
+    <string name="full_name_label">Nume si prenume<font color='#f65b94'>*</font></string>
     <string name="gross_label">Gros</string>
     <string name="net_label">Net</string>
-    <string name="address_label_1">Adresa 1</string>
-    <string name="address_label_2">Adresa 2</string>
+    <string name="address_label_1">Adresa 1<font color='#f65b94'>*</font></string>
+    <string name="address_label_2">Adresa 2<font color='#f65b94'>*</font></string>
     <string name="address_label_3">Adresa 3</string>
-    <string name="pps_number">Numar PPS</string>
-    <string name="mail_label">E-mail</string>
+    <string name="pps_number">Numar PPS<font color='#f65b94'>*</font></string>
+    <string name="mail_label">E-mail<font color='#f65b94'>*</font></string>
     <string name="welcome_back_label">Bine ai\nrevenit!</string>
     <string name="add_all_info">Te rugam sa completezi toate campurile pentru a trimite e-mailul</string>
     <string name="payer_label">Platitor</string>
     <string name="try_again">Verifica conexiunea la internet si reincearca. Modificari salvate.</string>
     <string name="faqs_label">FAQ</string>
     <string name="payment_to_label">Plata Catre</string>
-    <string name="occupation_label">Ocupatie</string>
+    <string name="occupation_label">Ocupatie<font color='#f65b94'>*</font></string>
     <string name="married_label">Casatorit</string>
     <string name="single_label">Necasatorit</string>
     <string name="divorced_label">Divortat</string>
     <string name="cohabiting_label">Coabitare</string>
-    <string name="start_date_label">Data incepere (ZZ/LL/AAAA)</string>
-    <string name="applying_for">Pentru ce aplici?</string>
+    <string name="start_date_label">Data incepere (ZZ/LL/AAAA)<font color='#f65b94'>*</font></string>
+    <string name="applying_for">Pentru ce aplici?<font color='#f65b94'>*</font></string>
     <string name="income_tax_label">Income Tax</string>
     <string name="corporation_tax_label">Corporation Tax</string>
     <string name="value_added_tax_label">Value Added Tax (VAT)</string>
@@ -37,30 +37,30 @@
     <string name="self_employed_label">Angajator</string>
     <string name="employee_label">Angajat</string>
     <string name="please_specify_label">Te rugam specifica</string>
-    <string name="date_of_birth">Data nasterii (ZZ/LL/AAAA)</string>
+    <string name="date_of_birth">Data nasterii (ZZ/LL/AAAA)<font color='#f65b94'>*</font></string>
     <string name="please_enter_pps">Te rugam introdu numarul PPS correct</string>
     <string name="please_enter_correct_email">Te rugam introdu o adresa e-mail corecta</string>
     <string name="something_went_wrong">Ceva nu a functionat corespunzator. Te rugam reincearca</string>
-    <string name="pps_label">PPS</string>
-    <string name="site_label">Loc de munca</string>
+    <string name="pps_label">PPS<font color='#f65b94'>*</font></string>
+    <string name="site_label">Loc de munca<font color='#f65b94'>*</font></string>
     <string name="english_label">Engleza</string>
     <string name="romanian_label">Romana</string>
     <string name="take_photo">Fa o poza</string>
     <string name="no_photo_taken">Inca nu ati facut nici o poza</string>
     <string name="vat_notification_string">Nu uita sa trimiti bonurile/facturile pentru ultimele doua luni.</string>
     <string name="vats_action">Incepe</string>
-    <string name="email_label">Adresa e-mail</string>
+    <string name="email_label">Adresa e-mail<font color='#f65b94'>*</font></string>
     <string name="receipts_months">Perioada bonurilor (luni)</string>
-    <string name="starting_month_label">Luna inceput</string>
-    <string name="ending_month_label">Luna sfarsit</string>
-    <string name="month_label">Luna</string>
+    <string name="starting_month_label">Luna inceput<font color='#f65b94'>*</font></string>
+    <string name="ending_month_label">Luna sfarsit<font color='#f65b94'>*</font></string>
+    <string name="month_label">Luna<font color='#f65b94'>*</font></string>
     <string name="you_receive_copy">Vei primi un e-mail legat de aceasta plata</string>
     <string name="invoices_message_email">Please add the receipts/invoices for\u0020</string>
     <string name="invoices_message_email_part2">\u0020for period:\u0020</string>
-    <string name="add_pps_front">Adauga poza PPS fata</string>
+    <string name="add_pps_front">Adauga poza PPS fata<font color='#f65b94'>*</font></string>
     <string name="add_pps_back">Adauga poza PPS spate (optional)</string>
     <string name="add_from_gallery">Adauga poze din galerie</string>
-    <string name="phone_number_label">Numar telefon</string>
+    <string name="phone_number_label">Numar telefon<font color='#f65b94'>*</font></string>
     <string name="contract_mail_message">Documentele de mai jos au fost generate.</string>
     <string name="welcome_tributum_label">Bine ai venit la Tributum!</string>
     <string name="please_enter_birthday_format">Te rugam adauga zi de nastere format ZZ/LL/AAAA</string>
@@ -80,7 +80,7 @@
     <string name="done_label">Gata</string>
     <string name="add_vat_receipts">Adauga VAT\nBonuri/Facturi</string>
     <string name="vat_subtitle">Aceste bonuri/facturi trebuie introduse regulat. Poti sa ne contactezi pentru a afla cat de des trebuie trimise. De asemenea, o data la 2 luni vei primi o notificare pentru a-ti aminti de acest proces.</string>
-    <string name="add_receipts">Adauga Bonuri</string>
+    <string name="add_receipts">Adauga Bonuri<font color='#f65b94'>*</font></string>
     <string name="send_vat_receipts">Trimite</string>
     <string name="remove_photo">Sterge poza</string>
     <string name="send_payment_label">Trimite Plata</string>
@@ -88,14 +88,14 @@
     <string name="remove_label">Sterge</string>
     <string name="personal_info_label">Informatii\nPersonale</string>
     <string name="contract_subtitle">Te rugam adauga cu grija datele,\npentru a genera un contract.</string>
-    <string name="add_your_id_label">Adauga CI</string>
+    <string name="add_your_id_label">Adauga CI<font color='#f65b94'>*</font></string>
     <string name="marital_status_label">Stare Civila</string>
     <string name="any_children_label">Aveti Copii?</string>
     <string name="continue_label">Continua</string>
     <string name="employment_info_label">Informatii\nAngajare</string>
     <string name="almost_done">Aproape Gata</string>
     <string name="clear_label">Sterge</string>
-    <string name="add_your_signature_below">Adauga Semnatura Ta Mai Jos</string>
+    <string name="add_your_signature_below">Adauga Semnatura Ta Mai Jos<font color='#f65b94'>*</font></string>
     <string name="sign_send"><![CDATA[Semneaza & Trimite]]></string>
     <string name="vat_receipts_sent">Bonuri/Facturi\nTrimise</string>
     <string name="ok_label">Ok</string>
@@ -154,4 +154,5 @@
     <string name="please_enter_amount">Te rugam introdu suma</string>
     <string name="might_take">Poate dura putin in functie de conexiunea de internet</string>
     <string name="might_take_pictures">Poate dura putin in functie de conexiunea de internet si numarul de poze adaugate</string>
+    <string name="mandatory_fields"><font color='#f65b94'>*</font>Campurile marcate cu asterics sunt obligatorii.</string>
 </resources>

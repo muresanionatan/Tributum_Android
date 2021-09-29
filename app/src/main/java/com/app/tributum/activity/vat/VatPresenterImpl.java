@@ -60,9 +60,6 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     public void onCreate() {
         list = new ArrayList<>();
         list.add(new VatModel(""));
-
-        if (vatView != null)
-            vatView.disableSendButton();
     }
 
     @Override
@@ -378,22 +375,6 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
                     TributumAppHelper.saveSetting(AppKeysValues.CAMERA_FIRST_DENIED, AppKeysValues.TRUE);
                 }
             }
-        }
-    }
-
-    @Override
-    public void onTextChanged(String name, String email, String startingMonth, String endingMonth) {
-        if (vatView == null)
-            return;
-
-        if (name.equals("")
-                || email.equals("")
-                || startingMonth.equals("")
-                || endingMonth.equals("")
-                || list.size() == 1) {
-            vatView.disableSendButton();
-        } else {
-            vatView.enableSendButton();
         }
     }
 

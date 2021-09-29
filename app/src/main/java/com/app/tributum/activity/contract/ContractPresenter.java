@@ -3,8 +3,6 @@ package com.app.tributum.activity.contract;
 import android.content.Intent;
 import android.text.Editable;
 
-import java.io.File;
-
 public interface ContractPresenter {
 
     void onBackPressed();
@@ -94,9 +92,6 @@ public interface ContractPresenter {
     void beforeContractDateChanged(int length);
 
     void afterContractDateChanged(Editable s);
-
-    void checkPersonalValidation(String firstName, String lastName, String address1, String address2, String birthday, String occupation, String phone,
-                                 String email, String pps, String contractDate);
 
     void onRequestPermissionResult(String name, int requestCode, int[] grantResults);
 

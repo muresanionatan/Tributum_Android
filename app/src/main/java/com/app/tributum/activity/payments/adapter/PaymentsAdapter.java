@@ -219,8 +219,6 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             paymentList.get(position).setName(charSequence.toString());
-            if (paymentsItemClickListener != null)
-                paymentsItemClickListener.onTextChanged();
             paymentList.get(position).setNameFocus(charSequence.toString().equals(""));
         }
 
@@ -248,8 +246,6 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             paymentList.get(position).setPps(charSequence.toString());
-            if (paymentsItemClickListener != null)
-                paymentsItemClickListener.onTextChanged();
             paymentList.get(position).setPpsFocus(charSequence.toString().equals("") || !ValidationUtils.isPpsValid(charSequence.toString()));
         }
 
@@ -277,8 +273,6 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             paymentList.get(position).setAmount(charSequence.toString());
-            if (paymentsItemClickListener != null)
-                paymentsItemClickListener.onTextChanged();
             paymentList.get(position).setAmountFocus(charSequence.toString().equals(""));
         }
 

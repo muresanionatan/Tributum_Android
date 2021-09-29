@@ -149,74 +149,20 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         previewLayout = findViewById(R.id.preview_layout_id);
         phoneNumberEditText = findViewById(R.id.phone_edit_text);
         bankAccount = findViewById(R.id.bank_edit_text);
-        bankAccount.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkPersonalInfo();
-            }
-        });
         UtilsGeneral.setMaxLengthAndAllCapsToEditText(bankAccount, 34, true);
 
         firstNameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        firstNameEditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkPersonalInfo();
-            }
-        });
         lastNameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        lastNameEditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkPersonalInfo();
-            }
-        });
         address1EditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        address1EditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkPersonalInfo();
-            }
-        });
         address2EditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        address2EditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkPersonalInfo();
-            }
-        });
         address3EditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         eircode.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         ppsNumberEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        phoneNumberEditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkPersonalInfo();
-            }
-        });
         UtilsGeneral.setMaxLengthAndAllCapsToEditText(ppsNumberEditText, 9, true);
 
         emailEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        emailEditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkPersonalInfo();
-            }
-        });
         occupationEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        occupationEditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkPersonalInfo();
-            }
-        });
         phoneNumberEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        phoneNumberEditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkPersonalInfo();
-            }
-        });
 
         singleCheck = findViewById(R.id.single_checkbox);
         marriedCheck = findViewById(R.id.married_checkbox);
@@ -281,7 +227,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkPersonalInfo();
             }
 
             @SuppressLint("SetTextI18n")
@@ -299,7 +244,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void afterTextChanged(Editable s) {
                 presenter.afterContractDateChanged(s);
-                checkPersonalInfo();
             }
         });
 
@@ -357,7 +301,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onSingleClicked();
-                checkPersonalInfo();
             }
         });
 
@@ -365,7 +308,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onSingleClicked();
-                checkPersonalInfo();
             }
         });
 
@@ -373,7 +315,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onMarriedClicked();
-                checkPersonalInfo();
             }
         });
 
@@ -381,7 +322,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onMarriedClicked();
-                checkPersonalInfo();
             }
         });
 
@@ -389,7 +329,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onDivorcedClick();
-                checkPersonalInfo();
             }
         });
 
@@ -397,7 +336,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onDivorcedClick();
-                checkPersonalInfo();
             }
         });
 
@@ -405,7 +343,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onCohabitingClicked();
-                checkPersonalInfo();
             }
         });
 
@@ -413,7 +350,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onCohabitingClicked();
-                checkPersonalInfo();
             }
         });
 
@@ -421,7 +357,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onSelfEmployeeClick();
-                checkPersonalInfo();
             }
         });
 
@@ -429,7 +364,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onSelfEmployeeClick();
-                checkPersonalInfo();
             }
         });
 
@@ -437,7 +371,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onEmployeeClick();
-                checkPersonalInfo();
             }
         });
 
@@ -445,7 +378,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onEmployeeClick();
-                checkPersonalInfo();
             }
         });
 
@@ -468,7 +400,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onPpsFrontRemoveClicked();
-                checkPersonalInfo();
             }
         });
 
@@ -513,7 +444,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onIdRemoveClicked();
-                checkPersonalInfo();
             }
         });
 
@@ -536,14 +466,13 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onMarriageRemoveClicked();
-                checkPersonalInfo();
             }
         });
 
         setupFilesLayout();
         setupCheckboxes();
 
-        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_contract);
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_contract, R.color.contract_1);
         loadingScreen.setText(getString(R.string.might_take));
         requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_contract, getString(R.string.contract_sent_label), presenter);
     }
@@ -570,126 +499,108 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onFirstCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.first).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onFirstCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.second_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onSecondCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.second).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onSecondCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.third_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onThirdCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.third).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onThirdCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.fourth_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onFourthCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.fourth).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onFourthCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.fifth_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onFifthCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.fifth).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onFifthCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.sixth_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onSixthCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.sixth).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onSixthCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.seventh_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onSeventhCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.seventh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onSeventhCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.eight_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onEightCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.eight).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onEightCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.ninth_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onNinthCheckboxClicked();
-                checkPersonalInfo();
             }
         });
         findViewById(R.id.ninth).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.onNinthCheckboxClicked();
-                checkPersonalInfo();
             }
         });
     }
@@ -786,13 +697,11 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void resetIdLayout() {
         findViewById(R.id.personal_info_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.GONE);
-        checkPersonalInfo();
     }
 
     @Override
     public void resetMarriageCertificateLayout() {
         findViewById(R.id.marriage_layout_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.GONE);
-        checkPersonalInfo();
     }
 
     @Override
@@ -846,7 +755,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                     }
                 },
                 UiUtils.getScreenWidth(), 0).start();
-        checkPersonalInfo();
     }
 
     @Override
@@ -982,20 +890,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         });
     }
 
-    private void checkPersonalInfo() {
-        presenter.checkPersonalValidation(
-                firstNameEditText.getText().toString().trim(),
-                lastNameEditText.getText().toString().trim(),
-                address1EditText.getText().toString(),
-                address2EditText.getText().toString(),
-                birthday.getText().toString(),
-                occupationEditText.getText().toString(),
-                phoneNumberEditText.getText().toString(),
-                emailEditText.getText().toString(),
-                ppsNumberEditText.getText().toString(),
-                contractDate.getText().toString());
-    }
-
     private void setCompletionProgress(int progressId, boolean forward) {
         int progress = forward ? 100 : 0;
         AnimUtils.getProgressAnimator(findViewById(progressId),
@@ -1102,16 +996,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
-    public void setSendDisabled() {
-        findViewById(R.id.contract_send_id).setEnabled(false);
-    }
-
-    @Override
-    public void setSendEnabled() {
-        findViewById(R.id.contract_send_id).setEnabled(true);
-    }
-
-    @Override
     public void setFirstCheckboxState(boolean state) {
         ((CheckBox) findViewById(R.id.first)).setChecked(state);
     }
@@ -1180,7 +1064,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         presenter.onActivityResult(requestCode, resultCode, data);
-        checkPersonalInfo();
     }
 
     @Override
@@ -1301,6 +1184,16 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.married_text_id));
         UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.divorced_text_id));
         UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.cohabiting_text_id));
+    }
+
+    @Override
+    public void showAsteriskView() {
+        findViewById(R.id.asterisk_text_view_id).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideAsteriskView() {
+        findViewById(R.id.asterisk_text_view_id).setVisibility(View.GONE);
     }
 
     @Override

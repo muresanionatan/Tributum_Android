@@ -28,21 +28,6 @@
         android:orientation="vertical">
 
         <com.app.tributum.utils.ui.CustomButton
-            android:id="@+id/add_from_gallery_id"
-            style="@style/CtaWhiteButton"
-            android:layout_marginTop="24dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/manrope_bold"
-                android:gravity="center"
-                android:text="@string/add_from_gallery"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-        </com.app.tributum.utils.ui.CustomButton>
-
-        <com.app.tributum.utils.ui.CustomButton
             android:id="@+id/take_photo_id"
             style="@style/CtaWhiteButton"
             android:layout_marginTop="20dp">
@@ -53,6 +38,21 @@
                 android:fontFamily="@font/manrope_bold"
                 android:gravity="center"
                 android:text="@string/take_photo"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </com.app.tributum.utils.ui.CustomButton>
+
+        <com.app.tributum.utils.ui.CustomButton
+            android:id="@+id/add_from_gallery_id"
+            style="@style/CtaWhiteButton"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/manrope_bold"
+                android:gravity="center"
+                android:text="@string/add_from_gallery"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </com.app.tributum.utils.ui.CustomButton>

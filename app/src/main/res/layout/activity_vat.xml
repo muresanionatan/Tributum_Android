@@ -58,11 +58,18 @@
                     android:layout_marginEnd="32dp"
                     android:text="@string/vat_subtitle" />
 
+                <TextView
+                    android:id="@+id/mandatory_fields_text_id"
+                    style="@style/SubtitleText"
+                    android:layout_below="@+id/vat_subtitle_id"
+                    android:layout_marginStart="32dp"
+                    android:text="@string/mandatory_fields" />
+
                 <LinearLayout
                     android:id="@+id/invoices_info_layout_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/vat_subtitle_id"
+                    android:layout_below="@+id/mandatory_fields_text_id"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="48dp"
                     android:layout_marginEnd="24dp"

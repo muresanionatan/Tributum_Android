@@ -26,10 +26,6 @@ public interface PaymentsView {
 
     void showRequestSentScreen();
 
-    void disableSend();
-
-    void enableSend();
-
     void setFocusOnName();
 
     void setFocusOnEmail();
@@ -37,8 +33,6 @@ public interface PaymentsView {
     void setFocusOnSite();
 
     void setFocusOnMonth();
-
-    void setFocusOnRecyclerView();
 
     List<PaymentModel> getPaymentList();
 

@@ -20,7 +20,6 @@ import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.listener.PaymentsItemClickListener;
 import com.app.tributum.listener.RecyclerViewInputListener;
-import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.ui.LoadingScreen;
@@ -65,7 +64,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
         setupViews();
         setupRecyclerView();
         presenter.onCreate();
-        validateAddedInformation();
         recyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -110,7 +108,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
             public void onClick(View v) {
                 adapter.addModel();
                 recyclerView.scrollToPosition(adapter.getItemCount() - 1);
-                validateAddedInformation();
             }
         });
 
@@ -139,40 +136,9 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
                         monthEditText.getText().toString().trim());
             }
         });
-        payerEditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateAddedInformation();
-            }
-        });
-        payerEmailEditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateAddedInformation();
-            }
-        });
-        siteEditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateAddedInformation();
-            }
-        });
-        monthEditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateAddedInformation();
-            }
-        });
 
-        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_rct);
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_rct, R.color.rct);
         requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_rct, getString(R.string.payment_sent_label), presenter);
-    }
-
-    private void validateAddedInformation() {
-        presenter.onTextChanged(payerEditText.getText().toString().trim(),
-                payerEmailEditText.getText().toString().trim(),
-                siteEditText.getText().toString().trim(),
-                monthEditText.getText().toString().trim());
     }
 
     private void setupRecyclerView() {
@@ -255,16 +221,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
     }
 
     @Override
-    public void disableSend() {
-        findViewById(R.id.payments_send_text_id).setEnabled(false);
-    }
-
-    @Override
-    public void enableSend() {
-        findViewById(R.id.payments_send_text_id).setEnabled(true);
-    }
-
-    @Override
     public void setFocusOnName() {
         UtilsGeneral.setFocusOnInput(payerEditText);
         scrollToEditText(payerEditText);
@@ -286,12 +242,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
     public void setFocusOnMonth() {
         UtilsGeneral.setFocusOnInput(monthEditText);
         scrollToEditText(monthEditText);
-    }
-
-    @Override
-    public void setFocusOnRecyclerView() {
-//        UtilsGeneral.setFocusOnInput(adapter);
-//        scrollToEditText(payerEditText);
     }
 
     @Override
@@ -324,12 +274,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
     @Override
     public void removeItem(int position) {
         adapter.remove(position);
-        validateAddedInformation();
-    }
-
-    @Override
-    public void onTextChanged() {
-        validateAddedInformation();
     }
 
     @Override

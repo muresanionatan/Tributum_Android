@@ -50,10 +50,6 @@ public interface VatView {
 
     boolean shouldShowCameraRationale();
 
-    void disableSendButton();
-
-    void enableSendButton();
-
     void setFocusOnName();
 
     void setFocusOnEmail();

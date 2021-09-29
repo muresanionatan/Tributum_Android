@@ -57,6 +57,11 @@
                 android:text="@string/rct_subtitle" />
 
             <TextView
+                android:layout_marginStart="8dp"
+                style="@style/SubtitleText"
+                android:text="@string/mandatory_fields"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -76,6 +81,7 @@
             <EditText
                 android:id="@+id/payer_email_edit_text"
                 style="@style/CustomEditText"
+                android:inputType="textEmailAddress"
                 android:layout_marginTop="20dp"
                 android:hint="@string/email_label" />
 

@@ -15,6 +15,4 @@ public interface PaymentsPresenter {
     void onNetClick();
 
     void onGrossClick();
-
-    void onTextChanged(String name, String email, String site, String month);
 }

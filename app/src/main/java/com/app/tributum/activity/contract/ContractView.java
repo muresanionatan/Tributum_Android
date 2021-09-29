@@ -72,10 +72,6 @@ public interface ContractView {
 
     void setConfirmationButtonText(int stringId);
 
-    void setSendDisabled();
-
-    void setSendEnabled();
-
     void setFirstCheckboxState(boolean state);
 
     void setSecondCheckboxState(boolean state);
@@ -189,4 +185,8 @@ public interface ContractView {
     void scrollToId();
 
     void scrollToTaxes();
+
+    void hideAsteriskView();
+
+    void showAsteriskView();
 }
