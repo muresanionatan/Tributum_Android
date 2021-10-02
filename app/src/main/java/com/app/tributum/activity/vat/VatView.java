@@ -20,8 +20,6 @@ public interface VatView {
 
     void removeItemFromList(int photoClicked);
 
-    void requestPermissions(String[] toArray, int multiplePermissionsPpsFront);
-
     void takePhoto(String pictureImagePath);
 
     void hidePreview();
@@ -29,8 +27,6 @@ public interface VatView {
     void showImagePreview(String filePath);
 
     void getFilesFromGallery(Uri imageUri);
-
-    int checkPermission(String permission);
 
     void closeActivity();
 
@@ -43,12 +39,6 @@ public interface VatView {
     void showRequestSentScreen();
 
     void showTopViewBottomSheet();
-
-    void takeUserToApPSettings();
-
-    boolean shouldShowStorageRationale();
-
-    boolean shouldShowCameraRationale();
 
     void setFocusOnName();
 

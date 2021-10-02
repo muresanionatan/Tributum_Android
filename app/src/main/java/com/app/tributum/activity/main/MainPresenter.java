@@ -2,6 +2,8 @@ package com.app.tributum.activity.main;
 
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
+
 public interface MainPresenter {
     void onCreate();
 
@@ -36,4 +38,6 @@ public interface MainPresenter {
     void onArrowClicked();
 
     void onUserDenyClicked();
+
+    void onRequestPermissionsResult(int requestCode, @NonNull int[] grantResults);
 }

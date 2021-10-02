@@ -67,7 +67,7 @@
     <string name="please_enter_contract_format">Te rugam adauga data incepere contract format ZZ/LL/AAAA</string>
     <string name="iban_label">Cont IBAN</string>
     <string name="number_kids">Numarul de copii</string>
-    <string name="add_marriage_record">Adauga certificatul de casatorie</string>
+    <string name="add_marriage_record">Adauga certificatul de casatorie<font color='#f65b94'>*</font></string>
     <string name="what_do_you_want">Ce operatiune doresti\nsa realizezi?</string>
     <string name="new_contract">Contract Nou</string>
     <string name="create_new_contract">Creaza un contract nou</string>

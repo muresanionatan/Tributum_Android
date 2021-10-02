@@ -40,4 +40,14 @@ public interface MainView {
     void scrollViewToBottom();
 
     void closeApp();
+
+    void requestPermissions(String[] toArray, int multiplePermissionsPpsFront);
+
+    int checkPermission(String permission);
+
+    boolean shouldShowStorageRationale();
+
+    boolean shouldShowCameraRationale();
+
+    void takeUserToApPSettings();
 }

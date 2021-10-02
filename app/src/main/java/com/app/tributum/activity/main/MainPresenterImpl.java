@@ -1,10 +1,13 @@
 package com.app.tributum.activity.main;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.app.tributum.R;
@@ -17,7 +20,9 @@ import com.app.tributum.utils.notifications.NotificationIds;
 import com.app.tributum.utils.notifications.NotificationIntentIds;
 import com.app.tributum.utils.receiver.AlarmReceiver;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainPresenterImpl implements MainPresenter {
 
@@ -28,6 +33,8 @@ public class MainPresenterImpl implements MainPresenter {
     private String appLanguage;
 
     private boolean isArrowVisible;
+
+    private int actToStart = -1;
 
     public MainPresenterImpl(MainView view) {
         this.view = view;
@@ -79,8 +86,8 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onContractClick() {
-        if (view != null)
-            view.startContractActivity();
+        actToStart = ActivityToStart.CONTRACT;
+        handleActivityStart();
 
     }
 
@@ -92,8 +99,69 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onVatClick() {
-        if (view != null)
-            view.startVatActivity();
+        actToStart = ActivityToStart.VAT;
+        handleActivityStart();
+    }
+
+    private void handleActivityStart() {
+        if (view == null)
+            return;
+
+        if (view.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED) && view.shouldShowCameraRationale()) {
+                view.takeUserToApPSettings();
+                return;
+            }
+        }
+
+        if (checkPermissions()) {
+            if (actToStart == ActivityToStart.CONTRACT)
+                view.startContractActivity();
+            else
+                view.startVatActivity();
+        } else {
+            if (view.shouldShowCameraRationale())
+                view.requestPermissions(new String[]{Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_ID);
+            else if (TributumAppHelper.getBooleanSetting(AppKeysValues.CAMERA_FIRST_DENIED)) {
+                view.takeUserToApPSettings();
+            } else {
+                view.requestPermissions(new String[]{Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_ID);
+            }
+        }
+    }
+
+    private boolean checkPermissions() {
+        int result;
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        for (String permission : ConstantsUtils.PERMISSIONS) {
+            result = view.checkPermission(permission);
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(permission);
+            }
+        }
+        if (!listPermissionsNeeded.isEmpty() && view != null) {
+            view.requestPermissions(listPermissionsNeeded.toArray(new String[0]), ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull int[] grantResults) {
+        if (grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (actToStart == ActivityToStart.CONTRACT)
+                    view.startContractActivity();
+                else
+                    view.startVatActivity();
+            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                if (requestCode == ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_VAT) {
+                    TributumAppHelper.saveSetting(AppKeysValues.STORAGE_FIRST_DENIED, AppKeysValues.TRUE);
+                } else {
+                    TributumAppHelper.saveSetting(AppKeysValues.CAMERA_FIRST_DENIED, AppKeysValues.TRUE);
+                }
+            }
+        }
     }
 
     @Override
@@ -158,7 +226,7 @@ public class MainPresenterImpl implements MainPresenter {
                 && intent.getStringExtra(NotificationExtra.OPEN).equals(NotificationIntentIds.VAT_INTENT)
                 && view != null) {
             NotificationManagerCompat.from(TributumApplication.getInstance()).cancel(null, NotificationIds.INPUT_VAT_ID);
-            view.startVatActivity();
+            handleActivityStart();
         }
     }
 

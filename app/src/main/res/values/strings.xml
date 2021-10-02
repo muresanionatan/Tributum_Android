@@ -67,7 +67,7 @@
     <string name="please_enter_contract_format">Please enter starting contract date like DD/MM/YYYY</string>
     <string name="iban_label">Bank IBAN</string>
     <string name="number_kids">Nr of children</string>
-    <string name="add_marriage_record">Add Your Marriage Certificate</string>
+    <string name="add_marriage_record">Add Your Marriage Certificate<font color='#f65b94'>*</font></string>
     <string name="what_do_you_want">What do you want\nto do today?</string>
     <string name="new_contract">New Contract</string>
     <string name="create_new_contract">Create a new contract</string>

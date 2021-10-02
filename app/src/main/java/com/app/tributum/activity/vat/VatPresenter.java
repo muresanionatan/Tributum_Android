@@ -27,8 +27,6 @@ public interface VatPresenter {
 
     void onCreate();
 
-    void onRequestPermissionsResult(int requestCode, @NonNull int[] grantResults);
-
     void onBackPressed();
 
     void onAddFromGalleryClick();

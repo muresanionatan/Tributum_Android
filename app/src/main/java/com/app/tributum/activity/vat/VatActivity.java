@@ -1,6 +1,5 @@
 package com.app.tributum.activity.vat;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -22,8 +21,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,7 +33,6 @@ import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.thread.PdfAsyncTask;
 import com.app.tributum.utils.ConstantsUtils;
-import com.app.tributum.utils.DialogUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
@@ -302,12 +298,6 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        presenter.onRequestPermissionsResult(requestCode, grantResults);
-    }
-
-    @Override
     public void onDestroy() {
         presenter.onDestroy();
         super.onDestroy();
@@ -338,26 +328,6 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
                 payerEmail.getText().toString().trim(),
                 startingMonth.getText().toString().trim(),
                 endingMonth.getText().toString().trim());
-    }
-
-    @Override
-    public int checkPermission(String permission) {
-        return ContextCompat.checkSelfPermission(this, permission);
-    }
-
-    @Override
-    public void takeUserToApPSettings() {
-        DialogUtils.showPermissionDeniedDialog(this);
-    }
-
-    @Override
-    public boolean shouldShowStorageRationale() {
-        return ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    }
-
-    @Override
-    public boolean shouldShowCameraRationale() {
-        return ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA);
     }
 
     @Override

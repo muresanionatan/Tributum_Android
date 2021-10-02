@@ -1,5 +1,6 @@
 package com.app.tributum.activity.main;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,7 +14,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
@@ -24,6 +28,7 @@ import com.app.tributum.activity.vat.VatActivity;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.utils.ConstantsUtils;
+import com.app.tributum.utils.DialogUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
@@ -321,6 +326,31 @@ public class MainActivity extends AppCompatActivity implements MainView {
         finish();
     }
 
+    @Override
+    public int checkPermission(String permission) {
+        return ContextCompat.checkSelfPermission(this, permission);
+    }
+
+    @Override
+    public boolean shouldShowStorageRationale() {
+        return ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    @Override
+    public boolean shouldShowCameraRationale() {
+        return ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA);
+    }
+
+    @Override
+    public void takeUserToApPSettings() {
+        DialogUtils.showPermissionDeniedDialog(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        presenter.onRequestPermissionsResult(requestCode, grantResults);
+    }
     @Override
     public void restartApp() {
         UtilsGeneral.restartAppForLanguage(this);
