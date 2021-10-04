@@ -42,7 +42,7 @@ public interface ContractView {
 
     void hideBottomSheet();
 
-    void showFileChooser(int selectPictureRequest, int storagePermissionId, int takePictureRequest, int picturePermissionId);
+    void showFileChooser(int selectPictureRequest, int takePictureRequest);
 
     void openFilePreview(String fileName);
 

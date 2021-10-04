@@ -627,7 +627,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
-    public void showFileChooser(int selectPictureRequest, int storagePermissionId, int takePictureRequest, int picturePermissionId) {
+    public void showFileChooser(int selectPictureRequest, int takePictureRequest) {
         fileChooser.setState(BottomSheetBehavior.STATE_EXPANDED);
         fileChooser.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override

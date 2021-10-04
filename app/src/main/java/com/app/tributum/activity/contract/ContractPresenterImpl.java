@@ -530,9 +530,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     public void onPpsFrontClicked() {
         if (ppsFileFront == null && view != null) {
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT,
-                    ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_FRONT,
-                    ConstantsUtils.CAMERA_REQUEST_PPS_FRONT,
-                    ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT);
+                    ConstantsUtils.CAMERA_REQUEST_PPS_FRONT);
             view.removeFocus();
         }
     }
@@ -555,9 +553,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     public void onPpsBackClicked() {
         if (ppsFileBack == null && view != null) {
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK,
-                    ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_BACK,
-                    ConstantsUtils.CAMERA_REQUEST_PPS_BACK,
-                    ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_BACK);
+                    ConstantsUtils.CAMERA_REQUEST_PPS_BACK);
             view.removeFocus();
         }
     }
@@ -580,9 +576,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     public void onIdClicked() {
         if (idFile == null && view != null) {
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID,
-                    ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_ID,
-                    ConstantsUtils.CAMERA_REQUEST_ID,
-                    ConstantsUtils.MULTIPLE_PERMISSIONS_ID);
+                    ConstantsUtils.CAMERA_REQUEST_ID);
             view.removeFocus();
         }
     }
@@ -605,9 +599,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     public void onMarriageCertificateClicked() {
         if (marriageCertificateFile == null && view != null) {
             view.showFileChooser(ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE,
-                    ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_MARRIAGE,
-                    ConstantsUtils.CAMERA_REQUEST_MARRIAGE,
-                    ConstantsUtils.MULTIPLE_PERMISSIONS_MARRIAGE);
+                    ConstantsUtils.CAMERA_REQUEST_MARRIAGE);
             view.removeFocus();
         }
     }
