@@ -45,9 +45,9 @@ public interface ContractPresenter {
 
     void onBottomSheetExpanded();
 
-    void onAddFromGalleryClicked(int requestCode, int storagePermissionId);
+    void onAddFromGalleryClicked(int requestCode);
 
-    void onTakePhotoClicked(String name, int requestId, int permissionId);
+    void onTakePhotoClicked(String name, int requestId);
 
     void onRemovePhotoClicked(String fileName);
 
@@ -92,8 +92,6 @@ public interface ContractPresenter {
     void beforeContractDateChanged(int length);
 
     void afterContractDateChanged(Editable s);
-
-    void onRequestPermissionResult(String name, int requestCode, int[] grantResults);
 
     void onBirthdayDateSet(int year, int monthOfYear, int dayOfMonth);
 

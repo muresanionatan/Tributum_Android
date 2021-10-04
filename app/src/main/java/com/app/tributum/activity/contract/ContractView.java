@@ -96,15 +96,7 @@ public interface ContractView {
 
     void openFilePicker(int requestId);
 
-    boolean hasStoragePermission();
-
-    void requestOnePermission(int requestId);
-
-    void requestListOfPermissions(String[] permissions, int requestCode);
-
     void takePicture(int requestId, File file, String pictureImagePath);
-
-    int hasPermission(String permission);
 
     void resetPpsFrontLayout();
 
@@ -149,12 +141,6 @@ public interface ContractView {
     void hideEmploymentInfoLayoutToLeft();
 
     void removeFocus();
-
-    boolean shouldShowStorageRationale();
-
-    boolean shouldShowCameraRationale();
-
-    void takeUserToApPSettings();
 
     void focusOnFirstName();
 

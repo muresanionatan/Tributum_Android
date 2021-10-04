@@ -1,11 +1,9 @@
 package com.app.tributum.activity.contract;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.icu.util.Calendar;
 import android.net.Uri;
@@ -27,7 +25,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.widget.NestedScrollView;
@@ -37,7 +34,6 @@ import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.helper.DrawingView;
 import com.app.tributum.utils.CustomTextWatcher;
-import com.app.tributum.utils.DialogUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
@@ -648,21 +644,15 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         findViewById(R.id.add_from_gallery_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onAddFromGalleryClicked(selectPictureRequest, storagePermissionId);
+                presenter.onAddFromGalleryClicked(selectPictureRequest);
             }
         });
         findViewById(R.id.take_photo_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onTakePhotoClicked(firstNameEditText.getText().toString().trim(), takePictureRequest, picturePermissionId);
+                presenter.onTakePhotoClicked(firstNameEditText.getText().toString().trim(), takePictureRequest);
             }
         });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        presenter.onRequestPermissionResult(firstNameEditText.getText().toString().trim(), requestCode, grantResults);
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -1115,16 +1105,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
-    public boolean hasStoragePermission() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    @Override
-    public void requestOnePermission(int requestId) {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, requestId);
-    }
-
-    @Override
     public void takePicture(int requestId, File file, String pictureImagePath) {
         Uri outputFileUri = FileProvider.getUriForFile(this,
                 "com.app.tributum.activity.vat.provider", file);
@@ -1132,16 +1112,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
         presenter.setFilePath(pictureImagePath);
         startActivityForResult(cameraIntent, requestId);
-    }
-
-    @Override
-    public int hasPermission(String permission) {
-        return ContextCompat.checkSelfPermission(this, permission);
-    }
-
-    @Override
-    public void requestListOfPermissions(String[] permissions, int requestCode) {
-        requestPermissions(permissions, requestCode);
     }
 
     @Override
@@ -1209,21 +1179,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void removeFocus() {
         UtilsGeneral.hideSoftKeyboard(this);
-    }
-
-    @Override
-    public boolean shouldShowStorageRationale() {
-        return ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    }
-
-    @Override
-    public boolean shouldShowCameraRationale() {
-        return ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA);
-    }
-
-    @Override
-    public void takeUserToApPSettings() {
-        DialogUtils.showPermissionDeniedDialog(this);
     }
 
     @Override

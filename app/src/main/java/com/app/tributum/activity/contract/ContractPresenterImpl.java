@@ -1,14 +1,10 @@
 package com.app.tributum.activity.contract;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.icu.util.Calendar;
-import android.os.Build;
 import android.text.Editable;
 import android.text.TextUtils;
 
@@ -16,8 +12,6 @@ import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
 import com.app.tributum.activity.contract.model.ContractModel;
-import com.app.tributum.application.AppKeysValues;
-import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.listener.RequestSentListener;
@@ -639,35 +633,18 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     @Override
-    public void onAddFromGalleryClicked(int requestCode, int storagePermissionId) {
-        pickPictureFromGallery(requestCode, storagePermissionId);
+    public void onAddFromGalleryClicked(int requestCode) {
+        pickPictureFromGallery(requestCode);
         view.hideBottomSheet();
     }
 
     @Override
-    public void onTakePhotoClicked(String name, int requestId, int permissionId) {
+    public void onTakePhotoClicked(String name, int requestId) {
         if (view == null)
             return;
 
-        if (view.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED) && view.shouldShowCameraRationale()) {
-                view.takeUserToApPSettings();
-                return;
-            }
-        }
-
-        if (checkPermissions(requestId)) {
-            file = new File(ImageUtils.getImagePath(name + requestId));
-            view.takePicture(requestId, file, filePath);
-        } else {
-            if (view.shouldShowCameraRationale())
-                checkPermissions(requestId);
-            else if (TributumAppHelper.getBooleanSetting(AppKeysValues.CAMERA_FIRST_DENIED)) {
-                view.takeUserToApPSettings();
-            } else {
-                checkPermissions(requestId);
-            }
-        }
+        file = new File(ImageUtils.getImagePath(name + requestId));
+        view.takePicture(requestId, file, filePath);
         view.hideBottomSheet();
     }
 
@@ -931,50 +908,9 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         return message;
     }
 
-    @SuppressLint("ObsoleteSdkInt")
-    private void pickPictureFromGallery(int requestId, int permissionId) {
-        if (view == null)
-            return;
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (view.hasStoragePermission()) {
-                view.openFilePicker(requestId);
-            } else {
-                if (view.shouldShowStorageRationale())
-                    view.requestOnePermission(permissionId);
-                else if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED)) {
-                    view.takeUserToApPSettings();
-                } else {
-                    view.requestOnePermission(permissionId);
-                }
-            }
-        }
-    }
-
-    private boolean checkPermissions(int requestId) {
-        int result;
-        List<String> listPermissionsNeeded = new ArrayList<>();
-        for (String permission : ConstantsUtils.PERMISSIONS) {
-            result = view.hasPermission(permission);
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                listPermissionsNeeded.add(permission);
-            }
-        }
-        int permission;
-        if (requestId == ConstantsUtils.CAMERA_REQUEST_PPS_FRONT)
-            permission = ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT;
-        else if (requestId == ConstantsUtils.CAMERA_REQUEST_PPS_BACK)
-            permission = ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_BACK;
-        else if (requestId == ConstantsUtils.CAMERA_REQUEST_ID)
-            permission = ConstantsUtils.MULTIPLE_PERMISSIONS_ID;
-        else
-            permission = ConstantsUtils.MULTIPLE_PERMISSIONS_MARRIAGE;
-
-        if (!listPermissionsNeeded.isEmpty()) {
-            view.requestListOfPermissions(listPermissionsNeeded.toArray(new String[0]), permission);
-            return false;
-        }
-        return true;
+    private void pickPictureFromGallery(int requestId) {
+        if (view != null)
+            view.openFilePicker(requestId);
     }
 
     private void saveSignatureImage() {
@@ -999,49 +935,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (view != null) {
             view.hideLoadingScreen();
             view.showRequestSentScreen();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionResult(String name, int requestCode, int[] grantResults) {
-        if (grantResults.length > 0) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                switch (requestCode) {
-                    case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_FRONT:
-                        view.openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT);
-                        break;
-                    case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_BACK:
-                        view.openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK);
-                        break;
-                    case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_ID:
-                        view.openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID);
-                        break;
-                    case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_MARRIAGE:
-                        view.openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE);
-                        break;
-                    case ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT:
-                        onTakePhotoClicked(name, ConstantsUtils.CAMERA_REQUEST_PPS_FRONT, ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT);
-                        break;
-                    case ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_BACK:
-                        onTakePhotoClicked(name, ConstantsUtils.CAMERA_REQUEST_PPS_BACK, ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_BACK);
-                        break;
-                    case ConstantsUtils.MULTIPLE_PERMISSIONS_ID:
-                        onTakePhotoClicked(name, ConstantsUtils.CAMERA_REQUEST_ID, ConstantsUtils.MULTIPLE_PERMISSIONS_ID);
-                        break;
-                    case ConstantsUtils.MULTIPLE_PERMISSIONS_MARRIAGE:
-                        onTakePhotoClicked(name, ConstantsUtils.CAMERA_REQUEST_MARRIAGE, ConstantsUtils.MULTIPLE_PERMISSIONS_MARRIAGE);
-                        break;
-                }
-            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                if (requestCode == ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_FRONT
-                        || requestCode == ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_BACK
-                        || requestCode == ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_ID
-                        || requestCode == ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_MARRIAGE) {
-                    TributumAppHelper.saveSetting(AppKeysValues.STORAGE_FIRST_DENIED, AppKeysValues.TRUE);
-                } else {
-                    TributumAppHelper.saveSetting(AppKeysValues.CAMERA_FIRST_DENIED, AppKeysValues.TRUE);
-                }
-            }
         }
     }
 

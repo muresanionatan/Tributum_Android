@@ -108,8 +108,8 @@ public class MainPresenterImpl implements MainPresenter {
             return;
 
         if (view.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED) && view.shouldShowCameraRationale()) {
-                view.takeUserToApPSettings();
+            if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED) && view.shouldShowStorageRationale()) {
+                view.takeUserToAppSettings();
                 return;
             }
         }
@@ -123,7 +123,7 @@ public class MainPresenterImpl implements MainPresenter {
             if (view.shouldShowCameraRationale())
                 view.requestPermissions(new String[]{Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_ID);
             else if (TributumAppHelper.getBooleanSetting(AppKeysValues.CAMERA_FIRST_DENIED)) {
-                view.takeUserToApPSettings();
+                view.takeUserToAppSettings();
             } else {
                 view.requestPermissions(new String[]{Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_ID);
             }
@@ -149,19 +149,24 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull int[] grantResults) {
         if (grantResults.length > 0) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (actToStart == ActivityToStart.CONTRACT)
-                    view.startContractActivity();
-                else
-                    view.startVatActivity();
-            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                if (requestCode == ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_VAT) {
-                    TributumAppHelper.saveSetting(AppKeysValues.STORAGE_FIRST_DENIED, AppKeysValues.TRUE);
-                } else {
-                    TributumAppHelper.saveSetting(AppKeysValues.CAMERA_FIRST_DENIED, AppKeysValues.TRUE);
+            for (int i : grantResults) {
+                if (i != PackageManager.PERMISSION_GRANTED) {
+                    if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                        if (requestCode == ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_VAT) {
+                            TributumAppHelper.saveSetting(AppKeysValues.STORAGE_FIRST_DENIED, AppKeysValues.TRUE);
+                        } else {
+                            TributumAppHelper.saveSetting(AppKeysValues.CAMERA_FIRST_DENIED, AppKeysValues.TRUE);
+                        }
+                    }
+                    return;
                 }
             }
+            if (actToStart == ActivityToStart.CONTRACT)
+                view.startContractActivity();
+            else
+                view.startVatActivity();
         }
+
     }
 
     @Override

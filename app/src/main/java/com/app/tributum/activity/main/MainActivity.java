@@ -342,7 +342,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void takeUserToApPSettings() {
+    public void takeUserToAppSettings() {
         DialogUtils.showPermissionDeniedDialog(this);
     }
 

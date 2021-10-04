@@ -49,5 +49,5 @@ public interface MainView {
 
     boolean shouldShowCameraRationale();
 
-    void takeUserToApPSettings();
+    void takeUserToAppSettings();
 }
