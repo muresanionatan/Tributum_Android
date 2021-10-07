@@ -87,7 +87,7 @@
     <string name="remove_label">Remove</string>
     <string name="personal_info_label">Personal\nInfo</string>
     <string name="contract_subtitle">Please carefully enter your information,\nso we can generate a contract for you.</string>
-    <string name="add_your_id_label">Add Your ID<font color='#f65b94'>*</font></string>
+    <string name="add_your_id_label">Add Your ID/Passport<font color='#f65b94'>*</font></string>
     <string name="marital_status_label">Marital Status</string>
     <string name="any_children_label">Any Children?</string>
     <string name="continue_label">Continue</string>
@@ -129,7 +129,7 @@
     <string name="please_enter_address2">Please enter address2</string>
     <string name="please_enter_occupation">Please enter occupation</string>
     <string name="please_enter_phone">Please enter phone number</string>
-    <string name="please_add_id">Please add ID photo</string>
+    <string name="please_add_id">Please add ID/Passport photo</string>
     <string name="please_add_marriage">Please add marriage certificate</string>
     <string name="please_select_taxes">Please select at least one of taxes</string>
     <string name="please_specify_other">Please specify which other</string>
