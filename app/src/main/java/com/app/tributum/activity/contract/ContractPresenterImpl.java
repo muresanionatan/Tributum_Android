@@ -845,13 +845,13 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (!response.isSuccessful()) {
                     view.showToast(R.string.something_went_wrong);
-                }
-
-                //upload PPS and ID to Dropbox
-                try {
-                    uploadFiles(firstName + " " + lastName, phone, bankAccount, noOfKids, email);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } else {
+                    //upload PPS and ID to Dropbox
+                    try {
+                        uploadFiles(firstName + " " + lastName, phone, bankAccount, noOfKids, email);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
