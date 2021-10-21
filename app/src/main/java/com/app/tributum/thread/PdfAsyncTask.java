@@ -64,7 +64,7 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
             }
 
             try {
-                DropboxUtils.uploadPdfOnDropbox(username, months, file);
+                DropboxUtils.uploadVatOnDropbox(username, months, file);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

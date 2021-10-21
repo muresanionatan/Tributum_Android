@@ -152,4 +152,13 @@
     <string name="might_take">Poate dura putin in functie de conexiunea de internet</string>
     <string name="might_take_pictures">Poate dura putin in functie de conexiunea de internet si numarul de poze adaugate</string>
     <string name="mandatory_fields"><font color='#f65b94'>*</font>Campurile marcate cu asterics sunt obligatorii.</string>
+    <string name="submit_inquiry">Trimite cerere</string>
+    <string name="submit_inquiry_subtitle">Solicita si trimite o cerere</string>
+    <string name="inquiry_subtitle">Poti solicita schimbari ale contului tau, sau poti adauga detalii pe care le consideri utile contului tau.</string>
+    <string name="inquiry_description_title">Cu ce te putem ajuta?<font color='#f65b94'>*</font></string>
+    <string name="give_details">Te rugam scrie in cateva cuvinte ce ai nevoie</string>
+    <string name="send_inquiry">Trimite cerere</string>
+    <string name="please_enter_description">Te rugam introdu o scurta descriere</string>
+    <string name="inquiry_sent_label">Cerere trimisa</string>
+    <string name="add_file">Adauga poza</string>
 </resources>

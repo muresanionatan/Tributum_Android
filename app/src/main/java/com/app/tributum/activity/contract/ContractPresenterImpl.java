@@ -880,7 +880,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 name,
                 FileUtils.createFile(generateUserInfo(phone, bankAccount, noOfKids), name + "_info"),
                 this,
-                UploadAsyncTask.UploadType.ONE);
+                UploadAsyncTask.UploadType.USER_INFO);
         uploadOneFileTask.execute();
     }
 

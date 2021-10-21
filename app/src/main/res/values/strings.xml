@@ -152,4 +152,13 @@
     <string name="might_take">This might take longer depending on your internet connection</string>
     <string name="might_take_pictures">This might take longer depending on your internet connection and number of pictures added</string>
     <string name="mandatory_fields"><font color='#f65b94'>*</font>Fields marked with asterisk are mandatory</string>
+    <string name="submit_inquiry">Submit inquiry</string>
+    <string name="submit_inquiry_subtitle">Request and send an inquiry</string>
+    <string name="inquiry_subtitle">You can submit any changes to your account or request additional information to be added to your account.</string>
+    <string name="inquiry_description_title">What can we help you with?<font color='#f65b94'>*</font></string>
+    <string name="give_details">Please go into the details</string>
+    <string name="send_inquiry">Send inquiry</string>
+    <string name="please_enter_description">Please enter a short description</string>
+    <string name="inquiry_sent_label">Inquiry sent</string>
+    <string name="add_file">Add file</string>
 </resources>

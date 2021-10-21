@@ -23,6 +23,7 @@ import androidx.core.widget.NestedScrollView;
 import com.app.tributum.R;
 import com.app.tributum.activity.faq.FaqActivity;
 import com.app.tributum.activity.contract.ContractActivity;
+import com.app.tributum.activity.inquiry.InquiryActivity;
 import com.app.tributum.activity.payments.PaymentsActivity;
 import com.app.tributum.activity.vat.VatActivity;
 import com.app.tributum.application.AppKeysValues;
@@ -116,6 +117,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
             }
         });
 
+        findViewById(R.id.inquiry_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onInquiryClick();
+            }
+        });
+
         findViewById(R.id.faq_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,6 +214,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void startVatActivity() {
         startActivity(new Intent(this, VatActivity.class));
+    }
+
+    @Override
+    public void startInquiryActivity() {
+        startActivity(new Intent(this, InquiryActivity.class));
     }
 
     @Override

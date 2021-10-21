@@ -258,8 +258,8 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     public void startPdfCreation() {
         PdfAsyncTask asyncTask = new PdfAsyncTask(VatActivity.this, presenter.getList(), name.getText().toString().trim(),
-                startingMonth.getText().toString()
-                        + "_" + endingMonth.getText().toString());
+                startingMonth.getText().toString().replaceAll(" ", "_")
+                        + "_" + endingMonth.getText().toString().replaceAll(" ", "_"));
         asyncTask.execute();
     }
 

@@ -256,15 +256,15 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     private String generateInternalEmailMessage(String name, String startingMonth, String endingMonth) {
         String formattedString = name.toUpperCase();
-        formattedString = formattedString.replace(" ", "%20");
+        formattedString = formattedString.replaceAll(" ", "%20");
         return resources.getString(R.string.invoices_message_email) + name
-                + resources.getString(R.string.invoices_message_email_part2) + startingMonth
-                + " - " + endingMonth
+                + resources.getString(R.string.invoices_message_email_part2) + startingMonth.replaceAll(" ", "_")
+                + " - " + endingMonth.replaceAll(" ", "_")
                 + "\n\n" + "Click on below link to access the pdf\n\n"
                 + "https://www.dropbox.com/home/Apps/Tributum/VATS/"
                 + formattedString + "?preview="
-                + startingMonth
-                + "_" + endingMonth
+                + startingMonth.replaceAll(" ", "_")
+                + "_" + endingMonth.replaceAll(" ", "_")
                 + ".pdf";
     }
 

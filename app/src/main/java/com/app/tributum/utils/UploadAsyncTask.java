@@ -20,6 +20,10 @@ public class UploadAsyncTask extends AsyncTask {
 
     private File file;
 
+    private String filePath;
+
+    private String inquiryPhotoName;
+
     @UploadType
     private int type;
 
@@ -36,14 +40,23 @@ public class UploadAsyncTask extends AsyncTask {
         this.asyncListener = asyncListener;
         this.type = type;
     }
+    public UploadAsyncTask(String userName, String filePath, String inquiryPhotoName, AsyncListener asyncListener, @UploadType int type) {
+        this.userName = userName;
+        this.filePath = filePath;
+        this.inquiryPhotoName = inquiryPhotoName;
+        this.asyncListener = asyncListener;
+        this.type = type;
+    }
 
     @Override
     protected Object doInBackground(Object[] objects) {
         try {
             if (type == UploadType.MULTIPLE) {
                 DropboxUtils.uploadPpsAndId(userName, uploadList);
-            } else {
+            } else if (type == UploadType.USER_INFO){
                 DropboxUtils.addUserInfoFile(file, userName);
+            } else if (type == UploadType.INQUIRY) {
+                DropboxUtils.uploadInquiryOnDropbox(userName, filePath, inquiryPhotoName);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -61,6 +74,7 @@ public class UploadAsyncTask extends AsyncTask {
     @IntDef
     public @interface UploadType {
         int MULTIPLE = 0,
-                ONE = 1;
+                USER_INFO = 1,
+                INQUIRY = 2;
     }
 }

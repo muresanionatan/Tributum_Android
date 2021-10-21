@@ -17,19 +17,6 @@
         android:background="@drawable/bg_paper"
         android:clickable="true">
 
-        <TextView
-            android:id="@+id/home_title_id"
-            style="@style/TitleText"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="182dp"
-            android:text="@string/welcome_back_label" />
-
-        <TextView
-            style="@style/SubtitleText"
-            android:layout_below="@+id/home_title_id"
-            android:layout_marginStart="48dp"
-            android:text="@string/what_do_you_want" />
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,93 +30,146 @@
             android:layout_centerVertical="true"
             android:src="@drawable/ic_oval_purple" />
 
-        <com.app.tributum.utils.ui.CustomButton
-            android:id="@+id/contract_id"
-            style="@style/MainScreeButton"
-            android:layout_above="@+id/payments_id"
-            android:layout_marginTop="52dp">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <ImageView
-                style="@style/MainScreeButtonImage"
-                android:src="@drawable/ic_icon_contract" />
-
-            <ImageView
-                style="@style/MainScreeButtonArrow"
-                android:rotation="180"
-                app:tint="@color/contract_1" />
-
-            <LinearLayout style="@style/MainScreeButtonTextLayout">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
-                    style="@style/MainScreeButtonTitle"
-                    android:text="@string/new_contract"
-                    android:textColor="@color/contract_1" />
+                    android:id="@+id/home_title_id"
+                    style="@style/TitleText"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="182dp"
+                    android:text="@string/welcome_back_label" />
 
                 <TextView
-                    style="@style/MainScreeButtonSubtitle"
-                    android:fontFamily="@font/manrope_medium"
-                    android:text="@string/create_new_contract" />
+                    style="@style/SubtitleText"
+                    android:layout_below="@+id/home_title_id"
+                    android:layout_marginStart="48dp"
+                    android:text="@string/what_do_you_want" />
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/contract_id"
+                    style="@style/MainScreeButton"
+                    android:layout_above="@+id/payments_id"
+                    android:layout_marginTop="52dp">
+
+                    <ImageView
+                        style="@style/MainScreeButtonImage"
+                        android:src="@drawable/ic_icon_contract" />
+
+                    <ImageView
+                        style="@style/MainScreeButtonArrow"
+                        android:rotation="180"
+                        app:tint="@color/contract_1" />
+
+                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:text="@string/new_contract"
+                            android:textColor="@color/contract_1" />
+
+                        <TextView
+                            style="@style/MainScreeButtonSubtitle"
+                            android:fontFamily="@font/manrope_medium"
+                            android:text="@string/create_new_contract" />
+                    </LinearLayout>
+                </com.app.tributum.utils.ui.CustomButton>
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/payments_id"
+                    style="@style/MainScreeButton"
+                    android:layout_above="@+id/vat_id"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        style="@style/MainScreeButtonImage"
+                        android:src="@drawable/ic_icon_rct" />
+
+                    <ImageView
+                        style="@style/MainScreeButtonArrow"
+                        android:rotation="180"
+                        app:tint="@color/rct" />
+
+                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:text="@string/rct_payment_label"
+                            android:textColor="@color/rct" />
+
+                        <TextView
+                            style="@style/MainScreeButtonSubtitle"
+                            android:fontFamily="@font/manrope_medium"
+                            android:text="@string/add_new_rct_payment" />
+                    </LinearLayout>
+                </com.app.tributum.utils.ui.CustomButton>
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/vat_id"
+                    style="@style/MainScreeButton"
+                    android:layout_above="@+id/inquiry_id"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        style="@style/MainScreeButtonImage"
+                        android:src="@drawable/ic_icon_vat" />
+
+                    <ImageView
+                        style="@style/MainScreeButtonArrow"
+                        android:rotation="180"
+                        app:tint="@color/vat_1" />
+
+                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:text="@string/add_vat_label"
+                            android:textColor="@color/vat_1" />
+
+                        <TextView
+                            style="@style/MainScreeButtonSubtitle"
+                            android:fontFamily="@font/manrope_medium"
+                            android:text="@string/send_vat" />
+                    </LinearLayout>
+                </com.app.tributum.utils.ui.CustomButton>
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/inquiry_id"
+                    style="@style/MainScreeButton"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="24dp">
+
+                    <ImageView
+                        style="@style/MainScreeButtonImage"
+                        android:src="@drawable/ic_icon_inquiry" />
+
+                    <ImageView
+                        style="@style/MainScreeButtonArrow"
+                        android:rotation="180"
+                        app:tint="@color/inquiry" />
+
+                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:text="@string/submit_inquiry"
+                            android:textColor="@color/inquiry" />
+
+                        <TextView
+                            style="@style/MainScreeButtonSubtitle"
+                            android:fontFamily="@font/manrope_medium"
+                            android:text="@string/submit_inquiry_subtitle" />
+                    </LinearLayout>
+                </com.app.tributum.utils.ui.CustomButton>
             </LinearLayout>
-        </com.app.tributum.utils.ui.CustomButton>
-
-        <com.app.tributum.utils.ui.CustomButton
-            android:id="@+id/payments_id"
-            style="@style/MainScreeButton"
-            android:layout_above="@+id/vat_id"
-            android:layout_marginTop="12dp">
-
-            <ImageView
-                style="@style/MainScreeButtonImage"
-                android:src="@drawable/ic_icon_rct" />
-
-            <ImageView
-                style="@style/MainScreeButtonArrow"
-                android:rotation="180"
-                app:tint="@color/rct" />
-
-            <LinearLayout style="@style/MainScreeButtonTextLayout">
-
-                <TextView
-                    style="@style/MainScreeButtonTitle"
-                    android:text="@string/rct_payment_label"
-                    android:textColor="@color/rct" />
-
-                <TextView
-                    style="@style/MainScreeButtonSubtitle"
-                    android:fontFamily="@font/manrope_medium"
-                    android:text="@string/add_new_rct_payment" />
-            </LinearLayout>
-        </com.app.tributum.utils.ui.CustomButton>
-
-        <com.app.tributum.utils.ui.CustomButton
-            android:id="@+id/vat_id"
-            style="@style/MainScreeButton"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="24dp">
-
-            <ImageView
-                style="@style/MainScreeButtonImage"
-                android:src="@drawable/ic_icon_vat" />
-
-            <ImageView
-                style="@style/MainScreeButtonArrow"
-                android:rotation="180"
-                app:tint="@color/vat_1" />
-
-            <LinearLayout style="@style/MainScreeButtonTextLayout">
-
-                <TextView
-                    style="@style/MainScreeButtonTitle"
-                    android:text="@string/add_vat_label"
-                    android:textColor="@color/vat_1" />
-
-                <TextView
-                    style="@style/MainScreeButtonSubtitle"
-                    android:fontFamily="@font/manrope_medium"
-                    android:text="@string/send_vat" />
-            </LinearLayout>
-        </com.app.tributum.utils.ui.CustomButton>
+        </ScrollView>
 
         <TextView
             android:id="@+id/faq_id"

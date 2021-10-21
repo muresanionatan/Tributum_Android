@@ -50,4 +50,6 @@ public interface MainView {
     boolean shouldShowCameraRationale();
 
     void takeUserToAppSettings();
+
+    void startInquiryActivity();
 }
