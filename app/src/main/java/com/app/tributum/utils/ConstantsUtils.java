@@ -37,6 +37,10 @@ public class ConstantsUtils {
 
     public static final byte MULTIPLE_PERMISSIONS_PPS_FRONT = 10;
 
+    public static final byte CAMERA_REQUEST_INQUIRY = 11;
+
+    public static final byte SELECT_REQUEST_INQUIRY = 12;
+
     public static final String[] PERMISSIONS = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA};

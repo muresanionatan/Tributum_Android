@@ -21,11 +21,23 @@ public class DropboxUtils {
     private DropboxUtils() {
     }
 
-    public static void uploadPdfOnDropbox(String username, String months, File uploadFile) throws FileNotFoundException {
+    public static void uploadVatOnDropbox(String username, String months, File uploadFile) throws FileNotFoundException {
         try {
             InputStream inputStream = new FileInputStream(uploadFile);
             getDropBoxClient().files().uploadBuilder("/VATS/" + username.toUpperCase() + "/" + months + ".pdf")
-                    .withMode(WriteMode.OVERWRITE)
+                    .withMode(WriteMode.ADD)
+                    .uploadAndFinish(inputStream);
+            Log.d("Upload Status", "Success");
+        } catch (DbxException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void uploadInquiryOnDropbox(String username, String uploadFile, String inquiryPhotoName) throws FileNotFoundException {
+        try {
+            InputStream inputStream = new FileInputStream(uploadFile);
+            getDropBoxClient().files().uploadBuilder("/INQUIRIES/" + username.toUpperCase() + "/" + inquiryPhotoName + ".png")
+                    .withMode(WriteMode.ADD)
                     .uploadAndFinish(inputStream);
             Log.d("Upload Status", "Success");
         } catch (DbxException | IOException e) {

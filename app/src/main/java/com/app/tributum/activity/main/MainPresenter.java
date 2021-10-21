@@ -25,6 +25,8 @@ public interface MainPresenter {
 
     void onContractClick();
 
+    void onInquiryClick();
+
     void onFaqClick();
 
     void onAcceptTermsClicked();

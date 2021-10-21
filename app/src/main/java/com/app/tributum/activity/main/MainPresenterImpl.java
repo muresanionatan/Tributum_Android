@@ -103,6 +103,12 @@ public class MainPresenterImpl implements MainPresenter {
         handleActivityStart();
     }
 
+    @Override
+    public void onInquiryClick() {
+        actToStart = ActivityToStart.INQUIRY;
+        handleActivityStart();
+    }
+
     private void handleActivityStart() {
         if (view == null)
             return;
@@ -117,8 +123,10 @@ public class MainPresenterImpl implements MainPresenter {
         if (checkPermissions()) {
             if (actToStart == ActivityToStart.CONTRACT)
                 view.startContractActivity();
-            else
+            else if (actToStart == ActivityToStart.VAT)
                 view.startVatActivity();
+            else
+                view.startInquiryActivity();
         } else {
             if (view.shouldShowCameraRationale())
                 view.requestPermissions(new String[]{Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_ID);
@@ -163,8 +171,10 @@ public class MainPresenterImpl implements MainPresenter {
             }
             if (actToStart == ActivityToStart.CONTRACT)
                 view.startContractActivity();
-            else
+            else if (actToStart == ActivityToStart.VAT)
                 view.startVatActivity();
+            else
+                view.startInquiryActivity();
         }
 
     }

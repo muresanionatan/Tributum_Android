@@ -146,7 +146,7 @@
                         style="@style/SendButton"
                         android:layout_marginTop="32dp"
                         android:layout_marginBottom="32dp"
-                        android:background="@drawable/contract_cta"
+                        android:background="@drawable/contract_send"
                         android:text="@string/continue_label" />
                 </com.app.tributum.utils.ui.CustomButton>
             </LinearLayout>

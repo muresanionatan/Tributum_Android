@@ -87,7 +87,7 @@
     <string name="remove_label">Sterge</string>
     <string name="personal_info_label">Informatii\nPersonale</string>
     <string name="contract_subtitle">Te rugam adauga cu grija datele,\npentru a genera un contract.</string>
-    <string name="add_your_id_label">Adauga CI<font color='#f65b94'>*</font></string>
+    <string name="add_your_id_label">Adauga CI/Buletin/Pasaport<font color='#f65b94'>*</font></string>
     <string name="marital_status_label">Stare Civila</string>
     <string name="any_children_label">Aveti Copii?</string>
     <string name="continue_label">Continua</string>
@@ -129,7 +129,7 @@
     <string name="please_enter_address2">Te rugam sa introduci addresa 2</string>
     <string name="please_enter_occupation">Te rugam sa introduci ocupatia</string>
     <string name="please_enter_phone">Te rugam sa introduci numarul de telefon</string>
-    <string name="please_add_id">Te rugam adauga poza cu buletinul</string>
+    <string name="please_add_id">Te rugam adauga poza cu buletinul/pasaportul</string>
     <string name="please_add_marriage">Te rugam adauga certificatul de casatorie</string>
     <string name="please_select_taxes">Te rugam alege cel putin un tip de taxa</string>
     <string name="please_specify_other">Te rugam specifica altele</string>
@@ -152,4 +152,13 @@
     <string name="might_take">Poate dura putin in functie de conexiunea de internet</string>
     <string name="might_take_pictures">Poate dura putin in functie de conexiunea de internet si numarul de poze adaugate</string>
     <string name="mandatory_fields"><font color='#f65b94'>*</font>Campurile marcate cu asterics sunt obligatorii.</string>
+    <string name="submit_inquiry">Trimite cerere</string>
+    <string name="submit_inquiry_subtitle">Solicita si trimite o cerere</string>
+    <string name="inquiry_subtitle">Poti solicita schimbari ale contului tau, sau poti adauga detalii pe care le consideri utile contului tau.</string>
+    <string name="inquiry_description_title">Cu ce te putem ajuta?<font color='#f65b94'>*</font></string>
+    <string name="give_details">Te rugam scrie in cateva cuvinte ce ai nevoie</string>
+    <string name="send_inquiry">Trimite cerere</string>
+    <string name="please_enter_description">Te rugam introdu o scurta descriere</string>
+    <string name="inquiry_sent_label">Cerere trimisa</string>
+    <string name="add_file">Adauga poza</string>
 </resources>

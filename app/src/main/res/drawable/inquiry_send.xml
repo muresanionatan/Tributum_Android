@@ -4,6 +4,12 @@
     <size
         android:width="100dp"
         android:height="24dp" />
-    <solid android:color="@color/grey_2" />
+    <solid android:color="@color/white" />
     <corners android:radius="24dp" />
+    <gradient
+        android:centerColor="#40a8d7"
+        android:angle="0"
+        android:endColor="#40a8d7"
+        android:startColor="#74d3ed"
+        android:type="linear" />
 </shape>
