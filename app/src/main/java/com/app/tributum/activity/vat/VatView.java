@@ -4,6 +4,8 @@ import android.net.Uri;
 
 import com.app.tributum.activity.vat.model.VatModel;
 
+import java.util.List;
+
 public interface VatView {
 
     void showToast(String string);
@@ -12,21 +14,23 @@ public interface VatView {
 
     void hideKeyboard();
 
-    void startPdfCreation();
+    void startPdfCreation(List<VatModel> invoices, List<VatModel> privates);
 
     void hideLoadingScreen();
 
-    void addItemToList(VatModel model);
+    void addItemToInvoicesList(VatModel model);
 
-    void removeItemFromList(int photoClicked);
+    void removeItemFromInvoicesList(int photoClicked);
 
-    void takePhoto(String pictureImagePath);
+    void removeItemFromPrivatesList(int photoClicked);
+
+    void takePhoto(String pictureImagePath, int state);
 
     void hidePreview();
 
     void showImagePreview(String filePath);
 
-    void getFilesFromGallery(Uri imageUri);
+    void getFilesFromGalleryForInvoices(Uri imageUri);
 
     void closeActivity();
 
@@ -34,7 +38,7 @@ public interface VatView {
 
     void collapseBottomSheet();
 
-    void openPhotoChooserIntent();
+    void openPhotoChooserIntent(int requestId);
 
     void showRequestSentScreen();
 
@@ -47,4 +51,14 @@ public interface VatView {
     void setFocusOnStartingMonth();
 
     void setFocusOnEndingMonth();
+
+    void setPrivatesStates(boolean state);
+
+    void setPrivatesFont(int font);
+
+    void setRecyclerViewVisibility(int visibility);
+
+    void getFilesFromGalleryForPrivates(Uri imageUri);
+
+    void addItemToPrivatesList(VatModel vatModel);
 }

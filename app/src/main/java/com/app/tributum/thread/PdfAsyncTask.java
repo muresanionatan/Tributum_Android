@@ -3,12 +3,13 @@ package com.app.tributum.thread;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.os.AsyncTask;
 
+import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.AsyncListener;
-import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.utils.BitmapUtils;
 import com.app.tributum.utils.DropboxUtils;
 
@@ -22,7 +23,9 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private AsyncListener listener;
 
-    private List<VatModel> list;
+    private List<VatModel> invoicesList;
+
+    private List<VatModel> privatesList;
 
     private String username;
 
@@ -30,10 +33,12 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private String months;
 
-    public PdfAsyncTask(AsyncListener listener, List<VatModel> list, String username, String months) {
+    public PdfAsyncTask(AsyncListener listener, List<VatModel> invoicesList, List<VatModel> privatesList, String username, String months) {
         this.listener = listener;
-        this.list = list;
+        this.invoicesList = invoicesList;
+        this.privatesList = privatesList;
         this.username = username;
+        months = months.replaceAll(" ", "_");
         this.months = months;
     }
 
@@ -45,17 +50,12 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 PdfDocument pdfDocument = new PdfDocument();
 
-                for (int i = 0; i < list.size() - 1; i++) {
-                    VatModel model = list.get(i);
-                    Bitmap myBitmap = BitmapFactory.decodeFile(BitmapUtils.compressBitmap(model.getFilePath(), true));
-                    if (myBitmap == null)
-                        continue;
-                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(myBitmap.getWidth(), myBitmap.getHeight(), (i + 1)).create();
-                    PdfDocument.Page page = pdfDocument.startPage(pageInfo);
-                    Canvas canvas = page.getCanvas();
-                    canvas.drawBitmap(myBitmap, 0f, 0f, null);
-                    pdfDocument.finishPage(page);
-                    myBitmap.recycle();
+                pdfDocument.finishPage(addPageWithText(pdfDocument, username, months));
+                addPhotosToPdf(pdfDocument, invoicesList);
+
+                if (privatesList != null && privatesList.size() > 1) {
+                    pdfDocument.finishPage(addPageWithText(pdfDocument, "Private Jobs", ""));
+                    addPhotosToPdf(pdfDocument, privatesList);
                 }
                 pdfDocument.writeTo(fileOutputStream);
                 pdfDocument.close();
@@ -70,6 +70,35 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
             }
         }
         return null;
+    }
+
+    private void addPhotosToPdf(PdfDocument pdfDocument, List<VatModel> photoList) {
+        for (int i = 0; i < photoList.size() - 1; i++) {
+            VatModel model = photoList.get(i);
+            Bitmap myBitmap = BitmapFactory.decodeFile(BitmapUtils.compressBitmap(model.getFilePath(), true));
+            if (myBitmap == null)
+                continue;
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(myBitmap.getWidth(), myBitmap.getHeight(), (i + 1)).create();
+            PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+            Canvas canvas = page.getCanvas();
+            canvas.drawBitmap(myBitmap, 0f, 0f, null);
+            pdfDocument.finishPage(page);
+            myBitmap.recycle();
+        }
+    }
+
+    private PdfDocument.Page addPageWithText(PdfDocument pdfDocument, String name, String months) {
+        PdfDocument.PageInfo pageInfo = new
+                PdfDocument.PageInfo.Builder(1000, 1000, 1).create();
+        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+        Paint paint = new Paint();
+        paint.setTextSize(40);
+
+        canvas.drawText(name, 200, 500, paint);
+        canvas.drawText(months, 200, 550, paint);
+
+        return page;
     }
 
     @Override

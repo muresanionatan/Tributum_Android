@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 ).start();
                 presenter.onSplashFinished(getIntent());
             }
-        }, ConstantsUtils.ONE_SECOND * 2);
+        }, ConstantsUtils.ONE_SECOND);
     }
 
     @Override

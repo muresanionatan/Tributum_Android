@@ -33,6 +33,8 @@ public class ConstantsUtils {
 
     public static final short CAMERA_REQUEST_INVOICES_ID = 7;
 
+    public static final short CAMERA_REQUEST_PRIVATES_ID = 8;
+
     public static final byte STORAGE_PERMISSION_REQUEST_CODE_VAT = 3;
 
     public static final byte MULTIPLE_PERMISSIONS_PPS_FRONT = 10;
@@ -49,7 +51,9 @@ public class ConstantsUtils {
 
     public static final String TRIBUTUM_EMAIL = "tributum@yahoo.com";
 
-    public static final int SELECT_PICTURES = 555;
+    public static final int SELECT_PICTURES_FOR_INVOICES = 555;
+
+    public static final int SELECT_PICTURES_FOR_PRIVATES = 777;
 
     public static long NOTIFICATION_INTERVAL = 1000 * 60 * 60 * 24 * 60;
 

@@ -34,11 +34,15 @@ public class VatAdapter extends RecyclerView.Adapter<VatItemViewHolder> {
 
     private Resources resources;
 
-    public VatAdapter(Activity activity, List<VatModel> list, InvoiceItemClickListener invoiceItemClickListener, InvoicesDeleteListener invoicesDeleteListener) {
+    private boolean arePrivates;
+
+    public VatAdapter(Activity activity, List<VatModel> list, InvoiceItemClickListener invoiceItemClickListener, InvoicesDeleteListener invoicesDeleteListener,
+                      boolean arePrivates) {
         this.activity = activity;
         this.list = list;
         this.invoiceItemClickListener = invoiceItemClickListener;
         this.invoicesDeleteListener = invoicesDeleteListener;
+        this.arePrivates = arePrivates;
     }
 
     @NonNull
@@ -63,7 +67,7 @@ public class VatAdapter extends RecyclerView.Adapter<VatItemViewHolder> {
                     @Override
                     public void onClick(View v) {
                         if (invoiceItemClickListener != null)
-                            invoiceItemClickListener.onPlusCLick();
+                            invoiceItemClickListener.onPlusCLick(arePrivates);
                     }
                 });
             }
@@ -76,14 +80,14 @@ public class VatAdapter extends RecyclerView.Adapter<VatItemViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (invoiceItemClickListener != null)
-                        invoiceItemClickListener.onPreviewPhotoClick(model.getFilePath(), position);
+                        invoiceItemClickListener.onPreviewPhotoClick(model.getFilePath(), position, arePrivates);
                 }
             });
             holder.deleteImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (invoiceItemClickListener != null)
-                        invoiceItemClickListener.onDeleteClick(model.getFilePath(), position);
+                        invoiceItemClickListener.onDeleteClick(model.getFilePath(), position, arePrivates);
                 }
             });
         }

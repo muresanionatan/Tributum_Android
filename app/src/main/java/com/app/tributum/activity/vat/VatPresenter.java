@@ -23,7 +23,9 @@ public interface VatPresenter {
 
     void onTaskCompleted(String name, String email, String startingMonth, String endingMonth);
 
-    List<VatModel> getList();
+    List<VatModel> getInvoicesList();
+
+    List<VatModel> getPrivatesList();
 
     void onCreate();
 
@@ -38,4 +40,6 @@ public interface VatPresenter {
     void setFilePath(String pictureImagePath);
 
     void onBottomSheetExpanded();
+
+    void onPrivatesClick();
 }

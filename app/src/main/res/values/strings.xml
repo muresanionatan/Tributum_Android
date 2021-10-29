@@ -68,7 +68,7 @@
     <string name="number_kids">Nr of children</string>
     <string name="add_marriage_record">Add Your Marriage Certificate<font color='#f65b94'>*</font></string>
     <string name="what_do_you_want">What do you want\nto do today?</string>
-    <string name="new_contract">New Contract</string>
+    <string name="new_contract">New Client</string>
     <string name="create_new_contract">Create a new contract</string>
     <string name="rct_payment_label">RCT Payment</string>
     <string name="add_new_rct_payment">Add a new RCT Payment</string>
@@ -87,7 +87,7 @@
     <string name="remove_label">Remove</string>
     <string name="personal_info_label">Personal\nInfo</string>
     <string name="contract_subtitle">Please carefully enter your information,\nso we can generate a contract for you.</string>
-    <string name="add_your_id_label">Add Your ID/Passport<font color='#f65b94'>*</font></string>
+    <string name="add_your_id_label">Add Your ID/Passport/Driver license<font color='#f65b94'>*</font></string>
     <string name="marital_status_label">Marital Status</string>
     <string name="any_children_label">Any Children?</string>
     <string name="continue_label">Continue</string>
@@ -161,4 +161,5 @@
     <string name="please_enter_description">Please enter a short description</string>
     <string name="inquiry_sent_label">Inquiry sent</string>
     <string name="add_file">Add file</string>
+    <string name="add_privates">Add private receipts</string>
 </resources>

@@ -144,6 +144,46 @@
                         android:layout_marginEnd="24dp"
                         tools:listitem="@layout/invoices_item" />
 
+                    <LinearLayout
+                        android:id="@+id/privates_layout_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="-8dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/white_rectangle_corners"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/privates_checkbox_id"
+                            style="@style/CheckBox"
+                            android:layout_marginStart="14dp"
+                            android:button="@drawable/payment_selector"
+                            android:checked="false" />
+
+                        <TextView
+                            android:id="@+id/add_privates_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/manrope_medium"
+                            android:paddingEnd="14dp"
+                            android:text="@string/add_privates"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/privates_recycler_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="24dp"
+                        android:visibility="gone"
+                        tools:listitem="@layout/invoices_item" />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
@@ -173,7 +213,9 @@
             </RelativeLayout>
         </ScrollView>
 
-        <include layout="@layout/image_preview_layout" />
+        <include
+            layout="@layout/image_preview_layout"
+            tools:visibility="gone" />
     </RelativeLayout>
 
     <include layout="@layout/file_chooser_layout" />
