@@ -98,4 +98,8 @@ public interface ContractPresenter {
     void onContractDateSet(int year, int monthOfYear, int dayOfMonth);
 
     void onDestroy();
+
+    void beforeEircodeChanged(int length);
+
+    void afterEircodeChanged(Editable s);
 }

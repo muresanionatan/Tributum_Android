@@ -161,5 +161,5 @@
     <string name="please_enter_description">Please enter a short description</string>
     <string name="inquiry_sent_label">Inquiry sent</string>
     <string name="add_file">Add file</string>
-    <string name="add_privates">Add private receipts</string>
+    <string name="add_privates">Add private job invoices</string>
 </resources>

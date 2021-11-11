@@ -215,6 +215,17 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         findViewById(R.id.pps_back_image_holder_id).findViewById(R.id.plus_id).setBackgroundResource(R.drawable.photo_holder_contract);
         findViewById(R.id.marriage_layout_id).findViewById(R.id.plus_id).setBackgroundResource(R.drawable.photo_holder_contract);
 
+        eircode.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                presenter.beforeEircodeChanged(s.length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                presenter.afterEircodeChanged(s);
+            }
+        });
         birthday.addTextChangedListener(new CustomTextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -933,6 +944,16 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void setContractDateText(String s) {
         contractDate.setText(s);
+    }
+
+    @Override
+    public void setEircodeText(String string) {
+        eircode.setText(string);
+    }
+
+    @Override
+    public void moveEircodeCursorToEnd(int length) {
+        eircode.setSelection(length);
     }
 
     @Override

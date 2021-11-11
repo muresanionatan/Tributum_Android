@@ -12,7 +12,7 @@ public class CalendarUtils {
         return (String) android.text.format.DateFormat.format("MMMM", new Date());
     }
 
-    public static long getCurrentTimeInMillies() {
+    public static long getCurrentDateInMilies() {
         return Calendar.getInstance().getTimeInMillis();
     }
 }

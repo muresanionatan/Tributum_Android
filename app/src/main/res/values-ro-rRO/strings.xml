@@ -161,5 +161,5 @@
     <string name="please_enter_description">Te rugam introdu o scurta descriere</string>
     <string name="inquiry_sent_label">Cerere trimisa</string>
     <string name="add_file">Adauga poza</string>
-    <string name="add_privates">Adauga private</string>
+    <string name="add_privates">Adauga lucrari/job-uri private</string>
 </resources>

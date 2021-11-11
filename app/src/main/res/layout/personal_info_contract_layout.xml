@@ -41,6 +41,7 @@
     <EditText
         android:id="@+id/eircode_edit_text"
         style="@style/CustomEditText"
+        android:inputType="textCapCharacters"
         android:layout_marginTop="20dp"
         android:hint="@string/eircode_label" />
 
@@ -91,9 +92,9 @@
     <EditText
         android:id="@+id/email_edit_text"
         style="@style/CustomEditText"
-        android:inputType="textEmailAddress"
         android:layout_marginTop="20dp"
-        android:hint="@string/mail_label" />
+        android:hint="@string/mail_label"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/bank_edit_text"

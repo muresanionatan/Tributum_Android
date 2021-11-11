@@ -85,7 +85,7 @@ public class InquiryPresenterImpl implements InquiryPresenter, RequestSentListen
 
         if (pictureImagePath != null) {
             inquiryPhotoName = CalendarUtils.getCurrentMonth() + "_"
-                    + CalendarUtils.getCurrentTimeInMillies();
+                    + CalendarUtils.getCurrentDateInMilies();
 
             resultString += "\n\n" + "Click on below link to access the file\n\n"
                     + "https://www.dropbox.com/home/Apps/Tributum/INQUIRIES/"

@@ -111,7 +111,8 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         } else if (PICTURE_NUMBER > 1) {
             vatView.hideKeyboard();
             vatView.showLoadingScreen();
-            vatView.startPdfCreation(invoicesList, privatesList);
+//            vatView.startPdfCreation(invoicesList, privatesList);
+            vatView.startPdfCreation(invoicesList, hasPrivates ? privatesList : null);
         } else {
             vatView.showToast(resources.getString(R.string.no_photo_taken));
         }

@@ -53,6 +53,8 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     private int previousContractDateLength = 0;
 
+    private int previousEircodeLength = 0;
+
     private File file;
 
     private ContractModel contractModel;
@@ -130,6 +132,31 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     @Override
     public void afterContractDateChanged(Editable s) {
         handleDates(s, previousContractDateLength, false);
+    }
+
+    @Override
+    public void beforeEircodeChanged(int length) {
+        previousEircodeLength = length;
+    }
+
+    @Override
+    public void afterEircodeChanged(Editable s) {
+        if (view == null)
+            return;
+
+        if (s.length() > previousEircodeLength) {
+            if (s.length() == 3) {
+                view.setEircodeText(s + " ");
+                view.moveEircodeCursorToEnd(4);
+            } else if (s.length() == 4) {
+                String string = s.toString();
+                if (!string.startsWith(" ", 3)) {
+                    char lastChar = string.charAt(3);
+                    view.setEircodeText(string.substring(0, 3) + " " + lastChar);
+                    view.moveEircodeCursorToEnd(5);
+                }
+            }
+        }
     }
 
     @Override

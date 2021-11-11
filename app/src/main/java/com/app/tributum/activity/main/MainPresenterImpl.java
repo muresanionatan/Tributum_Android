@@ -241,6 +241,7 @@ public class MainPresenterImpl implements MainPresenter {
                 && intent.getStringExtra(NotificationExtra.OPEN).equals(NotificationIntentIds.VAT_INTENT)
                 && view != null) {
             NotificationManagerCompat.from(TributumApplication.getInstance()).cancel(null, NotificationIds.INPUT_VAT_ID);
+            actToStart = ActivityToStart.VAT;
             handleActivityStart();
         }
     }

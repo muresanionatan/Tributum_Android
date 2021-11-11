@@ -175,4 +175,8 @@ public interface ContractView {
     void hideAsteriskView();
 
     void showAsteriskView();
+
+    void setEircodeText(String string);
+
+    void moveEircodeCursorToEnd(int length);
 }
