@@ -1,5 +1,6 @@
 package com.app.tributum.utils;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -149,7 +150,8 @@ public class BitmapUtils {
     }
 
     private static String getFilename() {
-        File file = new File(Environment.getExternalStorageDirectory().getPath(), "MyFolder/Images");
+        File directory = TributumApplication.getInstance().getDir("imageDir", Context.MODE_PRIVATE);
+        File file = new File(directory, "MyFolder/Images");
         if (!file.exists()) {
             file.mkdirs();
         }
