@@ -14,6 +14,6 @@ public class ValidationUtils {
     }
 
     public static boolean isEircodeValid(String eircode) {
-        return eircode.matches("[A-Z]{1}[0-9]{2}[A-Za-z0-9]{4}");
+        return eircode.matches("[a-zA-Z]\\d\\d\\s[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]");
     }
 }
