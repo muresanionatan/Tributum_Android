@@ -9,7 +9,7 @@ public interface ContractPresenter {
 
     void handleSendButtonClick(String firstName, String lastName, String address1, String address2, String address3, String eircode,
                                String birthday, String occupation, String phone, String email, String bankAccount,
-                               String pps, String contractDate, String noOfKids, String otherText);
+                               String pps, String noOfKids, String otherText);
 
     void onCreate();
 
@@ -89,13 +89,7 @@ public interface ContractPresenter {
 
     void setFilePath(String pictureImagePath);
 
-    void beforeContractDateChanged(int length);
-
-    void afterContractDateChanged(Editable s);
-
     void onBirthdayDateSet(int year, int monthOfYear, int dayOfMonth);
-
-    void onContractDateSet(int year, int monthOfYear, int dayOfMonth);
 
     void onDestroy();
 

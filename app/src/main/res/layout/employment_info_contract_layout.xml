@@ -12,28 +12,6 @@
         android:hint="@string/pps_number"
         android:textAllCaps="true" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/white_rectangle_corners">
-
-        <EditText
-            android:id="@+id/starting_date"
-            style="@style/CustomEditText"
-            android:layout_marginStart="44dp"
-            android:hint="@string/start_date_label"
-            android:inputType="date" />
-
-        <ImageView
-            android:id="@+id/contract_date_image_id"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/ic_icon_date" />
-    </RelativeLayout>
-
     <LinearLayout
         android:id="@+id/self_layout_id"
         android:layout_width="match_parent"

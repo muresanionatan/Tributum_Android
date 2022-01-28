@@ -18,6 +18,7 @@ import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.listener.SignatureListener;
 import com.app.tributum.retrofit.InterfaceAPI;
 import com.app.tributum.retrofit.RetrofitClientInstance;
+import com.app.tributum.utils.CalendarUtils;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.UploadAsyncTask;
@@ -121,17 +122,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     @Override
     public void afterBirthdayChanged(Editable s) {
-        handleDates(s, previousBirthdayLength, true);
-    }
-
-    @Override
-    public void beforeContractDateChanged(int length) {
-        previousContractDateLength = length;
-    }
-
-    @Override
-    public void afterContractDateChanged(Editable s) {
-        handleDates(s, previousContractDateLength, false);
+        handleDates(s, previousBirthdayLength);
     }
 
     @Override
@@ -275,7 +266,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     @Override
     public void handleSendButtonClick(String firstName, String lastName, String address1, String address2, String address3, String eircode,
                                       String birthday, String occupation, String phone, String email, String bankAccount,
-                                      String pps, String contractDate, String noOfKids, String otherText) {
+                                      String pps, String noOfKids, String otherText) {
         if (view == null)
             return;
 
@@ -319,9 +310,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             if (!ValidationUtils.isPpsValid(pps)) {
                 view.showToast(R.string.please_enter_pps);
                 view.focusOnPps();
-            } else if (contractDate.equals("") || contractDate.length() < 10) {
-                view.showToast(R.string.please_enter_contract_format);
-                view.focusOnContractDate();
             } else if (isSelf && (!first && !second && !third && !fourth && !fifth && !sixth && !seventh && !eight && !ninth)) {
                 view.showToast(R.string.please_select_taxes);
                 view.scrollToTaxes();
@@ -336,13 +324,13 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             }
         } else if (state == ProgressState.SIGNATURE) {
             if (signatureDrawn)
-                sendInfo(firstName, lastName, address1, address2, address3, eircode, pps, email, contractDate, birthday, occupation, otherText, phone, bankAccount, noOfKids);
+                sendInfo(firstName, lastName, address1, address2, address3, eircode, pps, email, birthday, occupation, otherText, phone, bankAccount, noOfKids);
             else
                 view.showToast(R.string.please_add_signature);
         }
     }
 
-    private void handleDates(Editable s, int previousValue, boolean isBirthday) {
+    private void handleDates(Editable s, int previousValue) {
         if (view == null)
             return;
 
@@ -350,15 +338,9 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             if (s.length() == 2) {
                 try {
                     if (Integer.parseInt(s.toString()) > 31) {
-                        if (isBirthday)
                             view.setBirthdayText("31/");
-                        else
-                            view.setContractDateText("31/");
                     } else {
-                        if (isBirthday)
                             view.setBirthdayText(s + "/");
-                        else
-                            view.setContractDateText(s + "/");
                     }
                 } catch (NumberFormatException e) {
                     int currentDay = java.util.Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -366,38 +348,23 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                     if (currentDay < 10) {
                         day = "0" + day;
                     }
-                    if (isBirthday)
                         view.setBirthdayText(day + "/");
-                    else
-                        view.setContractDateText(day + "/");
                 }
-                if (isBirthday)
                     view.moveBirthdayCursorToEnd();
-                else
-                    view.moveContractCursorToEnd();
             } else if (s.length() == 3) {
                 String birthday = String.valueOf(s);
                 if (!birthday.endsWith("/")) {
                     String string = birthday.substring(0, birthday.length() - 1) + "/" + birthday.substring(birthday.length() - 1);
-                    if (isBirthday)
                         view.setBirthdayText(string);
-                    else
-                        view.setContractDateText(string);
                 }
-                if (isBirthday)
                     view.moveBirthdayCursorToEnd();
-                else
-                    view.moveContractCursorToEnd();
             } else if (s.length() == 4) {
                 int month;
                 try {
                     month = Integer.parseInt(s.toString().substring(s.toString().length() - 1));
                     if (month > 1) {
                         String string = s.toString().substring(0, 3) + "0" + month + "/";
-                        if (isBirthday)
                             view.setBirthdayText(string);
-                        else
-                            view.setContractDateText(string);
                     }
                 } catch (NumberFormatException e) {
                     int currentMonth = java.util.Calendar.getInstance().get(Calendar.MONTH) + 1;
@@ -406,38 +373,23 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                         monthString = "0" + monthString;
                     }
                     String string = s.toString().substring(0, 3) + monthString + "/";
-                    if (isBirthday)
                         view.setBirthdayText(string);
-                    else
-                        view.setContractDateText(string);
                 }
-                if (isBirthday)
                     view.moveBirthdayCursorToEnd();
-                else
-                    view.moveContractCursorToEnd();
             } else if (s.length() == 5) {
                 String string = s.toString();
                 string = string.substring(3);
                 try {
                     if (Integer.parseInt(string) > 12) {
                         String firstString = s.toString();
-                        if (isBirthday)
                             view.setBirthdayText(firstString.substring(0, 3) + "12/");
-                        else
-                            view.setContractDateText(firstString.substring(0, 3) + "12/");
                     } else {
-                        if (isBirthday)
                             view.setBirthdayText(s + "/");
-                        else
-                            view.setContractDateText(s + "/");
                     }
                 } catch (NumberFormatException e) {
                     int c = s.toString().charAt(3) - '0';
                     if (c == 1) {
-                        if (isBirthday)
                             view.setBirthdayText(s.toString().substring(0, 3) + "01/");
-                        else
-                            view.setContractDateText(s.toString().substring(0, 3) + "01/");
                     } else {
                         int currentMonth = java.util.Calendar.getInstance().get(Calendar.MONTH) + 1;
                         String month = String.valueOf(currentMonth);
@@ -445,29 +397,17 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                             month = "0" + month;
                         }
                         String string1 = s.toString().substring(0, 3) + month + "/";
-                        if (isBirthday)
                             view.setBirthdayText(string1);
-                        else
-                            view.setContractDateText(string1);
                     }
                 }
-                if (isBirthday)
                     view.moveBirthdayCursorToEnd();
-                else
-                    view.moveContractCursorToEnd();
             } else if (s.length() == 6) {
                 String birthday = String.valueOf(s);
                 if (!birthday.endsWith("/")) {
                     String string = birthday.substring(0, birthday.length() - 1) + "/" + birthday.substring(birthday.length() - 1);
-                    if (isBirthday)
                         view.setBirthdayText(string);
-                    else
-                        view.setContractDateText(string);
                 }
-                if (isBirthday)
                     view.moveBirthdayCursorToEnd();
-                else
-                    view.moveContractCursorToEnd();
             } else if (s.length() == 10) {
                 String string = s.toString();
                 string = string.substring(6);
@@ -475,22 +415,13 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 try {
                     if (Integer.parseInt(string) > currentYear) {
                         String firstString = s.toString();
-                        if (isBirthday)
                             view.setBirthdayText(firstString.substring(0, 6) + currentYear);
-                        else
-                            view.setContractDateText(firstString.substring(0, 6) + currentYear);
                     }
                 } catch (NumberFormatException nfe) {
                     String string1 = s.toString().substring(0, 6) + currentYear;
-                    if (isBirthday)
                         view.setBirthdayText(string1);
-                    else
-                        view.setContractDateText(string1);
                 }
-                if (isBirthday)
                     view.moveBirthdayCursorToEnd();
-                else
-                    view.moveContractCursorToEnd();
             }
         }
     }
@@ -803,14 +734,14 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     private void sendInfo(String firstName, String lastName, String address1, String address2, String address3, String eircode,
-                          String pps, String email, String contractDate, String birthday, String occupation, String otherText,
+                          String pps, String email, String birthday, String occupation, String otherText,
                           String phone, String bankAccount, String noOfKids) {
         contractModel = new ContractModel(
                 firstName + " " + lastName,
                 address1 + " " + address2 + " " + address3 + " " + eircode,
                 pps,
                 email,
-                contractDate,
+                CalendarUtils.getCurrentDay(),
                 birthday);
 
         if (maritalStatus == MaritalStatus.SINGLE)
@@ -1040,21 +971,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (monthOfYear < 10)
             monthString = "0" + monthOfYear;
         view.setBirthdayText(dayString + "/" + monthString + "/" + year);
-    }
-
-    @Override
-    public void onContractDateSet(int year, int monthOfYear, int dayOfMonth) {
-        if (view == null)
-            return;
-
-        String dayString = String.valueOf(dayOfMonth);
-        if (dayOfMonth < 10)
-            dayString = "0" + dayOfMonth;
-        monthOfYear = monthOfYear + 1;
-        String monthString = String.valueOf(monthOfYear);
-        if (monthOfYear < 10)
-            monthString = "0" + monthOfYear;
-        view.setContractDateText(dayString + "/" + monthString + "/" + year);
     }
 
     @Override

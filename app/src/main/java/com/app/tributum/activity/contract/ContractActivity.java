@@ -80,8 +80,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     private CheckBox cohabitingCheck;
 
-    private EditText contractDate;
-
     private EditText birthday;
 
     private BottomSheetBehavior fileChooser;
@@ -165,10 +163,8 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         divorcedCheck = findViewById(R.id.divorced_checkbox);
         cohabitingCheck = findViewById(R.id.cohabiting_checkbox);
 
-        contractDate = findViewById(R.id.starting_date);
         birthday = findViewById(R.id.edittext_birthday_id);
         UtilsGeneral.setMaxLengthEditText(birthday, 10);
-        UtilsGeneral.setMaxLengthEditText(contractDate, 10);
 
         findViewById(R.id.birthday_image_id).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,26 +180,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                                 presenter.onBirthdayDateSet(year, monthOfYear, dayOfMonth);
-                            }
-                        }, year, month, day);
-                picker.show();
-            }
-        });
-
-        findViewById(R.id.contract_date_image_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar calendar = Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH);
-                int year = calendar.get(Calendar.YEAR);
-
-                DatePickerDialog picker = new DatePickerDialog(ContractActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @SuppressLint("SetTextI18n")
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                                presenter.onContractDateSet(year, monthOfYear, dayOfMonth);
                             }
                         }, year, month, day);
                 picker.show();
@@ -242,17 +218,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                 presenter.afterBirthdayChanged(s);
             }
         });
-        contractDate.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                presenter.beforeContractDateChanged(s.length());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                presenter.afterContractDateChanged(s);
-            }
-        });
 
         EditText otherEditText = findViewById(R.id.other_edit_id);
         UtilsGeneral.setMaxLengthEditText(otherEditText, 60);
@@ -286,7 +251,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                         emailEditText.getText().toString(),
                         bankAccount.getText().toString(),
                         ppsNumberEditText.getText().toString(),
-                        contractDate.getText().toString(),
                         ((EditText) findViewById(R.id.number_kids_id)).getText().toString(),
                         otherEditText.getText().toString()
                 );
@@ -937,16 +901,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
-    public void moveContractCursorToEnd() {
-        contractDate.setSelection(contractDate.getText().length());
-    }
-
-    @Override
-    public void setContractDateText(String s) {
-        contractDate.setText(s);
-    }
-
-    @Override
     public void setEircodeText(String string) {
         eircode.setText(string);
     }
@@ -1260,12 +1214,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     public void focusOnPps() {
         UtilsGeneral.setFocusOnInput(ppsNumberEditText);
         scrollToView(ppsNumberEditText);
-    }
-
-    @Override
-    public void focusOnContractDate() {
-        UtilsGeneral.setFocusOnInput(contractDate);
-        scrollToView(contractDate);
     }
 
     @Override

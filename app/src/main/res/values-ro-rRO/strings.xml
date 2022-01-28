@@ -22,7 +22,6 @@
     <string name="single_label">Necasatorit</string>
     <string name="divorced_label">Divortat</string>
     <string name="cohabiting_label">Coabitare</string>
-    <string name="start_date_label">Data incepere (ZZ/LL/AAAA)<font color='#f65b94'>*</font></string>
     <string name="applying_for">Pentru ce aplici?<font color='#f65b94'>*</font></string>
     <string name="income_tax_label">Income Tax</string>
     <string name="corporation_tax_label">Corporation Tax</string>
@@ -63,7 +62,6 @@
     <string name="contract_mail_message">Documentele de mai jos au fost generate.</string>
     <string name="welcome_tributum_label">Bine ai venit la Tributum!</string>
     <string name="please_enter_birthday_format">Te rugam adauga zi de nastere format ZZ/LL/AAAA</string>
-    <string name="please_enter_contract_format">Te rugam adauga data incepere contract format ZZ/LL/AAAA</string>
     <string name="iban_label">Cont IBAN</string>
     <string name="number_kids">Numarul de copii</string>
     <string name="add_marriage_record">Adauga certificatul de casatorie<font color='#f65b94'>*</font></string>

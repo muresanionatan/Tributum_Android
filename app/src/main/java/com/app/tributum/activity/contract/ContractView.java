@@ -118,10 +118,6 @@ public interface ContractView {
 
     Bitmap getSignatureFile();
 
-    void setContractDateText(String s);
-
-    void moveContractCursorToEnd();
-
     void showRequestSentScreen();
 
     void selectSingle();
@@ -161,8 +157,6 @@ public interface ContractView {
     void focusOnEircode();
 
     void focusOnPps();
-
-    void focusOnContractDate();
 
     void focusOnOther();
 

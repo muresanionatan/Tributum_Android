@@ -22,7 +22,6 @@
     <string name="single_label">Single</string>
     <string name="divorced_label">Divorced</string>
     <string name="cohabiting_label">Cohabiting</string>
-    <string name="start_date_label">Starting date (DD/MM/YYYY)<font color='#f65b94'>*</font></string>
     <string name="applying_for">What Are You Applying For?<font color='#f65b94'>*</font></string>
     <string name="income_tax_label">Income Tax</string>
     <string name="corporation_tax_label">Corporation Tax</string>
@@ -63,7 +62,6 @@
     <string name="contract_mail_message">Your request was received and it will be processed in the shortest time.</string>
     <string name="welcome_tributum_label">Welcome to Tributum!</string>
     <string name="please_enter_birthday_format">Please enter birthday like DD/MM/YYYY</string>
-    <string name="please_enter_contract_format">Please enter starting contract date like DD/MM/YYYY</string>
     <string name="iban_label">Bank IBAN</string>
     <string name="number_kids">Nr of children</string>
     <string name="add_marriage_record">Add Your Marriage Certificate<font color='#f65b94'>*</font></string>
