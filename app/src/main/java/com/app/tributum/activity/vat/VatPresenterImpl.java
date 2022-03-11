@@ -191,11 +191,11 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     }
 
     @Override
-    public void onTaskCompleted(String name, String email, String startingMonth, String endingMonth) {
+    public void onTaskCompleted(String name, String email, String startingMonth, String endingMonth, String fileName) {
         if (vatView == null)
             return;
         saveListToPreferences(name, email);
-        sendInternalEmail(name, email, startingMonth, endingMonth);
+        sendInternalEmail(name, email, startingMonth, endingMonth, fileName);
     }
 
     @Override
@@ -248,16 +248,16 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         }
     }
 
-    private void sendInternalEmail(String name, String email, String startingMonth, String endingMonth) {
+    private void sendInternalEmail(String name, String email, String startingMonth, String endingMonth, String fileName) {
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(name, startingMonth, endingMonth)));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(name, startingMonth, endingMonth, fileName)));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (response.isSuccessful())
-                    sendClientEmail(email, startingMonth, endingMonth);
+                    sendClientEmail(email, startingMonth, endingMonth, fileName);
                 else
                     vatView.showToast(resources.getString(R.string.something_went_wrong));
 
@@ -272,7 +272,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         });
     }
 
-    private void sendClientEmail(String email, String startingMonth, String endingMonth) {
+    private void sendClientEmail(String email, String startingMonth, String endingMonth, String fileName) {
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
@@ -297,7 +297,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         });
     }
 
-    private String generateInternalEmailMessage(String name, String startingMonth, String endingMonth) {
+    private String generateInternalEmailMessage(String name, String startingMonth, String endingMonth, String fileName) {
         String formattedString = name.toUpperCase();
         formattedString = formattedString.replaceAll(" ", "%20");
         return resources.getString(R.string.invoices_message_email) + name
@@ -306,8 +306,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
                 + "\n\n" + "Click on below link to access the pdf\n\n"
                 + "https://www.dropbox.com/home/Apps/Tributum/VATS/"
                 + formattedString + "?preview="
-                + startingMonth.replaceAll(" ", "_")
-                + "_" + endingMonth.replaceAll(" ", "_")
+                + fileName
                 + ".pdf";
     }
 

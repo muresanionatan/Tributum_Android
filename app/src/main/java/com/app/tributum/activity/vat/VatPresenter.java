@@ -21,7 +21,7 @@ public interface VatPresenter {
 
     void onDestroy();
 
-    void onTaskCompleted(String name, String email, String startingMonth, String endingMonth);
+    void onTaskCompleted(String name, String email, String startingMonth, String endingMonth, String fileName);
 
     List<VatModel> getInvoicesList();
 

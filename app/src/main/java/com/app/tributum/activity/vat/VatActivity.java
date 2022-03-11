@@ -82,6 +82,8 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     private VatAdapter privatesAdapter;
 
+    private String fileName;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -320,9 +322,10 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     @Override
     public void startPdfCreation(List<VatModel> invoices, List<VatModel> privates) {
+        fileName = startingMonth.getText().toString().replaceAll(" ", "_").trim()
+                + "_" + endingMonth.getText().toString().replaceAll(" ", "_").trim() + "_" + System.currentTimeMillis();
         PdfAsyncTask asyncTask = new PdfAsyncTask(VatActivity.this, invoices, privates, name.getText().toString().trim(),
-                startingMonth.getText().toString().trim()
-                        + "_" + endingMonth.getText().toString().trim());
+                fileName);
         asyncTask.execute();
     }
 
@@ -390,7 +393,8 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         presenter.onTaskCompleted(name.getText().toString().trim(),
                 payerEmail.getText().toString().trim(),
                 startingMonth.getText().toString().trim(),
-                endingMonth.getText().toString().trim());
+                endingMonth.getText().toString().trim(),
+                fileName);
     }
 
     @Override
