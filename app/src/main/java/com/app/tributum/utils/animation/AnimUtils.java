@@ -245,6 +245,7 @@ public class AnimUtils {
 
     @SuppressWarnings("unused")
     public static ValueAnimator getHeightAnimator(final View view, int fromValue, int toValue, int duration) {
+        view.setPivotY(0);
         ValueAnimator valueAnimator = ValueAnimator.ofInt(fromValue, toValue);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

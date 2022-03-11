@@ -1,27 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/app_category_layout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_gray">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_id"
-        style="@style/BottomNavigationStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="40dp"
-        android:background="@drawable/navigation_bar_background"
-        app:itemIconTint="@drawable/bottom_home_selector"
-        app:itemTextColor="@drawable/bottom_home_selector"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_navigation_menu" />
+    <include
+        android:id="@+id/language_id"
+        layout="@layout/language_layout"
+        android:visibility="gone" />
 
-    <FrameLayout
-        android:id="@+id/fragment_frame_layout"
+    <RelativeLayout
+        android:id="@+id/main_layout_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/white_rectangle_corners" />
+        android:background="@drawable/bg_paper"
+        android:clickable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_oval_orange" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_oval_purple" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/home_title_id"
+                    style="@style/TitleText"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="182dp"
+                    android:text="@string/welcome_back_label" />
+
+                <TextView
+                    style="@style/SubtitleText"
+                    android:layout_below="@+id/home_title_id"
+                    android:layout_marginStart="48dp"
+                    android:text="@string/what_do_you_want" />
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/contract_id"
+                    style="@style/MainScreeButton"
+                    android:layout_above="@+id/payments_id"
+                    android:layout_marginTop="52dp">
+
+                    <ImageView
+                        style="@style/MainScreeButtonImage"
+                        android:src="@drawable/ic_icon_contract" />
+
+                    <ImageView
+                        style="@style/MainScreeButtonArrow"
+                        android:rotation="180"
+                        app:tint="@color/contract_1" />
+
+                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:text="@string/new_contract"
+                            android:textColor="@color/contract_1" />
+
+                        <TextView
+                            style="@style/MainScreeButtonSubtitle"
+                            android:fontFamily="@font/manrope_medium"
+                            android:text="@string/create_new_contract" />
+                    </LinearLayout>
+                </com.app.tributum.utils.ui.CustomButton>
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/payments_id"
+                    style="@style/MainScreeButton"
+                    android:layout_above="@+id/vat_id"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        style="@style/MainScreeButtonImage"
+                        android:src="@drawable/ic_icon_rct" />
+
+                    <ImageView
+                        style="@style/MainScreeButtonArrow"
+                        android:rotation="180"
+                        app:tint="@color/rct" />
+
+                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:text="@string/rct_payment_label"
+                            android:textColor="@color/rct" />
+
+                        <TextView
+                            style="@style/MainScreeButtonSubtitle"
+                            android:fontFamily="@font/manrope_medium"
+                            android:text="@string/add_new_rct_payment" />
+                    </LinearLayout>
+                </com.app.tributum.utils.ui.CustomButton>
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/vat_id"
+                    style="@style/MainScreeButton"
+                    android:layout_above="@+id/inquiry_id"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        style="@style/MainScreeButtonImage"
+                        android:src="@drawable/ic_icon_vat" />
+
+                    <ImageView
+                        style="@style/MainScreeButtonArrow"
+                        android:rotation="180"
+                        app:tint="@color/vat_1" />
+
+                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:text="@string/add_vat_label"
+                            android:textColor="@color/vat_1" />
+
+                        <TextView
+                            style="@style/MainScreeButtonSubtitle"
+                            android:fontFamily="@font/manrope_medium"
+                            android:text="@string/send_vat" />
+                    </LinearLayout>
+                </com.app.tributum.utils.ui.CustomButton>
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/inquiry_id"
+                    style="@style/MainScreeButton"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="24dp">
+
+                    <ImageView
+                        style="@style/MainScreeButtonImage"
+                        android:src="@drawable/ic_icon_inquiry" />
+
+                    <ImageView
+                        style="@style/MainScreeButtonArrow"
+                        android:rotation="180"
+                        app:tint="@color/inquiry" />
+
+                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:text="@string/submit_inquiry"
+                            android:textColor="@color/inquiry" />
+
+                        <TextView
+                            style="@style/MainScreeButtonSubtitle"
+                            android:fontFamily="@font/manrope_medium"
+                            android:text="@string/submit_inquiry_subtitle" />
+                    </LinearLayout>
+                </com.app.tributum.utils.ui.CustomButton>
+            </LinearLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/faq_id"
+            android:layout_width="60dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="54sp"
+            android:layout_marginEnd="48dp"
+            android:fontFamily="@font/manrope_bold"
+            android:gravity="center_vertical|end"
+            android:text="@string/faqs_label"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_oval_blue" />
+
+        <TextView
+            android:id="@+id/language_text_id"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="50dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/manrope_bold"
+            android:gravity="center_vertical"
+            android:text="@string/english_label"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:drawableStartCompat="@drawable/ic_icon_language"
+            app:drawableTint="@color/white" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/terms_scrollview_id"
+        layout="@layout/terms_gdpr_layout"
+        android:visibility="gone"
+        tools:visibility="gone" />
+
+    <include
+        android:id="@+id/splash_id"
+        layout="@layout/splash_layout"
+        tools:visibility="gone" />
 </RelativeLayout>

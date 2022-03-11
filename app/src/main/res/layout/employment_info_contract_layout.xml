@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/pps_number_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="48dp"
+        android:hint="@string/pps_number"
+        android:textAllCaps="true" />
+
+    <LinearLayout
+        android:id="@+id/self_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/self_employed_id"
+            style="@style/ContractCheckBox"
+            android:checked="true" />
+
+        <TextView
+            android:id="@+id/self_employed_text_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
+            android:text="@string/self_employed_label"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/employee_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/employee_id"
+            style="@style/ContractCheckBox" />
+
+        <TextView
+            android:id="@+id/employee_text_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
+            android:text="@string/employee_label"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/taxes_id"
+        layout="@layout/applying_for_layout"
+        tools:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/manrope_bold"
+        android:text="@string/add_pps_front"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <include
+        android:id="@+id/pps_front_image_holder_id"
+        layout="@layout/invoices_item" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/manrope_bold"
+        android:text="@string/add_pps_back"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <include
+        android:id="@+id/pps_back_image_holder_id"
+        layout="@layout/invoices_item" />
+
+</LinearLayout>

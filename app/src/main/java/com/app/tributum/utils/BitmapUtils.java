@@ -1,6 +1,6 @@
 package com.app.tributum.utils;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +14,8 @@ import android.util.Log;
 
 import androidx.exifinterface.media.ExifInterface;
 
+import com.app.tributum.application.TributumApplication;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,9 +26,9 @@ public class BitmapUtils {
     private BitmapUtils() {
     }
 
-    public static String compressBitmap(Activity activity, String imageUri, boolean highQuality) {
+    public static String compressBitmap(String imageUri, boolean highQuality) {
 
-        String filePath = getPathFromURI(activity, imageUri);
+        String filePath = getPathFromURI(imageUri);
         Bitmap scaledBitmap = null;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -148,7 +150,8 @@ public class BitmapUtils {
     }
 
     private static String getFilename() {
-        File file = new File(Environment.getExternalStorageDirectory().getPath(), "MyFolder/Images");
+        File directory = TributumApplication.getInstance().getDir("imageDir", Context.MODE_PRIVATE);
+        File file = new File(directory, "MyFolder/Images");
         if (!file.exists()) {
             file.mkdirs();
         }
@@ -157,9 +160,9 @@ public class BitmapUtils {
 
     }
 
-    private static String getPathFromURI(Activity activity, String contentURI) {
+    private static String getPathFromURI(String contentURI) {
         Uri contentUri = Uri.parse(contentURI);
-        Cursor cursor = activity.getContentResolver().query(contentUri, null, null, null, null);
+        Cursor cursor = TributumApplication.getInstance().getContentResolver().query(contentUri, null, null, null, null);
         if (cursor == null) {
             return contentUri.getPath();
         } else {

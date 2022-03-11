@@ -1,40 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/preview_layout_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:layout_marginTop="106dp"
+    android:background="@color/grey_1"
     android:clickable="true"
     android:gravity="center"
-    android:visibility="gone">
+    android:visibility="gone"
+    tools:visibility="visible">
 
     <ImageView
         android:id="@+id/image_preview_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="114dp" />
 
-    <ImageView
-        android:id="@+id/delete_photo_button_id"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="100dp"
-        android:background="@drawable/light_gray_circle"
-        android:scaleType="center"
-        android:src="@drawable/delete_svg"
-        app:tint="@color/black" />
+    <com.app.tributum.utils.ui.CustomButton
+        android:id="@+id/remove_photo_id"
+        style="@style/CtaWhiteButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp">
 
-    <ImageView
-        android:id="@+id/close_camera_id"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/light_gray_circle"
-        android:scaleType="center"
-        android:src="@drawable/close_svg"
-        app:tint="@color/black" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/manrope_bold"
+            android:gravity="center"
+            android:text="@string/remove_photo"
+            android:textColor="@color/error"
+            android:textSize="16sp" />
+    </com.app.tributum.utils.ui.CustomButton>
 </RelativeLayout>

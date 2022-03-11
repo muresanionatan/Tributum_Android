@@ -4,121 +4,156 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fitsSystemWindows="true"
-    tools:context=".activity.contract.ContractActivity">
+    android:background="@color/grey_1"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
+        <LinearLayout
+            android:id="@+id/contract_back_id"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/white_circle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/invoice_title_id"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_icon_back"
+                app:tint="@color/contract_1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/progress_layout_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="98dp"
+            android:layout_toEndOf="@+id/contract_back_id"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ProgressBar
+                android:id="@+id/first_progress_id"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1"
+                android:progress="100"
+                android:progressDrawable="@drawable/contract_progress" />
+
+            <ProgressBar
+                android:id="@+id/second_progress_id"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1"
+                android:progress="0"
+                android:progressDrawable="@drawable/contract_progress" />
+
+            <ProgressBar
+                android:id="@+id/third_progress_id"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:progress="0"
+                android:progressDrawable="@drawable/contract_progress" />
+        </LinearLayout>
+
+        <com.app.tributum.utils.ui.CustomScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/global_start_end_margin"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="@dimen/global_start_end_margin">
+            android:layout_below="@+id/contract_back_id"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="24dp">
 
-            <ScrollView
-                android:id="@+id/scrollView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/contract_title_id"
+                    style="@style/TitleText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginStart="8dp"
+                    android:text="@string/personal_info_label"
+                    android:textColor="@color/contract_1" />
 
-                    <include layout="@layout/personal_info_layout" />
+                <TextView
+                    android:id="@+id/contract_subtitle_id"
+                    style="@style/SubtitleText"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/contract_subtitle" />
 
-                    <include layout="@layout/marital_status_layout" />
+                <TextView
+                    android:id="@+id/asterisk_text_view_id"
+                    android:layout_marginStart="8dp"
+                    style="@style/SubtitleText"
+                    android:text="@string/mandatory_fields"/>
 
-                    <include layout="@layout/date_pickers_layout" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <CheckBox
-                            android:id="@+id/self_employed_id"
-                            style="@style/CheckBox"
-                            android:checked="true" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/self_employed_label"
-                            android:textColor="@color/black" />
-
-                        <CheckBox
-                            android:id="@+id/employee_id"
-                            style="@style/CheckBox"
-                            android:layout_marginStart="16dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/employee_label"
-                            android:textColor="@color/black" />
-                    </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
                     <include
-                        android:id="@+id/taxes_id"
-                        layout="@layout/applying_for_layout" />
+                        android:id="@+id/personal_info_layout_id"
+                        layout="@layout/personal_info_contract_layout"
+                        tools:visibility="gone" />
 
-                    <View
-                        style="@style/Divider"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="0dp"
-                        android:layout_marginBottom="10dp" />
+                    <include
+                        android:id="@+id/employment_info_layout_id"
+                        layout="@layout/employment_info_contract_layout"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/signature_layout_id"
+                        layout="@layout/signature_drawing_layout"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="48dp"
+                    android:background="@color/grey_2" />
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/contract_send_layout_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        style="@style/SubtitleText"
-                        android:text="@string/add_contract_files" />
-
-                    <include layout="@layout/contract_files_layout" />
-
-                    <TextView
-                        style="@style/SubtitleText"
-                        android:text="@string/signature_label" />
-
-                    <TextView
-                        android:id="@+id/make_signature"
-                        style="@style/CtaWhite"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/draw_signature"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/send_button"
+                        android:id="@+id/contract_send_id"
                         style="@style/SendButton"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
-            </ScrollView>
-        </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/clear_image"
-            android:layout_width="@dimen/global_small_image"
-            android:layout_height="@dimen/global_small_image"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/selector_gray_circle"
-            android:elevation="8dp"
-            android:scaleType="center"
-            android:src="@drawable/delete_svg"
-            app:tint="@color/black"
-            tools:ignore="ContentDescription" />
-
-        <include layout="@layout/image_preview_layout" />
-
-        <include layout="@layout/signature_drawing_layout" />
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="32dp"
+                        android:background="@drawable/contract_send"
+                        android:text="@string/continue_label" />
+                </com.app.tributum.utils.ui.CustomButton>
+            </LinearLayout>
+        </com.app.tributum.utils.ui.CustomScrollView>
     </RelativeLayout>
+
+    <include layout="@layout/image_preview_layout" />
 
     <include layout="@layout/file_chooser_layout" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

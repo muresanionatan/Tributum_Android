@@ -1,6 +1,11 @@
 package com.app.tributum.application;
 
 import android.app.Application;
+import android.content.res.Configuration;
+
+import com.app.tributum.utils.UtilsGeneral;
+
+import java.util.Locale;
 
 /**
  * defines application class
@@ -51,5 +56,6 @@ public class TributumApplication extends Application {
         initializeInstance(this);
         if (applicationPreferences == null)
             applicationPreferences = new ApplicationPreferences();
+        UtilsGeneral.changeLocaleForContext(TributumApplication.getInstance(), TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
     }
 }

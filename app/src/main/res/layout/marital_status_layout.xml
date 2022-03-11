@@ -1,91 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/manrope_bold"
+        android:text="@string/marital_status_label"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/single_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
 
         <CheckBox
             android:id="@+id/single_checkbox"
-            style="@style/CheckBox"
+            style="@style/ContractCheckBox"
             android:checked="true" />
 
         <TextView
+            android:id="@+id/single_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/single_label"
-            android:textColor="@color/black" />
-
-        <CheckBox
-            android:id="@+id/married_checkbox"
-            style="@style/CheckBox"
-            android:layout_marginStart="16dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/married_label"
-            android:textColor="@color/black" />
-
-        <CheckBox
-            android:id="@+id/divorced_checkbox"
-            style="@style/CheckBox"
-            android:layout_marginStart="16dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/divorced_label"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/married_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/married_checkbox"
+            style="@style/ContractCheckBox" />
+
+        <TextView
+            android:id="@+id/married_text_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
+            android:text="@string/married_label"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/divorced_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/divorced_checkbox"
+            style="@style/ContractCheckBox" />
+
+        <TextView
+            android:id="@+id/divorced_text_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
+            android:text="@string/divorced_label"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cohabiting_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
 
         <CheckBox
             android:id="@+id/cohabiting_checkbox"
-            style="@style/CheckBox" />
+            style="@style/ContractCheckBox" />
 
         <TextView
+            android:id="@+id/cohabiting_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/cohabiting_label"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/married_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="14dp"
         android:orientation="vertical"
-        android:visibility="gone">
-
-        <include
-            android:id="@+id/marriage_layout_id"
-            layout="@layout/contract_file_item" />
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/quicksand_medium"
-            android:text="@string/have_kids_label"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/manrope_bold"
+            android:text="@string/add_marriage_record"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <include
+            android:id="@+id/marriage_layout_id"
+            layout="@layout/invoices_item" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/manrope_bold"
+            android:text="@string/any_children_label"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
         <EditText
             android:id="@+id/number_kids_id"
             style="@style/CustomEditText"
-            android:layout_width="140dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="13dp"
             android:hint="@string/number_kids" />
     </LinearLayout>
 </LinearLayout>

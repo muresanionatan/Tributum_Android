@@ -1,22 +1,18 @@
 package com.app.tributum.activity.contract;
 
-import android.Manifest;
+import android.animation.Animator;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.icu.util.Calendar;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -28,62 +24,45 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.widget.NestedScrollView;
 
-import com.app.tributum.utils.ValidationUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
-import com.app.tributum.fragment.invoices.listener.AsyncListener;
 import com.app.tributum.helper.DrawingView;
-import com.app.tributum.listener.SignatureListener;
-import com.app.tributum.model.ContractModel;
-import com.app.tributum.retrofit.InterfaceAPI;
-import com.app.tributum.retrofit.RetrofitClientInstance;
-import com.app.tributum.utils.ConstantsUtils;
-import com.app.tributum.utils.ImageUtils;
-import com.app.tributum.utils.NetworkUtils;
+import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.StatusBarUtils;
-import com.app.tributum.utils.UploadAsyncTask;
 import com.app.tributum.utils.UtilsGeneral;
-import com.app.tributum.utils.ui.FileUtils;
+import com.app.tributum.utils.animation.AnimUtils;
+import com.app.tributum.utils.animation.CustomAnimatorListener;
+import com.app.tributum.utils.ui.CustomScrollView;
 import com.app.tributum.utils.ui.LoadingScreen;
+import com.app.tributum.utils.ui.RequestSent;
+import com.app.tributum.utils.ui.UiUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
+public class ContractActivity extends AppCompatActivity implements ContractView {
 
-public class ContractActivity extends AppCompatActivity implements SignatureListener, AsyncListener {
+    private EditText firstNameEditText;
 
-    private Bitmap signatureFile;
+    private EditText lastNameEditText;
 
-    private String ppsFileFront;
+    private EditText address1EditText;
 
-    private String ppsFileBack;
+    private EditText address2EditText;
 
-    private String idFile;
+    private EditText address3EditText;
 
-    private EditText nameEditText;
-
-    private EditText addressEditText;
+    private EditText eircode;
 
     private EditText ppsNumberEditText;
 
@@ -101,74 +80,48 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
 
     private CheckBox cohabitingCheck;
 
-    private TextView contractDate;
-
     private EditText birthday;
-
-    private CheckBox otherCheck;
-
-    private boolean isSignatureSet;
-
-    private int previousLength = 0;
-
-    private LoadingScreen loadingScreen;
 
     private BottomSheetBehavior fileChooser;
 
     private View previewLayout;
 
-    private ImageView clearImage;
-
-    private File file;
-
     private DrawingView signatureDraw;
 
     private EditText phoneNumberEditText;
 
-    private ContractModel contractModel;
-
-    private String marriageCertificateFile;
-
     private EditText bankAccount;
+
+    private NestedScrollView scrollView;
+
+    private LoadingScreen loadingScreen;
+
+    private RequestSent requestSent;
+
+    private ContractPresenterImpl presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.contract_activity);
         StatusBarUtils.makeStatusBarTransparent(this);
-        UtilsGeneral.setAppLanguage(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+
+        presenter = new ContractPresenterImpl(this);
         setupViews();
+        presenter.onCreate();
     }
 
+    @SuppressLint({"ClickableViewAccessibility", "CutPasteId"})
     private void setupViews() {
-        findViewById(R.id.open_date_picker).setOnClickListener(new View.OnClickListener() {
+        scrollView = findViewById(R.id.scrollView);
+        findViewById(R.id.contract_back_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar calendar = Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH);
-                int year = calendar.get(Calendar.YEAR);
-
-                DatePickerDialog picker = new DatePickerDialog(ContractActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @SuppressLint("SetTextI18n")
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                                String dayString = String.valueOf(dayOfMonth);
-                                if (dayOfMonth < 10)
-                                    dayString = "0" + dayOfMonth;
-                                monthOfYear = monthOfYear + 1;
-                                String monthString = String.valueOf(monthOfYear);
-                                if (monthOfYear < 10)
-                                    monthString = "0" + monthOfYear;
-                                contractDate.setText(dayString + "/" + monthString + "/" + year);
-                            }
-                        }, year, month, day);
-                picker.show();
+                presenter.onBackPressed();
             }
         });
-
-        findViewById(R.id.scrollView).setOnTouchListener(new View.OnTouchListener() {
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event != null && event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -178,11 +131,12 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
             }
         });
 
-        TextView sendButton = findViewById(R.id.send_button);
-        clearImage = findViewById(R.id.clear_image);
-
-        nameEditText = findViewById(R.id.name_edit_text);
-        addressEditText = findViewById(R.id.address_edit_text);
+        firstNameEditText = findViewById(R.id.first_name_edit_text);
+        lastNameEditText = findViewById(R.id.last_name_edit_text);
+        address1EditText = findViewById(R.id.address_1_edit_text);
+        address2EditText = findViewById(R.id.address_2_edit_text);
+        address3EditText = findViewById(R.id.address_3_edit_text);
+        eircode = findViewById(R.id.eircode_edit_text);
         ppsNumberEditText = findViewById(R.id.pps_number_edit_text);
         emailEditText = findViewById(R.id.email_edit_text);
         occupationEditText = findViewById(R.id.occupation_edit_text);
@@ -191,27 +145,12 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         bankAccount = findViewById(R.id.bank_edit_text);
         UtilsGeneral.setMaxLengthAndAllCapsToEditText(bankAccount, 34, true);
 
-        nameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        nameEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!nameEditText.getText().toString().equals("")
-                        && !TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
-                    TributumAppHelper.saveSetting(AppKeysValues.CONTRACT_FORM_STARTED, AppKeysValues.TRUE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        addressEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        firstNameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        lastNameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        address1EditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        address2EditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        address3EditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        eircode.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         ppsNumberEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         UtilsGeneral.setMaxLengthAndAllCapsToEditText(ppsNumberEditText, 9, true);
 
@@ -224,223 +163,420 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         divorcedCheck = findViewById(R.id.divorced_checkbox);
         cohabitingCheck = findViewById(R.id.cohabiting_checkbox);
 
-        contractDate = findViewById(R.id.starting_date);
         birthday = findViewById(R.id.edittext_birthday_id);
         UtilsGeneral.setMaxLengthEditText(birthday, 10);
 
-        birthday.addTextChangedListener(new TextWatcher() {
+        findViewById(R.id.birthday_image_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                DatePickerDialog picker = new DatePickerDialog(ContractActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                                presenter.onBirthdayDateSet(year, monthOfYear, dayOfMonth);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
+
+        findViewById(R.id.personal_info_id).findViewById(R.id.plus_id).setBackgroundResource(R.drawable.photo_holder_contract);
+        findViewById(R.id.pps_front_image_holder_id).findViewById(R.id.plus_id).setBackgroundResource(R.drawable.photo_holder_contract);
+        findViewById(R.id.pps_back_image_holder_id).findViewById(R.id.plus_id).setBackgroundResource(R.drawable.photo_holder_contract);
+        findViewById(R.id.marriage_layout_id).findViewById(R.id.plus_id).setBackgroundResource(R.drawable.photo_holder_contract);
+
+        eircode.addTextChangedListener(new CustomTextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                previousLength = s.length();
+                presenter.beforeEircodeChanged(s.length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                presenter.afterEircodeChanged(s);
+            }
+        });
+        birthday.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                presenter.beforeBirthdayChanged(s.length());
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @SuppressLint("SetTextI18n")
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() > previousLength) {
-                    if (s.length() == 2) {
-                        if (Integer.parseInt(s.toString()) > 31) {
-                            birthday.setText("31/");
-                        } else {
-                            birthday.setText(birthday.getText().toString() + "/");
-                        }
-                        birthday.setSelection(birthday.getText().length());
-                    } else if (s.length() == 5) {
-                        String string = s.toString();
-                        string = string.substring(3);
-                        if (Integer.parseInt(string) > 12) {
-                            String firstString = s.toString();
-                            birthday.setText(firstString.substring(0, 3) + "12/");
-                        } else {
-                            birthday.setText(birthday.getText().toString() + "/");
-                        }
-                        birthday.setSelection(birthday.getText().length());
-                    } else if (s.length() == 10) {
-                        String string = s.toString();
-                        string = string.substring(6);
-                        int currentYear = java.util.Calendar.getInstance().get(Calendar.YEAR);
-                        if (Integer.parseInt(string) > currentYear) {
-                            String firstString = s.toString();
-                            birthday.setText(firstString.substring(0, 6) + currentYear);
-                        }
-                        birthday.setSelection(birthday.getText().length());
-                    }
-                }
+                presenter.afterBirthdayChanged(s);
             }
         });
 
         EditText otherEditText = findViewById(R.id.other_edit_id);
         UtilsGeneral.setMaxLengthEditText(otherEditText, 60);
-        otherCheck = findViewById(R.id.ninth);
+        CheckBox otherCheck = findViewById(R.id.ninth);
         otherCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilsGeneral.setFocusOnInput(ContractActivity.this, otherEditText);
+                UtilsGeneral.setFocusOnInput(otherEditText);
             }
         });
-        otherEditText.addTextChangedListener(new TextWatcher() {
+        otherEditText.addTextChangedListener(new CustomTextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (!otherCheck.isChecked())
-                    otherCheck.setChecked(true);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+                presenter.beforeOtherChanged();
             }
         });
 
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.contract_send_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleSendButtonClick();
-            }
-        });
-
-        clearImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleClearImageClick();
+                presenter.handleSendButtonClick(
+                        firstNameEditText.getText().toString().trim(),
+                        lastNameEditText.getText().toString().trim(),
+                        address1EditText.getText().toString(),
+                        address2EditText.getText().toString(),
+                        address3EditText.getText().toString(),
+                        eircode.getText().toString(),
+                        birthday.getText().toString(),
+                        occupationEditText.getText().toString(),
+                        phoneNumberEditText.getText().toString(),
+                        emailEditText.getText().toString(),
+                        bankAccount.getText().toString(),
+                        ppsNumberEditText.getText().toString(),
+                        ((EditText) findViewById(R.id.number_kids_id)).getText().toString(),
+                        otherEditText.getText().toString()
+                );
             }
         });
 
         parentView = findViewById(R.id.signature_drawing_view);
-        signatureDraw = new DrawingView(ContractActivity.this, this);
+        signatureDraw = new DrawingView(ContractActivity.this, presenter);
         parentView.addView(signatureDraw);
-
-        findViewById(R.id.make_signature).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                findViewById(R.id.signature_layout).setVisibility(View.VISIBLE);
-            }
-        });
-
-        findViewById(R.id.save_signature_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveSignatureImage();
-                findViewById(R.id.signature_layout).setVisibility(View.GONE);
-            }
-        });
 
         findViewById(R.id.delete_signature_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signatureDraw.clear();
-                isSignatureSet = false;
-                findViewById(R.id.signature_layout).setVisibility(View.GONE);
+                presenter.onClearSignatureClick();
             }
         });
 
         singleCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (marriedCheck.isChecked())
-                    findViewById(R.id.married_id).setVisibility(View.GONE);
-                singleCheck.setChecked(true);
-                marriedCheck.setChecked(false);
-                divorcedCheck.setChecked(false);
-                cohabitingCheck.setChecked(false);
+                presenter.onSingleClicked();
+            }
+        });
+
+        findViewById(R.id.single_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onSingleClicked();
             }
         });
 
         marriedCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                singleCheck.setChecked(false);
-                marriedCheck.setChecked(true);
-                divorcedCheck.setChecked(false);
-                cohabitingCheck.setChecked(false);
-                showMaritalLayout();
+                presenter.onMarriedClicked();
+            }
+        });
+
+        findViewById(R.id.married_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onMarriedClicked();
             }
         });
 
         divorcedCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (marriedCheck.isChecked())
-                    findViewById(R.id.married_id).setVisibility(View.GONE);
-                singleCheck.setChecked(false);
-                marriedCheck.setChecked(false);
-                divorcedCheck.setChecked(true);
-                cohabitingCheck.setChecked(false);
+                presenter.onDivorcedClick();
+            }
+        });
+
+        findViewById(R.id.divorced_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onDivorcedClick();
             }
         });
 
         cohabitingCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (marriedCheck.isChecked())
-                    findViewById(R.id.married_id).setVisibility(View.GONE);
-                singleCheck.setChecked(false);
-                marriedCheck.setChecked(false);
-                divorcedCheck.setChecked(false);
-                cohabitingCheck.setChecked(true);
+                presenter.onCohabitingClicked();
             }
         });
 
-        final View taxesView = findViewById(R.id.taxes_id);
-        final CheckBox selfEmployed = findViewById(R.id.self_employed_id);
-        final CheckBox employee = findViewById(R.id.employee_id);
-        selfEmployed.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.cohabiting_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selfEmployed.isChecked())
-                    taxesView.setVisibility(View.VISIBLE);
-                else
-                    taxesView.setVisibility(View.GONE);
-
-                if (!employee.isChecked())
-                    employee.setChecked(true);
+                presenter.onCohabitingClicked();
             }
         });
 
-        employee.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.self_employed_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!employee.isChecked() && !selfEmployed.isChecked()) {
-                    selfEmployed.setChecked(true);
-                    taxesView.setVisibility(View.VISIBLE);
-                }
+                presenter.onSelfEmployeeClick();
+            }
+        });
+
+        findViewById(R.id.self_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onSelfEmployeeClick();
+            }
+        });
+
+        findViewById(R.id.employee_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onEmployeeClick();
+            }
+        });
+
+        findViewById(R.id.employee_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onEmployeeClick();
+            }
+        });
+
+        setImageHolderColor(R.id.pps_front_image_holder_id);
+        findViewById(R.id.pps_front_image_holder_id).findViewById(R.id.plus_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onPpsFrontClicked();
+            }
+        });
+
+        findViewById(R.id.pps_front_image_holder_id).findViewById(R.id.preview_thumbnail_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onPpsFrontPreviewClicked();
+            }
+        });
+
+        findViewById(R.id.pps_front_image_holder_id).findViewById(R.id.remove__thumbnail_photo_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onPpsFrontRemoveClicked();
+            }
+        });
+
+        setImageHolderColor(R.id.pps_back_image_holder_id);
+        findViewById(R.id.pps_back_image_holder_id).findViewById(R.id.plus_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onPpsBackClicked();
+            }
+        });
+
+        findViewById(R.id.pps_back_image_holder_id).findViewById(R.id.preview_thumbnail_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onPpsBackPreviewClicked();
+            }
+        });
+
+        findViewById(R.id.pps_back_image_holder_id).findViewById(R.id.remove__thumbnail_photo_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onPpsBackRemoveClicked();
+            }
+        });
+
+        setImageHolderColor(R.id.personal_info_id);
+        findViewById(R.id.personal_info_id).findViewById(R.id.plus_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onIdClicked();
+            }
+        });
+
+        findViewById(R.id.personal_info_id).findViewById(R.id.preview_thumbnail_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onIdPreviewClicked();
+            }
+        });
+
+        findViewById(R.id.personal_info_id).findViewById(R.id.remove__thumbnail_photo_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onIdRemoveClicked();
+            }
+        });
+
+        setImageHolderColor(R.id.marriage_layout_id);
+        findViewById(R.id.marriage_layout_id).findViewById(R.id.plus_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onMarriageCertificateClicked();
+            }
+        });
+
+        findViewById(R.id.marriage_layout_id).findViewById(R.id.preview_thumbnail_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onMarriagePreviewClicked();
+            }
+        });
+
+        findViewById(R.id.marriage_layout_id).findViewById(R.id.remove__thumbnail_photo_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onMarriageRemoveClicked();
             }
         });
 
         setupFilesLayout();
+        setupCheckboxes();
 
-        loadingScreen = new LoadingScreen(this, findViewById(android.R.id.content));
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_contract, R.color.contract_1);
+        loadingScreen.setText(getString(R.string.might_take));
+        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_contract, getString(R.string.contract_sent_label), presenter);
     }
 
-    private void showMaritalLayout() {
-        View maritalLayout = findViewById(R.id.married_id);
-        maritalLayout.setVisibility(View.VISIBLE);
-        ((TextView) maritalLayout.findViewById(R.id.contract_file_text_id)).setText(R.string.add_marriage_record);
-        maritalLayout.findViewById(R.id.marriage_layout_id).setOnClickListener(new View.OnClickListener() {
+    private void setImageHolderColor(int viewId) {
+        ((ImageView) findViewById(viewId).findViewById(R.id.contract_plus_id)).setImageResource(R.drawable.ic_btn_add_photo_contract);
+        ((ImageView) findViewById(viewId).findViewById(R.id.preview_image_id)).setImageResource(R.drawable.ic_btn_view_photo_contract);
+        ((ImageView) findViewById(viewId).findViewById(R.id.delete_image_id)).setImageResource(R.drawable.ic_btn_remove_photo_contract);
+        findViewById(viewId).findViewById(R.id.photo_holder_divider_id)
+                .setBackgroundColor(ContextCompat.getColor(this, R.color.contract_1));
+    }
+
+    private void scrollToView(View view) {
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.scrollTo(0, view.getTop());
+            }
+        });
+    }
+
+    private void setupCheckboxes() {
+        findViewById(R.id.first_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (marriageCertificateFile == null)
-                    setupFileChooserClicks(FileChooser.MARRIAGE);
-                else
-                    openFilePreview(R.id.marriage_layout_id);
+                presenter.onFirstCheckboxClicked();
+            }
+        });
+        findViewById(R.id.first).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onFirstCheckboxClicked();
+            }
+        });
+        findViewById(R.id.second_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onSecondCheckboxClicked();
+            }
+        });
+        findViewById(R.id.second).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onSecondCheckboxClicked();
+            }
+        });
+        findViewById(R.id.third_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onThirdCheckboxClicked();
+            }
+        });
+        findViewById(R.id.third).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onThirdCheckboxClicked();
+            }
+        });
+        findViewById(R.id.fourth_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onFourthCheckboxClicked();
+            }
+        });
+        findViewById(R.id.fourth).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onFourthCheckboxClicked();
+            }
+        });
+        findViewById(R.id.fifth_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onFifthCheckboxClicked();
+            }
+        });
+        findViewById(R.id.fifth).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onFifthCheckboxClicked();
+            }
+        });
+        findViewById(R.id.sixth_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onSixthCheckboxClicked();
+            }
+        });
+        findViewById(R.id.sixth).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onSixthCheckboxClicked();
+            }
+        });
+        findViewById(R.id.seventh_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onSeventhCheckboxClicked();
+            }
+        });
+        findViewById(R.id.seventh).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onSeventhCheckboxClicked();
+            }
+        });
+        findViewById(R.id.eight_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onEightCheckboxClicked();
+            }
+        });
+        findViewById(R.id.eight).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onEightCheckboxClicked();
+            }
+        });
+        findViewById(R.id.ninth_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onNinthCheckboxClicked();
+            }
+        });
+        findViewById(R.id.ninth).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onNinthCheckboxClicked();
             }
         });
     }
 
     private void setupFilesLayout() {
-        ((TextView) findViewById(R.id.pps_front_layout_id).findViewById(R.id.contract_file_text_id)).setText(R.string.add_pps_front);
-        ((TextView) findViewById(R.id.pps_back_layout_id).findViewById(R.id.contract_file_text_id)).setText(R.string.add_pps_back);
-        ((TextView) findViewById(R.id.id_layout_id).findViewById(R.id.contract_file_text_id)).setText(R.string.add_id);
-
         // get the bottom sheet view
         RelativeLayout llBottomSheet = findViewById(R.id.file_chooser_id);
         fileChooser = BottomSheetBehavior.from(llBottomSheet);
@@ -448,37 +584,7 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         findViewById(R.id.file_chooser_top_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                collapseBottomSheet();
-            }
-        });
-
-        findViewById(R.id.pps_front_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ppsFileFront == null)
-                    setupFileChooserClicks(FileChooser.PPS_FRONT);
-                else
-                    openFilePreview(R.id.pps_front_layout_id);
-            }
-        });
-
-        findViewById(R.id.pps_back_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ppsFileBack == null)
-                    setupFileChooserClicks(FileChooser.PPS_BACK);
-                else
-                    openFilePreview(R.id.pps_back_layout_id);
-            }
-        });
-
-        findViewById(R.id.id_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (idFile == null)
-                    setupFileChooserClicks(FileChooser.ID);
-                else
-                    openFilePreview(R.id.id_layout_id);
+                presenter.onFileChooserTopClicked();
             }
         });
     }
@@ -486,15 +592,23 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
     private void collapseBottomSheet() {
         fileChooser.setHideable(true);
         fileChooser.setState(BottomSheetBehavior.STATE_HIDDEN);
+        AnimUtils.getFadeOutAnimator(findViewById(R.id.file_chooser_top_id), AnimUtils.DURATION_200, AnimUtils.NO_DELAY, null,
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.file_chooser_top_id).setVisibility(View.GONE);
+                    }
+                }).start();
     }
 
-    private void setupFileChooserClicks(int button) {
+    @Override
+    public void showFileChooser(int selectPictureRequest, int takePictureRequest) {
         fileChooser.setState(BottomSheetBehavior.STATE_EXPANDED);
         fileChooser.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 if (newState == BottomSheetBehavior.STATE_EXPANDED)
-                    findViewById(R.id.file_chooser_top_id).setVisibility(View.VISIBLE);
+                    presenter.onBottomSheetExpanded();
             }
 
             @Override
@@ -505,531 +619,632 @@ public class ContractActivity extends AppCompatActivity implements SignatureList
         findViewById(R.id.add_from_gallery_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (button == FileChooser.PPS_FRONT)
-                    pickPictureFromGallery(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT);
-                else if (button == FileChooser.PPS_BACK)
-                    pickPictureFromGallery(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK);
-                else if (button == FileChooser.ID)
-                    pickPictureFromGallery(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID);
-                else
-                    pickPictureFromGallery(ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE);
-
-                collapseBottomSheet();
+                presenter.onAddFromGalleryClicked(selectPictureRequest);
             }
         });
         findViewById(R.id.take_photo_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (button == FileChooser.PPS_FRONT)
-                    openCamera(ConstantsUtils.CAMERA_REQUEST_PPS_FRONT);
-                else if (button == FileChooser.PPS_BACK)
-                    openCamera(ConstantsUtils.CAMERA_REQUEST_PPS_BACK);
-                else if (button == FileChooser.ID)
-                    openCamera(ConstantsUtils.CAMERA_REQUEST_ID);
-                else
-                    openCamera(ConstantsUtils.CAMERA_REQUEST_MARRIAGE);
-
-                collapseBottomSheet();
+                presenter.onTakePhotoClicked(firstNameEditText.getText().toString().trim(), takePictureRequest);
             }
         });
     }
 
-    private void openFilePreview(int id) {
-        clearImage.setVisibility(View.GONE);
+    @Override
+    public void openFilePreview(String fileName) {
         previewLayout.setVisibility(View.VISIBLE);
+        findViewById(R.id.progress_layout_id).setVisibility(View.GONE);
         ImageView previewImage = findViewById(R.id.image_preview_id);
-        if (id == R.id.pps_front_layout_id)
-            Glide.with(this).load("file://" + ppsFileFront).into(previewImage);
-        else if (id == R.id.pps_back_layout_id)
-            Glide.with(this).load("file://" + ppsFileBack).into(previewImage);
-        else if (id == R.id.id_layout_id)
-            Glide.with(this).load("file://" + idFile).into(previewImage);
-        else
-            Glide.with(this).load("file://" + marriageCertificateFile).into(previewImage);
+        Glide.with(this)
+                .load("file://" + fileName)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(previewImage);
 
-        findViewById(R.id.delete_photo_button_id).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.remove_photo_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeImageToContractFile(id);
-                if (id == R.id.pps_front_layout_id)
-                    ppsFileFront = null;
-                else if (id == R.id.pps_back_layout_id)
-                    ppsFileBack = null;
-                else if (id == R.id.id_layout_id)
-                    idFile = null;
-                else
-                    marriageCertificateFile = null;
-
-                previewLayout.setVisibility(View.GONE);
+                presenter.onRemovePhotoClicked(fileName);
             }
         });
-        findViewById(R.id.close_camera_id).setOnClickListener(new View.OnClickListener() {
+    }
+
+    @Override
+    public void resetPpsFrontLayout() {
+        findViewById(R.id.pps_front_image_holder_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void resetPpsBackLayout() {
+        findViewById(R.id.pps_back_image_holder_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void resetIdLayout() {
+        findViewById(R.id.personal_info_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void resetMarriageCertificateLayout() {
+        findViewById(R.id.marriage_layout_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void closePreview() {
+        previewLayout.setVisibility(View.GONE);
+        findViewById(R.id.progress_layout_id).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showPersonalInfoLayout() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.personal_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        findViewById(R.id.personal_info_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                0).start();
+    }
+
+    @Override
+    public void hidePersonalInfoLayout() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.personal_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.personal_info_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                0, -UiUtils.getScreenWidth()).start();
+    }
+
+    @Override
+    public void showEmploymentInfoLayoutFromRight() {
+        setCompletionProgress(R.id.second_progress_id, true);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.employment_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        scrollView.scrollTo(0, 0);
+                        findViewById(R.id.employment_info_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                UiUtils.getScreenWidth(), 0).start();
+    }
+
+    @Override
+    public void showEmploymentInfoLayoutFromLeft() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.employment_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        findViewById(R.id.employment_info_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                0).start();
+    }
+
+    @Override
+    public void hideEmploymentInfoLayoutToRight() {
+        setCompletionProgress(R.id.second_progress_id, false);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.employment_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.employment_info_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                UiUtils.getScreenWidth()).start();
+    }
+
+    @Override
+    public void hideEmploymentInfoLayoutToLeft() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.employment_info_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.employment_info_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                -UiUtils.getScreenWidth()).start();
+    }
+
+    @Override
+    public void showSignatureLayout() {
+        setCompletionProgress(R.id.third_progress_id, true);
+        ((CustomScrollView) scrollView).setScrollingEnabled(false);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.signature_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        scrollView.scrollTo(0, 0);
+                        findViewById(R.id.signature_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                UiUtils.getScreenWidth(), 0).start();
+    }
+
+    @Override
+    public void hideSignatureLayout() {
+        setCompletionProgress(R.id.third_progress_id, false);
+        ((CustomScrollView) scrollView).setScrollingEnabled(true);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.signature_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.signature_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                UiUtils.getScreenWidth()).start();
+    }
+
+    @Override
+    public void setFileChooserToVisible() {
+        findViewById(R.id.file_chooser_top_id).setVisibility(View.VISIBLE);
+        AnimUtils.getFadeInAnimator(findViewById(R.id.file_chooser_top_id), AnimUtils.DURATION_200, AnimUtils.NO_DELAY, null, null).start();
+    }
+
+    @Override
+    public void hideBottomSheet() {
+        collapseBottomSheet();
+    }
+
+    @Override
+    public void showTaxesView() {
+        View taxesView = findViewById(R.id.taxes_id);
+        taxesView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideTaxesView() {
+        View taxesView = findViewById(R.id.taxes_id);
+        taxesView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void changeSelfEmployedState(boolean state) {
+        CheckBox selfEmployed = findViewById(R.id.self_employed_id);
+        selfEmployed.setChecked(state);
+    }
+
+    @Override
+    public void changeEmployeeState(boolean state) {
+        CheckBox employee = findViewById(R.id.employee_id);
+        employee.setChecked(state);
+    }
+
+    @Override
+    public void hideMaritalLayout() {
+        findViewById(R.id.married_id).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showMaritalLayout() {
+        View maritalLayout = findViewById(R.id.married_id);
+        maritalLayout.setVisibility(View.VISIBLE);
+        maritalLayout.findViewById(R.id.marriage_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                previewLayout.setVisibility(View.GONE);
-                clearImage.setVisibility(View.VISIBLE);
+                presenter.onMarriageCertificateClicked();
             }
         });
     }
 
-    private void removeImageToContractFile(int id) {
-        ImageView imageView = findViewById(id).findViewById(R.id.preview_image_id);
-        imageView.setImageResource(0);
-        imageView.setVisibility(View.GONE);
-        findViewById(id).findViewById(R.id.contract_file_layout_id).setVisibility(View.VISIBLE);
-    }
-
-    private void saveSignatureImage() {
-        parentView.setDrawingCacheEnabled(true);
-        signatureFile = parentView.getDrawingCache();
-        File signature = new File(getFilesDir(), "/signature.png");
-
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(signature);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        signatureFile.compress(Bitmap.CompressFormat.PNG, 95, fos);
-    }
-
-    private void handleSendButtonClick() {
-        if (NetworkUtils.isNetworkConnected(this)) {
-            if (nameEditText.getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show();
-            } else if (addressEditText.getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.please_enter_address), Toast.LENGTH_SHORT).show();
-            } else if (ppsNumberEditText.getText().toString().equals("") || !ValidationUtils.isPpsValid(ppsNumberEditText.getText().toString())) {
-                Toast.makeText(this, getString(R.string.please_enter_pps), Toast.LENGTH_SHORT).show();
-            } else if (!ValidationUtils.isEmailValid(emailEditText.getText().toString())) {
-                Toast.makeText(this, getString(R.string.please_enter_correct_email), Toast.LENGTH_SHORT).show();
-            } else if (occupationEditText.getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.please_enter_occupation), Toast.LENGTH_SHORT).show();
-            } else if (phoneNumberEditText.getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.please_enter_phone), Toast.LENGTH_SHORT).show();
-            } else if (bankAccount.getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.please_add_bank), Toast.LENGTH_SHORT).show();
-            } else if (marriedCheck.isChecked() && marriageCertificateFile == null) {
-                Toast.makeText(this, getString(R.string.please_add_marriage), Toast.LENGTH_SHORT).show();
-            } else if (birthday.getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.please_enter_birthday), Toast.LENGTH_SHORT).show();
-            } else if (birthday.getText().toString().length() < 10) {
-                Toast.makeText(this, getString(R.string.please_enter_birthday_format), Toast.LENGTH_SHORT).show();
-            } else if (contractDate.getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.please_enter_contract_date), Toast.LENGTH_SHORT).show();
-            } else if (((CheckBox) findViewById(R.id.self_employed_id)).isChecked()
-                    && !((CheckBox) findViewById(R.id.first)).isChecked()
-                    && !((CheckBox) findViewById(R.id.second)).isChecked()
-                    && !((CheckBox) findViewById(R.id.third)).isChecked()
-                    && !((CheckBox) findViewById(R.id.fourth)).isChecked()
-                    && !((CheckBox) findViewById(R.id.fifth)).isChecked()
-                    && !((CheckBox) findViewById(R.id.sixth)).isChecked()
-                    && !((CheckBox) findViewById(R.id.seventh)).isChecked()
-                    && !((CheckBox) findViewById(R.id.eight)).isChecked()
-                    && !otherCheck.isChecked()) {
-                Toast.makeText(this, getString(R.string.please_enter_applying_for), Toast.LENGTH_SHORT).show();
-            } else if (otherCheck.isChecked() && ((EditText) findViewById(R.id.other_edit_id)).getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.please_enter_other), Toast.LENGTH_SHORT).show();
-            } else if (ppsFileFront == null) {
-                Toast.makeText(this, getString(R.string.please_add_pps), Toast.LENGTH_SHORT).show();
-            } else if (idFile == null) {
-                Toast.makeText(this, getString(R.string.please_add_id), Toast.LENGTH_SHORT).show();
-            } else if (signatureFile == null || !isSignatureSet) {
-                Toast.makeText(this, getString(R.string.please_add_signature), Toast.LENGTH_SHORT).show();
-            } else {
-                sendInfo();
-            }
-        } else {
-            Toast.makeText(this, getString(R.string.try_again), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void sendInfo() {
-        contractModel = new ContractModel(
-                nameEditText.getText().toString(),
-                addressEditText.getText().toString(),
-                ppsNumberEditText.getText().toString(),
-                emailEditText.getText().toString(),
-                contractDate.getText().toString(),
-                birthday.getText().toString());
-
-        if (singleCheck.isChecked())
-            contractModel.setMaritalStatus(getString(R.string.single_label));
-        else if (marriedCheck.isChecked())
-            contractModel.setMaritalStatus(getString(R.string.married_label));
-        else if (divorcedCheck.isChecked())
-            contractModel.setMaritalStatus(getString(R.string.divorced_label));
-        else if (cohabitingCheck.isChecked())
-            contractModel.setMaritalStatus(getString(R.string.cohabiting_label));
-
-        List<String> employmentList = new ArrayList<>();
-        if (((CheckBox) findViewById(R.id.self_employed_id)).isChecked())
-            employmentList.add(getString(R.string.self_employed_label));
-        if (((CheckBox) findViewById(R.id.employee_id)).isChecked())
-            employmentList.add(getString(R.string.employee_label));
-        contractModel.setEmployment(employmentList);
-
-        List<String> taxes = new ArrayList<>();
-        if (((CheckBox) findViewById(R.id.first)).isChecked())
-            taxes.add(getString(R.string.income_tax_label));
-        if (((CheckBox) findViewById(R.id.second)).isChecked())
-            taxes.add(getString(R.string.corporation_tax_label));
-        if (((CheckBox) findViewById(R.id.third)).isChecked())
-            taxes.add(getString(R.string.value_added_tax_label));
-        if (((CheckBox) findViewById(R.id.fourth)).isChecked())
-            taxes.add(getString(R.string.employer_paye_label));
-        if (((CheckBox) findViewById(R.id.fifth)).isChecked())
-            taxes.add(getString(R.string.capital_gains_label));
-        if (((CheckBox) findViewById(R.id.sixth)).isChecked())
-            taxes.add(getString(R.string.relevant_contract_label));
-        if (((CheckBox) findViewById(R.id.seventh)).isChecked())
-            taxes.add(getString(R.string.environment_levy_label));
-        if (((CheckBox) findViewById(R.id.eight)).isChecked())
-            taxes.add(getString(R.string.divided_withholding_label));
-        if (otherCheck.isChecked())
-            taxes.add(getString(R.string.other_label));
-
-        contractModel.setOccupation(occupationEditText.getText().toString());
-        contractModel.setMessage(getString(R.string.contract_mail_message));
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        signatureFile.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-
-        contractModel.setOther(((EditText) findViewById(R.id.other_edit_id)).getText().toString());
-        contractModel.setTaxes(taxes);
-        contractModel.setSignature(byteArray);
-
-        loadingScreen.show();
-
-        Retrofit retrofit = RetrofitClientInstance.getInstance();
-        final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
-
-        Call<Object> call = api.sendContract(contractModel);
-        call.enqueue(new Callback<Object>() {
-            @Override
-            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                if (!response.isSuccessful())
-                    Toast.makeText(ContractActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
-
-                //upload PPS and ID to Dropbox
-                try {
-                    uploadFiles();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
-                loadingScreen.hide();
-                Toast.makeText(ContractActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void uploadFiles() throws IOException {
-        Map<String, String> uploadList = new HashMap<>();
-        uploadList.put("PPS_FRONT", ppsFileFront);
-        uploadList.put("PPS_BACK", ppsFileBack);
-        uploadList.put("ID", idFile);
-        uploadList.put("MARRIAGE", marriageCertificateFile);
-        UploadAsyncTask uploadMultipleFilesTask = new UploadAsyncTask(
-                nameEditText.getText().toString(),
-                uploadList,
+    private void setCompletionProgress(int progressId, boolean forward) {
+        int progress = forward ? 100 : 0;
+        AnimUtils.getProgressAnimator(findViewById(progressId),
+                AnimUtils.DURATION_300,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
                 null,
-                UploadAsyncTask.UploadType.MULTIPLE);
-        uploadMultipleFilesTask.execute();
-        UploadAsyncTask uploadOneFileTask = new UploadAsyncTask(
-                nameEditText.getText().toString(),
-                FileUtils.createFile(this, generateUserInfo(), nameEditText.getText().toString() + "_info"),
-                this,
-                UploadAsyncTask.UploadType.ONE);
-        uploadOneFileTask.execute();
+                progress).start();
     }
 
-    private String generateUserInfo() {
-        String message = "Name: " + contractModel.getName()
-                + "\nAddress: " + contractModel.getAddress()
-                + "\nPPS: " + contractModel.getPpsNumber()
-                + "\nmail: " + contractModel.getEmail()
-                + "\nOccupation: " + contractModel.getOccupation()
-                + "\nPhone: " + phoneNumberEditText.getText().toString()
-                + "\nIBAN: " + bankAccount.getText().toString()
-                + "\nMarital status: " + contractModel.getMaritalStatus();
-        String noOfKids = ((EditText) findViewById(R.id.married_id).findViewById(R.id.number_kids_id)).getText().toString();
-        if (!noOfKids.equals(""))
-            message = message + "\nNumber of kids: " + noOfKids;
-        message = message + "\nDate of birth: " + contractModel.getBirthday()
-                + "\nContract date: " + contractModel.getDate();
-        return message;
+    @Override
+    public void changeSingleState(boolean check) {
+        singleCheck.setChecked(check);
     }
 
-    @SuppressLint("ObsoleteSdkInt")
-    private void pickPictureFromGallery(int requestId) {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                openFilePicker(requestId);
-            } else {
-                if (requestId == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_FRONT);
-                } else {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_ID);
-                }
-            }
-        }
+    @Override
+    public void changeMarriedState(boolean check) {
+        marriedCheck.setChecked(check);
     }
 
-    @SuppressLint("ObsoleteSdkInt")
-    private void openCamera(int requestId) {
-        if (Build.VERSION.SDK_INT >= 23 && checkPermissions(requestId))
-            takePicture(requestId);
+    @Override
+    public void changeDivorcedState(boolean check) {
+        divorcedCheck.setChecked(check);
     }
 
-    private void takePicture(int requestId) {
-        file = new File(ImageUtils.getImagePath(nameEditText.getText().toString() + requestId));
-        Uri outputFileUri = FileProvider.getUriForFile(this,
-                "com.app.tributum.fragment.invoices.provider", file);
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        startActivityForResult(cameraIntent, requestId);
+    @Override
+    public void changeCohabitingState(boolean check) {
+        cohabitingCheck.setChecked(check);
     }
 
-    private void openFilePicker(int requestId) {
+    @Override
+    public void clearSignature() {
+        signatureDraw.clear();
+    }
+
+    @Override
+    public void setBirthdayText(String string) {
+        birthday.setText(string);
+    }
+
+    @Override
+    public void moveBirthdayCursorToEnd() {
+        birthday.setSelection(birthday.getText().length());
+    }
+
+    @Override
+    public void setEircodeText(String string) {
+        eircode.setText(string);
+    }
+
+    @Override
+    public void moveEircodeCursorToEnd(int length) {
+        eircode.setSelection(length);
+    }
+
+    @Override
+    public void showLoadingScreen() {
+        loadingScreen.show();
+    }
+
+    @Override
+    public void hideLoadingScreen() {
+        loadingScreen.hide();
+    }
+
+    @Override
+    public void showRequestSentScreen() {
+        requestSent.show();
+    }
+
+    @Override
+    public void closeActivity() {
+        finish();
+    }
+
+    @Override
+    public void showToast(int stringId) {
+        Toast.makeText(ContractActivity.this, getResources().getString(stringId), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setTitle(int stringId) {
+        ((TextView) findViewById(R.id.contract_title_id)).setText(getResources().getString(stringId));
+    }
+
+    @Override
+    public void setSubtitle(int stringId) {
+        ((TextView) findViewById(R.id.contract_subtitle_id)).setText(getResources().getString(stringId));
+    }
+
+    @Override
+    public void setConfirmationButtonText(int stringId) {
+        ((TextView) findViewById(R.id.contract_send_id)).setText(getResources().getString(stringId));
+    }
+
+    @Override
+    public void showClearButton() {
+        findViewById(R.id.delete_signature_id).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideClearButton() {
+        findViewById(R.id.delete_signature_id).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setFirstCheckboxState(boolean state) {
+        ((CheckBox) findViewById(R.id.first)).setChecked(state);
+    }
+
+    @Override
+    public void setSecondCheckboxState(boolean state) {
+        ((CheckBox) findViewById(R.id.second)).setChecked(state);
+    }
+
+    @Override
+    public void setThirdCheckboxState(boolean state) {
+        ((CheckBox) findViewById(R.id.third)).setChecked(state);
+    }
+
+    @Override
+    public void setFourthCheckboxState(boolean state) {
+        ((CheckBox) findViewById(R.id.fourth)).setChecked(state);
+    }
+
+    @Override
+    public void setFifthCheckboxState(boolean state) {
+        ((CheckBox) findViewById(R.id.fifth)).setChecked(state);
+    }
+
+    @Override
+    public void setSixthCheckboxState(boolean state) {
+        ((CheckBox) findViewById(R.id.sixth)).setChecked(state);
+    }
+
+    @Override
+    public void setSeventhCheckboxState(boolean state) {
+        ((CheckBox) findViewById(R.id.seventh)).setChecked(state);
+    }
+
+    @Override
+    public void setEightCheckboxState(boolean state) {
+        ((CheckBox) findViewById(R.id.eight)).setChecked(state);
+    }
+
+    @Override
+    public void setNinthCheckboxState(boolean state) {
+        ((CheckBox) findViewById(R.id.ninth)).setChecked(state);
+    }
+
+    @Override
+    public void setFocusOnOther() {
+        EditText other = findViewById(R.id.other_edit_id);
+        other.setVisibility(View.VISIBLE);
+        UtilsGeneral.setFocusOnInput(other);
+    }
+
+    @Override
+    public void hideOther() {
+        EditText other = findViewById(R.id.other_edit_id);
+        UtilsGeneral.removeFocusFromInput(this, other);
+        other.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void openFilePicker(int requestId) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, requestId);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ((requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT
-                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK
-                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_ID
-                || requestCode == ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE)
-                && data == null)
-            return;
-
-        switch (requestCode) {
-            case ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT:
-                if (resultCode == Activity.RESULT_OK) {
-                    ppsFileFront = ImageUtils.getFilePathFromGallery(data, this);
-                    setImageToContractFile(R.id.pps_front_layout_id, ppsFileFront);
-                }
-                break;
-            case ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK:
-                if (resultCode == Activity.RESULT_OK) {
-                    ppsFileBack = ImageUtils.getFilePathFromGallery(data, this);
-                    setImageToContractFile(R.id.pps_back_layout_id, ppsFileBack);
-                }
-                break;
-            case ConstantsUtils.SELECTED_PICTURE_REQUEST_ID:
-                if (resultCode == Activity.RESULT_OK) {
-                    idFile = ImageUtils.getFilePathFromGallery(data, this);
-                    setImageToContractFile(R.id.id_layout_id, idFile);
-                }
-                break;
-            case ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE:
-                if (resultCode == Activity.RESULT_OK) {
-                    marriageCertificateFile = ImageUtils.getFilePathFromGallery(data, this);
-                    setImageToContractFile(R.id.marriage_layout_id, marriageCertificateFile);
-                }
-                break;
-            case ConstantsUtils.CAMERA_REQUEST_PPS_FRONT:
-                if (resultCode == Activity.RESULT_OK) {
-                    ppsFileFront = file.getAbsolutePath();
-                    setImageToContractFile(R.id.pps_front_layout_id, ppsFileFront);
-                }
-                break;
-            case ConstantsUtils.CAMERA_REQUEST_PPS_BACK:
-                if (resultCode == Activity.RESULT_OK) {
-                    ppsFileBack = file.getAbsolutePath();
-                    setImageToContractFile(R.id.pps_back_layout_id, ppsFileBack);
-                }
-                break;
-            case ConstantsUtils.CAMERA_REQUEST_ID:
-                if (resultCode == Activity.RESULT_OK) {
-                    idFile = file.getAbsolutePath();
-                    setImageToContractFile(R.id.id_layout_id, idFile);
-                }
-                break;
-            case ConstantsUtils.CAMERA_REQUEST_MARRIAGE:
-                if (resultCode == Activity.RESULT_OK) {
-                    marriageCertificateFile = file.getAbsolutePath();
-                    setImageToContractFile(R.id.marriage_layout_id, marriageCertificateFile);
-                }
-                break;
-            default:
-                break;
-        }
+        presenter.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void setImageToContractFile(int id, String filePath) {
-        ImageView imageView = ((ImageView) findViewById(id).findViewById(R.id.preview_image_id));
-        imageView.setVisibility(View.VISIBLE);
+    @Override
+    public void setPpsFrontImage(String ppsFileFront) {
+        findViewById(R.id.pps_front_image_holder_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.VISIBLE);
         Glide.with(this)
-                .load("file://" + filePath)
+                .load("file://" + ppsFileFront)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
-                .thumbnail(0.5f).into(imageView);
-        findViewById(id).findViewById(R.id.contract_file_layout_id).setVisibility(View.GONE);
+                .thumbnail(0.5f)
+                .transform(new CenterCrop(), new RoundedCorners(getResources().getDimensionPixelOffset(R.dimen.global_radius)))
+                .into((ImageView) findViewById(R.id.pps_front_image_holder_id).findViewById(R.id.vat_preview_image_id));
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch (requestCode) {
-            case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_FRONT:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT);
-                break;
-            case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_PPS_BACK:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK);
-                break;
-            case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_ID:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_ID);
-                break;
-            case ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_MARRIAGE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    openFilePicker(ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE);
-                break;
-            case ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    takePicture(ConstantsUtils.CAMERA_REQUEST_PPS_FRONT);
-                break;
-            case ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_BACK:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    takePicture(ConstantsUtils.CAMERA_REQUEST_PPS_BACK);
-                break;
-            case ConstantsUtils.MULTIPLE_PERMISSIONS_ID:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    takePicture(ConstantsUtils.CAMERA_REQUEST_ID);
-                break;
-            case ConstantsUtils.MULTIPLE_PERMISSIONS_MARRIAGE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    takePicture(ConstantsUtils.CAMERA_REQUEST_MARRIAGE);
-                break;
-        }
+    public void setPpsBackImage(String ppsFileBack) {
+        findViewById(R.id.pps_back_image_holder_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.VISIBLE);
+        Glide.with(this)
+                .load("file://" + ppsFileBack)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .thumbnail(0.5f)
+                .transform(new CenterCrop(), new RoundedCorners(getResources().getDimensionPixelOffset(R.dimen.global_radius)))
+                .into((ImageView) findViewById(R.id.pps_back_image_holder_id).findViewById(R.id.vat_preview_image_id));
     }
 
     @Override
-    public void onDrawingStarted() {
-        isSignatureSet = true;
-    }
-
-    private void handleClearImageClick() {
-        clearFieldsInPps();
-        ppsFileFront = null;
-        ppsFileBack = null;
-        idFile = null;
-        marriageCertificateFile = null;
-        signatureFile = null;
-        if (isSignatureSet) {
-            isSignatureSet = false;
-            signatureDraw.clear();
-        }
-        removeImageToContractFile(R.id.pps_front_layout_id);
-        removeImageToContractFile(R.id.pps_back_layout_id);
-        removeImageToContractFile(R.id.id_layout_id);
-
-        ((CheckBox) findViewById(R.id.first)).setChecked(false);
-        ((CheckBox) findViewById(R.id.second)).setChecked(false);
-        ((CheckBox) findViewById(R.id.third)).setChecked(false);
-        ((CheckBox) findViewById(R.id.fourth)).setChecked(false);
-        ((CheckBox) findViewById(R.id.fifth)).setChecked(false);
-        ((CheckBox) findViewById(R.id.sixth)).setChecked(false);
-        ((CheckBox) findViewById(R.id.seventh)).setChecked(false);
-        ((CheckBox) findViewById(R.id.eight)).setChecked(false);
-        ((CheckBox) findViewById(R.id.ninth)).setChecked(false);
-    }
-
-    private void clearFieldsInPps() {
-        nameEditText.setText("");
-        addressEditText.setText("");
-        ppsNumberEditText.setText("");
-        emailEditText.setText("");
-        occupationEditText.setText("");
-        phoneNumberEditText.setText("");
-        bankAccount.setText("");
-        birthday.setText("");
-        contractDate.setText("");
-        otherCheck.setText("");
-    }
-
-    private boolean checkPermissions(int requestId) {
-        int result;
-        List<String> listPermissionsNeeded = new ArrayList<>();
-        for (String permission : ConstantsUtils.PERMISSIONS) {
-            result = ContextCompat.checkSelfPermission(this, permission);
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                listPermissionsNeeded.add(permission);
-            }
-        }
-        int permission;
-        if (requestId == ConstantsUtils.CAMERA_REQUEST_PPS_FRONT)
-            permission = ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT;
-        else if (requestId == ConstantsUtils.CAMERA_REQUEST_PPS_BACK)
-            permission = ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_BACK;
-        else
-            permission = ConstantsUtils.MULTIPLE_PERMISSIONS_ID;
-
-        if (!listPermissionsNeeded.isEmpty()) {
-            requestPermissions(listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), permission);
-            return false;
-        }
-        return true;
-    }
-
-    private void clearFormStarted() {
-        if (TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
-            TributumAppHelper.saveSetting(AppKeysValues.CONTRACT_FORM_STARTED, AppKeysValues.FALSE);
-        }
-    }
-
-    private void showCloseContractDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.work_in_progress))
-                .setMessage(getString(R.string.contract_in_progress_message))
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, null)
-                .show();
+    public void setIdImage(String idFile) {
+        findViewById(R.id.personal_info_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.VISIBLE);
+        Glide.with(this)
+                .load("file://" + idFile)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .thumbnail(0.5f)
+                .transform(new CenterCrop(), new RoundedCorners(getResources().getDimensionPixelOffset(R.dimen.global_radius)))
+                .into((ImageView) findViewById(R.id.personal_info_id).findViewById(R.id.vat_preview_image_id));
     }
 
     @Override
-    public void onTaskCompleted() {
-        loadingScreen.hide();
-        Toast.makeText(ContractActivity.this, getString(R.string.email_sent), Toast.LENGTH_SHORT).show();
+    public void setMarriageCertificateImage(String marriageCertificateFile) {
+        findViewById(R.id.marriage_layout_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.VISIBLE);
+        Glide.with(this)
+                .load("file://" + marriageCertificateFile)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .thumbnail(0.5f)
+                .transform(new CenterCrop(), new RoundedCorners(getResources().getDimensionPixelOffset(R.dimen.global_radius)))
+                .into((ImageView) findViewById(R.id.marriage_layout_id).findViewById(R.id.vat_preview_image_id));
+    }
+
+    @Override
+    public void takePicture(int requestId, File file, String pictureImagePath) {
+        Uri outputFileUri = FileProvider.getUriForFile(this,
+                "com.app.tributum.activity.vat.provider", file);
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+        presenter.setFilePath(pictureImagePath);
+        startActivityForResult(cameraIntent, requestId);
+    }
+
+    @Override
+    public void setDrawingCacheEnabled() {
+        parentView.setDrawingCacheEnabled(true);
+    }
+
+    @Override
+    public Bitmap getSignatureFile() {
+        return parentView.getDrawingCache();
+    }
+
+    @Override
+    public void selectSingle() {
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.single_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.married_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.divorced_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.cohabiting_text_id));
+    }
+
+    @Override
+    public void selectMarriage() {
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.single_text_id));
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.married_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.divorced_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.cohabiting_text_id));
+    }
+
+    @Override
+    public void selectDivorced() {
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.single_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.married_text_id));
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.divorced_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.cohabiting_text_id));
+    }
+
+    @Override
+    public void selectCohabiting() {
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.single_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.married_text_id));
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(R.id.divorced_text_id));
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(R.id.cohabiting_text_id));
+    }
+
+    @Override
+    public void showAsteriskView() {
+        findViewById(R.id.asterisk_text_view_id).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideAsteriskView() {
+        findViewById(R.id.asterisk_text_view_id).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void selectText(int textId) {
+        UiUtils.setFontFamily(R.font.manrope_bold, findViewById(textId));
+    }
+
+    @Override
+    public void deselectText(int textId) {
+        UiUtils.setFontFamily(R.font.manrope_medium, findViewById(textId));
+    }
+
+    @Override
+    public void removeFocus() {
+        UtilsGeneral.hideSoftKeyboard(this);
+    }
+
+    @Override
+    public void focusOnFirstName() {
+        UtilsGeneral.setFocusOnInput(firstNameEditText);
+        scrollToView(firstNameEditText);
+    }
+
+    @Override
+    public void focusOnLastName() {
+        UtilsGeneral.setFocusOnInput(lastNameEditText);
+        scrollToView(lastNameEditText);
+    }
+
+    @Override
+    public void focusOnAddress1() {
+        UtilsGeneral.setFocusOnInput(address1EditText);
+        scrollToView(address1EditText);
+    }
+
+    @Override
+    public void focusOnAddress2() {
+        UtilsGeneral.setFocusOnInput(address2EditText);
+        scrollToView(address2EditText);
+    }
+
+    @Override
+    public void focusOnBirthday() {
+        UtilsGeneral.setFocusOnInput(birthday);
+        scrollToView(birthday);
+    }
+
+    @Override
+    public void focusOnOccupation() {
+        UtilsGeneral.setFocusOnInput(occupationEditText);
+        scrollToView(occupationEditText);
+    }
+
+    @Override
+    public void focusOnPhone() {
+        UtilsGeneral.setFocusOnInput(phoneNumberEditText);
+        scrollToView(phoneNumberEditText);
+    }
+
+    @Override
+    public void focusOnEmail() {
+        UtilsGeneral.setFocusOnInput(emailEditText);
+        scrollToView(emailEditText);
+    }
+
+    @Override
+    public void focusOnEircode() {
+        UtilsGeneral.setFocusOnInput(eircode);
+        scrollToView(eircode);
+    }
+
+    @Override
+    public void focusOnPps() {
+        UtilsGeneral.setFocusOnInput(ppsNumberEditText);
+        scrollToView(ppsNumberEditText);
+    }
+
+    @Override
+    public void focusOnOther() {
+        UtilsGeneral.setFocusOnInput(findViewById(R.id.other_edit_id));
+        scrollToView(findViewById(R.id.other_edit_id));
+    }
+
+    @Override
+    public void scrollToPpsFront() {
+        scrollToView(findViewById(R.id.pps_front_image_holder_id));
+    }
+
+    @Override
+    public void scrollToId() {
+        scrollToView(findViewById(R.id.personal_info_id));
+    }
+
+    @Override
+    public void scrollToTaxes() {
+        scrollToView(findViewById(R.id.taxes_id));
     }
 
     @Override
     public void onBackPressed() {
-        if (TributumAppHelper.getBooleanSetting(AppKeysValues.CONTRACT_FORM_STARTED)) {
-            showCloseContractDialog();
-        } else if (fileChooser.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-            collapseBottomSheet();
-        } else {
-            super.onBackPressed();
-        }
+        presenter.onBackPressed();
     }
 
     @Override
-    protected void onStop() {
-        clearFormStarted();
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy() {
-        clearFormStarted();
+    protected void onDestroy() {
+        presenter.onDestroy();
         super.onDestroy();
     }
 }

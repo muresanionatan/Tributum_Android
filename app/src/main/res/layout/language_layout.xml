@@ -1,30 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/gray_rectangle_corners_cta"
-    android:elevation="12dp"
-    android:orientation="vertical"
-    android:padding="10dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_1">
 
     <TextView
+        android:id="@+id/language_title"
+        style="@style/TitleText"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="106dp"
+        android:text="@string/app_language_label" />
+
+    <TextView
+        style="@style/SubtitleText"
+        android:layout_below="@+id/language_title"
+        android:layout_marginStart="32dp"
+        android:text="@string/choose_language" />
+
+    <com.app.tributum.utils.ui.CustomButton
+        android:id="@+id/language_done_id"
+        style="@style/CtaWhiteButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/manrope_bold"
+            android:gravity="center"
+            android:text="@string/done_label"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </com.app.tributum.utils.ui.CustomButton>
+
+    <LinearLayout
         android:id="@+id/english_id"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:text="@string/english_label"
-        android:textSize="20sp" />
+        style="@style/CtaWhiteButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="202dp">
 
-    <TextView
+        <CheckBox
+            android:id="@+id/english_check_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="8dp"
+            android:button="@drawable/language_selector"
+            tools:checked="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
+            android:text="@string/english_label"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/romanian_id"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:text="@string/romanian_label"
-        android:textSize="20sp" />
-</LinearLayout>
+        style="@style/CtaWhiteButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="145dp">
+
+        <CheckBox
+            android:id="@+id/romanian_check_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="8dp"
+            android:button="@drawable/language_selector" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
+            android:text="@string/romanian_label"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+</RelativeLayout>

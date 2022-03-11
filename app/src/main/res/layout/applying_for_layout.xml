@@ -5,159 +5,229 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/SubtitleText"
-        android:text="@string/applying_for" />
-
-    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/manrope_bold"
+        android:text="@string/applying_for"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/first_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
 
         <CheckBox
             android:id="@+id/first"
-            style="@style/CheckBox" />
+            style="@style/ContractCheckBox" />
 
         <TextView
+            android:id="@+id/first_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/income_tax_label"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/second_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
 
         <CheckBox
             android:id="@+id/second"
-            style="@style/CheckBox" />
+            style="@style/ContractCheckBox" />
 
         <TextView
+            android:id="@+id/second_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/corporation_tax_label"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/third_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
 
         <CheckBox
             android:id="@+id/third"
-            style="@style/CheckBox" />
+            style="@style/ContractCheckBox" />
 
         <TextView
+            android:id="@+id/third_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/value_added_tax_label"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/fourth_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
 
         <CheckBox
             android:id="@+id/fourth"
-            style="@style/CheckBox" />
+            style="@style/ContractCheckBox" />
 
         <TextView
+            android:id="@+id/fourth_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/employer_paye_label"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/fifth_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
 
         <CheckBox
             android:id="@+id/fifth"
-            style="@style/CheckBox" />
+            style="@style/ContractCheckBox" />
 
         <TextView
+            android:id="@+id/fifth_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/capital_gains_label"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/sixth_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
 
         <CheckBox
             android:id="@+id/sixth"
-            style="@style/CheckBox" />
+            style="@style/ContractCheckBox" />
 
         <TextView
+            android:id="@+id/sixth_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/relevant_contract_label"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/seventh_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
 
         <CheckBox
             android:id="@+id/seventh"
-            style="@style/CheckBox" />
+            style="@style/ContractCheckBox" />
 
         <TextView
+            android:id="@+id/seventh_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/environment_levy_label"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/eight_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
 
         <CheckBox
             android:id="@+id/eight"
-            style="@style/CheckBox" />
+            style="@style/ContractCheckBox" />
 
         <TextView
+            android:id="@+id/eight_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="@string/divided_withholding_label"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:id="@+id/ninth_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_rectangle_corners"
+        android:gravity="center_vertical">
 
         <CheckBox
             android:id="@+id/ninth"
-            style="@style/CheckBox" />
+            style="@style/ContractCheckBox"/>
 
         <TextView
+            android:id="@+id/ninth_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/other_label"
-            android:textColor="@color/black" />
-
-        <EditText
-            android:id="@+id/other_edit_id"
-            style="@style/CustomEditText"
-            android:layout_width="150dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:hint="@string/please_specify_label" />
+            android:fontFamily="@font/manrope_medium"
+            android:text="@string/other_label"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/other_edit_id"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/please_specify_label"
+        android:visibility="gone" />
 </LinearLayout>
