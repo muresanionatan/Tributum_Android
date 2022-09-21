@@ -931,7 +931,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 }
                 break;
             case ConstantsUtils.CAMERA_REQUEST_ID:
-                if (resultCode == Activity.RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK && file != null) {
                     idFile = file.getAbsolutePath();
                     view.setIdImage(idFile);
                 }
