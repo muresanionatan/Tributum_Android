@@ -20,16 +20,24 @@ public class PaymentModel {
      */
     private String amount;
 
+    /**
+     * The site location/ID for the given name
+     */
+    private String site;
+
     private boolean nameFocus;
 
     private boolean ppsFocus;
 
     private boolean amountFocus;
 
-    public PaymentModel(String name, String pps, String amount) {
+    private boolean siteFocus;
+
+    public PaymentModel(String name, String pps, String amount, String site) {
         this.name = name;
         this.pps = pps;
         this.amount = amount;
+        this.site = site;
     }
 
     public String getName() {
@@ -56,6 +64,14 @@ public class PaymentModel {
         this.amount = amount;
     }
 
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
     public boolean isNameFocus() {
         return nameFocus;
     }
@@ -78,5 +94,13 @@ public class PaymentModel {
 
     public void setAmountFocus(boolean amountFocus) {
         this.amountFocus = amountFocus;
+    }
+
+    public boolean isSiteFocus() {
+        return siteFocus;
+    }
+
+    public void setSiteFocus(boolean siteFocus) {
+        this.siteFocus = siteFocus;
     }
 }

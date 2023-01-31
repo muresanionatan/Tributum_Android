@@ -16,6 +16,8 @@ public interface ContractView {
 
     void setBirthdayText(String string);
 
+    void setStartingDateText(String string);
+
     void moveBirthdayCursorToEnd();
 
     void clearSignature();
@@ -173,4 +175,6 @@ public interface ContractView {
     void setEircodeText(String string);
 
     void moveEircodeCursorToEnd(int length);
+
+    void moveStartingDayCursorToEnd();
 }

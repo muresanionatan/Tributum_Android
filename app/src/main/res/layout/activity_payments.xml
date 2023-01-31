@@ -57,9 +57,9 @@
                 android:text="@string/rct_subtitle" />
 
             <TextView
-                android:layout_marginStart="8dp"
                 style="@style/SubtitleText"
-                android:text="@string/mandatory_fields"/>
+                android:layout_marginStart="8dp"
+                android:text="@string/mandatory_fields" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -81,9 +81,9 @@
             <EditText
                 android:id="@+id/payer_email_edit_text"
                 style="@style/CustomEditText"
-                android:inputType="textEmailAddress"
                 android:layout_marginTop="20dp"
-                android:hint="@string/email_label" />
+                android:hint="@string/email_label"
+                android:inputType="textEmailAddress" />
 
             <TextView
                 android:id="@+id/payer_id_subtitle"
@@ -95,13 +95,6 @@
                 android:text="@string/you_receive_copy"
                 android:textColor="@color/grey_3"
                 android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/site_edit_text"
-                style="@style/CustomEditText"
-                android:layout_marginTop="20dp"
-                android:hint="@string/site_label"
-                android:inputType="textCapWords" />
 
             <EditText
                 android:id="@+id/month_edit_text"

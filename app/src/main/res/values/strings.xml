@@ -36,6 +36,7 @@
     <string name="employee_label">Employee</string>
     <string name="please_specify_label">Please specify</string>
     <string name="date_of_birth">Date of Birth (DD/MM/YYYY)<font color='#f65b94'>*</font></string>
+    <string name="starting_date">Starting Date (DD/MM/YYYY)<font color='#f65b94'>*</font></string>
     <string name="please_enter_pps">Please enter your correct PPS number</string>
     <string name="please_enter_correct_email">Please enter a correct email address</string>
     <string name="something_went_wrong">Something went wrong. Please try again later</string>

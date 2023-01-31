@@ -47,8 +47,17 @@
             android:layout_marginStart="6dp"
             android:layout_weight="0.5"
             android:hint="@string/amount_label"
-            android:inputType="numberDecimal|numberSigned" />
+            android:inputType="numberDecimal|numberSigned"
+            android:nextFocusForward="@+id/payment_site_edit_text" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/payment_site_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:hint="@string/site_label"
+        android:inputType="textCapWords" />
 
     <com.app.tributum.utils.ui.CustomButton
         android:id="@+id/remove_payment_text"

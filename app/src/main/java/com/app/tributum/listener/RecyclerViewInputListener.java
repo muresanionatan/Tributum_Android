@@ -7,4 +7,6 @@ public interface RecyclerViewInputListener {
     void scrollToPpsItem(int position);
 
     void scrollToAmountItem(int position);
+
+    void scrollToSiteItem(int position);
 }

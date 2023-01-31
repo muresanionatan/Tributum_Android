@@ -30,8 +30,6 @@ public interface PaymentsView {
 
     void setFocusOnEmail();
 
-    void setFocusOnSite();
-
     void setFocusOnMonth();
 
     List<PaymentModel> getPaymentList();

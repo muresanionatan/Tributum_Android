@@ -43,8 +43,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
 
     private CheckBox grossCheckbox;
 
-    private EditText siteEditText;
-
     private EditText monthEditText;
 
     private LoadingScreen loadingScreen;
@@ -124,7 +122,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
         payerEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         payerEmailEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
 
-        siteEditText = findViewById(R.id.site_edit_text);
         monthEditText = findViewById(R.id.month_edit_text);
 
         findViewById(R.id.payments_send_id).setOnClickListener(new View.OnClickListener() {
@@ -132,7 +129,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
             public void onClick(View v) {
                 presenter.handleSendButtonClick(payerEditText.getText().toString().trim(),
                         payerEmailEditText.getText().toString().trim(),
-                        siteEditText.getText().toString().trim(),
                         monthEditText.getText().toString().trim());
             }
         });
@@ -149,7 +145,7 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
 
         List<PaymentModel> paymentList = new ArrayList<>(TributumAppHelper.getListSetting(AppKeysValues.PAYMENT_LIST));
         if (paymentList.size() == 0)
-            paymentList.add(new PaymentModel("", "", ""));
+            paymentList.add(new PaymentModel("", "", "", ""));
 
         adapter = new PaymentsAdapter(paymentList, this, this);
         recyclerView.setAdapter(adapter);
@@ -171,7 +167,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
     public void populateInputsWithValues(String payer, String email, String site, String currentMonth) {
         payerEditText.setText(payer);
         payerEmailEditText.setText(email);
-        siteEditText.setText(site);
         monthEditText.setText(currentMonth);
     }
 
@@ -233,12 +228,6 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
     }
 
     @Override
-    public void setFocusOnSite() {
-        UtilsGeneral.setFocusOnInput(siteEditText);
-        scrollToEditText(siteEditText);
-    }
-
-    @Override
     public void setFocusOnMonth() {
         UtilsGeneral.setFocusOnInput(monthEditText);
         scrollToEditText(monthEditText);
@@ -256,13 +245,13 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
 
     @Override
     public void onPause() {
-        presenter.onPause(payerEditText.getText().toString(), payerEmailEditText.getText().toString(), siteEditText.getText().toString());
+        presenter.onPause(payerEditText.getText().toString(), payerEmailEditText.getText().toString());
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
-        presenter.onDestroy(payerEditText.getText().toString(), payerEmailEditText.getText().toString(), siteEditText.getText().toString());
+        presenter.onDestroy(payerEditText.getText().toString(), payerEmailEditText.getText().toString());
         super.onDestroy();
     }
 
@@ -299,6 +288,13 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
     public void scrollToAmountItem(int position) {
 //        recyclerView.scrollToPosition(position);
         Toast.makeText(PaymentsActivity.this, getString(R.string.please_enter_amount), Toast.LENGTH_SHORT).show();
+        scrollToEditText(recyclerView);
+    }
+
+    @Override
+    public void scrollToSiteItem(int position) {
+//        recyclerView.scrollToPosition(position);
+        Toast.makeText(PaymentsActivity.this, getString(R.string.please_enter_site), Toast.LENGTH_SHORT).show();
         scrollToEditText(recyclerView);
     }
 }

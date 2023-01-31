@@ -28,6 +28,8 @@ public class ContractModel {
 
     private String message;
 
+    private String startingDate;
+
     /**
      * Used for the 'applying for' for the field which the client can input in
      */
@@ -129,6 +131,14 @@ public class ContractModel {
 
     public String getBirthday() {
         return birthday;
+    }
+
+    public void setStartingDate(String startingDate) {
+        this.startingDate = startingDate;
+    }
+
+    public String getStartingDate() {
+        return startingDate;
     }
 
     public List<String> getEmployment() {

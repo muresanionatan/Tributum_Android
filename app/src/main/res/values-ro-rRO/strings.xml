@@ -32,15 +32,16 @@
     <string name="environment_levy_label">Environment Levy (E Levy)</string>
     <string name="divided_withholding_label">Divided Withholding Tax (DWT)</string>
     <string name="other_label">Altele:</string>
-    <string name="self_employed_label">Angajator</string>
+    <string name="self_employed_label">Self employed</string>
     <string name="employee_label">Angajat</string>
     <string name="please_specify_label">Te rugam specifica</string>
     <string name="date_of_birth">Data nasterii (ZZ/LL/AAAA)<font color='#f65b94'>*</font></string>
+    <string name="starting_date">Data inceperii (DD/MM/YYYY)<font color='#f65b94'>*</font></string>
     <string name="please_enter_pps">Te rugam introdu numarul PPS correct</string>
     <string name="please_enter_correct_email">Te rugam introdu o adresa e-mail corecta</string>
     <string name="something_went_wrong">Ceva nu a functionat corespunzator. Te rugam reincearca</string>
     <string name="pps_label">PPS<font color='#f65b94'>*</font></string>
-    <string name="site_label">Loc de munca<font color='#f65b94'>*</font></string>
+    <string name="site_label">Site location/ID<font color='#f65b94'>*</font></string>
     <string name="english_label">Engleza</string>
     <string name="romanian_label">Romana</string>
     <string name="take_photo">Fa o poza</string>

@@ -82,6 +82,8 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     private EditText birthday;
 
+    private EditText startingDate;
+
     private BottomSheetBehavior fileChooser;
 
     private View previewLayout;
@@ -164,7 +166,9 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         cohabitingCheck = findViewById(R.id.cohabiting_checkbox);
 
         birthday = findViewById(R.id.edittext_birthday_id);
+        startingDate = findViewById(R.id.edittext_starting_date_id);
         UtilsGeneral.setMaxLengthEditText(birthday, 10);
+        UtilsGeneral.setMaxLengthEditText(startingDate, 10);
 
         findViewById(R.id.birthday_image_id).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +184,26 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                                 presenter.onBirthdayDateSet(year, monthOfYear, dayOfMonth);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
+
+        findViewById(R.id.starting_date_image_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                DatePickerDialog picker = new DatePickerDialog(ContractActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                                presenter.onStartingDateSet(year, monthOfYear, dayOfMonth);
                             }
                         }, year, month, day);
                 picker.show();
@@ -218,6 +242,22 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                 presenter.afterBirthdayChanged(s);
             }
         });
+        startingDate.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                presenter.beforeStartingDateChanged(s.length());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void afterTextChanged(Editable s) {
+                presenter.afterStartingDateChanged(s);
+            }
+        });
 
         EditText otherEditText = findViewById(R.id.other_edit_id);
         UtilsGeneral.setMaxLengthEditText(otherEditText, 60);
@@ -251,6 +291,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                         emailEditText.getText().toString(),
                         bankAccount.getText().toString(),
                         ppsNumberEditText.getText().toString(),
+                        startingDate.getText().toString(),
                         ((EditText) findViewById(R.id.number_kids_id)).getText().toString(),
                         otherEditText.getText().toString()
                 );
@@ -891,6 +932,11 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
+    public void setStartingDateText(String string) {
+        startingDate.setText(string);
+    }
+
+    @Override
     public void setBirthdayText(String string) {
         birthday.setText(string);
     }
@@ -898,6 +944,11 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void moveBirthdayCursorToEnd() {
         birthday.setSelection(birthday.getText().length());
+    }
+
+    @Override
+    public void moveStartingDayCursorToEnd() {
+        startingDate.setSelection(startingDate.getText().length());
     }
 
     @Override

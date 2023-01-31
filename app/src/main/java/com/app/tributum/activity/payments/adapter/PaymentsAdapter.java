@@ -51,7 +51,7 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.payment_list_item, parent, false);
-        return new ItemViewHolder(view, new NameEditTextListener(), new PpsEditTextListener(), new AmountEditTextListener());
+        return new ItemViewHolder(view, new NameEditTextListener(), new PpsEditTextListener(), new AmountEditTextListener(), new SiteEditTextListener());
     }
 
     @Override
@@ -61,21 +61,25 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         holder.nameEditText.addTextChangedListener(holder.nameEditTextListener);
         holder.ppsEditText.addTextChangedListener(holder.ppsEditTextListener);
         holder.amountEditText.addTextChangedListener(holder.amountEditTextListener);
+        holder.siteEditText.addTextChangedListener(holder.siteEditTextListener);
 
         holder.nameEditTextListener.updatePosition(holder.getAdapterPosition());
         holder.ppsEditTextListener.updatePosition(holder.getAdapterPosition());
         holder.amountEditTextListener.updatePosition(holder.getAdapterPosition());
+        holder.siteEditTextListener.updatePosition(holder.getAdapterPosition());
         holder.nameEditText.setText(paymentModel.getName());
         holder.amountEditText.setText(paymentModel.getAmount());
 
         UtilsGeneral.setMaxLengthAndAllCapsToEditText(holder.ppsEditText, 9, true);
         holder.nameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         holder.ppsEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        holder.amountEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         holder.ppsEditText.setText(paymentModel.getPps());
+        holder.siteEditText.setText(paymentModel.getSite());
         if (holder.getAdapterPosition() == getItemCount() - 1) {
-            holder.amountEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            holder.siteEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
         } else {
-            holder.amountEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+            holder.siteEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         }
 
         if (getItemCount() == 1) {
@@ -98,6 +102,9 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         } else if (paymentModel.isAmountFocus()) {
             paymentModel.setAmountFocus(false);
             UtilsGeneral.setFocusOnInput(holder.amountEditText);
+        } else if (paymentModel.isSiteFocus()) {
+            paymentModel.setSiteFocus(false);
+            UtilsGeneral.setFocusOnInput(holder.siteEditText);
         }
     }
 
@@ -116,7 +123,10 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
 
     public boolean areThereEmptyInputs() {
         for (PaymentModel model : paymentList) {
-            if (model.getName().trim().equals("") || model.getPps().trim().equals("") || model.getAmount().trim().equals("") || !ValidationUtils.isPpsValid(model.getPps())) {
+            if (model.getName().trim().equals("") || model.getPps().trim().equals("")
+                    || model.getAmount().trim().equals("")
+                    || model.getSite().trim().equals("")
+                    || !ValidationUtils.isPpsValid(model.getPps())) {
                 return true;
             }
         }
@@ -141,6 +151,10 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
                 notifyDataSetChanged();
                 recyclerViewInputListener.scrollToAmountItem(i);
                 break;
+            } else if (model.getSite().trim().equals("")) {
+                notifyDataSetChanged();
+                recyclerViewInputListener.scrollToSiteItem(i);
+                break;
             }
         }
     }
@@ -155,7 +169,7 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
     }
 
     public void addModel() {
-        paymentList.add(new PaymentModel("", "", ""));
+        paymentList.add(new PaymentModel("", "", "", ""));
         notifyDataSetChanged();
     }
 
@@ -175,6 +189,8 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
 
         EditText amountEditText;
 
+        EditText siteEditText;
+
         CustomButton removeButton;
 
         NameEditTextListener nameEditTextListener;
@@ -183,13 +199,18 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
 
         AmountEditTextListener amountEditTextListener;
 
-        ItemViewHolder(@NonNull View itemView, NameEditTextListener nameEditTextListener,
+        SiteEditTextListener siteEditTextListener;
+
+        ItemViewHolder(@NonNull View itemView,
+                       NameEditTextListener nameEditTextListener,
                        PpsEditTextListener ppsEditTextListener,
-                       AmountEditTextListener amountEditTextListener) {
+                       AmountEditTextListener amountEditTextListener,
+                       SiteEditTextListener siteEditTextListener) {
             super(itemView);
             nameEditText = itemView.findViewById(R.id.payment_beneficiary_edit_text);
             ppsEditText = itemView.findViewById(R.id.payment_pps_edit_text);
             amountEditText = itemView.findViewById(R.id.payment_amount_edit_text);
+            siteEditText = itemView.findViewById(R.id.payment_site_edit_text);
             removeButton = itemView.findViewById(R.id.remove_payment_text);
 
             this.nameEditTextListener = nameEditTextListener;
@@ -198,6 +219,8 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
             ppsEditText.addTextChangedListener(ppsEditTextListener);
             this.amountEditTextListener = amountEditTextListener;
             amountEditText.addTextChangedListener(amountEditTextListener);
+            this.siteEditTextListener = siteEditTextListener;
+            siteEditText.addTextChangedListener(siteEditTextListener);
         }
     }
 
@@ -274,6 +297,33 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             paymentList.get(position).setAmount(charSequence.toString());
             paymentList.get(position).setAmountFocus(charSequence.toString().equals(""));
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            // no implementation needed
+        }
+    }
+
+    /**
+     * Custom listener for amount edit text
+     */
+    public class SiteEditTextListener implements TextWatcher {
+        private int position;
+
+        void updatePosition(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            // no implementation needed
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            paymentList.get(position).setSite(charSequence.toString());
+            paymentList.get(position).setSiteFocus(charSequence.toString().equals(""));
         }
 
         @Override

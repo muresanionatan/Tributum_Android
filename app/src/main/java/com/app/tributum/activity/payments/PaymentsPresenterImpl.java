@@ -57,7 +57,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
     }
 
     @Override
-    public void handleSendButtonClick(String payer, String email, String site, String month) {
+    public void handleSendButtonClick(String payer, String email, String month) {
         if (view == null)
             return;
 
@@ -68,71 +68,68 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
             } else if (email.equals("")) {
                 view.showToast(resources.getString(R.string.please_enter_correct_email));
                 view.setFocusOnEmail();
-            } else if (site.equals("")) {
-                view.showToast(resources.getString(R.string.please_enter_site));
-                view.setFocusOnSite();
             } else if (month.equals("")) {
                 view.showToast(resources.getString(R.string.please_enter_payment_month));
                 view.setFocusOnMonth();
             } else if (view.areThereEmptyInputs()) {
                 view.focusOnEmptyInputFromRecyclerView();
             } else {
-                saveListToPreferences(payer, email, site);
-                sendInternalEmail(payer, email, site, month);
+                saveListToPreferences(payer, email);
+                sendInternalEmail(payer, email, month);
             }
         } else {
             view.showToast(resources.getString(R.string.try_again));
         }
     }
 
-    private String concatenateInternalMail(String payer, String email, String site, String month) {
+    private String concatenateInternalMail(String payer, String email, String month) {
         String amountType;
         if (isNet)
             amountType = resources.getString(R.string.net_label);
         else
             amountType = resources.getString(R.string.gross_label);
 
-        StringBuilder message = new StringBuilder("Payment from " + payer + " at " + site
+        StringBuilder message = new StringBuilder("Payment from " + payer
                 + " for " + month
                 + "\n \n" + "Please register the following payments: " + "\n");
         for (PaymentModel model : view.getPaymentList()) {
-            message.append(model.getName()).append(" (").append(model.getPps()).append(") - ").append(model.getAmount()).append("\n");
+            message.append(model.getName()).append(" (").append(model.getPps()).append(") - ").append(model.getAmount())
+                    .append(", site: ").append(model.getSite()).append("\n");
         }
         message.append("\n \n").append("All of them are ").append(amountType.toUpperCase()).append("\n \n");
         message.append("Please respond to ").append(email).append(".");
         return message.toString();
     }
 
-    private String concatenateClientMail(String site, String month) {
+    private String concatenateClientMail(String month) {
         String amountType;
         if (isNet)
             amountType = resources.getString(R.string.net_label);
         else
             amountType = resources.getString(R.string.gross_label);
 
-        StringBuilder message = new StringBuilder("The following payments at " + site
-                + " for " + month
+        StringBuilder message = new StringBuilder("The following payments for " + month
                 + " will be made for:\n\n");
         for (PaymentModel model : view.getPaymentList()) {
-            message.append(model.getName()).append(" (").append(model.getPps()).append(") - ").append(model.getAmount()).append("\n");
+            message.append(model.getName()).append(" (").append(model.getPps()).append(") - ").append(model.getAmount())
+                    .append(", site: ").append(model.getSite()).append("\n");
         }
         message.append("\n \n").append("All of them are ").append(amountType.toUpperCase()).append(".");
         return message.toString();
     }
 
-    private void saveListToPreferences(String payer, String email, String site) {
+    private void saveListToPreferences(String payer, String email) {
         List<PaymentModel> paymentModels = new ArrayList<>();
         for (PaymentModel model : view.getPaymentList()) {
-            paymentModels.add(new PaymentModel(model.getName(), model.getPps(), model.getAmount()));
+            paymentModels.add(new PaymentModel(model.getName(), model.getPps(), model.getAmount(), model.getSite()));
         }
         TributumAppHelper.saveSetting(AppKeysValues.PAYMENT_LIST, paymentModels);
         TributumAppHelper.saveSetting(AppKeysValues.PAYER_NAME, payer);
         TributumAppHelper.saveSetting(AppKeysValues.CLIENT_PAYMENT_EMAIL, email);
-        TributumAppHelper.saveSetting(AppKeysValues.SITE, site);
         TributumAppHelper.saveSetting(AppKeysValues.NET, isNet);
     }
 
-    private void sendInternalEmail(String payer, String email, String site, String month) {
+    private void sendInternalEmail(String payer, String email, String month) {
         if (view == null)
             return;
 
@@ -142,12 +139,12 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, concatenateInternalMail(payer, email, site, month)));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, concatenateInternalMail(payer, email, month)));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (response.isSuccessful())
-                    sendClientEmail(email, site, month);
+                    sendClientEmail(email, month);
                 else
                     view.showToast(resources.getString(R.string.something_went_wrong));
 
@@ -162,11 +159,11 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
         });
     }
 
-    private void sendClientEmail(String email, String site, String month) {
+    private void sendClientEmail(String email, String month) {
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(email, concatenateClientMail(site, month)));
+        Call<Object> call = api.sendEmail(new EmailBody(email, concatenateClientMail(month)));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -202,13 +199,13 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
     }
 
     @Override
-    public void onPause(String payer, String email, String site) {
-        saveListToPreferences(payer, email, site);
+    public void onPause(String payer, String email) {
+        saveListToPreferences(payer, email);
     }
 
     @Override
-    public void onDestroy(String payer, String email, String site) {
-        saveListToPreferences(payer, email, site);
+    public void onDestroy(String payer, String email) {
+        saveListToPreferences(payer, email);
     }
 
     @Override
