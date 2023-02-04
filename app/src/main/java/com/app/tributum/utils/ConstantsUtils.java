@@ -44,7 +44,6 @@ public class ConstantsUtils {
     public static final byte SELECT_REQUEST_INQUIRY = 12;
 
     public static final String[] PERMISSIONS = new String[]{
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA};
 
     public static final int MAXIMUM_PICTURES_IN_ATTACHMENT = 500;

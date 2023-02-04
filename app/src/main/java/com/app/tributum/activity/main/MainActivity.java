@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -133,6 +135,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     private void showSplashScreen() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            findViewById(R.id.splash_id).setVisibility(View.GONE);
+            return;
+        }
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -364,6 +371,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         presenter.onRequestPermissionsResult(requestCode, grantResults);
     }
+
     @Override
     public void restartApp() {
         UtilsGeneral.restartAppForLanguage(this);

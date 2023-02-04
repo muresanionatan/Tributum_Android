@@ -73,7 +73,12 @@ public class MainPresenterImpl implements MainPresenter {
             TributumAppHelper.saveSetting(AppKeysValues.NOTIFICATION_ALARM_SET, AppKeysValues.TRUE);
 
             Intent alarmIntent = new Intent(TributumApplication.getInstance(), AlarmReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(TributumApplication.getInstance(), 0, alarmIntent, 0);
+
+            PendingIntent pendingIntent;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S)
+                pendingIntent = PendingIntent.getBroadcast(TributumApplication.getInstance(), 0, alarmIntent, PendingIntent.FLAG_MUTABLE);
+            else
+                pendingIntent = PendingIntent.getBroadcast(TributumApplication.getInstance(), 0, alarmIntent, 0);
 
             AlarmManager manager = (AlarmManager) TributumApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
             long interval = ConstantsUtils.NOTIFICATION_INTERVAL;
@@ -88,7 +93,6 @@ public class MainPresenterImpl implements MainPresenter {
     public void onContractClick() {
         actToStart = ActivityToStart.CONTRACT;
         handleActivityStart();
-
     }
 
     @Override
@@ -113,12 +117,12 @@ public class MainPresenterImpl implements MainPresenter {
         if (view == null)
             return;
 
-        if (view.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED) && view.shouldShowStorageRationale()) {
-                view.takeUserToAppSettings();
-                return;
-            }
-        }
+//        if (view.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+//            if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED) && view.shouldShowStorageRationale()) {
+//                view.takeUserToAppSettings();
+//                return;
+//            }
+//        }
 
         if (checkPermissions()) {
             if (actToStart == ActivityToStart.CONTRACT)
