@@ -32,6 +32,7 @@ import androidx.core.widget.NestedScrollView;
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.application.TributumApplication;
 import com.app.tributum.helper.DrawingView;
 import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.StatusBarUtils;
@@ -47,6 +48,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 
@@ -1083,10 +1086,16 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
+    public void startCrop(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .start(this);
+    }
+
+    @Override
     public void setPpsFrontImage(String ppsFileFront) {
         findViewById(R.id.pps_front_image_holder_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.VISIBLE);
         Glide.with(this)
-                .load("file://" + ppsFileFront)
+                .load(ppsFileFront)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .thumbnail(0.5f)
@@ -1098,7 +1107,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     public void setPpsBackImage(String ppsFileBack) {
         findViewById(R.id.pps_back_image_holder_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.VISIBLE);
         Glide.with(this)
-                .load("file://" + ppsFileBack)
+                .load(ppsFileBack)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .thumbnail(0.5f)
@@ -1110,7 +1119,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     public void setIdImage(String idFile) {
         findViewById(R.id.personal_info_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.VISIBLE);
         Glide.with(this)
-                .load("file://" + idFile)
+                .load(idFile)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .thumbnail(0.5f)
@@ -1122,7 +1131,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     public void setMarriageCertificateImage(String marriageCertificateFile) {
         findViewById(R.id.marriage_layout_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.VISIBLE);
         Glide.with(this)
-                .load("file://" + marriageCertificateFile)
+                .load(marriageCertificateFile)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .thumbnail(0.5f)

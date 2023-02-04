@@ -36,12 +36,12 @@
     <string name="employee_label">Angajat</string>
     <string name="please_specify_label">Te rugam specifica</string>
     <string name="date_of_birth">Data nasterii (ZZ/LL/AAAA)<font color='#f65b94'>*</font></string>
-    <string name="starting_date">Data inceperii (DD/MM/YYYY)<font color='#f65b94'>*</font></string>
+    <string name="starting_date">Data inceperii (DD/MM/YYYY)</string>
     <string name="please_enter_pps">Te rugam introdu numarul PPS correct</string>
     <string name="please_enter_correct_email">Te rugam introdu o adresa e-mail corecta</string>
     <string name="something_went_wrong">Ceva nu a functionat corespunzator. Te rugam reincearca</string>
     <string name="pps_label">PPS<font color='#f65b94'>*</font></string>
-    <string name="site_label">Site location/ID<font color='#f65b94'>*</font></string>
+    <string name="site_label">Site location/ID</string>
     <string name="english_label">Engleza</string>
     <string name="romanian_label">Romana</string>
     <string name="take_photo">Fa o poza</string>
@@ -120,7 +120,6 @@
     <string name="please_enter_name">Te rugam introdu numele</string>
     <string name="please_enter_starting_month">Te rugam introdu luna de incepe a VAT-urilor</string>
     <string name="please_enter_ending_month">Te rugam introdu luna de final a VAT-urilor</string>
-    <string name="please_enter_site">Te rugam introdu locul de munca</string>
     <string name="please_enter_payment_month">Te rugam introdu luna pentru care se face plata</string>
     <string name="please_enter_first_name">Te rugam sa introduci prenumele</string>
     <string name="please_enter_last_name">Te rugam sa introduci numele de familie</string>

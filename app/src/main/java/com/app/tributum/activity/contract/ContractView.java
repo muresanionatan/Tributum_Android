@@ -1,6 +1,7 @@
 package com.app.tributum.activity.contract;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import java.io.File;
 
@@ -177,4 +178,6 @@ public interface ContractView {
     void moveEircodeCursorToEnd(int length);
 
     void moveStartingDayCursorToEnd();
+
+    void startCrop(Uri imageUri);
 }

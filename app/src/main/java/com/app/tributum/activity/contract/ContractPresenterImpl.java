@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.icu.util.Calendar;
+import android.net.Uri;
 import android.text.Editable;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 
 import com.app.tributum.R;
 import com.app.tributum.activity.contract.model.ContractModel;
@@ -24,6 +26,7 @@ import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.UploadAsyncTask;
 import com.app.tributum.utils.ValidationUtils;
 import com.app.tributum.utils.ui.FileUtils;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -67,6 +70,9 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     private boolean isSelf = true;
 
     private boolean isEmployee;
+
+    @PhotoCrop
+    private int photoState;
 
     @ProgressState
     private int state = ProgressState.PERSONAL;
@@ -909,10 +915,10 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     private void uploadFiles(String name, String phone, String bankAccount, String noOfKids, String email) throws IOException {
         contractModel.setEmail(email);
         Map<String, String> uploadList = new HashMap<>();
-        uploadList.put("PPS_FRONT", ppsFileFront);
-        uploadList.put("PPS_BACK", ppsFileBack);
-        uploadList.put("ID", idFile);
-        uploadList.put("MARRIAGE", marriageCertificateFile);
+        uploadList.put("PPS_FRONT", ppsFileFront.replace("file://",""));
+        uploadList.put("PPS_BACK", ppsFileBack.replace("file://",""));
+        uploadList.put("ID", idFile.replace("file://",""));
+        uploadList.put("MARRIAGE", marriageCertificateFile.replace("file://",""));
         UploadAsyncTask uploadMultipleFilesTask = new UploadAsyncTask(
                 name,
                 uploadList,
@@ -982,51 +988,91 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         switch (requestCode) {
             case ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_FRONT:
                 if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.PPS_SELECT;
                     ppsFileFront = ImageUtils.getFilePathFromGallery(data);
-                    view.setPpsFrontImage(ppsFileFront);
+                    view.startCrop(data.getData());
                 }
                 break;
             case ConstantsUtils.SELECTED_PICTURE_REQUEST_PPS_BACK:
                 if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.BACK_SELECT;
                     ppsFileBack = ImageUtils.getFilePathFromGallery(data);
-                    view.setPpsBackImage(ppsFileBack);
+                    view.startCrop(data.getData());
                 }
                 break;
             case ConstantsUtils.SELECTED_PICTURE_REQUEST_ID:
                 if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.ID_SELECT;
                     idFile = ImageUtils.getFilePathFromGallery(data);
-                    view.setIdImage(idFile);
+                    view.startCrop(data.getData());
                 }
                 break;
             case ConstantsUtils.SELECTED_PICTURE_REQUEST_MARRIAGE:
                 if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.MARRIAGE_SELECT;
                     marriageCertificateFile = ImageUtils.getFilePathFromGallery(data);
-                    view.setMarriageCertificateImage(marriageCertificateFile);
+                    view.startCrop(data.getData());
                 }
                 break;
             case ConstantsUtils.CAMERA_REQUEST_PPS_FRONT:
                 if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.PPS_CAMERA;
                     ppsFileFront = file.getAbsolutePath();
-                    view.setPpsFrontImage(ppsFileFront);
+                    view.startCrop(ImageUtils.getUriFromFile(file));
                 }
                 break;
             case ConstantsUtils.CAMERA_REQUEST_PPS_BACK:
                 if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.BACK_CAMERA;
                     ppsFileBack = file.getAbsolutePath();
-                    view.setPpsBackImage(ppsFileBack);
+                    view.startCrop(ImageUtils.getUriFromFile(file));
                 }
                 break;
             case ConstantsUtils.CAMERA_REQUEST_ID:
                 if (resultCode == Activity.RESULT_OK && file != null) {
+                    photoState = PhotoCrop.ID_CAMERA;
                     idFile = file.getAbsolutePath();
-                    view.setIdImage(idFile);
+                    view.startCrop(ImageUtils.getUriFromFile(file));
                 }
                 break;
             case ConstantsUtils.CAMERA_REQUEST_MARRIAGE:
                 if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.MARRIAGE_CAMERA;
                     marriageCertificateFile = file.getAbsolutePath();
-                    view.setMarriageCertificateImage(marriageCertificateFile);
+                    view.startCrop(ImageUtils.getUriFromFile(file));
                 }
+                break;
+            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                handleCropping(data);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void handleCropping(Intent data) {
+        CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+        switch (photoState) {
+            case PhotoCrop.ID_CAMERA:
+            case PhotoCrop.ID_SELECT:
+                idFile = result.getUri().toString();
+                view.setIdImage(idFile);
+                break;
+            case PhotoCrop.MARRIAGE_CAMERA:
+            case PhotoCrop.MARRIAGE_SELECT:
+                marriageCertificateFile = result.getUri().toString();
+                view.setMarriageCertificateImage(marriageCertificateFile);
+                break;
+            case PhotoCrop.PPS_CAMERA:
+            case PhotoCrop.PPS_SELECT:
+                ppsFileFront = result.getUri().toString();
+                view.setPpsFrontImage(ppsFileFront);
+                break;
+            case PhotoCrop.BACK_CAMERA:
+            case PhotoCrop.BACK_SELECT:
+                ppsFileBack = result.getUri().toString();
+                view.setPpsBackImage(ppsFileBack);
                 break;
             default:
                 break;

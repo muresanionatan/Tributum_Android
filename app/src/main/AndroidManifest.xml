@@ -3,8 +3,7 @@
     package="com.app.tributum">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -16,6 +15,8 @@
     <application
         android:name="com.app.tributum.application.TributumApplication"
         android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
@@ -25,6 +26,7 @@
         <activity
             android:name="com.app.tributum.activity.main.MainActivity"
             android:configChanges="locale|orientation|keyboardHidden"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -64,6 +66,10 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.app.tributum.activity.vat.provider"
@@ -74,14 +80,17 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <receiver android:name="com.app.tributum.utils.receiver.AlarmReceiver">
+        <receiver
+            android:name="com.app.tributum.utils.receiver.AlarmReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name="com.app.tributum.utils.receiver.DeviceBootReceiver"
-            android:enabled="false">
+            android:enabled="false"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

@@ -6,13 +6,16 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 
+import androidx.core.content.FileProvider;
+
 import com.app.tributum.application.TributumApplication;
 
 import java.io.File;
 
 public class ImageUtils {
 
-    private ImageUtils() {}
+    private ImageUtils() {
+    }
 
     public static String getImagePath(String prefix) {
         String imageFileName = prefix + ".jpg";
@@ -38,5 +41,12 @@ public class ImageUtils {
         cursor.close();
 
         return filepath;
+    }
+
+    public static Uri getUriFromFile(File file) {
+        return FileProvider.getUriForFile(
+                TributumApplication.getInstance(),
+                "com.app.tributum.activity.vat.provider",
+                file);
     }
 }

@@ -290,11 +290,4 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
         Toast.makeText(PaymentsActivity.this, getString(R.string.please_enter_amount), Toast.LENGTH_SHORT).show();
         scrollToEditText(recyclerView);
     }
-
-    @Override
-    public void scrollToSiteItem(int position) {
-//        recyclerView.scrollToPosition(position);
-        Toast.makeText(PaymentsActivity.this, getString(R.string.please_enter_site), Toast.LENGTH_SHORT).show();
-        scrollToEditText(recyclerView);
-    }
 }

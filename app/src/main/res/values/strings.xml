@@ -36,12 +36,12 @@
     <string name="employee_label">Employee</string>
     <string name="please_specify_label">Please specify</string>
     <string name="date_of_birth">Date of Birth (DD/MM/YYYY)<font color='#f65b94'>*</font></string>
-    <string name="starting_date">Starting Date (DD/MM/YYYY)<font color='#f65b94'>*</font></string>
+    <string name="starting_date">Starting Date (DD/MM/YYYY)</string>
     <string name="please_enter_pps">Please enter your correct PPS number</string>
     <string name="please_enter_correct_email">Please enter a correct email address</string>
     <string name="something_went_wrong">Something went wrong. Please try again later</string>
     <string name="pps_label">PPS Number<font color='#f65b94'>*</font></string>
-    <string name="site_label">Site location/ID<font color='#f65b94'>*</font></string>
+    <string name="site_label">Site location/ID</string>
     <string name="english_label">English</string>
     <string name="romanian_label">Romanian</string>
     <string name="take_photo">Take photo</string>
@@ -120,7 +120,6 @@
     <string name="please_enter_name">Please enter a name</string>
     <string name="please_enter_starting_month">Please enter the VAT starting month</string>
     <string name="please_enter_ending_month">Please enter VAT ending month</string>
-    <string name="please_enter_site">Please enter site</string>
     <string name="please_enter_payment_month">Please enter payment month</string>
     <string name="please_enter_first_name">Please enter first name</string>
     <string name="please_enter_last_name">Please enter last name</string>

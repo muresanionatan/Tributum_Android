@@ -125,7 +125,6 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
         for (PaymentModel model : paymentList) {
             if (model.getName().trim().equals("") || model.getPps().trim().equals("")
                     || model.getAmount().trim().equals("")
-                    || model.getSite().trim().equals("")
                     || !ValidationUtils.isPpsValid(model.getPps())) {
                 return true;
             }
@@ -150,10 +149,6 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ItemVi
             } else if (model.getAmount().trim().equals("")) {
                 notifyDataSetChanged();
                 recyclerViewInputListener.scrollToAmountItem(i);
-                break;
-            } else if (model.getSite().trim().equals("")) {
-                notifyDataSetChanged();
-                recyclerViewInputListener.scrollToSiteItem(i);
                 break;
             }
         }
