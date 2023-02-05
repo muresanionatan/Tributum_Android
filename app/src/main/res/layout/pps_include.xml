@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/first_name_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="18dp"
+        android:hint="@string/first_name_label"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/last_name_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:hint="@string/last_name_label"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/mom_name_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:hint="@string/mom_name_label"
+        android:inputType="textCapWords" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/manrope_bold"
+        android:text="@string/add_your_id_label"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <include
+        android:id="@+id/cnp_id"
+        layout="@layout/invoices_item" />
+
+    <EditText
+        android:id="@+id/address_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="20dp"
+        android:hint="@string/address_label" />
+
+    <EditText
+        android:id="@+id/eircode_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="20dp"
+        android:hint="@string/eircode_label"
+        android:inputType="textCapCharacters" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/manrope_bold"
+        android:text="@string/add_your_bill_label"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/manrope_regular"
+        android:text="@string/not_older_then_label"
+        android:textColor="@color/grey_3"
+        android:textSize="16sp" />
+
+    <include
+        android:id="@+id/bill_id"
+        layout="@layout/invoices_item" />
+
+    <EditText
+        android:id="@+id/email_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="20dp"
+        android:hint="@string/mail_label"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/phone_edit_text"
+        style="@style/CustomEditText"
+        android:layout_marginTop="20dp"
+        android:hint="@string/phone_number_label"
+        android:inputType="phone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/manrope_bold"
+        android:text="@string/add_your_letter_label"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <include
+        android:id="@+id/letter_id"
+        layout="@layout/invoices_item" />
+</LinearLayout>

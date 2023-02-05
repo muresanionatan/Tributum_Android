@@ -113,6 +113,12 @@ public class MainPresenterImpl implements MainPresenter {
         handleActivityStart();
     }
 
+    @Override
+    public void onPpsClick() {
+        actToStart = ActivityToStart.PPS;
+        handleActivityStart();
+    }
+
     private void handleActivityStart() {
         if (view == null)
             return;
@@ -129,8 +135,10 @@ public class MainPresenterImpl implements MainPresenter {
                 view.startContractActivity();
             else if (actToStart == ActivityToStart.VAT)
                 view.startVatActivity();
-            else
+            else if (actToStart == ActivityToStart.INQUIRY)
                 view.startInquiryActivity();
+            else
+                view.startPpsActivity();
         } else {
             if (view.shouldShowCameraRationale())
                 view.requestPermissions(new String[]{Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_ID);

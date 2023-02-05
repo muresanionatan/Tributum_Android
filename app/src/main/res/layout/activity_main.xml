@@ -143,8 +143,7 @@
                     android:id="@+id/inquiry_id"
                     style="@style/MainScreeButton"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginTop="12dp">
 
                     <ImageView
                         style="@style/MainScreeButtonImage"
@@ -166,6 +165,36 @@
                             style="@style/MainScreeButtonSubtitle"
                             android:fontFamily="@font/manrope_medium"
                             android:text="@string/submit_inquiry_subtitle" />
+                    </LinearLayout>
+                </com.app.tributum.utils.ui.CustomButton>
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/pps_id"
+                    style="@style/MainScreeButton"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="24dp">
+
+                    <ImageView
+                        style="@style/MainScreeButtonImage"
+                        android:src="@drawable/ic_icon_pps" />
+
+                    <ImageView
+                        style="@style/MainScreeButtonArrow"
+                        android:rotation="180"
+                        app:tint="@color/pps" />
+
+                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:text="@string/new_pps"
+                            android:textColor="@color/pps" />
+
+                        <TextView
+                            style="@style/MainScreeButtonSubtitle"
+                            android:fontFamily="@font/manrope_medium"
+                            android:text="@string/pps_number_description" />
                     </LinearLayout>
                 </com.app.tributum.utils.ui.CustomButton>
             </LinearLayout>

@@ -27,6 +27,8 @@ public interface MainPresenter {
 
     void onInquiryClick();
 
+    void onPpsClick();
+
     void onFaqClick();
 
     void onAcceptTermsClicked();

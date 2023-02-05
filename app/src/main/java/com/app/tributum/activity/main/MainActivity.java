@@ -26,6 +26,7 @@ import com.app.tributum.activity.faq.FaqActivity;
 import com.app.tributum.activity.contract.ContractActivity;
 import com.app.tributum.activity.inquiry.InquiryActivity;
 import com.app.tributum.activity.payments.PaymentsActivity;
+import com.app.tributum.activity.pps.PpsActivity;
 import com.app.tributum.activity.vat.VatActivity;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
@@ -123,6 +124,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
             @Override
             public void onClick(View v) {
                 presenter.onInquiryClick();
+            }
+        });
+
+        findViewById(R.id.pps_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onPpsClick();
             }
         });
 
@@ -229,6 +237,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
+    public void startPpsActivity() {
+        startActivity(new Intent(this, PpsActivity.class));
+    }
+
+    @Override
     public void startFaqActivity() {
         startActivity(new Intent(this, FaqActivity.class));
     }
@@ -246,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
                         languageLayout.setVisibility(View.VISIBLE);
                     }
                 },
-                0, 2500).start();
+                0, 4000).start();
     }
 
     @Override

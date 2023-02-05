@@ -7,6 +7,7 @@
     <string name="last_name_label">Last Name<font color='#f65b94'>*</font></string>
     <string name="gross_label">Gross</string>
     <string name="net_label">Net</string>
+    <string name="address_label">Address<font color='#f65b94'>*</font></string>
     <string name="address_label_1">Address 1<font color='#f65b94'>*</font></string>
     <string name="address_label_2">Address 2<font color='#f65b94'>*</font></string>
     <string name="address_label_3">Address 3</string>
@@ -51,6 +52,7 @@
     <string name="month_label">Month<font color='#f65b94'>*</font></string>
     <string name="you_receive_copy">You will receive an email regarding this payment </string>
     <string name="invoices_message_email">Please add the receipts/invoices for\u0020</string>
+    <string name="pps_message_email">New PPS for\u0020</string>
     <string name="invoices_message_email_part2">\u0020for period:\u0020</string>
     <string name="add_pps_front">Add PPS Front Image<font color='#f65b94'>*</font></string>
     <string name="add_pps_back">Add PPS Back Image (optional)</string>
@@ -83,6 +85,8 @@
     <string name="personal_info_label">Personal\nInfo</string>
     <string name="contract_subtitle">Please carefully enter your information,\nso we can generate a contract for you.</string>
     <string name="add_your_id_label">Add Your ID/Passport/Driver license<font color='#f65b94'>*</font></string>
+    <string name="add_your_letter_label">Add Your Letter Of Employed<font color='#f65b94'>*</font></string>
+    <string name="add_your_bill_label">Add a Bill (gas/electricity/bank)<font color='#f65b94'>*</font></string>
     <string name="marital_status_label">Marital Status</string>
     <string name="any_children_label">Any Children?</string>
     <string name="continue_label">Continue</string>
@@ -124,6 +128,8 @@
     <string name="please_enter_occupation">Please enter occupation</string>
     <string name="please_enter_phone">Please enter phone number</string>
     <string name="please_add_id">Please add ID/Passport photo</string>
+    <string name="please_add_bill">Please add Bill</string>
+    <string name="please_add_letter">Please add Letter of Employed</string>
     <string name="please_add_marriage">Please add marriage certificate</string>
     <string name="please_select_taxes">Please select at least one of taxes</string>
     <string name="please_add_pps_front">Please add pps front</string>
@@ -155,4 +161,12 @@
     <string name="inquiry_sent_label">Inquiry sent</string>
     <string name="add_file">Add file</string>
     <string name="add_privates">Add private job invoices</string>
+    <string name="mom_name_label">Mom\'s name before marriage</string>
+    <string name="pps_number_label">New PPS</string>
+    <string name="pps_number_description">Apply for PPS Number</string>
+    <string name="send_label">Send</string>
+    <string name="request_sent">Request Sent</string>
+    <string name="please_enter_mom_name">Please enter mom\'s name before marriage</string>
+    <string name="not_older_then_label">Not older then 2 months</string>
+    <string name="new_pps">New PPS</string>
 </resources>

@@ -24,22 +24,27 @@ public class UploadAsyncTask extends AsyncTask {
 
     private String inquiryPhotoName;
 
+    private String path;
+
     @UploadType
     private int type;
 
-    public UploadAsyncTask(String userName, Map<String, String> uploadList, AsyncListener asyncListener, @UploadType int type) {
+    public UploadAsyncTask(String userName, Map<String, String> uploadList, AsyncListener asyncListener, @UploadType int type, String path) {
         this.userName = userName;
         this.uploadList = uploadList;
         this.asyncListener = asyncListener;
         this.type = type;
+        this.path = path;
     }
 
-    public UploadAsyncTask(String userName, File message, AsyncListener asyncListener, @UploadType int type) {
+    public UploadAsyncTask(String userName, File message, AsyncListener asyncListener, @UploadType int type, String path) {
         this.userName = userName;
         this.file = message;
         this.asyncListener = asyncListener;
         this.type = type;
+        this.path = path;
     }
+
     public UploadAsyncTask(String userName, String filePath, String inquiryPhotoName, AsyncListener asyncListener, @UploadType int type) {
         this.userName = userName;
         this.filePath = filePath;
@@ -52,9 +57,9 @@ public class UploadAsyncTask extends AsyncTask {
     protected Object doInBackground(Object[] objects) {
         try {
             if (type == UploadType.MULTIPLE) {
-                DropboxUtils.uploadPpsAndId(userName, uploadList);
-            } else if (type == UploadType.USER_INFO){
-                DropboxUtils.addUserInfoFile(file, userName);
+                DropboxUtils.uploadPpsAndId(userName, uploadList, path);
+            } else if (type == UploadType.USER_INFO) {
+                DropboxUtils.addUserInfoFile(file, userName, path);
             } else if (type == UploadType.INQUIRY) {
                 DropboxUtils.uploadInquiryOnDropbox(userName, filePath, inquiryPhotoName);
             }

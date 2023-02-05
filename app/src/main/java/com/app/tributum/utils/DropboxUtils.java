@@ -45,7 +45,7 @@ public class DropboxUtils {
         }
     }
 
-    public static void uploadPpsAndId(String username, Map<String, String> uploadList) throws FileNotFoundException {
+    public static void uploadPpsAndId(String username, Map<String, String> uploadList, String path) throws FileNotFoundException {
         try {
             InputStream inputStream;
             for (String key : uploadList.keySet()) {
@@ -53,7 +53,7 @@ public class DropboxUtils {
                 if (file == null)
                     continue;
                 inputStream = new FileInputStream(file);
-                getDropBoxClient().files().uploadBuilder("/DATABASE/" + username.toUpperCase() + "/" + key + ".png")
+                getDropBoxClient().files().uploadBuilder("/" + path + "/" + username.toUpperCase() + "/" + key + ".png")
                         .withMode(WriteMode.OVERWRITE)
                         .uploadAndFinish(inputStream);
             }
@@ -63,10 +63,10 @@ public class DropboxUtils {
         }
     }
 
-    public static void addUserInfoFile(File uploadFile, String username) {
+    public static void addUserInfoFile(File uploadFile, String username, String path) {
         try {
             InputStream inputStream = new FileInputStream(uploadFile);
-            getDropBoxClient().files().uploadBuilder("/DATABASE/" + username.toUpperCase() + "/" + "user_info.txt")
+            getDropBoxClient().files().uploadBuilder("/" + path + "/" + username.toUpperCase() + "/" + "user_info.txt")
                     .withMode(WriteMode.OVERWRITE)
                     .uploadAndFinish(inputStream);
             Log.d("Upload Status", "Success");

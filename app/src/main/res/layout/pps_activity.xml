@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_1"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/pps_back_id"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/white_circle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_icon_back"
+                app:tint="@color/pps" />
+        </LinearLayout>
+
+        <com.app.tributum.utils.ui.CustomScrollView
+            android:id="@+id/pps_scrollView_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/pps_back_id"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TitleText"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/pps_number_label"
+                    android:textColor="@color/pps" />
+
+                <TextView
+                    style="@style/SubtitleText"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/pps_number_description" />
+
+                <TextView
+                    android:id="@+id/asterisk_text_view_id"
+                    style="@style/SubtitleText"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/mandatory_fields" />
+
+                <include
+                    android:id="@+id/personal_info_layout_id"
+                    layout="@layout/pps_include"
+                    tools:visibility="gone" />
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/pps_send_layout_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/pps_send_id"
+                        style="@style/SendButton"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="32dp"
+                        android:background="@drawable/pps_send"
+                        android:text="@string/send_label" />
+                </com.app.tributum.utils.ui.CustomButton>
+            </LinearLayout>
+        </com.app.tributum.utils.ui.CustomScrollView>
+    </RelativeLayout>
+
+    <include
+        layout="@layout/image_preview_layout"
+        tools:visibility="gone" />
+
+    <include layout="@layout/file_chooser_layout" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

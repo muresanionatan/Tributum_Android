@@ -60,6 +60,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name="com.app.tributum.activity.pps.PpsActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name="com.app.tributum.activity.faq.FaqActivity"
             android:configChanges="locale"
             android:screenOrientation="portrait"

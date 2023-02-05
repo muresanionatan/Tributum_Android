@@ -23,6 +23,10 @@ public class ConstantsUtils {
 
     public static final short SELECTED_PICTURE_REQUEST_MARRIAGE = 900;
 
+    public static final short SELECTED_PICTURE_REQUEST_BILL = 888;
+
+    public static final short SELECTED_PICTURE_REQUEST_LETTER = 889;
+
     public static final short CAMERA_REQUEST_PPS_FRONT = 1001;
 
     public static final short CAMERA_REQUEST_PPS_BACK = 997;
@@ -30,6 +34,10 @@ public class ConstantsUtils {
     public static final short CAMERA_REQUEST_ID = 1002;
 
     public static final short CAMERA_REQUEST_MARRIAGE = 1003;
+
+    public static final short CAMERA_REQUEST_BILL = 887;
+
+    public static final short CAMERA_REQUEST_LETTER = 886;
 
     public static final short CAMERA_REQUEST_INVOICES_ID = 7;
 

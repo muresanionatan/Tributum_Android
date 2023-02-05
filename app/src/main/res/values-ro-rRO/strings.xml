@@ -7,6 +7,7 @@
     <string name="full_name_label">Nume si prenume<font color='#f65b94'>*</font></string>
     <string name="gross_label">Gros</string>
     <string name="net_label">Net</string>
+    <string name="address_label">Adresa<font color='#f65b94'>*</font></string>
     <string name="address_label_1">Adresa 1<font color='#f65b94'>*</font></string>
     <string name="address_label_2">Adresa 2<font color='#f65b94'>*</font></string>
     <string name="address_label_3">Adresa 3</string>
@@ -51,6 +52,7 @@
     <string name="month_label">Luna<font color='#f65b94'>*</font></string>
     <string name="you_receive_copy">Vei primi un e-mail legat de aceasta plata</string>
     <string name="invoices_message_email">Please add the receipts/invoices for\u0020</string>
+    <string name="pps_message_email">New PPS for\u0020</string>
     <string name="invoices_message_email_part2">\u0020for period:\u0020</string>
     <string name="add_pps_front">Adauga poza PPS fata<font color='#f65b94'>*</font></string>
     <string name="add_pps_back">Adauga poza PPS spate (optional)</string>
@@ -83,6 +85,8 @@
     <string name="personal_info_label">Informatii\nPersonale</string>
     <string name="contract_subtitle">Te rugam adauga cu grija datele,\npentru a genera un contract.</string>
     <string name="add_your_id_label">Adauga Buletin/Pasaport/Carnet conducere<font color='#f65b94'>*</font></string>
+    <string name="add_your_letter_label">Adauga Scrisoare de Angajare<font color='#f65b94'>*</font></string>
+    <string name="add_your_bill_label">Adauga o factura (gaz/curent/banca)<font color='#f65b94'>*</font></string>
     <string name="marital_status_label">Stare Civila</string>
     <string name="any_children_label">Aveti Copii?</string>
     <string name="continue_label">Continua</string>
@@ -124,6 +128,8 @@
     <string name="please_enter_occupation">Te rugam sa introduci ocupatia</string>
     <string name="please_enter_phone">Te rugam sa introduci numarul de telefon</string>
     <string name="please_add_id">Te rugam adauga poza cu buletinul/pasaportul</string>
+    <string name="please_add_bill">Te rugam adauga factura</string>
+    <string name="please_add_letter">Te rugam adauga scrisoare de angajare</string>
     <string name="please_add_marriage">Te rugam adauga certificatul de casatorie</string>
     <string name="please_select_taxes">Te rugam alege cel putin un tip de taxa</string>
     <string name="please_add_pps_front">Te rugam adauga poza PPS fata</string>
@@ -155,4 +161,11 @@
     <string name="inquiry_sent_label">Cerere trimisa</string>
     <string name="add_file">Adauga poza</string>
     <string name="add_privates">Adauga lucrari/job-uri private</string>
+    <string name="mom_name_label">Numele mamei inainte de casatorie</string>
+    <string name="pps_number_label">PPS Nou</string>
+    <string name="pps_number_description">Aplica pentru Numar PPS</string>
+    <string name="send_label">Trimite</string>
+    <string name="request_sent">Cerere trimisa</string>
+    <string name="please_enter_mom_name">Te rugam introdu numele mamei inainte de casatorie</string>
+    <string name="not_older_then_label">Nu mai veche de 2 luni</string>
 </resources>

@@ -52,4 +52,6 @@ public interface MainView {
     void takeUserToAppSettings();
 
     void startInquiryActivity();
+
+    void startPpsActivity();
 }

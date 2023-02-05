@@ -845,13 +845,15 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 name,
                 uploadList,
                 null,
-                UploadAsyncTask.UploadType.MULTIPLE);
+                UploadAsyncTask.UploadType.MULTIPLE,
+                "DATABASE");
         uploadMultipleFilesTask.execute();
         UploadAsyncTask uploadOneFileTask = new UploadAsyncTask(
                 name,
                 FileUtils.createFile(generateUserInfo(phone, bankAccount, noOfKids), name + "_info"),
                 this,
-                UploadAsyncTask.UploadType.USER_INFO);
+                UploadAsyncTask.UploadType.USER_INFO,
+                "DATABASE");
         uploadOneFileTask.execute();
     }
 
