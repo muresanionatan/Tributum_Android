@@ -84,8 +84,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     private final Resources resources;
 
-    private boolean hasOther;
-
     private boolean first;
 
     private boolean second;
@@ -94,15 +92,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     private boolean fourth;
 
-    private boolean fifth;
-
     private boolean sixth;
-
-    private boolean seventh;
-
-    private boolean eight;
-
-    private boolean ninth;
 
     private boolean isPreview;
 
@@ -281,12 +271,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     @Override
-    public void beforeOtherChanged() {
-        if (!hasOther)
-            hasOther = true;
-    }
-
-    @Override
     public void onClearSignatureClick() {
         if (view == null)
             return;
@@ -299,7 +283,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     @Override
     public void handleSendButtonClick(String firstName, String lastName, String address1, String address2, String address3, String eircode,
                                       String birthday, String occupation, String phone, String email, String bankAccount,
-                                      String pps, String startingDate, String noOfKids, String otherText) {
+                                      String pps, String startingDate, String noOfKids) {
         if (view == null)
             return;
 
@@ -343,12 +327,9 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             if (!ValidationUtils.isPpsValid(pps)) {
                 view.showToast(R.string.please_enter_pps);
                 view.focusOnPps();
-            } else if (isSelf && (!first && !second && !third && !fourth && !fifth && !sixth && !seventh && !eight && !ninth)) {
+            } else if (isSelf && (!first && !second && !third && !fourth && !sixth)) {
                 view.showToast(R.string.please_select_taxes);
                 view.scrollToTaxes();
-            } else if (isSelf && ninth && otherText.equals("")) {
-                view.showToast(R.string.please_specify_other);
-                view.focusOnOther();
             } else if (ppsFileFront == null) {
                 view.showToast(R.string.please_add_pps_front);
                 view.scrollToPpsFront();
@@ -357,7 +338,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             }
         } else if (state == ProgressState.SIGNATURE) {
             if (signatureDrawn)
-                sendInfo(firstName, lastName, address1, address2, address3, eircode, pps, email, birthday, occupation, otherText, phone, bankAccount, noOfKids, startingDate);
+                sendInfo(firstName, lastName, address1, address2, address3, eircode, pps, email, birthday, occupation, phone, bankAccount, noOfKids, startingDate);
             else
                 view.showToast(R.string.please_add_signature);
         }
@@ -760,18 +741,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     @Override
-    public void onFifthCheckboxClicked() {
-        if (view != null) {
-            fifth = !fifth;
-            view.setFifthCheckboxState(fifth);
-            if (fifth)
-                view.selectText(R.id.fifth_text_id);
-            else
-                view.deselectText(R.id.fifth_text_id);
-        }
-    }
-
-    @Override
     public void onSixthCheckboxClicked() {
         if (view != null) {
             sixth = !sixth;
@@ -783,48 +752,8 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         }
     }
 
-    @Override
-    public void onSeventhCheckboxClicked() {
-        if (view != null) {
-            seventh = !seventh;
-            view.setSeventhCheckboxState(seventh);
-            if (seventh)
-                view.selectText(R.id.seventh_text_id);
-            else
-                view.deselectText(R.id.seventh_text_id);
-        }
-    }
-
-    @Override
-    public void onEightCheckboxClicked() {
-        if (view != null) {
-            eight = !eight;
-            view.setEightCheckboxState(eight);
-            if (eight)
-                view.selectText(R.id.eight_text_id);
-            else
-                view.deselectText(R.id.eight_text_id);
-        }
-    }
-
-    @Override
-    public void onNinthCheckboxClicked() {
-        if (view != null) {
-            if (!ninth)
-                view.setFocusOnOther();
-            else
-                view.hideOther();
-            ninth = !ninth;
-            view.setNinthCheckboxState(ninth);
-            if (ninth)
-                view.selectText(R.id.ninth_text_id);
-            else
-                view.deselectText(R.id.ninth_text_id);
-        }
-    }
-
     private void sendInfo(String firstName, String lastName, String address1, String address2, String address3, String eircode,
-                          String pps, String email, String birthday, String occupation, String otherText,
+                          String pps, String email, String birthday, String occupation,
                           String phone, String bankAccount, String noOfKids, String startingDate) {
         contractModel = new ContractModel(
                 firstName + " " + lastName,
@@ -859,16 +788,8 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             taxes.add(resources.getString(R.string.value_added_tax_label));
         if (fourth)
             taxes.add(resources.getString(R.string.employer_paye_label));
-        if (fifth)
-            taxes.add(resources.getString(R.string.capital_gains_label));
         if (sixth)
             taxes.add(resources.getString(R.string.relevant_contract_label));
-        if (seventh)
-            taxes.add(resources.getString(R.string.environment_levy_label));
-        if (eight)
-            taxes.add(resources.getString(R.string.divided_withholding_label));
-        if (ninth)
-            taxes.add(resources.getString(R.string.other_label));
 
         contractModel.setOccupation(occupation);
         contractModel.setMessage(resources.getString(R.string.contract_mail_message));
@@ -879,7 +800,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         signatureFile.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
 
-        contractModel.setOther(otherText);
         contractModel.setTaxes(taxes);
         contractModel.setSignature(byteArray);
 
@@ -915,10 +835,12 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     private void uploadFiles(String name, String phone, String bankAccount, String noOfKids, String email) throws IOException {
         contractModel.setEmail(email);
         Map<String, String> uploadList = new HashMap<>();
-        uploadList.put("PPS_FRONT", ppsFileFront.replace("file://",""));
-        uploadList.put("PPS_BACK", ppsFileBack.replace("file://",""));
-        uploadList.put("ID", idFile.replace("file://",""));
-        uploadList.put("MARRIAGE", marriageCertificateFile.replace("file://",""));
+        uploadList.put("PPS_FRONT", ppsFileFront.replace("file://", ""));
+        if (ppsFileBack != null)
+            uploadList.put("PPS_BACK", ppsFileBack.replace("file://", ""));
+        uploadList.put("ID", idFile.replace("file://", ""));
+        if (marriageCertificateFile != null)
+            uploadList.put("MARRIAGE", marriageCertificateFile.replace("file://", ""));
         UploadAsyncTask uploadMultipleFilesTask = new UploadAsyncTask(
                 name,
                 uploadList,

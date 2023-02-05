@@ -107,29 +107,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/fifth_layout_id"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/white_rectangle_corners"
-        android:gravity="center_vertical">
-
-        <CheckBox
-            android:id="@+id/fifth"
-            style="@style/ContractCheckBox" />
-
-        <TextView
-            android:id="@+id/fifth_text_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/manrope_medium"
-            android:text="@string/capital_gains_label"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/sixth_layout_id"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -151,83 +128,4 @@
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/seventh_layout_id"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/white_rectangle_corners"
-        android:gravity="center_vertical">
-
-        <CheckBox
-            android:id="@+id/seventh"
-            style="@style/ContractCheckBox" />
-
-        <TextView
-            android:id="@+id/seventh_text_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/manrope_medium"
-            android:text="@string/environment_levy_label"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/eight_layout_id"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/white_rectangle_corners"
-        android:gravity="center_vertical">
-
-        <CheckBox
-            android:id="@+id/eight"
-            style="@style/ContractCheckBox" />
-
-        <TextView
-            android:id="@+id/eight_text_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/manrope_medium"
-            android:text="@string/divided_withholding_label"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ninth_layout_id"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/white_rectangle_corners"
-        android:gravity="center_vertical">
-
-        <CheckBox
-            android:id="@+id/ninth"
-            style="@style/ContractCheckBox"/>
-
-        <TextView
-            android:id="@+id/ninth_text_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/manrope_medium"
-            android:text="@string/other_label"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/other_edit_id"
-        style="@style/CustomEditText"
-        android:layout_width="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:hint="@string/please_specify_label"
-        android:visibility="gone" />
 </LinearLayout>

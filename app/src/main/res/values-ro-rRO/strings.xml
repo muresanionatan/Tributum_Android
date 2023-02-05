@@ -27,11 +27,7 @@
     <string name="corporation_tax_label">Corporation Tax</string>
     <string name="value_added_tax_label">Value Added Tax (VAT)</string>
     <string name="employer_paye_label">Employer\'s PAYE (PRSI)</string>
-    <string name="capital_gains_label">Capital Gains Tax (CGT)</string>
     <string name="relevant_contract_label">Relevant Contract Tax (RCT)</string>
-    <string name="environment_levy_label">Environment Levy (E Levy)</string>
-    <string name="divided_withholding_label">Divided Withholding Tax (DWT)</string>
-    <string name="other_label">Altele:</string>
     <string name="self_employed_label">Self employed</string>
     <string name="employee_label">Angajat</string>
     <string name="please_specify_label">Te rugam specifica</string>
@@ -130,7 +126,6 @@
     <string name="please_add_id">Te rugam adauga poza cu buletinul/pasaportul</string>
     <string name="please_add_marriage">Te rugam adauga certificatul de casatorie</string>
     <string name="please_select_taxes">Te rugam alege cel putin un tip de taxa</string>
-    <string name="please_specify_other">Te rugam specifica altele</string>
     <string name="please_add_pps_front">Te rugam adauga poza PPS fata</string>
     <string name="faq_question_1">Cum adaug bonuri/facturi?</string>
     <string name="faq_question_answer_1">Trebuie sa completezi campurile obligatorii pentru a finaliza aceasta operatiune. Acestea sunt: numele, email, luna de inceput si sfarsit a bonurilor/facturilor. Apoi trebuie sa apesi pe plusul portocaliu, iar pe urma adaugi bonurile/facturile. Poti sa le adaugi din galeria telefonului (daca le ai salvate acolo) folosind butonul \'Adauga poze din galerie\', sau poti sa faci acum poze fara limita folosind butonul \'Fa o poza\'. Odata adaugate acestea, apasa butonul \'Trimite\' din josul paginii.</string>

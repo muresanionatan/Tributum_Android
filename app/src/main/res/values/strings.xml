@@ -27,11 +27,7 @@
     <string name="corporation_tax_label">Corporation Tax</string>
     <string name="value_added_tax_label">Value Added Tax (VAT)</string>
     <string name="employer_paye_label">Employer\'s PAYE (PRSI)</string>
-    <string name="capital_gains_label">Capital Gains Tax (CGT)</string>
     <string name="relevant_contract_label">Relevant Contract Tax (RCT)</string>
-    <string name="environment_levy_label">Environment Levy (E Levy)</string>
-    <string name="divided_withholding_label">Divided Withholding Tax (DWT)</string>
-    <string name="other_label">Other:</string>
     <string name="self_employed_label">Self employed</string>
     <string name="employee_label">Employee</string>
     <string name="please_specify_label">Please specify</string>
@@ -130,7 +126,6 @@
     <string name="please_add_id">Please add ID/Passport photo</string>
     <string name="please_add_marriage">Please add marriage certificate</string>
     <string name="please_select_taxes">Please select at least one of taxes</string>
-    <string name="please_specify_other">Please specify which other</string>
     <string name="please_add_pps_front">Please add pps front</string>
     <string name="faq_question_1">How do I send VAT receipts?</string>
     <string name="faq_question_answer_1">You need to add the mandatory fields in order to complete the action. These are: name, e-mail, starting and ending month of the invoices/receipts. Then click on the orange plus and you\'ll need to add the receipts/invoices. You can add those that are already in your phone (using the \'Add From Gallery\' button) or by taking unlimited pictures by clicking on \'Take photo\'. Once you\'ve added all your receipts/invoices, click on the \'Send VAT Receipts\' button on the bottom of the page.</string>

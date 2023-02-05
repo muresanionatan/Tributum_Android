@@ -262,22 +262,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             }
         });
 
-        EditText otherEditText = findViewById(R.id.other_edit_id);
-        UtilsGeneral.setMaxLengthEditText(otherEditText, 60);
-        CheckBox otherCheck = findViewById(R.id.ninth);
-        otherCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UtilsGeneral.setFocusOnInput(otherEditText);
-            }
-        });
-        otherEditText.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                presenter.beforeOtherChanged();
-            }
-        });
-
         findViewById(R.id.contract_send_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -295,8 +279,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                         bankAccount.getText().toString(),
                         ppsNumberEditText.getText().toString(),
                         startingDate.getText().toString(),
-                        ((EditText) findViewById(R.id.number_kids_id)).getText().toString(),
-                        otherEditText.getText().toString()
+                        ((EditText) findViewById(R.id.number_kids_id)).getText().toString()
                 );
             }
         });
@@ -558,18 +541,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                 presenter.onFourthCheckboxClicked();
             }
         });
-        findViewById(R.id.fifth_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onFifthCheckboxClicked();
-            }
-        });
-        findViewById(R.id.fifth).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onFifthCheckboxClicked();
-            }
-        });
         findViewById(R.id.sixth_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -580,42 +551,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
             @Override
             public void onClick(View v) {
                 presenter.onSixthCheckboxClicked();
-            }
-        });
-        findViewById(R.id.seventh_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onSeventhCheckboxClicked();
-            }
-        });
-        findViewById(R.id.seventh).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onSeventhCheckboxClicked();
-            }
-        });
-        findViewById(R.id.eight_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onEightCheckboxClicked();
-            }
-        });
-        findViewById(R.id.eight).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onEightCheckboxClicked();
-            }
-        });
-        findViewById(R.id.ninth_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onNinthCheckboxClicked();
-            }
-        });
-        findViewById(R.id.ninth).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onNinthCheckboxClicked();
             }
         });
     }
@@ -1035,42 +970,8 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
-    public void setFifthCheckboxState(boolean state) {
-        ((CheckBox) findViewById(R.id.fifth)).setChecked(state);
-    }
-
-    @Override
     public void setSixthCheckboxState(boolean state) {
         ((CheckBox) findViewById(R.id.sixth)).setChecked(state);
-    }
-
-    @Override
-    public void setSeventhCheckboxState(boolean state) {
-        ((CheckBox) findViewById(R.id.seventh)).setChecked(state);
-    }
-
-    @Override
-    public void setEightCheckboxState(boolean state) {
-        ((CheckBox) findViewById(R.id.eight)).setChecked(state);
-    }
-
-    @Override
-    public void setNinthCheckboxState(boolean state) {
-        ((CheckBox) findViewById(R.id.ninth)).setChecked(state);
-    }
-
-    @Override
-    public void setFocusOnOther() {
-        EditText other = findViewById(R.id.other_edit_id);
-        other.setVisibility(View.VISIBLE);
-        UtilsGeneral.setFocusOnInput(other);
-    }
-
-    @Override
-    public void hideOther() {
-        EditText other = findViewById(R.id.other_edit_id);
-        UtilsGeneral.removeFocusFromInput(this, other);
-        other.setVisibility(View.GONE);
     }
 
     @Override
@@ -1274,12 +1175,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     public void focusOnPps() {
         UtilsGeneral.setFocusOnInput(ppsNumberEditText);
         scrollToView(ppsNumberEditText);
-    }
-
-    @Override
-    public void focusOnOther() {
-        UtilsGeneral.setFocusOnInput(findViewById(R.id.other_edit_id));
-        scrollToView(findViewById(R.id.other_edit_id));
     }
 
     @Override

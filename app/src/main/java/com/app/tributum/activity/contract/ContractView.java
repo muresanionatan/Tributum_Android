@@ -83,19 +83,7 @@ public interface ContractView {
 
     void setFourthCheckboxState(boolean state);
 
-    void setFifthCheckboxState(boolean state);
-
     void setSixthCheckboxState(boolean state);
-
-    void setSeventhCheckboxState(boolean state);
-
-    void setEightCheckboxState(boolean state);
-
-    void setNinthCheckboxState(boolean state);
-
-    void setFocusOnOther();
-
-    void hideOther();
 
     void openFilePicker(int requestId);
 
@@ -160,8 +148,6 @@ public interface ContractView {
     void focusOnEircode();
 
     void focusOnPps();
-
-    void focusOnOther();
 
     void scrollToPpsFront();
 

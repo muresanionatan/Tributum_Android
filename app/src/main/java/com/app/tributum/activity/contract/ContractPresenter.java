@@ -9,15 +9,13 @@ public interface ContractPresenter {
 
     void handleSendButtonClick(String firstName, String lastName, String address1, String address2, String address3, String eircode,
                                String birthday, String occupation, String phone, String email, String bankAccount,
-                               String pps, String startingDate, String noOfKids, String otherText);
+                               String pps, String startingDate, String noOfKids);
 
     void onCreate();
 
     void afterBirthdayChanged(Editable string);
 
     void beforeBirthdayChanged(int length);
-
-    void beforeOtherChanged();
 
     void onClearSignatureClick();
 
@@ -59,15 +57,7 @@ public interface ContractPresenter {
 
     void onFourthCheckboxClicked();
 
-    void onFifthCheckboxClicked();
-
     void onSixthCheckboxClicked();
-
-    void onSeventhCheckboxClicked();
-
-    void onEightCheckboxClicked();
-
-    void onNinthCheckboxClicked();
 
     void onActivityResult(int requestCode, int resultCode, Intent data);
 

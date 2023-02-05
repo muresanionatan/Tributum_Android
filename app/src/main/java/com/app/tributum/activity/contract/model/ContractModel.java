@@ -30,11 +30,6 @@ public class ContractModel {
 
     private String startingDate;
 
-    /**
-     * Used for the 'applying for' for the field which the client can input in
-     */
-    private String other;
-
     public ContractModel(String name,
                          String address,
                          String ppsNumber,
@@ -93,9 +88,6 @@ public class ContractModel {
         this.signature = signature;
     }
 
-    public void setOther(String other) {
-        this.other = other;
-    }
 
     public void setMessage(String message) {
         this.message = message;
@@ -151,9 +143,5 @@ public class ContractModel {
 
     public byte[] getSignature() {
         return signature;
-    }
-
-    public String getOther() {
-        return other;
     }
 }
