@@ -85,6 +85,7 @@
     <string name="personal_info_label">Personal\nInfo</string>
     <string name="contract_subtitle">Please carefully enter your information,\nso we can generate a contract for you.</string>
     <string name="add_your_id_label">Add Your ID/Passport/Driver license<font color='#f65b94'>*</font></string>
+    <string name="add_your_id_without_driving_label">Add Your ID/Passport<font color='#f65b94'>*</font></string>
     <string name="add_your_letter_label">Add Your Letter Of Employed<font color='#f65b94'>*</font></string>
     <string name="add_your_bill_label">Add a Bill (gas/electricity/bank)<font color='#f65b94'>*</font></string>
     <string name="marital_status_label">Marital Status</string>
@@ -125,6 +126,7 @@
     <string name="please_enter_last_name">Please enter last name</string>
     <string name="please_enter_address1">Please enter address1</string>
     <string name="please_enter_address2">Please enter address2</string>
+    <string name="please_enter_address">Please enter address</string>
     <string name="please_enter_occupation">Please enter occupation</string>
     <string name="please_enter_phone">Please enter phone number</string>
     <string name="please_add_id">Please add ID/Passport photo</string>
@@ -161,7 +163,7 @@
     <string name="inquiry_sent_label">Inquiry sent</string>
     <string name="add_file">Add file</string>
     <string name="add_privates">Add private job invoices</string>
-    <string name="mom_name_label">Mom\'s name before marriage</string>
+    <string name="mom_name_label">Mom\'s name before marriage<font color='#f65b94'>*</font></string>
     <string name="pps_number_label">New PPS</string>
     <string name="pps_number_description">Apply for PPS Number</string>
     <string name="send_label">Send</string>
@@ -169,4 +171,5 @@
     <string name="please_enter_mom_name">Please enter mom\'s name before marriage</string>
     <string name="not_older_then_label">Not older then 2 months</string>
     <string name="new_pps">New PPS</string>
+    <string name="owner_number_label">Owner on the bill phone number</string>
 </resources>

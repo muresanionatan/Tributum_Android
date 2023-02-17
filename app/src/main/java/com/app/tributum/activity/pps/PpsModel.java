@@ -1,7 +1,5 @@
 package com.app.tributum.activity.pps;
 
-import java.util.List;
-
 public class PpsModel {
 
     private String name;
@@ -14,18 +12,30 @@ public class PpsModel {
 
     private String phone;
 
+    private String ownerPhone;
+
     private String message;
+
+    public String getOwnerPhone() {
+        return ownerPhone;
+    }
+
+    public void setOwnerPhone(String ownerPhone) {
+        this.ownerPhone = ownerPhone;
+    }
 
     public PpsModel(String name,
                     String momName,
                     String address,
                     String email,
-                    String phone) {
+                    String phone,
+                    String ownerPhone) {
         this.name = name;
         this.momName = momName;
         this.address = address;
         this.email = email;
         this.phone = phone;
+        this.ownerPhone = ownerPhone;
     }
 
     public void setName(String name) {

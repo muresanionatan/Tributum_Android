@@ -61,6 +61,8 @@ public class PpsActivity extends AppCompatActivity implements PpsView {
 
     private EditText phoneNumberEditText;
 
+    private EditText ownerPhoneNumberEditText;
+
     private NestedScrollView scrollView;
 
     private LoadingScreen loadingScreen;
@@ -106,6 +108,7 @@ public class PpsActivity extends AppCompatActivity implements PpsView {
         eircode = findViewById(R.id.eircode_edit_text);
         emailEditText = findViewById(R.id.email_edit_text);
         phoneNumberEditText = findViewById(R.id.phone_edit_text);
+        ownerPhoneNumberEditText = findViewById(R.id.owner_number_edit_text);
         previewLayout = findViewById(R.id.preview_layout_id);
 
         firstNameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -113,6 +116,7 @@ public class PpsActivity extends AppCompatActivity implements PpsView {
         momNameEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         addressEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         eircode.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        ownerPhoneNumberEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         emailEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
 
         findViewById(R.id.cnp_id).findViewById(R.id.plus_id).setBackgroundResource(R.drawable.photo_holder_pps);
@@ -141,7 +145,8 @@ public class PpsActivity extends AppCompatActivity implements PpsView {
                         addressEditText.getText().toString(),
                         eircode.getText().toString(),
                         emailEditText.getText().toString(),
-                        phoneNumberEditText.getText().toString()
+                        phoneNumberEditText.getText().toString(),
+                        ownerPhoneNumberEditText.getText().toString()
                 );
             }
         });

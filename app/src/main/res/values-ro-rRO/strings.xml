@@ -85,6 +85,7 @@
     <string name="personal_info_label">Informatii\nPersonale</string>
     <string name="contract_subtitle">Te rugam adauga cu grija datele,\npentru a genera un contract.</string>
     <string name="add_your_id_label">Adauga Buletin/Pasaport/Carnet conducere<font color='#f65b94'>*</font></string>
+    <string name="add_your_id_without_driving_label">Adauga Buletin/Pasaport<font color='#f65b94'>*</font></string>
     <string name="add_your_letter_label">Adauga Scrisoare de Angajare<font color='#f65b94'>*</font></string>
     <string name="add_your_bill_label">Adauga o factura (gaz/curent/banca)<font color='#f65b94'>*</font></string>
     <string name="marital_status_label">Stare Civila</string>
@@ -125,6 +126,7 @@
     <string name="please_enter_last_name">Te rugam sa introduci numele de familie</string>
     <string name="please_enter_address1">Te rugam sa introduci addresa 1</string>
     <string name="please_enter_address2">Te rugam sa introduci addresa 2</string>
+    <string name="please_enter_address">Te rugam sa introduci addresa</string>
     <string name="please_enter_occupation">Te rugam sa introduci ocupatia</string>
     <string name="please_enter_phone">Te rugam sa introduci numarul de telefon</string>
     <string name="please_add_id">Te rugam adauga poza cu buletinul/pasaportul</string>
@@ -161,11 +163,13 @@
     <string name="inquiry_sent_label">Cerere trimisa</string>
     <string name="add_file">Adauga poza</string>
     <string name="add_privates">Adauga lucrari/job-uri private</string>
-    <string name="mom_name_label">Numele mamei inainte de casatorie</string>
+    <string name="mom_name_label">Numele mamei inainte de casatorie<font color='#f65b94'>*</font></string>
     <string name="pps_number_label">PPS Nou</string>
     <string name="pps_number_description">Aplica pentru Numar PPS</string>
     <string name="send_label">Trimite</string>
     <string name="request_sent">Cerere trimisa</string>
     <string name="please_enter_mom_name">Te rugam introdu numele mamei inainte de casatorie</string>
     <string name="not_older_then_label">Nu mai veche de 2 luni</string>
+    <string name="new_pps">New PPS</string>
+    <string name="owner_number_label">Numarul de telefon al proprietarului facturii</string>
 </resources>

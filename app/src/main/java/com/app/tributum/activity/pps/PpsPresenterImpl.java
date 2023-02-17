@@ -90,7 +90,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
 
     @Override
     public void handleSendButtonClick(String firstName, String lastName, String momString, String address, String eircode,
-                                      String email, String phone) {
+                                      String email, String phone, String ownerPhone) {
         if (view == null)
             return;
 
@@ -104,7 +104,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
             view.showToast(R.string.please_enter_mom_name);
             view.focusOnMomName();
         } else if (address.equals("")) {
-            view.showToast(R.string.please_enter_address1);
+            view.showToast(R.string.please_enter_address);
             view.focusOnAddress();
         } else if (!TextUtils.isEmpty(eircode) && !ValidationUtils.isEircodeValid(eircode)) {
             view.showToast(R.string.please_enter_correct_eircode);
@@ -125,7 +125,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
             view.showToast(R.string.please_add_letter);
             view.scrollToLetter();
         } else {
-            sendInfo(firstName, lastName, momString, address, eircode, email, phone);
+            sendInfo(firstName, lastName, momString, address, eircode, email, phone, ownerPhone);
         }
     }
 
@@ -260,13 +260,14 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
     }
 
     private void sendInfo(String firstName, String lastName, String momName, String address, String eircode,
-                          String email, String phone) {
+                          String email, String phone, String ownerPhone) {
         ppsModel = new PpsModel(
                 firstName + " " + lastName,
                 momName,
                 address + " " + eircode,
                 email,
-                phone);
+                phone,
+                ownerPhone);
 
         ppsModel.setMessage(resources.getString(R.string.contract_mail_message));
 
@@ -284,7 +285,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
                 } else {
                     sendClientMail(email, ppsModel.getMessage());
                     try {
-                        uploadFiles(firstName + " " + lastName, momName, address + ", eircode:" + eircode, email, phone);
+                        uploadFiles(firstName + " " + lastName, momName, address + ", eircode:" + eircode, email, phone + ", owner phone: " + ownerPhone);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
