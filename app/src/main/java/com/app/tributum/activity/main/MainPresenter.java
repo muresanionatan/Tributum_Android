@@ -29,6 +29,8 @@ public interface MainPresenter {
 
     void onPpsClick();
 
+    void onSalaryClick();
+
     void onFaqClick();
 
     void onAcceptTermsClicked();

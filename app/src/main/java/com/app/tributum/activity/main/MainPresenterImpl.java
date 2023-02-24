@@ -119,6 +119,12 @@ public class MainPresenterImpl implements MainPresenter {
         handleActivityStart();
     }
 
+    @Override
+    public void onSalaryClick() {
+        actToStart = ActivityToStart.SALARY;
+        handleActivityStart();
+    }
+
     private void handleActivityStart() {
         if (view == null)
             return;
@@ -137,8 +143,10 @@ public class MainPresenterImpl implements MainPresenter {
                 view.startVatActivity();
             else if (actToStart == ActivityToStart.INQUIRY)
                 view.startInquiryActivity();
-            else
+            else if (actToStart == ActivityToStart.PPS)
                 view.startPpsActivity();
+            else
+                view.startSalaryActivity();
         } else {
             if (view.shouldShowCameraRationale())
                 view.requestPermissions(new String[]{Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_ID);

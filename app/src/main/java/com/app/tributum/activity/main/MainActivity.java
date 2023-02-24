@@ -27,6 +27,7 @@ import com.app.tributum.activity.contract.ContractActivity;
 import com.app.tributum.activity.inquiry.InquiryActivity;
 import com.app.tributum.activity.payments.PaymentsActivity;
 import com.app.tributum.activity.pps.PpsActivity;
+import com.app.tributum.activity.salary.SalaryActivity;
 import com.app.tributum.activity.vat.VatActivity;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
@@ -131,6 +132,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
             @Override
             public void onClick(View v) {
                 presenter.onPpsClick();
+            }
+        });
+
+        findViewById(R.id.salary_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onSalaryClick();
             }
         });
 
@@ -239,6 +247,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void startPpsActivity() {
         startActivity(new Intent(this, PpsActivity.class));
+    }
+
+    @Override
+    public void startSalaryActivity() {
+        startActivity(new Intent(this, SalaryActivity.class));
     }
 
     @Override

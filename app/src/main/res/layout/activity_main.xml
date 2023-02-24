@@ -171,9 +171,7 @@
                 <com.app.tributum.utils.ui.CustomButton
                     android:id="@+id/pps_id"
                     style="@style/MainScreeButton"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginTop="12dp">
 
                     <ImageView
                         style="@style/MainScreeButtonImage"
@@ -195,6 +193,36 @@
                             style="@style/MainScreeButtonSubtitle"
                             android:fontFamily="@font/manrope_medium"
                             android:text="@string/pps_number_description" />
+                    </LinearLayout>
+                </com.app.tributum.utils.ui.CustomButton>
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/salary_id"
+                    style="@style/MainScreeButton"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        style="@style/MainScreeButtonImage"
+                        android:src="@drawable/ic_icon_rct" />
+
+                    <ImageView
+                        style="@style/MainScreeButtonArrow"
+                        android:rotation="180"
+                        app:tint="@color/salary" />
+
+                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:text="@string/salary_label"
+                            android:textColor="@color/salary" />
+
+                        <TextView
+                            style="@style/MainScreeButtonSubtitle"
+                            android:fontFamily="@font/manrope_medium"
+                            android:text="@string/set_salary_label" />
                     </LinearLayout>
                 </com.app.tributum.utils.ui.CustomButton>
             </LinearLayout>

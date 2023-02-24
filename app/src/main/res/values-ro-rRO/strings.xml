@@ -51,6 +51,7 @@
     <string name="ending_month_label">Luna sfarsit<font color='#f65b94'>*</font></string>
     <string name="month_label">Luna<font color='#f65b94'>*</font></string>
     <string name="you_receive_copy">Vei primi un e-mail legat de aceasta plata</string>
+    <string name="you_receive_copy_salary">Vei primi un e-mail legat de aceast salar</string>
     <string name="invoices_message_email">Please add the receipts/invoices for\u0020</string>
     <string name="pps_message_email">New PPS for\u0020</string>
     <string name="invoices_message_email_part2">\u0020for period:\u0020</string>
@@ -58,7 +59,7 @@
     <string name="add_pps_back">Adauga poza PPS spate (optional)</string>
     <string name="add_from_gallery">Adauga poze din galerie</string>
     <string name="phone_number_label">Numar telefon<font color='#f65b94'>*</font></string>
-    <string name="contract_mail_message">Documentele de mai jos au fost generate.</string>
+    <string name="contract_mail_message">Cererea ta a fost inregistrata si va fi procesata in cel mai scurt timp posibil.</string>
     <string name="welcome_tributum_label">Bine ai venit la Tributum!</string>
     <string name="please_enter_birthday_format">Te rugam adauga zi de nastere format ZZ/LL/AAAA</string>
     <string name="iban_label">Cont IBAN</string>
@@ -149,6 +150,7 @@
     <string name="faq_question_answer_6">Nicio grija. Fa poze actelor tale folosing camera telefonului. Apoi le poti adauga in aplicatie apasand pe plus si apoi pe \'Adauga poze din galerie\'.</string>
     <string name="please_add_signature">Te rugam segmneaza in dreptunghiul de mai sus</string>
     <string name="rct_subtitle">Datele introduse vor fi salvate pentru urmatorele plati asa ca poti direct sa trimiti o plata fara sa faci vreo modificare, daca nu e necesar.</string>
+    <string name="salary_subtitle">Datele introduse vor fi salvate pentru urmatorele salarii asa ca poti direct sa trimiti o plata fara sa faci vreo modificare, daca nu e necesar.</string>
     <string name="please_enter_amount">Te rugam introdu suma</string>
     <string name="might_take">Poate dura mai mult sau mai putin in functie de conexiunea de internet</string>
     <string name="might_take_pictures">Poate dura mai mult sau mai putin in functie de conexiunea de internet si numarul de poze adaugate</string>
@@ -160,6 +162,14 @@
     <string name="give_details">Te rugam scrie in cateva cuvinte ce ai nevoie</string>
     <string name="send_inquiry">Trimite cerere</string>
     <string name="please_enter_description">Te rugam introdu o scurta descriere</string>
+    <string name="please_enter_full_name">Te rugam introdu numele intreg</string>
+    <string name="please_enter_gross">Te rugam completeaza campul: gross</string>
+    <string name="please_enter_net">Te rugam completeaza campul: net</string>
+    <string name="please_enter_hours">Te rugam completeaza campul: ore </string>
+    <string name="please_enter_overtime">Te rugam completeaza campul: ore suplimentare</string>
+    <string name="please_enter_subsistance">Te rugam completeaza campul: subsistance</string>
+    <string name="please_enter_bank_holiday">Te rugam completeaza campul: bank holiday</string>
+    <string name="please_enter_holiday">Te rugam completeaza campul: zile libere</string>
     <string name="inquiry_sent_label">Cerere trimisa</string>
     <string name="add_file">Adauga poza</string>
     <string name="add_privates">Adauga lucrari/job-uri private</string>
@@ -171,5 +181,28 @@
     <string name="please_enter_mom_name">Te rugam introdu numele mamei inainte de casatorie</string>
     <string name="not_older_then_label">Nu mai veche de 2 luni</string>
     <string name="new_pps">New PPS</string>
-    <string name="owner_number_label">Numarul de telefon al proprietarului facturii</string>
+    <string name="owner_number_label">Numarul de telefon al proprietarului facturii<font color='#f65b94'>*</font></string>
+    <string name="salary_label">Salariu</string>
+    <string name="salary_gross_label">Suma gross<font color='#f65b94'>*</font></string>
+    <string name="salary_net_label">Suma net<font color='#f65b94'>*</font></string>
+    <string name="basic_hours_label">Nr. ore<font color='#f65b94'>*</font></string>
+    <string name="overtime_label">Ore suplimentare<font color='#f65b94'>*</font></string>
+    <string name="subsistence_label">Bonus<font color='#f65b94'>*</font></string>
+    <string name="bank_holiday_label">Bank Holiday<font color='#f65b94'>*</font></string>
+    <string name="holiday_label">Zile libere<font color='#f65b94'>*</font></string>
+    <string name="send_salary_label">Trimite Salariu</string>
+    <string name="set_salary_label">Completeaza detaliile salariului</string>
+    <string name="monday_label">Luni</string>
+    <string name="tuesday_label">Marti</string>
+    <string name="wednesday_label">Mier</string>
+    <string name="thursday_label">Joi</string>
+    <string name="friday_label">Vin</string>
+    <string name="saturday_label">Samb</string>
+    <string name="sunday_label">Dum</string>
+    <string name="weekly_label">Saptamanal</string>
+    <string name="monthly_label">Lunar</string>
+    <string name="fortnightly_label">Bi-lunar</string>
+    <string name="salary_period_label">Scadenta Salariului</string>
+    <string name="date_you_choose">Datele alese de tine vor aparea aici</string>
+    <string name="date_selected_label">Data selectata:</string>
 </resources>

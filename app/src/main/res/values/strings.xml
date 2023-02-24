@@ -50,7 +50,8 @@
     <string name="starting_month_label">Starting month<font color='#f65b94'>*</font></string>
     <string name="ending_month_label">Ending month<font color='#f65b94'>*</font></string>
     <string name="month_label">Month<font color='#f65b94'>*</font></string>
-    <string name="you_receive_copy">You will receive an email regarding this payment </string>
+    <string name="you_receive_copy">You will receive an email regarding this payment</string>
+    <string name="you_receive_copy_salary">You will receive an email regarding this salary</string>
     <string name="invoices_message_email">Please add the receipts/invoices for\u0020</string>
     <string name="pps_message_email">New PPS for\u0020</string>
     <string name="invoices_message_email_part2">\u0020for period:\u0020</string>
@@ -149,6 +150,7 @@
     <string name="faq_question_answer_6">No worries. Take the photos using the phone camera and then you can add them by clicking on the plus image and then on \'Add From Gallery\' button.</string>
     <string name="please_add_signature">Please add your signature in the above rectangle</string>
     <string name="rct_subtitle">Your inputs will be persisted for next sessions so you can just send the payment and not change anything, if not needed.</string>
+    <string name="salary_subtitle">Your inputs will be persisted for next sessions so you can just send the salary and not change anything, if not needed.</string>
     <string name="please_enter_amount">Please enter amount</string>
     <string name="might_take">This might take longer depending on your internet connection</string>
     <string name="might_take_pictures">This might take longer depending on your internet connection and number of pictures added</string>
@@ -160,6 +162,14 @@
     <string name="give_details">Please go into the details</string>
     <string name="send_inquiry">Send inquiry</string>
     <string name="please_enter_description">Please enter a short description</string>
+    <string name="please_enter_full_name">Please enter full name</string>
+    <string name="please_enter_gross">Please complete gross field</string>
+    <string name="please_enter_net">Please complete net field</string>
+    <string name="please_enter_hours">Please complete hours field</string>
+    <string name="please_enter_overtime">Please complete overtime field</string>
+    <string name="please_enter_subsistance">Please complete subsistance field</string>
+    <string name="please_enter_bank_holiday">Please complete bank holiday field</string>
+    <string name="please_enter_holiday">Please complete holiday field</string>
     <string name="inquiry_sent_label">Inquiry sent</string>
     <string name="add_file">Add file</string>
     <string name="add_privates">Add private job invoices</string>
@@ -171,5 +181,28 @@
     <string name="please_enter_mom_name">Please enter mom\'s name before marriage</string>
     <string name="not_older_then_label">Not older then 2 months</string>
     <string name="new_pps">New PPS</string>
-    <string name="owner_number_label">Owner on the bill phone number</string>
+    <string name="owner_number_label">Owner on the bill phone number<font color='#f65b94'>*</font></string>
+    <string name="salary_label">Salary</string>
+    <string name="salary_gross_label">Gross Pay<font color='#f65b94'>*</font></string>
+    <string name="salary_net_label">Net Pay<font color='#f65b94'>*</font></string>
+    <string name="basic_hours_label">Basic Hours<font color='#f65b94'>*</font></string>
+    <string name="overtime_label">Overtime<font color='#f65b94'>*</font></string>
+    <string name="subsistence_label">Subsistence/Bonus<font color='#f65b94'>*</font></string>
+    <string name="bank_holiday_label">Bank Holiday<font color='#f65b94'>*</font></string>
+    <string name="holiday_label">Holiday<font color='#f65b94'>*</font></string>
+    <string name="send_salary_label">Send Salary</string>
+    <string name="set_salary_label">Set salary details</string>
+    <string name="monday_label">Mon</string>
+    <string name="tuesday_label">Tue</string>
+    <string name="wednesday_label">Wed</string>
+    <string name="thursday_label">Thu</string>
+    <string name="friday_label">Fri</string>
+    <string name="saturday_label">Sat</string>
+    <string name="sunday_label">Sun</string>
+    <string name="weekly_label">Weekly</string>
+    <string name="monthly_label">Monthly</string>
+    <string name="fortnightly_label">Fortnightly</string>
+    <string name="salary_period_label">Salary period</string>
+    <string name="date_you_choose">The dates you choose will be populated here</string>
+    <string name="date_selected_label">Date selected:</string>
 </resources>

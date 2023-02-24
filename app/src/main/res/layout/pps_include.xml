@@ -113,4 +113,12 @@
     <include
         android:id="@+id/letter_id"
         layout="@layout/invoices_item" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/grey_2" />
 </LinearLayout>

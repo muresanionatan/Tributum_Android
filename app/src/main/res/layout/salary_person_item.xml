@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/manrope_bold"
+        android:text="@string/payment_to_label"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/salary_beneficiary_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:hint="@string/full_name_label"
+        android:inputType="textCapWords"
+        android:nextFocusForward="@+id/salary_pps_edit_text" />
+
+    <EditText
+        android:id="@+id/salary_pps_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:hint="@string/pps_label"
+        android:nextFocusForward="@+id/payment_amount_edit_text"
+        android:textAllCaps="true" />
+
+    <EditText
+        android:id="@+id/salary_gross_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:hint="@string/salary_gross_label"
+        android:inputType="numberDecimal|numberSigned"
+        android:nextFocusForward="@+id/payment_site_edit_text" />
+
+    <EditText
+        android:id="@+id/salary_net_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:hint="@string/salary_net_label"
+        android:inputType="numberDecimal|numberSigned"
+        android:nextFocusForward="@+id/payment_site_edit_text" />
+
+    <EditText
+        android:id="@+id/salary_basic_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:hint="@string/basic_hours_label"
+        android:inputType="numberDecimal|numberSigned"
+        android:nextFocusForward="@+id/payment_site_edit_text" />
+
+    <EditText
+        android:id="@+id/salary_overtime_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:hint="@string/overtime_label"
+        android:inputType="numberDecimal|numberSigned"
+        android:nextFocusForward="@+id/payment_site_edit_text" />
+
+    <EditText
+        android:id="@+id/salary_subsistance_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:hint="@string/subsistence_label"
+        android:inputType="numberDecimal|numberSigned"
+        android:nextFocusForward="@+id/payment_site_edit_text" />
+
+    <EditText
+        android:id="@+id/salary_bank_holiday_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:hint="@string/bank_holiday_label"
+        android:inputType="numberDecimal|numberSigned"
+        android:nextFocusForward="@+id/payment_site_edit_text" />
+
+    <EditText
+        android:id="@+id/salary_holiday_edit_text"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:hint="@string/holiday_label"
+        android:inputType="numberDecimal|numberSigned"
+        android:nextFocusForward="@+id/payment_site_edit_text" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/grey_2" />
+</LinearLayout>

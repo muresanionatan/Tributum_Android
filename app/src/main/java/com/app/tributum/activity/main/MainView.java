@@ -54,4 +54,6 @@ public interface MainView {
     void startInquiryActivity();
 
     void startPpsActivity();
+
+    void startSalaryActivity();
 }

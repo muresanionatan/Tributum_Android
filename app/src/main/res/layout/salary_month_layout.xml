@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <CalendarView
+        android:id="@+id/calendar_view_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-50dp"
+        android:layout_marginBottom="-50dp"
+        android:dateTextAppearance="@style/CalenderViewDateCustomText"
+        android:theme="@style/CalenderViewCustom"
+        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
+
+    <LinearLayout
+        android:id="@+id/week_view_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <LinearLayout
+            android:id="@+id/monday_layout_id"
+            style="@style/CalendarDayLayout">
+
+            <TextView
+                style="@style/CalendarDayTitle"
+                android:text="@string/monday_label" />
+
+            <TextView
+                android:id="@+id/monday_id"
+                style="@style/CalendarDay"
+                tools:text="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tuesday_layout_id"
+            style="@style/CalendarDayLayout">
+
+            <TextView
+                style="@style/CalendarDayTitle"
+                android:text="@string/tuesday_label" />
+
+            <TextView
+                android:id="@+id/tuesday_id"
+                style="@style/CalendarDay"
+                tools:text="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wednesday_layout_id"
+            style="@style/CalendarDayLayout">
+
+            <TextView
+                style="@style/CalendarDayTitle"
+                android:text="@string/wednesday_label" />
+
+            <TextView
+                android:id="@+id/wednesday_id"
+                style="@style/CalendarDay"
+                tools:text="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/thursday_layout_id"
+            style="@style/CalendarDayLayout">
+
+            <TextView
+                style="@style/CalendarDayTitle"
+                android:text="@string/thursday_label" />
+
+            <TextView
+                android:id="@+id/thursday_id"
+                style="@style/CalendarDay"
+                tools:text="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/friday_layout_id"
+            style="@style/CalendarDayLayout">
+
+            <TextView
+                style="@style/CalendarDayTitle"
+                android:text="@string/friday_label" />
+
+            <TextView
+                android:id="@+id/friday_id"
+                style="@style/CalendarDay"
+                tools:text="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/saturday_layout_id"
+            style="@style/CalendarDayLayout">
+
+            <TextView
+                style="@style/CalendarDayTitle"
+                android:text="@string/saturday_label" />
+
+            <TextView
+                android:id="@+id/saturday_id"
+                style="@style/CalendarDay"
+                tools:text="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sunday_layout_id"
+            style="@style/CalendarDayLayout">
+
+            <TextView
+                style="@style/CalendarDayTitle"
+                android:text="@string/sunday_label" />
+
+            <TextView
+                android:id="@+id/sunday_id"
+                style="@style/CalendarDay"
+                tools:text="20" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

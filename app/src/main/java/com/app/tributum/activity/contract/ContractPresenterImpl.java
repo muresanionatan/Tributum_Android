@@ -980,23 +980,39 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         switch (photoState) {
             case PhotoCrop.ID_CAMERA:
             case PhotoCrop.ID_SELECT:
-                idFile = result.getUri().toString();
-                view.setIdImage(idFile);
+                if (result != null) {
+                    idFile = result.getUri().toString();
+                    view.setIdImage(idFile);
+                } else {
+                    idFile = null;
+                }
                 break;
             case PhotoCrop.MARRIAGE_CAMERA:
             case PhotoCrop.MARRIAGE_SELECT:
-                marriageCertificateFile = result.getUri().toString();
-                view.setMarriageCertificateImage(marriageCertificateFile);
+                if (result != null) {
+                    marriageCertificateFile = result.getUri().toString();
+                    view.setMarriageCertificateImage(marriageCertificateFile);
+                } else {
+                    marriageCertificateFile = null;
+                }
                 break;
             case PhotoCrop.PPS_CAMERA:
             case PhotoCrop.PPS_SELECT:
-                ppsFileFront = result.getUri().toString();
-                view.setPpsFrontImage(ppsFileFront);
+                if (result != null) {
+                    ppsFileFront = result.getUri().toString();
+                    view.setPpsFrontImage(ppsFileFront);
+                } else {
+                    ppsFileFront = null;
+                }
                 break;
             case PhotoCrop.BACK_CAMERA:
             case PhotoCrop.BACK_SELECT:
-                ppsFileBack = result.getUri().toString();
-                view.setPpsBackImage(ppsFileBack);
+                if (result != null) {
+                    ppsFileBack = result.getUri().toString();
+                    view.setPpsBackImage(ppsFileBack);
+                } else {
+                    ppsFileBack = null;
+                }
                 break;
             default:
                 break;

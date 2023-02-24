@@ -439,18 +439,30 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
         switch (photoState) {
             case PhotoCrop.ID_CAMERA:
             case PhotoCrop.ID_SELECT:
-                idFile = result.getUri().toString();
-                view.setIdImage(idFile);
+                if (result != null) {
+                    idFile = result.getUri().toString();
+                    view.setIdImage(idFile);
+                } else {
+                    idFile = null;
+                }
                 break;
             case PhotoCrop.BILL_CAMERA:
             case PhotoCrop.BILL_SELECT:
-                billFile = result.getUri().toString();
-                view.setBillImage(billFile);
+                if (result != null) {
+                    billFile = result.getUri().toString();
+                    view.setBillImage(billFile);
+                } else {
+                    billFile = null;
+                }
                 break;
             case PhotoCrop.LETTER_CAMERA:
             case PhotoCrop.LETTER_SELECT:
-                letterFile = result.getUri().toString();
-                view.setLetterImage(letterFile);
+                if (result != null) {
+                    letterFile = result.getUri().toString();
+                    view.setLetterImage(letterFile);
+                } else {
+                    letterFile = null;
+                }
                 break;
             default:
                 break;
