@@ -163,11 +163,11 @@
     <string name="send_inquiry">Trimite cerere</string>
     <string name="please_enter_description">Te rugam introdu o scurta descriere</string>
     <string name="please_enter_full_name">Te rugam introdu numele intreg</string>
-    <string name="please_enter_gross">Te rugam completeaza campul: gross</string>
-    <string name="please_enter_net">Te rugam completeaza campul: net</string>
-    <string name="please_enter_hours">Te rugam completeaza campul: ore </string>
+    <string name="please_enter_gross">Te rugam completeaza campul: suma gross</string>
+    <string name="please_enter_net">Te rugam completeaza campul: suma net</string>
+    <string name="please_enter_hours">Te rugam completeaza campul: nr. ore</string>
     <string name="please_enter_overtime">Te rugam completeaza campul: ore suplimentare</string>
-    <string name="please_enter_subsistance">Te rugam completeaza campul: subsistance</string>
+    <string name="please_enter_subsistance">Te rugam completeaza campul: bonus</string>
     <string name="please_enter_bank_holiday">Te rugam completeaza campul: bank holiday</string>
     <string name="please_enter_holiday">Te rugam completeaza campul: zile libere</string>
     <string name="inquiry_sent_label">Cerere trimisa</string>
@@ -192,13 +192,6 @@
     <string name="holiday_label">Zile libere<font color='#f65b94'>*</font></string>
     <string name="send_salary_label">Trimite Salariu</string>
     <string name="set_salary_label">Completeaza detaliile salariului</string>
-    <string name="monday_label">Luni</string>
-    <string name="tuesday_label">Marti</string>
-    <string name="wednesday_label">Mier</string>
-    <string name="thursday_label">Joi</string>
-    <string name="friday_label">Vin</string>
-    <string name="saturday_label">Samb</string>
-    <string name="sunday_label">Dum</string>
     <string name="weekly_label">Saptamanal</string>
     <string name="monthly_label">Lunar</string>
     <string name="fortnightly_label">Bi-lunar</string>

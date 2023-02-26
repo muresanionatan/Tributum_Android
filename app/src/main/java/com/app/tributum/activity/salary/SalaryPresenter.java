@@ -1,5 +1,7 @@
 package com.app.tributum.activity.salary;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
 public interface SalaryPresenter {
 
     void onSendClick(String name, String email, String fullName, String pps,
@@ -8,25 +10,11 @@ public interface SalaryPresenter {
 
     void onBackPressed();
 
-    void onMondayClick();
-
-    void onTuesdayClick();
-
-    void onWednesdayClick();
-
-    void onThursdayClick();
-
-    void onFridayClick();
-
-    void onSaturdayClick();
-
-    void onSundayClick();
-
     void onWeeklyClick();
 
     void onMonthlyClick();
 
     void onFortnightlyClick();
 
-    void onSelectedDayChange(int year, int month, int day);
+    void onDateSelected(CalendarDay date, boolean selected);
 }

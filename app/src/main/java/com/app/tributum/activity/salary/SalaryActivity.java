@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -20,6 +19,10 @@ import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.ui.LoadingScreen;
 import com.app.tributum.utils.ui.RequestSent;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 public class SalaryActivity extends AppCompatActivity implements SalaryView {
 
@@ -53,11 +56,9 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
 
     private ScrollView scrollView;
 
-    private CalendarView calendarView;
-
-    private View calendars;
-
     private TextView dateView;
+
+    private MaterialCalendarView materialCalendarView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,6 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
         presenter = new SalaryPresenterImpl(this);
         setupViews();
         setupClicks();
-        calendarView.setVisibility(View.GONE);
     }
 
     @SuppressLint("CutPasteId")
@@ -90,8 +90,15 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
         bankHoliday = findViewById(R.id.salary_bank_holiday_edit_text);
         holiday = findViewById(R.id.salary_holiday_edit_text);
 
-        calendarView = findViewById(R.id.calendar_view_id);
         dateView = findViewById(R.id.date_text_text_id);
+        materialCalendarView = findViewById(R.id.material_calendar_view_id);
+        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_SINGLE);
+        materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                presenter.onDateSelected(date, selected);
+            }
+        });
 
         name.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         email.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -125,49 +132,6 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
     }
 
     private void setupClicks() {
-        findViewById(R.id.monday_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.onMondayClick();
-            }
-        });
-        findViewById(R.id.tuesday_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.onTuesdayClick();
-            }
-        });
-        findViewById(R.id.wednesday_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.onWednesdayClick();
-            }
-        });
-        findViewById(R.id.thursday_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.onThursdayClick();
-            }
-        });
-        findViewById(R.id.friday_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.onFridayClick();
-            }
-        });
-        findViewById(R.id.saturday_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.onSaturdayClick();
-            }
-        });
-        findViewById(R.id.sunday_layout_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.onSundayClick();
-            }
-        });
-
         findViewById(R.id.weekly_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,13 +150,16 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
                 presenter.onFortnightlyClick();
             }
         });
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                System.out.println("SalaryActivity.onSelectedDayChange " + i + " " + i1 + " " + i2);
-                presenter.onSelectedDayChange(i, i1, i2);
-            }
-        });
+    }
+
+    @Override
+    public void clearCalendarSelection() {
+        materialCalendarView.clearSelection();
+    }
+
+    @Override
+    public void selectDate(CalendarDay date) {
+        materialCalendarView.setDateSelected(date, true);
     }
 
     private void scrollToEditText(View view) {
@@ -304,52 +271,6 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
     }
 
     @Override
-    public void setWeeklyCalendarDates(String[] currentWeek) {
-        ((TextView) findViewById(R.id.monday_id)).setText(currentWeek[0]);
-        ((TextView) findViewById(R.id.tuesday_id)).setText(currentWeek[1]);
-        ((TextView) findViewById(R.id.wednesday_id)).setText(currentWeek[2]);
-        ((TextView) findViewById(R.id.thursday_id)).setText(currentWeek[3]);
-        ((TextView) findViewById(R.id.saturday_id)).setText(currentWeek[5]);
-        ((TextView) findViewById(R.id.friday_id)).setText(currentWeek[4]);
-        ((TextView) findViewById(R.id.sunday_id)).setText(currentWeek[6]);
-    }
-
-    @Override
-    public void setMonday() {
-        findViewById(R.id.monday_layout_id).setSelected(true);
-    }
-
-    @Override
-    public void setTuesday() {
-        findViewById(R.id.tuesday_layout_id).setSelected(true);
-    }
-
-    @Override
-    public void setWednesday() {
-        findViewById(R.id.wednesday_layout_id).setSelected(true);
-    }
-
-    @Override
-    public void setThursday() {
-        findViewById(R.id.thursday_layout_id).setSelected(true);
-    }
-
-    @Override
-    public void setFriday() {
-        findViewById(R.id.friday_layout_id).setSelected(true);
-    }
-
-    @Override
-    public void setSaturday() {
-        findViewById(R.id.saturday_layout_id).setSelected(true);
-    }
-
-    @Override
-    public void setSunday() {
-        findViewById(R.id.sunday_layout_id).setSelected(true);
-    }
-
-    @Override
     public void setWeeklyType() {
         findViewById(R.id.weekly_layout_id).setSelected(true);
     }
@@ -372,34 +293,23 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
     }
 
     @Override
-    public void showWeekLayout() {
-        findViewById(R.id.week_view_id).setVisibility(View.VISIBLE);
+    public void setCalendarSingleSelection() {
+        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_SINGLE);
     }
 
     @Override
-    public void hideWeekLayout() {
-        findViewById(R.id.week_view_id).setVisibility(View.GONE);
+    public void setCalendarMultipleSelection() {
+        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
     }
 
     @Override
-    public void showMonthLayout() {
-        calendarView.setVisibility(View.VISIBLE);
+    public void setWeekCalendarMode() {
+        materialCalendarView.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
     }
 
     @Override
-    public void hideMonthLayout() {
-        calendarView.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void deselectDays() {
-        findViewById(R.id.monday_layout_id).setSelected(false);
-        findViewById(R.id.tuesday_layout_id).setSelected(false);
-        findViewById(R.id.wednesday_layout_id).setSelected(false);
-        findViewById(R.id.thursday_layout_id).setSelected(false);
-        findViewById(R.id.friday_layout_id).setSelected(false);
-        findViewById(R.id.saturday_layout_id).setSelected(false);
-        findViewById(R.id.sunday_layout_id).setSelected(false);
+    public void setMonthCalendarMode() {
+        materialCalendarView.state().edit().setCalendarDisplayMode(CalendarMode.MONTHS).commit();
     }
 
     @Override

@@ -131,8 +131,8 @@
             <TextView
                 android:id="@+id/date_text_text_id"
                 style="@style/CustomEditText"
-                android:text="@string/date_you_choose"
-                android:hint="@string/month_label" />
+                android:hint="@string/month_label"
+                android:text="@string/date_you_choose" />
 
             <View
                 android:layout_width="match_parent"

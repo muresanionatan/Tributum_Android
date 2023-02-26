@@ -1,5 +1,7 @@
 package com.app.tributum.activity.salary;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
 public interface SalaryView {
 
     void showToast(String message);
@@ -38,24 +40,6 @@ public interface SalaryView {
 
     void setDate(String date);
 
-    void setWeeklyCalendarDates(String[] currentWeek);
-
-    void setMonday();
-
-    void setTuesday();
-
-    void setWednesday();
-
-    void setThursday();
-
-    void setFriday();
-
-    void setSaturday();
-
-    void setSunday();
-
-    void deselectDays();
-
     void setWeeklyType();
 
     void setMonthlyType();
@@ -64,11 +48,15 @@ public interface SalaryView {
 
     void deselectDateTypes();
 
-    void showWeekLayout();
+    void setCalendarSingleSelection();
 
-    void hideWeekLayout();
+    void setCalendarMultipleSelection();
 
-    void showMonthLayout();
+    void clearCalendarSelection();
 
-    void hideMonthLayout();
+    void selectDate(CalendarDay date);
+
+    void setWeekCalendarMode();
+
+    void setMonthCalendarMode();
 }

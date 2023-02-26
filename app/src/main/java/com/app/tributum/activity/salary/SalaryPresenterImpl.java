@@ -11,6 +11,10 @@ import com.app.tributum.retrofit.RetrofitClientInstance;
 import com.app.tributum.utils.CalendarUtils;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.ValidationUtils;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,39 +25,15 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
 
     final private SalaryView view;
 
+    private ArrayList<CalendarDay> datesSelected = new ArrayList<>();
+
+    private boolean fortnightly;
+
+    private CalendarMode mode = CalendarMode.WEEKS;
+
     public SalaryPresenterImpl(SalaryView view) {
         this.view = view;
-        this.view.setWeeklyCalendarDates(CalendarUtils.getCurrentWeek());
-        setCurrentDayForWeeklySalary();
         this.view.setWeeklyType();
-    }
-
-    private void setCurrentDayForWeeklySalary() {
-        int dayInWeek = CalendarUtils.getCurrentDayInt();
-        view.deselectDays();
-        switch (dayInWeek) {
-            case 1:
-                view.setMonday();
-                break;
-            case 2:
-                view.setTuesday();
-                break;
-            case 3:
-                view.setWednesday();
-                break;
-            case 4:
-                view.setThursday();
-                break;
-            case 5:
-                view.setFriday();
-                break;
-            case 6:
-                view.setSaturday();
-                break;
-            case 7:
-                view.setSunday();
-                break;
-        }
     }
 
     private void sendInquiry(String name, String email, String fullName, String pps,
@@ -141,84 +121,21 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
     }
 
     @Override
-    public void onMondayClick() {
-        if (view == null)
-            return;
-
-        view.deselectDays();
-        view.setMonday();
-        view.setDate(CalendarUtils.getCurrentWeek()[0] + CalendarUtils.getCurrentMonthAndYear());
-    }
-
-    @Override
-    public void onTuesdayClick() {
-        if (view == null)
-            return;
-
-        view.deselectDays();
-        view.setTuesday();
-        view.setDate(CalendarUtils.getCurrentWeek()[1] + CalendarUtils.getCurrentMonthAndYear());
-    }
-
-    @Override
-    public void onWednesdayClick() {
-        if (view == null)
-            return;
-
-        view.deselectDays();
-        view.setWednesday();
-        view.setDate(CalendarUtils.getCurrentWeek()[2] + CalendarUtils.getCurrentMonthAndYear());
-    }
-
-    @Override
-    public void onThursdayClick() {
-        if (view == null)
-            return;
-
-        view.deselectDays();
-        view.setThursday();
-        view.setDate(CalendarUtils.getCurrentWeek()[3] + CalendarUtils.getCurrentMonthAndYear());
-    }
-
-    @Override
-    public void onFridayClick() {
-        if (view == null)
-            return;
-
-        view.deselectDays();
-        view.setFriday();
-        view.setDate(CalendarUtils.getCurrentWeek()[4] + CalendarUtils.getCurrentMonthAndYear());
-    }
-
-    @Override
-    public void onSaturdayClick() {
-        if (view == null)
-            return;
-
-        view.deselectDays();
-        view.setSaturday();
-        view.setDate(CalendarUtils.getCurrentWeek()[5] + CalendarUtils.getCurrentMonthAndYear());
-    }
-
-    @Override
-    public void onSundayClick() {
-        if (view == null)
-            return;
-
-        view.deselectDays();
-        view.setSunday();
-        view.setDate(CalendarUtils.getCurrentWeek()[6] + CalendarUtils.getCurrentMonthAndYear());
-    }
-
-    @Override
     public void onWeeklyClick() {
         if (view == null)
             return;
 
+        fortnightly = false;
         view.deselectDateTypes();
         view.setWeeklyType();
-        view.showWeekLayout();
-        view.hideMonthLayout();
+        view.setCalendarSingleSelection();
+        view.clearCalendarSelection();
+        if (mode != CalendarMode.WEEKS) {
+            mode = CalendarMode.WEEKS;
+            view.setWeekCalendarMode();
+        }
+        view.setDate(TributumApplication.getInstance().getString(R.string.date_you_choose));
+        datesSelected = new ArrayList<>();
     }
 
     @Override
@@ -226,10 +143,10 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         if (view == null)
             return;
 
-        view.deselectDateTypes();
+        fortnightly = false;
+        view.setCalendarSingleSelection();
         view.setMonthlyType();
-        view.showMonthLayout();
-        view.hideWeekLayout();
+        setMonthLayout();
     }
 
     @Override
@@ -237,18 +154,51 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         if (view == null)
             return;
 
-        view.deselectDateTypes();
+        fortnightly = true;
+        view.setCalendarMultipleSelection();
         view.setFortnightlyType();
-        view.showMonthLayout();
-        view.hideWeekLayout();
+        setMonthLayout();
+    }
+
+    private void setMonthLayout() {
+        view.deselectDateTypes();
+        view.setDate(TributumApplication.getInstance().getString(R.string.date_you_choose));
+        view.clearCalendarSelection();
+        if (mode != CalendarMode.MONTHS) {
+            mode = CalendarMode.MONTHS;
+            view.setMonthCalendarMode();
+        }
+        datesSelected = new ArrayList<>();
     }
 
     @Override
-    public void onSelectedDayChange(int year, int month, int day) {
-        if (view == null)
-            return;
-
-        view.setDate(day + "/" + (month + 1) + "/" + year);
+    public void onDateSelected(CalendarDay date, boolean selected) {
+        if (datesSelected.size() == 0) {
+            datesSelected.add(date);
+        } else if (datesSelected.size() == 1) {
+            if (fortnightly) {
+                if (selected) {
+                    datesSelected.add(date);
+                } else {
+                    datesSelected.remove(date);
+                }
+            } else {
+                datesSelected.clear();
+                datesSelected.add(date);
+            }
+        } else if (datesSelected.size() == 2) {
+            if (selected) {
+                datesSelected.remove(0);
+                datesSelected.add(date);
+            } else {
+                datesSelected.remove(date);
+            }
+            view.clearCalendarSelection();
+            for (CalendarDay day : datesSelected)
+                view.selectDate(day);
+        }
+        if (view != null)
+            view.setDate(CalendarUtils.getDatesToBeDisplayed(datesSelected));
     }
 
     @Override

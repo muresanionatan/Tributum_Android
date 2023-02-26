@@ -192,13 +192,6 @@
     <string name="holiday_label">Holiday<font color='#f65b94'>*</font></string>
     <string name="send_salary_label">Send Salary</string>
     <string name="set_salary_label">Set salary details</string>
-    <string name="monday_label">Mon</string>
-    <string name="tuesday_label">Tue</string>
-    <string name="wednesday_label">Wed</string>
-    <string name="thursday_label">Thu</string>
-    <string name="friday_label">Fri</string>
-    <string name="saturday_label">Sat</string>
-    <string name="sunday_label">Sun</string>
     <string name="weekly_label">Weekly</string>
     <string name="monthly_label">Monthly</string>
     <string name="fortnightly_label">Fortnightly</string>
