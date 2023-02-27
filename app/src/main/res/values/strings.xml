@@ -198,4 +198,5 @@
     <string name="salary_period_label">Salary period</string>
     <string name="date_you_choose">The dates you choose will be populated here</string>
     <string name="date_selected_label">Date selected:</string>
+    <string name="please_select_date">Please select salary date from the calendar</string>
 </resources>

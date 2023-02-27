@@ -94,12 +94,4 @@
         android:hint="@string/holiday_label"
         android:inputType="numberDecimal|numberSigned"
         android:nextFocusForward="@+id/payment_site_edit_text" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="48dp"
-        android:background="@color/grey_2" />
 </LinearLayout>

@@ -42,7 +42,8 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(name, email, fullName)));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL,
+                generateInternalEmailMessage(name, email, fullName, pps, gross, net, hours, overtime, subsistance, bankHoliday, holiday)));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -50,6 +51,26 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
                     view.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong));
                     view.hideLoadingScreen();
                 } else {
+                    Call<Object> callForClient = api.sendEmail(new EmailBody(email,
+                            generateClientEmailMessage(name, email, fullName, pps, gross, net, hours, overtime, subsistance, bankHoliday, holiday)));
+                    callForClient.enqueue(new Callback<Object>() {
+                        @Override
+                        public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                            if (!response.isSuccessful()) {
+                                view.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong));
+                                view.hideLoadingScreen();
+                            } else {
+                                view.hideLoadingScreen();
+                                view.showRequestSent();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                            view.hideLoadingScreen();
+                            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong));
+                        }
+                    });
                     view.hideLoadingScreen();
                     view.showRequestSent();
                 }
@@ -63,12 +84,56 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         });
     }
 
-    private String generateInternalEmailMessage(String name, String email, String description) {
-        String formattedString = name.toUpperCase();
-        formattedString = formattedString.replaceAll(" ", "%20");
+    private String generateInternalEmailMessage(String name, String email, String fullName, String pps,
+                                                String gross, String net, String hours, String overtime,
+                                                String subsistance, String bankHoliday, String holiday) {
+        String period;
+        if (mode == CalendarMode.WEEKS)
+            period = "weekly";
+        else if (!fortnightly)
+            period = "monthly";
+        else
+            period = "fortnightly";
 
-        String resultString = name + " requested an inquiry:\n\n'" + description + "'";
+        String resultString = "New Salary\n\n" + name + " wants to pay salary for " + fullName + " (" + pps + ")"
+                + " with details:\n"
+                + "- salary type: " + period + "\n"
+                + "- salary date(s): " + CalendarUtils.getDatesToBeDisplayed(datesSelected) + "\n"
+                + "- gross: " + gross + "\n"
+                + "- net: " + net + "\n"
+                + "- hours: " + hours + "\n"
+                + "- overtime: " + overtime + "\n"
+                + "- subsistance: " + subsistance + "\n"
+                + "- bank holidays: " + bankHoliday + "\n"
+                + "- holiday: " + holiday;
         resultString += "\n\nPlease respond to: " + email;
+
+        return resultString;
+    }
+
+    private String generateClientEmailMessage(String name, String email, String fullName, String pps,
+                                              String gross, String net, String hours, String overtime,
+                                              String subsistance, String bankHoliday, String holiday) {
+        String period;
+        if (mode == CalendarMode.WEEKS)
+            period = "weekly";
+        else if (!fortnightly)
+            period = "monthly";
+        else
+            period = "fortnightly";
+
+        String resultString = "New Salary\n\n" + "You requested a salary for " + fullName + " (" + pps + ")"
+                + " with details:\n"
+                + "- salary type: " + period + "\n"
+                + "- salary date(s): " + CalendarUtils.getDatesToBeDisplayed(datesSelected) + "\n"
+                + "- gross: " + gross + "\n"
+                + "- net: " + net + "\n"
+                + "- hours: " + hours + "\n"
+                + "- overtime: " + overtime + "\n"
+                + "- subsistance: " + subsistance + "\n"
+                + "- bank holidays: " + bankHoliday + "\n"
+                + "- holiday: " + holiday;
+        resultString += "\n\nYour request will be taken care of in the shortest time possible.";
 
         return resultString;
     }
@@ -113,6 +178,9 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         } else if (holiday.equals("")) {
             view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_holiday));
             view.setFocusOnHoliday();
+        } else if (datesSelected.size() == 0) {
+            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_select_date));
+            view.scrollToCalendar();
         } else {
             view.hideKeyboard();
             view.showLoadingScreen();

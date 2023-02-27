@@ -59,4 +59,6 @@ public interface SalaryView {
     void setWeekCalendarMode();
 
     void setMonthCalendarMode();
+
+    void scrollToCalendar();
 }

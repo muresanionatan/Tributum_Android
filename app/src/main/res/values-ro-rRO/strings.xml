@@ -198,4 +198,5 @@
     <string name="salary_period_label">Scadenta Salariului</string>
     <string name="date_you_choose">Datele alese de tine vor aparea aici</string>
     <string name="date_selected_label">Data selectata:</string>
+    <string name="please_select_date">Te rugam sa introduci data de salar in calendar</string>
 </resources>

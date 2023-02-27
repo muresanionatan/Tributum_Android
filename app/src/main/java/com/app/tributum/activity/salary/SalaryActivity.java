@@ -313,6 +313,11 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
     }
 
     @Override
+    public void scrollToCalendar() {
+        scrollToEditText(materialCalendarView);
+    }
+
+    @Override
     public void onBackPressed() {
         presenter.onBackPressed();
     }
