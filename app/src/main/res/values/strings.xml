@@ -31,7 +31,6 @@
     <string name="relevant_contract_label">Relevant Contract Tax (RCT)</string>
     <string name="self_employed_label">Self employed</string>
     <string name="employee_label">Employee</string>
-    <string name="please_specify_label">Please specify</string>
     <string name="date_of_birth">Date of Birth (DD/MM/YYYY)<font color='#f65b94'>*</font></string>
     <string name="starting_date">Starting Date (DD/MM/YYYY)</string>
     <string name="please_enter_pps">Please enter your correct PPS number</string>
@@ -67,11 +66,8 @@
     <string name="add_marriage_record">Add Your Marriage Certificate<font color='#f65b94'>*</font></string>
     <string name="what_do_you_want">What do you want\nto do today?</string>
     <string name="new_contract">New Client</string>
-    <string name="create_new_contract">Create a new contract</string>
     <string name="rct_payment_label">RCT Payment</string>
-    <string name="add_new_rct_payment">Add a new RCT Payment</string>
     <string name="add_vat_label">Add VAT</string>
-    <string name="send_vat">Send your VAT Receipts</string>
     <string name="app_language_label">App\nLanguage</string>
     <string name="choose_language">Choose Your Preferred Language</string>
     <string name="done_label">Done</string>
@@ -150,13 +146,11 @@
     <string name="faq_question_answer_6">No worries. Take the photos using the phone camera and then you can add them by clicking on the plus image and then on \'Add From Gallery\' button.</string>
     <string name="please_add_signature">Please add your signature in the above rectangle</string>
     <string name="rct_subtitle">Your inputs will be persisted for next sessions so you can just send the payment and not change anything, if not needed.</string>
-    <string name="salary_subtitle">Your inputs will be persisted for next sessions so you can just send the salary and not change anything, if not needed.</string>
     <string name="please_enter_amount">Please enter amount</string>
     <string name="might_take">This might take longer depending on your internet connection</string>
     <string name="might_take_pictures">This might take longer depending on your internet connection and number of pictures added</string>
     <string name="mandatory_fields"><font color='#f65b94'>*</font>Fields marked with asterisk are mandatory</string>
     <string name="submit_inquiry">New Inquiry</string>
-    <string name="submit_inquiry_subtitle">Request and send an inquiry</string>
     <string name="inquiry_subtitle">You can submit any changes to your account or request additional information to be added to your account.</string>
     <string name="inquiry_description_title">What can we help you with?<font color='#f65b94'>*</font></string>
     <string name="give_details">Please go into the details</string>
@@ -191,7 +185,6 @@
     <string name="bank_holiday_label">Bank Holiday<font color='#f65b94'>*</font></string>
     <string name="holiday_label">Holiday<font color='#f65b94'>*</font></string>
     <string name="send_salary_label">Send Salary</string>
-    <string name="set_salary_label">Set salary details</string>
     <string name="weekly_label">Weekly</string>
     <string name="monthly_label">Monthly</string>
     <string name="fortnightly_label">Fortnightly</string>

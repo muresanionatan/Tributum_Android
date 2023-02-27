@@ -31,7 +31,6 @@
     <string name="relevant_contract_label">Relevant Contract Tax (RCT)</string>
     <string name="self_employed_label">Self employed</string>
     <string name="employee_label">Angajat</string>
-    <string name="please_specify_label">Te rugam specifica</string>
     <string name="date_of_birth">Data nasterii (ZZ/LL/AAAA)<font color='#f65b94'>*</font></string>
     <string name="starting_date">Data inceperii (DD/MM/YYYY)</string>
     <string name="please_enter_pps">Te rugam introdu numarul PPS correct</string>
@@ -67,11 +66,8 @@
     <string name="add_marriage_record">Adauga certificatul de casatorie<font color='#f65b94'>*</font></string>
     <string name="what_do_you_want">Ce operatiune doresti\nsa realizezi?</string>
     <string name="new_contract">Client Nou</string>
-    <string name="create_new_contract">Creaza un contract nou</string>
     <string name="rct_payment_label">Plata RCT</string>
-    <string name="add_new_rct_payment">Adauga o noua Plata RCT</string>
     <string name="add_vat_label">Adauga bonuri</string>
-    <string name="send_vat">Trimite bonuri/facturi</string>
     <string name="app_language_label">Limba\nAplicatie</string>
     <string name="choose_language">Alege limba dorita</string>
     <string name="done_label">Gata</string>
@@ -150,13 +146,11 @@
     <string name="faq_question_answer_6">Nicio grija. Fa poze actelor tale folosing camera telefonului. Apoi le poti adauga in aplicatie apasand pe plus si apoi pe \'Adauga poze din galerie\'.</string>
     <string name="please_add_signature">Te rugam segmneaza in dreptunghiul de mai sus</string>
     <string name="rct_subtitle">Datele introduse vor fi salvate pentru urmatorele plati asa ca poti direct sa trimiti o plata fara sa faci vreo modificare, daca nu e necesar.</string>
-    <string name="salary_subtitle">Datele introduse vor fi salvate pentru urmatorele salarii asa ca poti direct sa trimiti o plata fara sa faci vreo modificare, daca nu e necesar.</string>
     <string name="please_enter_amount">Te rugam introdu suma</string>
     <string name="might_take">Poate dura mai mult sau mai putin in functie de conexiunea de internet</string>
     <string name="might_take_pictures">Poate dura mai mult sau mai putin in functie de conexiunea de internet si numarul de poze adaugate</string>
     <string name="mandatory_fields"><font color='#f65b94'>*</font>Campurile marcate cu asterics sunt obligatorii.</string>
     <string name="submit_inquiry">Trimite cerere</string>
-    <string name="submit_inquiry_subtitle">Solicita si trimite o cerere</string>
     <string name="inquiry_subtitle">Poti solicita schimbari ale contului tau, sau poti adauga detalii pe care le consideri utile contului tau.</string>
     <string name="inquiry_description_title">Cu ce te putem ajuta?<font color='#f65b94'>*</font></string>
     <string name="give_details">Te rugam scrie in cateva cuvinte ce ai nevoie</string>
@@ -191,7 +185,6 @@
     <string name="bank_holiday_label">Bank Holiday<font color='#f65b94'>*</font></string>
     <string name="holiday_label">Zile libere<font color='#f65b94'>*</font></string>
     <string name="send_salary_label">Trimite Salariu</string>
-    <string name="set_salary_label">Completeaza detaliile salariului</string>
     <string name="weekly_label">Saptamanal</string>
     <string name="monthly_label">Lunar</string>
     <string name="fortnightly_label">Bi-lunar</string>

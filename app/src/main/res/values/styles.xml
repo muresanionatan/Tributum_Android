@@ -60,14 +60,6 @@
         <item name="android:layout_marginEnd">16dp</item>
     </style>
 
-    <style name="MainScreeButtonTextLayout">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_marginStart">108dp</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
     <style name="MainScreeButtonDash">
         <item name="android:layout_height">18dp</item>
         <item name="android:layout_width">36dp</item>
@@ -93,15 +85,6 @@
         <item name="android:layout_marginTop">24dp</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:fontFamily">@font/manrope_extrabold</item>
-    </style>
-
-    <style name="MainScreeButtonSubtitle">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/grey_5</item>
-        <item name="android:fontFamily">@font/manrope_medium</item>
     </style>
 
     <style name="TitleText">
@@ -139,26 +122,6 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_left</item>
     </style>
 
-    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
-        <item name="postSplashScreenTheme">@style/AppTheme</item>
-    </style>
-
-    <style name="CalenderViewCustom" parent="Theme.AppCompat">
-        <item name="colorAccent">@color/salary</item>
-        <item name="colorPrimary">@color/white</item>
-    </style>
-
-    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/grey_5</item>
-        <item name="android:weekNumberColor">@color/salary</item>
-    </style>
-
-    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/grey_5</item>
-    </style>
-
     <style name="CalendarDayLayout">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">0dp</item>
@@ -173,13 +136,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:fontFamily">@font/manrope_medium</item>
-    </style>
-
-    <style name="CalendarDay">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:fontFamily">@font/manrope_bold</item>
     </style>
 
 </resources>
