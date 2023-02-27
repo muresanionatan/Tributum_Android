@@ -121,8 +121,8 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onSalaryClick() {
-        actToStart = ActivityToStart.SALARY;
-        handleActivityStart();
+        if (view != null)
+            view.startSalaryActivity();
     }
 
     private void handleActivityStart() {
@@ -145,8 +145,6 @@ public class MainPresenterImpl implements MainPresenter {
                 view.startInquiryActivity();
             else if (actToStart == ActivityToStart.PPS)
                 view.startPpsActivity();
-            else
-                view.startSalaryActivity();
         } else {
             if (view.shouldShowCameraRationale())
                 view.requestPermissions(new String[]{Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_ID);
@@ -167,7 +165,7 @@ public class MainPresenterImpl implements MainPresenter {
                 listPermissionsNeeded.add(permission);
             }
         }
-        if (!listPermissionsNeeded.isEmpty() && view != null) {
+        if (!listPermissionsNeeded.isEmpty()) {
             view.requestPermissions(listPermissionsNeeded.toArray(new String[0]), ConstantsUtils.MULTIPLE_PERMISSIONS_PPS_FRONT);
             return false;
         }
