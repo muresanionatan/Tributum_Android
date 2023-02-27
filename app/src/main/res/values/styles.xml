@@ -52,11 +52,11 @@
     </style>
 
     <style name="MainScreeButton">
-        <item name="android:layout_height">104dp</item>
+        <item name="android:layout_height">184dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
         <item name="android:elevation">2dp</item>
-        <item name="android:background">@drawable/white_rectangle_corners</item>
         <item name="android:layout_marginEnd">16dp</item>
     </style>
 
@@ -68,28 +68,30 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="MainScreeButtonArrow">
-        <item name="android:layout_height">36dp</item>
+    <style name="MainScreeButtonDash">
+        <item name="android:layout_height">18dp</item>
         <item name="android:layout_width">36dp</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_alignParentEnd">true</item>
-        <item name="android:layout_marginEnd">14dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:scaleType">centerInside</item>
-        <item name="android:src">@drawable/ic_icon_back</item>
+        <item name="android:src">@drawable/contract_dash</item>
     </style>
 
     <style name="MainScreeButtonImage">
         <item name="android:layout_height">64dp</item>
         <item name="android:layout_width">64dp</item>
         <item name="android:scaleType">centerInside</item>
-        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_marginStart">14dp</item>
+        <item name="android:layout_marginTop">44dp</item>
     </style>
 
     <style name="MainScreeButtonTitle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:fontFamily">@font/manrope_extrabold</item>
     </style>
 

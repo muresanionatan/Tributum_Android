@@ -77,14 +77,14 @@ public class InquiryActivity extends AppCompatActivity implements InquiryView {
         fileChooser = BottomSheetBehavior.from(llBottomSheet);
         fileChooser.setDraggable(false);
 
-        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_inquiry, R.color.inquiry);
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_inquiry, R.color.inquiry_1);
         requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_inquiry, getString(R.string.inquiry_sent_label), presenter);
 
         ((ImageView) findViewById(R.id.inquiry_add_file_id).findViewById(R.id.contract_plus_id)).setImageResource(R.drawable.ic_btn_add_photo_inquiry);
         ((ImageView) findViewById(R.id.inquiry_add_file_id).findViewById(R.id.preview_image_id)).setImageResource(R.drawable.ic_btn_view_photo_inquiry);
         ((ImageView) findViewById(R.id.inquiry_add_file_id).findViewById(R.id.delete_image_id)).setImageResource(R.drawable.ic_btn_remove_photo_inquiry);
         findViewById(R.id.inquiry_add_file_id).findViewById(R.id.photo_holder_divider_id)
-                .setBackgroundColor(ContextCompat.getColor(this, R.color.inquiry));
+                .setBackgroundColor(ContextCompat.getColor(this, R.color.inquiry_1));
         findViewById(R.id.inquiry_add_file_id).findViewById(R.id.plus_id).setBackgroundResource(R.drawable.photo_holder_inquiry);
         findViewById(R.id.inquiry_add_file_id).findViewById(R.id.plus_id).setOnClickListener(new View.OnClickListener() {
             @Override

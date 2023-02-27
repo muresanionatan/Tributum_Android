@@ -6,13 +6,13 @@
   <path
       android:pathData="M28,28m-28,0a28,28 0,1 1,56 0a28,28 0,1 1,-56 0"
       android:strokeWidth="1"
-      android:fillColor="#74d3ed"
+      android:fillColor="#F49CCC"
       android:fillType="evenOdd"
       android:strokeColor="#00000000"/>
   <path
       android:pathData="M28,15C28.8284,15 29.5,15.6716 29.5,16.5L29.5,26L39.5,26C40.3284,26 41,26.6716 41,27.5C41,28.3284 40.3284,29 39.5,29L29.5,29L29.5,39.5C29.5,40.3284 28.8284,41 28,41C27.1716,41 26.5,40.3284 26.5,39.5L26.5,29L16.5,29C15.6716,29 15,28.3284 15,27.5C15,26.6716 15.6716,26 16.5,26L26.5,26L26.5,16.5C26.5,15.6716 27.1716,15 28,15Z"
       android:strokeWidth="1"
-      android:fillColor="@color/inquiry"
+      android:fillColor="@color/inquiry_1"
       android:fillType="evenOdd"
       android:strokeColor="#00000000"/>
 </vector>

@@ -27,7 +27,7 @@
                 android:layout_height="36dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_icon_back"
-                app:tint="@color/inquiry" />
+                app:tint="@color/inquiry_1" />
         </LinearLayout>
 
         <ScrollView
@@ -47,7 +47,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="34dp"
                     android:text="@string/submit_inquiry"
-                    android:textColor="@color/inquiry" />
+                    android:textColor="@color/inquiry_1" />
 
                 <TextView
                     android:id="@+id/inquiry_subtitle_id"

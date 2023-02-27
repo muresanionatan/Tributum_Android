@@ -7,9 +7,9 @@
     <solid android:color="@color/white" />
     <corners android:radius="24dp" />
     <gradient
-        android:centerColor="#40a8d7"
+        android:centerColor="@color/inquiry_2"
         android:angle="0"
-        android:endColor="#40a8d7"
-        android:startColor="#74d3ed"
+        android:endColor="@color/inquiry_2"
+        android:startColor="@color/inquiry_1"
         android:type="linear" />
 </shape>

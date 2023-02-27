@@ -2,10 +2,10 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <corners android:radius="24dp" />
-    <solid android:color="@color/contract_2" />
+    <solid android:color="#F5EEF9" />
     <stroke
         android:width="4dp"
-        android:color="@color/inquiry"
+        android:color="@color/inquiry_1"
         android:dashWidth="4dp"
         android:dashGap="10dp" />
 </shape>

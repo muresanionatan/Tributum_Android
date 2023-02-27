@@ -52,179 +52,169 @@
                     android:layout_marginStart="48dp"
                     android:text="@string/what_do_you_want" />
 
-                <com.app.tributum.utils.ui.CustomButton
-                    android:id="@+id/contract_id"
-                    style="@style/MainScreeButton"
-                    android:layout_above="@+id/payments_id"
-                    android:layout_marginTop="52dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="52dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                    <ImageView
-                        style="@style/MainScreeButtonImage"
-                        android:src="@drawable/ic_icon_contract" />
+                    <com.app.tributum.utils.ui.CustomButton
+                        android:id="@+id/contract_id"
+                        style="@style/MainScreeButton"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/main_screen_contract_button_background">
 
-                    <ImageView
-                        style="@style/MainScreeButtonArrow"
-                        android:rotation="180"
-                        app:tint="@color/contract_1" />
-
-                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+                        <ImageView
+                            android:id="@+id/client_image_id"
+                            style="@style/MainScreeButtonImage"
+                            android:src="@drawable/ic_icon_contract" />
 
                         <TextView
                             style="@style/MainScreeButtonTitle"
+                            android:layout_below="@+id/client_image_id"
                             android:text="@string/new_contract"
                             android:textColor="@color/contract_1" />
 
-                        <TextView
-                            style="@style/MainScreeButtonSubtitle"
-                            android:fontFamily="@font/manrope_medium"
-                            android:text="@string/create_new_contract" />
-                    </LinearLayout>
-                </com.app.tributum.utils.ui.CustomButton>
+                        <ImageView style="@style/MainScreeButtonDash" />
+                    </com.app.tributum.utils.ui.CustomButton>
 
-                <com.app.tributum.utils.ui.CustomButton
-                    android:id="@+id/payments_id"
-                    style="@style/MainScreeButton"
-                    android:layout_above="@+id/vat_id"
-                    android:layout_marginTop="12dp">
+                    <com.app.tributum.utils.ui.CustomButton
+                        android:id="@+id/payments_id"
+                        style="@style/MainScreeButton"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/main_screen_rct_button_background">
 
-                    <ImageView
-                        style="@style/MainScreeButtonImage"
-                        android:src="@drawable/ic_icon_rct" />
-
-                    <ImageView
-                        style="@style/MainScreeButtonArrow"
-                        android:rotation="180"
-                        app:tint="@color/rct" />
-
-                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+                        <ImageView
+                            android:id="@+id/rct_image_id"
+                            style="@style/MainScreeButtonImage"
+                            android:src="@drawable/ic_icon_rct" />
 
                         <TextView
                             style="@style/MainScreeButtonTitle"
+                            android:layout_below="@+id/rct_image_id"
                             android:text="@string/rct_payment_label"
                             android:textColor="@color/rct" />
 
-                        <TextView
-                            style="@style/MainScreeButtonSubtitle"
-                            android:fontFamily="@font/manrope_medium"
-                            android:text="@string/add_new_rct_payment" />
-                    </LinearLayout>
-                </com.app.tributum.utils.ui.CustomButton>
+                        <ImageView
+                            style="@style/MainScreeButtonDash"
+                            android:layout_alignParentBottom="true"
+                            android:rotation="180"
+                            android:src="@drawable/contract_dash"
+                            app:tint="@color/rct" />
+                    </com.app.tributum.utils.ui.CustomButton>
+                </LinearLayout>
 
-                <com.app.tributum.utils.ui.CustomButton
-                    android:id="@+id/vat_id"
-                    style="@style/MainScreeButton"
-                    android:layout_above="@+id/inquiry_id"
-                    android:layout_marginTop="12dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                    <ImageView
-                        style="@style/MainScreeButtonImage"
-                        android:src="@drawable/ic_icon_vat" />
+                    <com.app.tributum.utils.ui.CustomButton
+                        android:id="@+id/vat_id"
+                        style="@style/MainScreeButton"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/main_screen_vat_button_background">
 
-                    <ImageView
-                        style="@style/MainScreeButtonArrow"
-                        android:rotation="180"
-                        app:tint="@color/vat_1" />
-
-                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+                        <ImageView
+                            android:id="@+id/vat_image_id"
+                            style="@style/MainScreeButtonImage"
+                            android:src="@drawable/ic_icon_vat" />
 
                         <TextView
                             style="@style/MainScreeButtonTitle"
+                            android:layout_below="@+id/vat_image_id"
                             android:text="@string/add_vat_label"
                             android:textColor="@color/vat_1" />
 
-                        <TextView
-                            style="@style/MainScreeButtonSubtitle"
-                            android:fontFamily="@font/manrope_medium"
-                            android:text="@string/send_vat" />
-                    </LinearLayout>
-                </com.app.tributum.utils.ui.CustomButton>
+                        <ImageView
+                            style="@style/MainScreeButtonDash"
+                            app:tint="@color/vat_1" />
+                    </com.app.tributum.utils.ui.CustomButton>
 
-                <com.app.tributum.utils.ui.CustomButton
-                    android:id="@+id/inquiry_id"
-                    style="@style/MainScreeButton"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="12dp">
+                    <com.app.tributum.utils.ui.CustomButton
+                        android:id="@+id/inquiry_id"
+                        style="@style/MainScreeButton"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/main_screen_inquiry_button_background">
 
-                    <ImageView
-                        style="@style/MainScreeButtonImage"
-                        android:src="@drawable/ic_icon_inquiry" />
-
-                    <ImageView
-                        style="@style/MainScreeButtonArrow"
-                        android:rotation="180"
-                        app:tint="@color/inquiry" />
-
-                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+                        <ImageView
+                            android:id="@+id/inquiry_image_id"
+                            style="@style/MainScreeButtonImage"
+                            android:src="@drawable/ic_icon_inquiry" />
 
                         <TextView
                             style="@style/MainScreeButtonTitle"
+                            android:layout_below="@+id/inquiry_image_id"
                             android:text="@string/submit_inquiry"
-                            android:textColor="@color/inquiry" />
+                            android:textColor="@color/inquiry_2" />
 
-                        <TextView
-                            style="@style/MainScreeButtonSubtitle"
-                            android:fontFamily="@font/manrope_medium"
-                            android:text="@string/submit_inquiry_subtitle" />
-                    </LinearLayout>
-                </com.app.tributum.utils.ui.CustomButton>
+                        <ImageView
+                            style="@style/MainScreeButtonDash"
+                            app:tint="@color/inquiry_2" />
+                    </com.app.tributum.utils.ui.CustomButton>
+                </LinearLayout>
 
-                <com.app.tributum.utils.ui.CustomButton
-                    android:id="@+id/pps_id"
-                    style="@style/MainScreeButton"
-                    android:layout_marginTop="12dp">
-
-                    <ImageView
-                        style="@style/MainScreeButtonImage"
-                        android:src="@drawable/ic_icon_pps" />
-
-                    <ImageView
-                        style="@style/MainScreeButtonArrow"
-                        android:rotation="180"
-                        app:tint="@color/pps" />
-
-                    <LinearLayout style="@style/MainScreeButtonTextLayout">
-
-                        <TextView
-                            style="@style/MainScreeButtonTitle"
-                            android:text="@string/new_pps"
-                            android:textColor="@color/pps" />
-
-                        <TextView
-                            style="@style/MainScreeButtonSubtitle"
-                            android:fontFamily="@font/manrope_medium"
-                            android:text="@string/pps_number_description" />
-                    </LinearLayout>
-                </com.app.tributum.utils.ui.CustomButton>
-
-                <com.app.tributum.utils.ui.CustomButton
-                    android:id="@+id/salary_id"
-                    style="@style/MainScreeButton"
-                    android:layout_alignParentBottom="true"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:layout_marginBottom="24dp"
-                    android:layout_marginTop="12dp">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                    <ImageView
-                        style="@style/MainScreeButtonImage"
-                        android:src="@drawable/ic_icon_rct" />
+                    <com.app.tributum.utils.ui.CustomButton
+                        android:id="@+id/pps_id"
+                        style="@style/MainScreeButton"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/main_screen_pps_button_background">
 
-                    <ImageView
-                        style="@style/MainScreeButtonArrow"
-                        android:rotation="180"
-                        app:tint="@color/salary" />
-
-                    <LinearLayout style="@style/MainScreeButtonTextLayout">
+                        <ImageView
+                            android:id="@+id/pps_image_id"
+                            style="@style/MainScreeButtonImage"
+                            android:src="@drawable/ic_icon_pps" />
 
                         <TextView
                             style="@style/MainScreeButtonTitle"
+                            android:layout_below="@+id/pps_image_id"
+                            android:text="@string/new_pps"
+                            android:textColor="@color/pps_2" />
+
+                        <ImageView
+                            style="@style/MainScreeButtonDash"
+                            app:tint="@color/pps" />
+                    </com.app.tributum.utils.ui.CustomButton>
+
+                    <com.app.tributum.utils.ui.CustomButton
+                        android:id="@+id/salary_id"
+                        style="@style/MainScreeButton"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/main_screen_salary_button_background">
+
+                        <ImageView
+                            android:id="@+id/salary_image_id"
+                            style="@style/MainScreeButtonImage"
+                            android:src="@drawable/ic_icon_salary" />
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:layout_below="@+id/salary_image_id"
                             android:text="@string/salary_label"
                             android:textColor="@color/salary" />
 
-                        <TextView
-                            style="@style/MainScreeButtonSubtitle"
-                            android:fontFamily="@font/manrope_medium"
-                            android:text="@string/set_salary_label" />
-                    </LinearLayout>
-                </com.app.tributum.utils.ui.CustomButton>
+                        <ImageView
+                            style="@style/MainScreeButtonDash"
+                            app:tint="@color/salary" />
+                    </com.app.tributum.utils.ui.CustomButton>
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 

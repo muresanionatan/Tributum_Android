@@ -14,12 +14,18 @@
     <color name="contract_1">#4eb1a5</color>
     <color name="contract_2">#def3f1</color>
     <color name="rct">#ba67b4</color>
-    <color name="vat_1">#d16d54</color>
-    <color name="vat_2">#ffebe6</color>
-    <color name="inquiry">#FF40A8D7</color>
-    <color name="pps">#E58BBE</color>
-    <color name="pps_2">#d7007f</color>
+    <color name="vat_1">#DCAE6C</color>
+    <color name="vat_2">#DC7A5F</color>
+    <color name="pps">#55AB85</color>
+    <color name="pps_2">#A7DD51</color>
     <color name="salary">#EEC545</color>
     <color name="salary_2">#CDA842</color>
     <color name="error">#f65b94</color>
+
+    <color name="contract_rectangle_1">#3194C1</color>
+    <color name="contract_rectangle_2">#62D4A6</color>
+    <color name="rct_rectangle_1">#577EC9</color>
+    <color name="rct_rectangle_2">#A66CB8</color>
+    <color name="inquiry_1">#BA6796</color>
+    <color name="inquiry_2">#D16A6A</color>
 </resources>
