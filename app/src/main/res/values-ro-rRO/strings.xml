@@ -184,6 +184,7 @@
     <string name="subsistence_label">Bonus<font color='#f65b94'>*</font></string>
     <string name="bank_holiday_label">Bank Holiday<font color='#f65b94'>*</font></string>
     <string name="holiday_label">Zile libere<font color='#f65b94'>*</font></string>
+    <string name="salary_rate_label">Tarif pe ora</string>
     <string name="send_salary_label">Trimite Salariu</string>
     <string name="weekly_label">Saptamanal</string>
     <string name="monthly_label">Lunar</string>

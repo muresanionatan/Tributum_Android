@@ -38,6 +38,8 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
 
     private EditText net;
 
+    private EditText rate;
+
     private EditText hours;
 
     private EditText overtime;
@@ -84,6 +86,7 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
         pps = findViewById(R.id.salary_pps_edit_text);
         gross = findViewById(R.id.salary_gross_edit_text);
         net = findViewById(R.id.salary_net_edit_text);
+        rate = findViewById(R.id.salary_rate_edit_text);
         hours = findViewById(R.id.salary_basic_edit_text);
         overtime = findViewById(R.id.salary_overtime_edit_text);
         subsistance = findViewById(R.id.salary_subsistance_edit_text);
@@ -106,6 +109,7 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
         pps.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         gross.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         net.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        rate.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         hours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         overtime.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         subsistance.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -116,7 +120,7 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
             public void onClick(View v) {
                 presenter.onSendClick(name.getText().toString().trim(), email.getText().toString().trim(),
                         fullName.getText().toString().trim(), pps.getText().toString().trim(),
-                        gross.getText().toString().trim(), net.getText().toString().trim(),
+                        gross.getText().toString().trim(), net.getText().toString().trim(), rate.getText().toString().trim(),
                         hours.getText().toString().trim(), overtime.getText().toString().trim(),
                         subsistance.getText().toString().trim(), bankHoliday.getText().toString().trim(),
                         holiday.getText().toString().trim());

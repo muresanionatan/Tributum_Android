@@ -184,6 +184,7 @@
     <string name="subsistence_label">Subsistence/Bonus<font color='#f65b94'>*</font></string>
     <string name="bank_holiday_label">Bank Holiday<font color='#f65b94'>*</font></string>
     <string name="holiday_label">Holiday<font color='#f65b94'>*</font></string>
+    <string name="salary_rate_label">Rate per Hour</string>
     <string name="send_salary_label">Send Salary</string>
     <string name="weekly_label">Weekly</string>
     <string name="monthly_label">Monthly</string>
