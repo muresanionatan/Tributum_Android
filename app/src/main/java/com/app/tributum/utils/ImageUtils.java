@@ -19,7 +19,7 @@ public class ImageUtils {
 
     public static String getImagePath(String prefix) {
         String imageFileName = prefix + ".jpg";
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File storageDir = TributumApplication.getInstance().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         return storageDir.getAbsolutePath() + "/" + imageFileName;
     }
