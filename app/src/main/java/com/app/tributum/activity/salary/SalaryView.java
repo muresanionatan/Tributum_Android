@@ -57,4 +57,6 @@ public interface SalaryView {
     void selectDate(CalendarDay date);
 
     void scrollToCalendar();
+
+    void populateInputsWithValues(String payerName, String payerEmail);
 }

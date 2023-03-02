@@ -3,6 +3,8 @@ package com.app.tributum.activity.salary;
 import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
+import com.app.tributum.application.AppKeysValues;
+import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
@@ -36,6 +38,14 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         this.view.setWeeklyType();
     }
 
+    @Override
+    public void onCreate() {
+        if (view != null)
+            view.populateInputsWithValues(
+                    TributumAppHelper.getStringSetting(AppKeysValues.SALARY_PAYER),
+                    TributumAppHelper.getStringSetting(AppKeysValues.SALARY_EMAIL));
+    }
+
     private void sendInquiry(String name, String email, String fullName, String pps,
                              String gross, String net, String rate, String hours, String overtime,
                              String subsistance, String bankHoliday, String holiday) {
@@ -62,6 +72,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
                             } else {
                                 view.hideLoadingScreen();
                                 view.showRequestSent();
+                                saveListToPreferences(name, email);
                             }
                         }
 
@@ -246,6 +257,11 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         }
         if (view != null)
             view.setDate(CalendarUtils.getDatesToBeDisplayed(datesSelected));
+    }
+
+    private void saveListToPreferences(String payer, String email) {
+        TributumAppHelper.saveSetting(AppKeysValues.SALARY_PAYER, payer);
+        TributumAppHelper.saveSetting(AppKeysValues.SALARY_EMAIL, email);
     }
 
     @Override

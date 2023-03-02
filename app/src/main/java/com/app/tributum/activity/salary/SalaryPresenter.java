@@ -17,4 +17,6 @@ public interface SalaryPresenter {
     void onFortnightlyClick();
 
     void onDateSelected(CalendarDay date, boolean selected);
+
+    void onCreate();
 }

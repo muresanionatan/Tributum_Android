@@ -71,6 +71,7 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
         presenter = new SalaryPresenterImpl(this);
         setupViews();
         setupClicks();
+        presenter.onCreate();
     }
 
     @SuppressLint("CutPasteId")
@@ -153,6 +154,12 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
                 presenter.onFortnightlyClick();
             }
         });
+    }
+
+    @Override
+    public void populateInputsWithValues(String payerName, String payerEmail) {
+        name.setText(payerName);
+        email.setText(payerEmail);
     }
 
     @Override

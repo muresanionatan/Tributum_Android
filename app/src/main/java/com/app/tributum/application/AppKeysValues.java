@@ -18,6 +18,10 @@ public class AppKeysValues {
 
     public static final String SITE = "site";
 
+    public static final String SALARY_PAYER = "salaryPayer";
+
+    public static final String SALARY_EMAIL = "salaryEmail";
+
     public static final String APP_LANGUAGE = "AppLanguage";
 
     public static final String INVOICES_TAKEN = "invoicesTaken";
