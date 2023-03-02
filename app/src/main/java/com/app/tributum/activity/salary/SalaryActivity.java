@@ -20,7 +20,6 @@ import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.ui.LoadingScreen;
 import com.app.tributum.utils.ui.RequestSent;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
@@ -77,7 +76,7 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
     @SuppressLint("CutPasteId")
     private void setupViews() {
         loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_salary, R.color.salary);
-        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_salary, getString(R.string.inquiry_sent_label), presenter);
+        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_salary, getString(R.string.salary_request_sent), presenter);
 
         scrollView = findViewById(R.id.salary_scroll_view_id);
         name = findViewById(R.id.payer_edit_text);
@@ -304,16 +303,6 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
     @Override
     public void setCalendarMultipleSelection() {
         materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
-    }
-
-    @Override
-    public void setWeekCalendarMode() {
-        materialCalendarView.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
-    }
-
-    @Override
-    public void setMonthCalendarMode() {
-        materialCalendarView.state().edit().setCalendarDisplayMode(CalendarMode.MONTHS).commit();
     }
 
     @Override

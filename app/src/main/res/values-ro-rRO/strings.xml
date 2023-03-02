@@ -157,13 +157,6 @@
     <string name="send_inquiry">Trimite cerere</string>
     <string name="please_enter_description">Te rugam introdu o scurta descriere</string>
     <string name="please_enter_full_name">Te rugam introdu numele intreg</string>
-    <string name="please_enter_gross">Te rugam completeaza campul: suma gross</string>
-    <string name="please_enter_net">Te rugam completeaza campul: suma net</string>
-    <string name="please_enter_hours">Te rugam completeaza campul: nr. ore</string>
-    <string name="please_enter_overtime">Te rugam completeaza campul: ore suplimentare</string>
-    <string name="please_enter_subsistance">Te rugam completeaza campul: bonus</string>
-    <string name="please_enter_bank_holiday">Te rugam completeaza campul: bank holiday</string>
-    <string name="please_enter_holiday">Te rugam completeaza campul: zile libere</string>
     <string name="inquiry_sent_label">Cerere trimisa</string>
     <string name="add_file">Adauga poza</string>
     <string name="add_privates">Adauga lucrari/job-uri private</string>
@@ -177,20 +170,21 @@
     <string name="new_pps">New PPS</string>
     <string name="owner_number_label">Numarul de telefon al proprietarului facturii<font color='#f65b94'>*</font></string>
     <string name="salary_label">Salariu</string>
-    <string name="salary_gross_label">Suma gross<font color='#f65b94'>*</font></string>
-    <string name="salary_net_label">Suma net<font color='#f65b94'>*</font></string>
-    <string name="basic_hours_label">Nr. ore<font color='#f65b94'>*</font></string>
-    <string name="overtime_label">Ore suplimentare<font color='#f65b94'>*</font></string>
-    <string name="subsistence_label">Bonus<font color='#f65b94'>*</font></string>
-    <string name="bank_holiday_label">Bank Holiday<font color='#f65b94'>*</font></string>
-    <string name="holiday_label">Zile libere<font color='#f65b94'>*</font></string>
+    <string name="salary_gross_label">Suma gross</string>
+    <string name="salary_net_label">Suma net</string>
+    <string name="basic_hours_label">Nr. ore</string>
+    <string name="overtime_label">Ore suplimentare</string>
+    <string name="subsistence_label">Bonus</string>
+    <string name="bank_holiday_label">Bank Holiday</string>
+    <string name="holiday_label">Zile libere</string>
     <string name="salary_rate_label">Tarif pe ora</string>
     <string name="send_salary_label">Trimite Salariu</string>
     <string name="weekly_label">Saptamanal</string>
     <string name="monthly_label">Lunar</string>
     <string name="fortnightly_label">Bi-lunar</string>
-    <string name="salary_period_label">Scadenta Salariului</string>
+    <string name="salary_period_label">Scadenta Salariului<font color='#f65b94'>*</font></string>
     <string name="date_you_choose">Datele alese de tine vor aparea aici</string>
     <string name="date_selected_label">Data selectata:</string>
     <string name="please_select_date">Te rugam sa introduci data de salar in calendar</string>
+    <string name="salary_request_sent">Cerere Salar\nTrimisa</string>
 </resources>

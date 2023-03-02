@@ -33,7 +33,7 @@
     <string name="employee_label">Employee</string>
     <string name="date_of_birth">Date of Birth (DD/MM/YYYY)<font color='#f65b94'>*</font></string>
     <string name="starting_date">Starting Date (DD/MM/YYYY)</string>
-    <string name="please_enter_pps">Please enter your correct PPS number</string>
+    <string name="please_enter_pps">Please enter a correct PPS number</string>
     <string name="please_enter_correct_email">Please enter a correct email address</string>
     <string name="something_went_wrong">Something went wrong. Please try again later</string>
     <string name="pps_label">PPS Number<font color='#f65b94'>*</font></string>
@@ -157,13 +157,6 @@
     <string name="send_inquiry">Send inquiry</string>
     <string name="please_enter_description">Please enter a short description</string>
     <string name="please_enter_full_name">Please enter full name</string>
-    <string name="please_enter_gross">Please complete gross field</string>
-    <string name="please_enter_net">Please complete net field</string>
-    <string name="please_enter_hours">Please complete hours field</string>
-    <string name="please_enter_overtime">Please complete overtime field</string>
-    <string name="please_enter_subsistance">Please complete subsistance field</string>
-    <string name="please_enter_bank_holiday">Please complete bank holiday field</string>
-    <string name="please_enter_holiday">Please complete holiday field</string>
     <string name="inquiry_sent_label">Inquiry sent</string>
     <string name="add_file">Add file</string>
     <string name="add_privates">Add private job invoices</string>
@@ -177,20 +170,21 @@
     <string name="new_pps">New PPS</string>
     <string name="owner_number_label">Owner on the bill phone number<font color='#f65b94'>*</font></string>
     <string name="salary_label">Salary</string>
-    <string name="salary_gross_label">Gross Pay<font color='#f65b94'>*</font></string>
-    <string name="salary_net_label">Net Pay<font color='#f65b94'>*</font></string>
-    <string name="basic_hours_label">Basic Hours<font color='#f65b94'>*</font></string>
-    <string name="overtime_label">Overtime<font color='#f65b94'>*</font></string>
-    <string name="subsistence_label">Subsistence/Bonus<font color='#f65b94'>*</font></string>
-    <string name="bank_holiday_label">Bank Holiday<font color='#f65b94'>*</font></string>
-    <string name="holiday_label">Holiday<font color='#f65b94'>*</font></string>
+    <string name="salary_gross_label">Gross Pay</string>
+    <string name="salary_net_label">Net Pay</string>
+    <string name="basic_hours_label">Basic Hours</string>
+    <string name="overtime_label">Overtime</string>
+    <string name="subsistence_label">Subsistence/Bonus</string>
+    <string name="bank_holiday_label">Bank Holiday</string>
+    <string name="holiday_label">Holiday</string>
     <string name="salary_rate_label">Rate per Hour</string>
     <string name="send_salary_label">Send Salary</string>
     <string name="weekly_label">Weekly</string>
     <string name="monthly_label">Monthly</string>
     <string name="fortnightly_label">Fortnightly</string>
-    <string name="salary_period_label">Salary period</string>
+    <string name="salary_period_label">Salary period<font color='#f65b94'>*</font></string>
     <string name="date_you_choose">The dates you choose will be populated here</string>
     <string name="date_selected_label">Date selected:</string>
     <string name="please_select_date">Please select salary date from the calendar</string>
+    <string name="salary_request_sent">Salary Request\nSent</string>
 </resources>

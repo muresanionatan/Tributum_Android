@@ -6,7 +6,7 @@ public class ValidationUtils {
     }
 
     public static boolean isPpsValid(String pps) {
-        return pps.matches("[0-9]{7}[A-Z]{2}") || pps.matches("[0-9]{7}[A-Z]{1}");
+        return pps.matches("[0-9]{7}[a-zA-Z]{2}") || pps.matches("[0-9]{7}[a-zA-Z]{1}");
     }
 
     public static boolean isEmailValid(CharSequence email) {

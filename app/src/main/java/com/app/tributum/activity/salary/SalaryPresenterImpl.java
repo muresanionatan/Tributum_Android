@@ -156,30 +156,9 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         } else if (fullName.equals("")) {
             view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_full_name));
             view.setFocusOnFullName();
-        } else if (pps.equals("")) {
+        } else if (!ValidationUtils.isPpsValid(pps)) {
             view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_pps));
             view.setFocusOnPps();
-        } else if (gross.equals("")) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_gross));
-            view.setFocusOnGross();
-        } else if (net.equals("")) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_net));
-            view.setFocusOnNet();
-        } else if (hours.equals("")) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_hours));
-            view.setFocusOnHours();
-        } else if (overtime.equals("")) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_overtime));
-            view.setFocusOnOvertime();
-        } else if (subsistance.equals("")) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_subsistance));
-            view.setFocusOnSubsistance();
-        } else if (bankHoliday.equals("")) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_bank_holiday));
-            view.setFocusOnBankHoliday();
-        } else if (holiday.equals("")) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_holiday));
-            view.setFocusOnHoliday();
         } else if (datesSelected.size() == 0) {
             view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_select_date));
             view.scrollToCalendar();
@@ -202,7 +181,6 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         view.clearCalendarSelection();
         if (mode != CalendarMode.WEEKS) {
             mode = CalendarMode.WEEKS;
-            view.setWeekCalendarMode();
         }
         view.setDate(TributumApplication.getInstance().getString(R.string.date_you_choose));
         datesSelected = new ArrayList<>();
@@ -236,7 +214,6 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         view.clearCalendarSelection();
         if (mode != CalendarMode.MONTHS) {
             mode = CalendarMode.MONTHS;
-            view.setMonthCalendarMode();
         }
         datesSelected = new ArrayList<>();
     }

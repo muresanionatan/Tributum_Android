@@ -111,11 +111,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <include
-                layout="@layout/salary_month_layout"
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/material_calendar_view_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" />
+                app:mcv_selectionColor="@color/salary"
+                app:mcv_showOtherDates="defaults" />
 
             <TextView
                 android:layout_width="wrap_content"
