@@ -200,7 +200,7 @@ public class InquiryActivity extends AppCompatActivity implements InquiryView {
         previewLayout.setVisibility(View.VISIBLE);
         previewImage = findViewById(R.id.image_preview_id);
         Glide.with(this)
-                .load("file://" + filePath)
+                .load(filePath)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .into(previewImage);
@@ -286,7 +286,7 @@ public class InquiryActivity extends AppCompatActivity implements InquiryView {
     public void setImageInHolder(String fileName) {
         findViewById(R.id.inquiry_add_file_id).findViewById(R.id.photo_uploaded_id).setVisibility(View.VISIBLE);
         Glide.with(this)
-                .load("file://" + fileName)
+                .load(fileName)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .thumbnail(0.5f)

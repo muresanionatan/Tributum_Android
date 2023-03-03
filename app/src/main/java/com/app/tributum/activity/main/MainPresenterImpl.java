@@ -129,12 +129,12 @@ public class MainPresenterImpl implements MainPresenter {
         if (view == null)
             return;
 
-//        if (view.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-//            if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED) && view.shouldShowStorageRationale()) {
-//                view.takeUserToAppSettings();
-//                return;
-//            }
-//        }
+        if (view.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED) && view.shouldShowStorageRationale()) {
+                view.takeUserToAppSettings();
+                return;
+            }
+        }
 
         if (checkPermissions()) {
             if (actToStart == ActivityToStart.CONTRACT)
