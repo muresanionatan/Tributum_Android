@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class DropboxUtils {
 
-    private static final String ACCESS_TOKEN = "GH2DbopZybMAAAAAAAAAAQACWCPsCEpxctSWk2ZaU1hRQ4FmylxO8kVjat9SkQd4";
+    private static final String ACCESS_TOKEN = "sl.BZ1Tok0Zzzh3KMZvhQGeSyGd29RncAJzKvsU4z45OKuYiCthIKB81F7c1b2hPWzZ8DosxS-lNN0XO8RE7pPcQ5qlwtls3DwLH6OIi2tJjTYLjFWeFeC-4SnsC1sAGh-9dInoxhA";
 
     private DropboxUtils() {
     }
