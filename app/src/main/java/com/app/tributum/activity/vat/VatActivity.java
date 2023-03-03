@@ -68,7 +68,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     private VatPresenterImpl presenter;
 
-    private BottomSheetBehavior fileChooser;
+    private BottomSheetBehavior<View> fileChooser;
 
     private RequestSent requestSent;
 

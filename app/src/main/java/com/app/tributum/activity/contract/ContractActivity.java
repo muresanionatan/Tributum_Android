@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,15 +25,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
-import com.app.tributum.application.TributumApplication;
 import com.app.tributum.helper.DrawingView;
 import com.app.tributum.utils.CustomTextWatcher;
+import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
@@ -49,7 +47,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 
@@ -87,7 +84,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     private EditText startingDate;
 
-    private BottomSheetBehavior fileChooser;
+    private BottomSheetBehavior<View> fileChooser;
 
     private View previewLayout;
 
@@ -976,8 +973,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     @Override
     public void openFilePicker(int requestId) {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, requestId);
+        startActivityForResult(ImageUtils.getImageChooserIntent(), requestId);
     }
 
     @Override
@@ -1042,12 +1038,8 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     @Override
     public void takePicture(int requestId, File file, String pictureImagePath) {
-        Uri outputFileUri = FileProvider.getUriForFile(this,
-                "com.app.tributum.activity.vat.provider", file);
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
         presenter.setFilePath(pictureImagePath);
-        startActivityForResult(cameraIntent, requestId);
+        startActivityForResult(ImageUtils.getTakePhotoIntent(file), requestId);
     }
 
     @Override

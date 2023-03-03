@@ -222,25 +222,15 @@ public class InquiryPresenterImpl implements InquiryPresenter, RequestSentListen
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (view == null)
+        if (view == null || resultCode != Activity.RESULT_OK)
             return;
 
-        switch (requestCode) {
-            case ConstantsUtils.SELECT_REQUEST_INQUIRY:
-                if (resultCode == Activity.RESULT_OK) {
-                    pictureImagePath = ImageUtils.getFilePathFromGallery(data);
-                    view.setImageInHolder(pictureImagePath);
-                }
-                break;
-            case ConstantsUtils.CAMERA_REQUEST_INQUIRY:
-                if (resultCode == Activity.RESULT_OK) {
-                    pictureImagePath = fileName.getAbsolutePath();
-                    view.setImageInHolder(pictureImagePath);
-                }
-                break;
-            default:
-                break;
-        }
+        if (requestCode == ConstantsUtils.SELECT_REQUEST_INQUIRY)
+            pictureImagePath = ImageUtils.getFilePathFromGallery(data);
+        else if (requestCode == ConstantsUtils.CAMERA_REQUEST_INQUIRY)
+            pictureImagePath = fileName.getAbsolutePath();
+
+        view.setImageInHolder(pictureImagePath);
     }
 
     @Override

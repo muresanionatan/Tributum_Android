@@ -3,9 +3,7 @@ package com.app.tributum.activity.inquiry;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -18,12 +16,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.utils.ConstantsUtils;
+import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
@@ -50,7 +48,7 @@ public class InquiryActivity extends AppCompatActivity implements InquiryView {
 
     private InquiryPresenterImpl presenter;
 
-    private BottomSheetBehavior fileChooser;
+    private BottomSheetBehavior<View> fileChooser;
 
     private RequestSent requestSent;
 
@@ -259,8 +257,7 @@ public class InquiryActivity extends AppCompatActivity implements InquiryView {
 
     @Override
     public void openPhotoChooserIntent() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, ConstantsUtils.SELECT_REQUEST_INQUIRY);
+        startActivityForResult(ImageUtils.getImageChooserIntent(), ConstantsUtils.SELECT_REQUEST_INQUIRY);
     }
 
     @Override
@@ -299,12 +296,8 @@ public class InquiryActivity extends AppCompatActivity implements InquiryView {
 
     @Override
     public void takePhoto(int requestId, File file, String picturePath) {
-        Uri outputFileUri = FileProvider.getUriForFile(this,
-                "com.app.tributum.activity.vat.provider", file);
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
         presenter.setFilePath(picturePath);
-        startActivityForResult(cameraIntent, requestId);
+        startActivityForResult(ImageUtils.getTakePhotoIntent(file), requestId);
     }
 
     @Override

@@ -49,4 +49,17 @@ public class ImageUtils {
                 "com.app.tributum.activity.vat.provider",
                 file);
     }
+
+    public static Intent getImageChooserIntent() {
+        return new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    }
+
+    public static Intent getTakePhotoIntent(File file) {
+        Uri outputFileUri = FileProvider.getUriForFile(TributumApplication.getInstance(),
+                "com.app.tributum.activity.vat.provider", file);
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+
+        return cameraIntent;
+    }
 }

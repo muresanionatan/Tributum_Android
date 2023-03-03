@@ -38,9 +38,9 @@ import com.app.tributum.utils.animation.AnimUtils;
  */
 public class CustomButton extends RelativeLayout {
 
-    private static final short CLICK_THRESHOLD = 200;
+    private static final short CLICK_THRESHOLD = 500;
 
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
 
     /**
      * The entire view which contains {@link #parentView} and {@link #textView}

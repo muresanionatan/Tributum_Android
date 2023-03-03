@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.icu.util.Calendar;
-import android.net.Uri;
 import android.text.Editable;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
 
 import com.app.tributum.R;
 import com.app.tributum.activity.contract.model.ContractModel;
@@ -56,8 +54,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     private int previousBirthdayLength = 0;
 
     private int previousStartingDateLength = 0;
-
-    private int previousContractDateLength = 0;
 
     private int previousEircodeLength = 0;
 
