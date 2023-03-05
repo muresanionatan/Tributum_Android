@@ -84,6 +84,7 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
         email = findViewById(R.id.payer_email_edit_text);
         fullName = findViewById(R.id.salary_beneficiary_edit_text);
         pps = findViewById(R.id.salary_pps_edit_text);
+        UtilsGeneral.setMaxLengthAndAllCapsToEditText(pps, 9, true);
         gross = findViewById(R.id.salary_gross_edit_text);
         net = findViewById(R.id.salary_net_edit_text);
         rate = findViewById(R.id.salary_rate_edit_text);

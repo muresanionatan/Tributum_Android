@@ -385,7 +385,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
         switch (requestCode) {
             case ConstantsUtils.SELECTED_PICTURE_REQUEST_BILL:
                 if (resultCode == Activity.RESULT_OK) {
-                    photoState = PhotoCrop.BACK_SELECT;
+                    photoState = PhotoCrop.BILL_SELECT;
                     billFile = ImageUtils.getFilePathFromGallery(data);
                     view.startCrop(data.getData());
                 }
