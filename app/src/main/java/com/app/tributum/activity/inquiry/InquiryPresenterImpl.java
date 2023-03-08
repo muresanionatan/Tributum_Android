@@ -226,7 +226,7 @@ public class InquiryPresenterImpl implements InquiryPresenter, RequestSentListen
             return;
 
         if (requestCode == ConstantsUtils.SELECT_REQUEST_INQUIRY)
-            pictureImagePath = data.getData().toString();
+            pictureImagePath = ImageUtils.getFilePathFromGallery(data);
         else if (requestCode == ConstantsUtils.CAMERA_REQUEST_INQUIRY)
             pictureImagePath = fileName.getAbsolutePath();
 

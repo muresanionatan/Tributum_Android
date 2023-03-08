@@ -87,7 +87,8 @@ public class InquiryActivity extends AppCompatActivity implements InquiryView {
         findViewById(R.id.inquiry_add_file_id).findViewById(R.id.plus_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onPlusClick();
+//                presenter.onPlusClick();
+                presenter.onTakePhotoClick(name.getText().toString().trim());
             }
         });
         findViewById(R.id.inquiry_add_file_id).findViewById(R.id.preview_thumbnail_id).setOnClickListener(new View.OnClickListener() {
