@@ -822,8 +822,16 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
-                view.hideLoadingScreen();
-                view.showToast(R.string.something_went_wrong);
+                if (t.getMessage() != null && t.getMessage().contains("timeout")) {
+                    try {
+                        uploadFiles(firstName + " " + lastName, phone, bankAccount, noOfKids, email);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    view.hideLoadingScreen();
+                    view.showToast(R.string.something_went_wrong);
+                }
             }
         });
     }
