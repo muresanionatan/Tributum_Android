@@ -76,7 +76,7 @@ public class MainPresenterImpl implements MainPresenter {
 
             PendingIntent pendingIntent;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S)
-                pendingIntent = PendingIntent.getBroadcast(TributumApplication.getInstance(), 0, alarmIntent, PendingIntent.FLAG_MUTABLE);
+                pendingIntent = PendingIntent.getBroadcast(TributumApplication.getInstance(), 0, alarmIntent, PendingIntent.FLAG_IMMUTABLE);
             else
                 pendingIntent = PendingIntent.getBroadcast(TributumApplication.getInstance(), 0, alarmIntent, 0);
 
