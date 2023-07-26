@@ -375,7 +375,7 @@ public class PpsActivity extends AppCompatActivity implements PpsView {
 
     @Override
     public void showRequestSentScreen() {
-        requestSent.show();
+        requestSent.show(false);
     }
 
     @Override

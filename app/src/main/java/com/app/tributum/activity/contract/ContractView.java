@@ -1,6 +1,5 @@
 package com.app.tributum.activity.contract;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
 
 import java.io.File;
@@ -20,8 +19,6 @@ public interface ContractView {
     void setStartingDateText(String string);
 
     void moveBirthdayCursorToEnd();
-
-    void clearSignature();
 
     void hideMaritalLayout();
 
@@ -61,17 +58,9 @@ public interface ContractView {
 
     void hideEmploymentInfoLayoutToRight();
 
-    void showSignatureLayout();
-
-    void hideSignatureLayout();
-
     void setTitle(int stringId);
 
     void setSubtitle(int stringId);
-
-    void showClearButton();
-
-    void hideClearButton();
 
     void setConfirmationButtonText(int stringId);
 
@@ -104,10 +93,6 @@ public interface ContractView {
     void setIdImage(String idFile);
 
     void setMarriageCertificateImage(String marriageCertificateFile);
-
-    void setDrawingCacheEnabled();
-
-    Bitmap getSignatureFile();
 
     void showRequestSentScreen();
 

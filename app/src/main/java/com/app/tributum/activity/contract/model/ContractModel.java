@@ -24,8 +24,6 @@ public class ContractModel {
 
     private List<String> taxes;
 
-    private byte[] signature;
-
     private String message;
 
     private String startingDate;
@@ -84,11 +82,6 @@ public class ContractModel {
         this.taxes = taxes;
     }
 
-    public void setSignature(byte[] signature) {
-        this.signature = signature;
-    }
-
-
     public void setMessage(String message) {
         this.message = message;
     }
@@ -139,9 +132,5 @@ public class ContractModel {
 
     public List<String> getTaxes() {
         return taxes;
-    }
-
-    public byte[] getSignature() {
-        return signature;
     }
 }

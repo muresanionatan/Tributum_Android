@@ -17,8 +17,6 @@ public interface ContractPresenter {
 
     void beforeBirthdayChanged(int length);
 
-    void onClearSignatureClick();
-
     void onSingleClicked();
 
     void onMarriedClicked();

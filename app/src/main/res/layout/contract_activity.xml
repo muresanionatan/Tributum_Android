@@ -39,7 +39,7 @@
             android:layout_marginEnd="98dp"
             android:layout_toEndOf="@+id/contract_back_id"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="2">
 
             <ProgressBar
                 android:id="@+id/first_progress_id"
@@ -58,16 +58,6 @@
                 android:layout_height="4dp"
                 android:layout_marginStart="3dp"
                 android:layout_marginEnd="3dp"
-                android:layout_weight="1"
-                android:progress="0"
-                android:progressDrawable="@drawable/contract_progress" />
-
-            <ProgressBar
-                android:id="@+id/third_progress_id"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_marginStart="3dp"
                 android:layout_weight="1"
                 android:progress="0"
                 android:progressDrawable="@drawable/contract_progress" />
@@ -120,12 +110,6 @@
                         android:id="@+id/employment_info_layout_id"
                         layout="@layout/employment_info_contract_layout"
                         android:visibility="gone" />
-
-                    <include
-                        android:id="@+id/signature_layout_id"
-                        layout="@layout/signature_drawing_layout"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
                 </RelativeLayout>
 
                 <View

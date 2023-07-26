@@ -202,7 +202,7 @@ public class PaymentsActivity extends AppCompatActivity implements PaymentsView,
 
     @Override
     public void showRequestSentScreen() {
-        requestSent.show();
+        requestSent.show(false);
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.app.tributum.activity.contract;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.icu.util.Calendar;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -15,7 +14,6 @@ import com.app.tributum.activity.contract.model.ContractModel;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.listener.RequestSentListener;
-import com.app.tributum.listener.SignatureListener;
 import com.app.tributum.retrofit.InterfaceAPI;
 import com.app.tributum.retrofit.RetrofitClientInstance;
 import com.app.tributum.utils.CalendarUtils;
@@ -25,10 +23,7 @@ import com.app.tributum.utils.UploadAsyncTask;
 import com.app.tributum.utils.ValidationUtils;
 import com.app.tributum.utils.ui.FileUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,9 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ContractPresenterImpl implements ContractPresenter, SignatureListener, AsyncListener, RequestSentListener {
-
-    private Bitmap signatureFile;
+public class ContractPresenterImpl implements ContractPresenter, AsyncListener, RequestSentListener {
 
     private String ppsFileFront;
 
@@ -92,8 +85,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     private boolean isPreview;
 
     private String filePath;
-
-    private boolean signatureDrawn;
 
     ContractPresenterImpl(ContractView contractView) {
         this.view = contractView;
@@ -266,16 +257,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     @Override
-    public void onClearSignatureClick() {
-        if (view == null)
-            return;
-        view.clearSignature();
-        view.hideClearButton();
-        signatureFile = null;
-        signatureDrawn = false;
-    }
-
-    @Override
     public void handleSendButtonClick(String firstName, String lastName, String address1, String address2, String address3, String eircode,
                                       String birthday, String occupation, String phone, String email, String bankAccount,
                                       String pps, String startingDate, String noOfKids) {
@@ -329,13 +310,8 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                 view.showToast(R.string.please_add_pps_front);
                 view.scrollToPpsFront();
             } else {
-                moveToSignatureScreen();
-            }
-        } else if (state == ProgressState.SIGNATURE) {
-            if (signatureDrawn)
                 sendInfo(firstName, lastName, address1, address2, address3, eircode, pps, email, birthday, occupation, phone, bankAccount, noOfKids, startingDate);
-            else
-                view.showToast(R.string.please_add_signature);
+            }
         }
     }
 
@@ -498,17 +474,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         view.showEmploymentInfoLayoutFromRight();
         view.setTitle(R.string.employment_info_label);
         view.setSubtitle(R.string.contract_subtitle);
-        view.setConfirmationButtonText(R.string.continue_label);
-    }
-
-    private void moveToSignatureScreen() {
-        state = ProgressState.SIGNATURE;
-        view.hideEmploymentInfoLayoutToLeft();
-        view.showSignatureLayout();
-        view.setTitle(R.string.almost_done);
-        view.setSubtitle(R.string.add_your_signature_below);
-        view.hideAsteriskView();
-        view.setConfirmationButtonText(R.string.sign_send);
+        view.setConfirmationButtonText(R.string.send_label);
     }
 
     @Override
@@ -518,14 +484,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         if (isPreview) {
             isPreview = false;
             view.closePreview();
-        } else if (state == ProgressState.SIGNATURE) {
-            state = ProgressState.EMPLOYMENT;
-            view.hideSignatureLayout();
-            view.showEmploymentInfoLayoutFromLeft();
-            view.setTitle(R.string.employment_info_label);
-            view.setConfirmationButtonText(R.string.continue_label);
-            view.setSubtitle(R.string.contract_subtitle);
-            view.showAsteriskView();
         } else if (state == ProgressState.EMPLOYMENT) {
             state = ProgressState.PERSONAL;
             view.hideEmploymentInfoLayoutToRight();
@@ -533,14 +491,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             view.setTitle(R.string.personal_info_label);
         } else if (state == ProgressState.PERSONAL) {
             view.closeActivity();
-        }
-    }
-
-    @Override
-    public void onDrawingStarted() {
-        if (view != null) {
-            view.showClearButton();
-            signatureDrawn = true;
         }
     }
 
@@ -790,13 +740,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
         contractModel.setMessage(resources.getString(R.string.contract_mail_message));
         contractModel.setStartingDate(startingDate);
 
-        saveSignatureImage();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        signatureFile.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-
         contractModel.setTaxes(taxes);
-        contractModel.setSignature(byteArray);
 
         view.showLoadingScreen();
 
@@ -880,23 +824,6 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     private void pickPictureFromGallery(int requestId) {
         if (view != null)
             view.openFilePicker(requestId);
-    }
-
-    private void saveSignatureImage() {
-        if (view == null)
-            return;
-        view.setDrawingCacheEnabled();
-        signatureFile = view.getSignatureFile();
-        File signature = new File(TributumApplication.getInstance().getFilesDir(), "/signature.png");
-
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(signature);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        signatureFile.compress(Bitmap.CompressFormat.PNG, 95, fos);
     }
 
     @Override

@@ -29,6 +29,22 @@
         android:textSize="36sp"
         tools:text="@string/vat_receipts_sent" />
 
+    <TextView
+        android:id="@+id/request_sent__subtitle_text_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/request_sent_text_id"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:fontFamily="@font/manrope_regular"
+        android:gravity="center"
+        android:text="@string/check_email"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
     <com.app.tributum.utils.ui.CustomButton
         android:id="@+id/ok_id"
         android:layout_width="152dp"

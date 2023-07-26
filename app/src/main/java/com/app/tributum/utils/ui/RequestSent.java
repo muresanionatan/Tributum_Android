@@ -30,11 +30,12 @@ public class RequestSent {
     }
 
     @SuppressLint("ResourceType")
-    public void show() {
+    public void show(boolean shouldShowSubtitle) {
         inflatedView = LayoutInflater.from(TributumApplication.getInstance()).inflate(R.layout.request_sent_screen, null);
         viewGroup.addView(inflatedView);
         inflatedView.findViewById(R.id.loading_screen_id).setBackgroundResource(drawableResourceId);
         ((TextView) inflatedView.findViewById(R.id.request_sent_text_id)).setText(title);
+        showSubtitle(shouldShowSubtitle);
         inflatedView.findViewById(R.id.ok_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +44,11 @@ public class RequestSent {
                     listener.onOkClicked();
             }
         });
+    }
+
+    public void showSubtitle(boolean shouldShowSubtitle) {
+        if (shouldShowSubtitle)
+            inflatedView.findViewById(R.id.request_sent__subtitle_text_id).setVisibility(View.VISIBLE);
     }
 
     @SuppressLint("ResourceType")

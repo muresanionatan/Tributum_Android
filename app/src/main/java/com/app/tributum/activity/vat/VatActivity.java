@@ -283,7 +283,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     @Override
     public void showRequestSentScreen() {
-        requestSent.show();
+        requestSent.show(false);
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,14 +30,12 @@ import androidx.core.widget.NestedScrollView;
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
-import com.app.tributum.helper.DrawingView;
 import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
 import com.app.tributum.utils.animation.CustomAnimatorListener;
-import com.app.tributum.utils.ui.CustomScrollView;
 import com.app.tributum.utils.ui.LoadingScreen;
 import com.app.tributum.utils.ui.RequestSent;
 import com.app.tributum.utils.ui.UiUtils;
@@ -73,8 +70,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     private EditText occupationEditText;
 
-    private RelativeLayout parentView;
-
     private CheckBox singleCheck;
 
     private CheckBox marriedCheck;
@@ -90,8 +85,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     private BottomSheetBehavior<View> fileChooser;
 
     private View previewLayout;
-
-    private DrawingView signatureDraw;
 
     private EditText phoneNumberEditText;
 
@@ -287,17 +280,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                         startingDate.getText().toString(),
                         ((EditText) findViewById(R.id.number_kids_id)).getText().toString()
                 );
-            }
-        });
-
-        parentView = findViewById(R.id.signature_drawing_view);
-        signatureDraw = new DrawingView(ContractActivity.this, presenter);
-        parentView.addView(signatureDraw);
-
-        findViewById(R.id.delete_signature_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onClearSignatureClick();
             }
         });
 
@@ -754,41 +736,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
-    public void showSignatureLayout() {
-        setCompletionProgress(R.id.third_progress_id, true);
-        ((CustomScrollView) scrollView).setScrollingEnabled(false);
-        AnimUtils.getTranslationXAnimator(findViewById(R.id.signature_layout_id),
-                AnimUtils.DURATION_500,
-                AnimUtils.NO_DELAY,
-                new DecelerateInterpolator(),
-                new CustomAnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        scrollView.scrollTo(0, 0);
-                        findViewById(R.id.signature_layout_id).setVisibility(View.VISIBLE);
-                    }
-                },
-                UiUtils.getScreenWidth(), 0).start();
-    }
-
-    @Override
-    public void hideSignatureLayout() {
-        setCompletionProgress(R.id.third_progress_id, false);
-        ((CustomScrollView) scrollView).setScrollingEnabled(true);
-        AnimUtils.getTranslationXAnimator(findViewById(R.id.signature_layout_id),
-                AnimUtils.DURATION_500,
-                AnimUtils.NO_DELAY,
-                new DecelerateInterpolator(),
-                new CustomAnimatorListener() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        findViewById(R.id.signature_layout_id).setVisibility(View.GONE);
-                    }
-                },
-                UiUtils.getScreenWidth()).start();
-    }
-
-    @Override
     public void setFileChooserToVisible() {
         findViewById(R.id.file_chooser_top_id).setVisibility(View.VISIBLE);
         AnimUtils.getFadeInAnimator(findViewById(R.id.file_chooser_top_id), AnimUtils.DURATION_200, AnimUtils.NO_DELAY, null, null).start();
@@ -871,11 +818,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
-    public void clearSignature() {
-        signatureDraw.clear();
-    }
-
-    @Override
     public void setStartingDateText(String string) {
         startingDate.setText(string);
     }
@@ -917,7 +859,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     @Override
     public void showRequestSentScreen() {
-        requestSent.show();
+        requestSent.show(true);
     }
 
     @Override
@@ -943,16 +885,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void setConfirmationButtonText(int stringId) {
         ((TextView) findViewById(R.id.contract_send_id)).setText(getResources().getString(stringId));
-    }
-
-    @Override
-    public void showClearButton() {
-        findViewById(R.id.delete_signature_id).setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideClearButton() {
-        findViewById(R.id.delete_signature_id).setVisibility(View.GONE);
     }
 
     @Override
@@ -1052,16 +984,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     public void takePicture(int requestId, File file, String pictureImagePath) {
         presenter.setFilePath(pictureImagePath);
         startActivityForResult(ImageUtils.getTakePhotoIntent(file), requestId);
-    }
-
-    @Override
-    public void setDrawingCacheEnabled() {
-        parentView.setDrawingCacheEnabled(true);
-    }
-
-    @Override
-    public Bitmap getSignatureFile() {
-        return parentView.getDrawingCache();
     }
 
     @Override

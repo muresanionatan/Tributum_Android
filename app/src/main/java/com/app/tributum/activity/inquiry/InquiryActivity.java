@@ -182,7 +182,7 @@ public class InquiryActivity extends AppCompatActivity implements InquiryView {
 
     @Override
     public void showRequestSent() {
-        requestSent.show();
+        requestSent.show(false);
     }
 
     @Override

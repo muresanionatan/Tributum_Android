@@ -278,7 +278,7 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
 
     @Override
     public void showRequestSent() {
-        requestSent.show();
+        requestSent.show(false);
     }
 
     @Override

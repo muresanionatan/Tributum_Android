@@ -89,11 +89,8 @@
     <string name="any_children_label">Aveti Copii?</string>
     <string name="continue_label">Continua</string>
     <string name="employment_info_label">Informatii\nAngajare</string>
-    <string name="almost_done">Aproape Gata</string>
-    <string name="clear_label">Sterge</string>
-    <string name="add_your_signature_below">Adauga Semnatura Ta Mai Jos<font color='#f65b94'>*</font></string>
-    <string name="sign_send"><![CDATA[Semneaza & Trimite]]></string>
     <string name="vat_receipts_sent">Bonuri/Facturi\nTrimise</string>
+    <string name="check_email">Te rugam sa deschizi mailul si sa semnezi contractul.</string>
     <string name="ok_label">Ok</string>
     <string name="payment_sent_label">Plata\nTrimisa</string>
     <string name="contract_sent_label">Contract\nTrimis</string>
@@ -144,7 +141,6 @@
     <string name="faq_question_answer_5">Poti oricand sa faci poze actelor tale: buletin, PPS, certificat de casatorie, bonuri, facturi. Apasa pe buton cu plus si apoi pe \'Fa o poza\'.</string>
     <string name="faq_question_6">Nu stiu cum sa fac poze actelor mele folosind aplicatia</string>
     <string name="faq_question_answer_6">Nicio grija. Fa poze actelor tale folosing camera telefonului. Apoi le poti adauga in aplicatie apasand pe plus si apoi pe \'Adauga poze din galerie\'.</string>
-    <string name="please_add_signature">Te rugam segmneaza in dreptunghiul de mai sus</string>
     <string name="rct_subtitle">Datele introduse vor fi salvate pentru urmatorele plati asa ca poti direct sa trimiti o plata fara sa faci vreo modificare, daca nu e necesar.</string>
     <string name="please_enter_amount">Te rugam introdu suma</string>
     <string name="might_take">Poate dura mai mult sau mai putin in functie de conexiunea de internet</string>
