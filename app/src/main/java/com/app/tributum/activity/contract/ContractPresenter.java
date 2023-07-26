@@ -77,6 +77,8 @@ public interface ContractPresenter {
 
     void onMarriageRemoveClicked();
 
+    void handleCropping(String result);
+
     void setFilePath(String pictureImagePath);
 
     void onBirthdayDateSet(int year, int monthOfYear, int dayOfMonth);

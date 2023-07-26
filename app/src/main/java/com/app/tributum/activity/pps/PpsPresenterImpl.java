@@ -21,7 +21,6 @@ import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.UploadAsyncTask;
 import com.app.tributum.utils.ValidationUtils;
 import com.app.tributum.utils.ui.FileUtils;
-import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 import java.io.IOException;
@@ -425,22 +424,18 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
                     view.startCrop(ImageUtils.getUriFromFile(file));
                 }
                 break;
-            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
-                handleCropping(data);
-                break;
             default:
                 break;
         }
     }
 
-    private void handleCropping(Intent data) {
-        CropImage.ActivityResult result = CropImage.getActivityResult(data);
-
+    @Override
+    public void handleCropping(String result) {
         switch (photoState) {
             case PhotoCrop.ID_CAMERA:
             case PhotoCrop.ID_SELECT:
                 if (result != null) {
-                    idFile = result.getUri().toString();
+                    idFile = result;
                     view.setIdImage(idFile);
                 } else {
                     idFile = null;
@@ -449,7 +444,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
             case PhotoCrop.BILL_CAMERA:
             case PhotoCrop.BILL_SELECT:
                 if (result != null) {
-                    billFile = result.getUri().toString();
+                    billFile = result;
                     view.setBillImage(billFile);
                 } else {
                     billFile = null;
@@ -458,7 +453,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
             case PhotoCrop.LETTER_CAMERA:
             case PhotoCrop.LETTER_SELECT:
                 if (result != null) {
-                    letterFile = result.getUri().toString();
+                    letterFile = result;
                     view.setLetterImage(letterFile);
                 } else {
                     letterFile = null;

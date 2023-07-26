@@ -40,6 +40,8 @@ public interface PpsPresenter {
 
     void onLetterRemoveClicked();
 
+    void handleCropping(String result);
+
     void setFilePath(String pictureImagePath);
 
     void onDestroy();

@@ -24,7 +24,6 @@ import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.UploadAsyncTask;
 import com.app.tributum.utils.ValidationUtils;
 import com.app.tributum.utils.ui.FileUtils;
-import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -970,22 +969,18 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
                     view.startCrop(ImageUtils.getUriFromFile(file));
                 }
                 break;
-            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
-                handleCropping(data);
-                break;
             default:
                 break;
         }
     }
 
-    private void handleCropping(Intent data) {
-        CropImage.ActivityResult result = CropImage.getActivityResult(data);
-
+    @Override
+    public void handleCropping(String result) {
         switch (photoState) {
             case PhotoCrop.ID_CAMERA:
             case PhotoCrop.ID_SELECT:
                 if (result != null) {
-                    idFile = result.getUri().toString();
+                    idFile = result;
                     view.setIdImage(idFile);
                 } else {
                     idFile = null;
@@ -994,7 +989,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             case PhotoCrop.MARRIAGE_CAMERA:
             case PhotoCrop.MARRIAGE_SELECT:
                 if (result != null) {
-                    marriageCertificateFile = result.getUri().toString();
+                    marriageCertificateFile = result;
                     view.setMarriageCertificateImage(marriageCertificateFile);
                 } else {
                     marriageCertificateFile = null;
@@ -1003,7 +998,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             case PhotoCrop.PPS_CAMERA:
             case PhotoCrop.PPS_SELECT:
                 if (result != null) {
-                    ppsFileFront = result.getUri().toString();
+                    ppsFileFront = result;
                     view.setPpsFrontImage(ppsFileFront);
                 } else {
                     ppsFileFront = null;
@@ -1012,7 +1007,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             case PhotoCrop.BACK_CAMERA:
             case PhotoCrop.BACK_SELECT:
                 if (result != null) {
-                    ppsFileBack = result.getUri().toString();
+                    ppsFileBack = result;
                     view.setPpsBackImage(ppsFileBack);
                 } else {
                     ppsFileBack = null;

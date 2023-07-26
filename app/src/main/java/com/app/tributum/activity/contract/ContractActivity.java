@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,8 +46,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.canhub.cropper.CropImageContract;
+import com.canhub.cropper.CropImageContractOptions;
+import com.canhub.cropper.CropImageOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 
@@ -101,6 +104,12 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     private RequestSent requestSent;
 
     private ContractPresenterImpl presenter;
+
+    ActivityResultLauncher<CropImageContractOptions> cropImage = registerForActivityResult(new CropImageContract(), result -> {
+        if (result.isSuccessful()) {
+            presenter.handleCropping(result.getUriFilePath(getApplicationContext(), true));
+        }
+    });
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -984,8 +993,11 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     @Override
     public void startCrop(Uri imageUri) {
-        CropImage.activity(imageUri)
-                .start(this);
+        CropImageOptions cropImageOptions = new CropImageOptions();
+        cropImageOptions.imageSourceIncludeGallery = true;
+        cropImageOptions.imageSourceIncludeCamera = true;
+        CropImageContractOptions cropImageContractOptions = new CropImageContractOptions(imageUri, cropImageOptions);
+        cropImage.launch(cropImageContractOptions);
     }
 
     @Override
