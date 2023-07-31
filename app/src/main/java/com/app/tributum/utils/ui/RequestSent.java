@@ -48,7 +48,7 @@ public class RequestSent {
 
     public void showSubtitle(boolean shouldShowSubtitle) {
         if (shouldShowSubtitle)
-            inflatedView.findViewById(R.id.request_sent__subtitle_text_id).setVisibility(View.VISIBLE);
+            inflatedView.findViewById(R.id.request_sent_subtitle_text_id).setVisibility(View.VISIBLE);
     }
 
     @SuppressLint("ResourceType")
