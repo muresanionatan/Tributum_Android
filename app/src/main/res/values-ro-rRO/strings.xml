@@ -167,7 +167,7 @@
     <string name="request_sent">Cerere trimisa</string>
     <string name="please_enter_mom_name">Te rugam introdu numele mamei inainte de casatorie</string>
     <string name="not_older_then_label">Nu mai veche de 2 luni</string>
-    <string name="new_pps">New PPS</string>
+    <string name="new_pps">PPS Nou</string>
     <string name="owner_number_label">Numarul de telefon al proprietarului facturii<font color='#f65b94'>*</font></string>
     <string name="salary_label">Salariu</string>
     <string name="salary_gross_label">Suma gross</string>
