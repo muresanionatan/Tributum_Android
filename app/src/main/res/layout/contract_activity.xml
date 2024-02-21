@@ -31,46 +31,61 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/progress_layout_id"
-            android:layout_width="match_parent"
+            android:id="@+id/checkboxes_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="98dp"
-            android:layout_toEndOf="@+id/contract_back_id"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="48dp"
+            android:orientation="horizontal">
 
-            <ProgressBar
-                android:id="@+id/first_progress_id"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_marginEnd="3dp"
-                android:layout_weight="1"
-                android:progress="100"
-                android:progressDrawable="@drawable/contract_progress" />
+            <LinearLayout
+                android:id="@+id/vat_layout_id"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginEnd="6dp"
+                android:gravity="center_vertical">
 
-            <ProgressBar
-                android:id="@+id/second_progress_id"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="3dp"
-                android:layout_weight="1"
-                android:progress="0"
-                android:progressDrawable="@drawable/contract_progress" />
+                <CheckBox
+                    android:id="@+id/vat_checkbox"
+                    style="@style/CheckBox"
+                    android:layout_marginStart="14dp"
+                    android:button="@drawable/payment_selector"
+                    android:checked="true" />
 
-            <ProgressBar
-                android:id="@+id/third_progress_id"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_marginStart="3dp"
-                android:layout_weight="1"
-                android:progress="0"
-                android:progressDrawable="@drawable/contract_progress" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:text="VAT"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rct_layout_id"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:gravity="center_vertical">
+
+                <CheckBox
+                    android:id="@+id/rct_checkbox"
+                    style="@style/CheckBox"
+                    android:layout_marginStart="20dp"
+                    android:button="@drawable/payment_selector"
+                    android:checked="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:text="RCT"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <com.app.tributum.utils.ui.CustomScrollView
@@ -87,46 +102,64 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/contract_title_id"
-                    style="@style/TitleText"
-                    android:layout_width="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/personal_info_label"
-                    android:textColor="@color/contract_1" />
-
-                <TextView
-                    android:id="@+id/contract_subtitle_id"
-                    style="@style/SubtitleText"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/contract_subtitle" />
-
-                <TextView
-                    android:id="@+id/asterisk_text_view_id"
-                    android:layout_marginStart="8dp"
-                    style="@style/SubtitleText"
-                    android:text="@string/mandatory_fields"/>
-
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <include
-                        android:id="@+id/personal_info_layout_id"
-                        layout="@layout/personal_info_contract_layout"
-                        tools:visibility="gone" />
+                    <EditText
+                        android:id="@+id/first_name_edit_text"
+                        style="@style/CustomEditText"
+                        android:layout_width="match_parent"
+                        android:hint="@string/first_name_label"
+                        android:inputType="textCapWords" />
 
-                    <include
-                        android:id="@+id/employment_info_layout_id"
-                        layout="@layout/employment_info_contract_layout"
-                        android:visibility="gone" />
+                    <EditText
+                        android:id="@+id/last_name_edit_text"
+                        style="@style/CustomEditText"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:hint="@string/last_name_label"
+                        android:inputType="textCapWords" />
+
+                    <EditText
+                        android:id="@+id/pps_number_edit_text"
+                        style="@style/CustomEditText"
+                        android:layout_marginTop="20dp"
+                        android:hint="@string/pps_number"
+                        android:textAllCaps="true" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/white_rectangle_corners">
+
+                        <EditText
+                            android:id="@+id/edittext_starting_date_id"
+                            style="@style/CustomEditText"
+                            android:layout_marginStart="44dp"
+                            android:hint="@string/starting_date"
+                            android:inputType="date"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                        <ImageView
+                            android:id="@+id/starting_date_image_id"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="20dp"
+                            android:src="@drawable/ic_icon_date" />
+                    </RelativeLayout>
 
                     <include
                         android:id="@+id/signature_layout_id"
                         layout="@layout/signature_drawing_layout"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
-                </RelativeLayout>
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/pps_number_edit_text" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -147,13 +180,9 @@
                         android:layout_marginTop="32dp"
                         android:layout_marginBottom="32dp"
                         android:background="@drawable/contract_send"
-                        android:text="@string/continue_label" />
+                        android:text="@string/send_label" />
                 </com.app.tributum.utils.ui.CustomButton>
             </LinearLayout>
         </com.app.tributum.utils.ui.CustomScrollView>
     </RelativeLayout>
-
-    <include layout="@layout/image_preview_layout" />
-
-    <include layout="@layout/file_chooser_layout" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,21 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/first_name_edit_text"
-        style="@style/CustomEditText"
-        android:layout_width="match_parent"
-        android:layout_marginTop="48dp"
-        android:hint="@string/first_name_label"
-        android:inputType="textCapWords" />
-
-    <EditText
-        android:id="@+id/last_name_edit_text"
-        style="@style/CustomEditText"
-        android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:hint="@string/last_name_label"
-        android:inputType="textCapWords" />
 
     <EditText
         android:id="@+id/address_1_edit_text"

@@ -12,6 +12,9 @@ public interface InterfaceAPI {
     @POST("generatePDF")
     Call<Object> sendContract(@Body ContractModel contractModel);
 
+    @POST("generateAln")
+    Call<Object> generateAln(@Body ContractModel contractModel);
+
     @POST("notifyUser")
     Call<Object> sendEmail(@Body EmailBody emailBody);
 }

@@ -3,8 +3,6 @@ package com.app.tributum.activity.vat;
 import android.content.Intent;
 import android.view.MotionEvent;
 
-import androidx.annotation.NonNull;
-
 import com.app.tributum.activity.vat.model.VatModel;
 
 import java.util.List;
