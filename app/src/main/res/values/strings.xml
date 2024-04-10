@@ -170,14 +170,12 @@
     <string name="new_pps">New PPS</string>
     <string name="owner_number_label">Owner on the bill phone number<font color='#f65b94'>*</font></string>
     <string name="salary_label">Salary</string>
-    <string name="salary_gross_label">Gross Pay</string>
-    <string name="salary_net_label">Net Pay</string>
     <string name="basic_hours_label">Basic Hours</string>
     <string name="overtime_label">Overtime</string>
     <string name="subsistence_label">Subsistence/Bonus</string>
     <string name="bank_holiday_label">Bank Holiday</string>
     <string name="holiday_label">Holiday</string>
-    <string name="salary_rate_label">Rate per Hour</string>
+    <string name="salary_rate_label">Gross rate per Hour</string>
     <string name="send_salary_label">Send Salary</string>
     <string name="weekly_label">Weekly</string>
     <string name="monthly_label">Monthly</string>

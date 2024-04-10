@@ -16,10 +16,6 @@ public interface SalaryView {
 
     void setFocusOnPps();
 
-    void setFocusOnGross();
-
-    void setFocusOnNet();
-
     void setFocusOnHours();
 
     void setFocusOnOvertime();

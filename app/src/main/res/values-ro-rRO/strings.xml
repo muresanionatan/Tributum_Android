@@ -170,14 +170,12 @@
     <string name="new_pps">PPS Nou</string>
     <string name="owner_number_label">Numarul de telefon al proprietarului facturii<font color='#f65b94'>*</font></string>
     <string name="salary_label">Salariu</string>
-    <string name="salary_gross_label">Suma gross</string>
-    <string name="salary_net_label">Suma net</string>
     <string name="basic_hours_label">Nr. ore</string>
     <string name="overtime_label">Ore suplimentare</string>
     <string name="subsistence_label">Bonus</string>
     <string name="bank_holiday_label">Bank Holiday</string>
     <string name="holiday_label">Zile libere</string>
-    <string name="salary_rate_label">Tarif pe ora</string>
+    <string name="salary_rate_label">Tarif gross pe ora</string>
     <string name="send_salary_label">Trimite Salariu</string>
     <string name="weekly_label">Saptamanal</string>
     <string name="monthly_label">Lunar</string>

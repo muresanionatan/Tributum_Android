@@ -33,10 +33,6 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
 
     private EditText pps;
 
-    private EditText gross;
-
-    private EditText net;
-
     private EditText rate;
 
     private EditText hours;
@@ -85,8 +81,6 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
         fullName = findViewById(R.id.salary_beneficiary_edit_text);
         pps = findViewById(R.id.salary_pps_edit_text);
         UtilsGeneral.setMaxLengthAndAllCapsToEditText(pps, 9, true);
-        gross = findViewById(R.id.salary_gross_edit_text);
-        net = findViewById(R.id.salary_net_edit_text);
         rate = findViewById(R.id.salary_rate_edit_text);
         hours = findViewById(R.id.salary_basic_edit_text);
         overtime = findViewById(R.id.salary_overtime_edit_text);
@@ -108,8 +102,6 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
         email.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         fullName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         pps.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        gross.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        net.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         rate.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         hours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         overtime.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -121,7 +113,7 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
             public void onClick(View v) {
                 presenter.onSendClick(name.getText().toString().trim(), email.getText().toString().trim(),
                         fullName.getText().toString().trim(), pps.getText().toString().trim(),
-                        gross.getText().toString().trim(), net.getText().toString().trim(), rate.getText().toString().trim(),
+                        rate.getText().toString().trim(),
                         hours.getText().toString().trim(), overtime.getText().toString().trim(),
                         subsistance.getText().toString().trim(), bankHoliday.getText().toString().trim(),
                         holiday.getText().toString().trim());
@@ -207,18 +199,6 @@ public class SalaryActivity extends AppCompatActivity implements SalaryView {
     public void setFocusOnPps() {
         UtilsGeneral.setFocusOnInput(pps);
         scrollToEditText(pps);
-    }
-
-    @Override
-    public void setFocusOnGross() {
-        UtilsGeneral.setFocusOnInput(gross);
-        scrollToEditText(gross);
-    }
-
-    @Override
-    public void setFocusOnNet() {
-        UtilsGeneral.setFocusOnInput(net);
-        scrollToEditText(net);
     }
 
     @Override

@@ -47,13 +47,13 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
     }
 
     private void sendInquiry(String name, String email, String fullName, String pps,
-                             String gross, String net, String rate, String hours, String overtime,
+                             String rate, String hours, String overtime,
                              String subsistance, String bankHoliday, String holiday) {
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
         Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL,
-                generateInternalEmailMessage(name, email, fullName, pps, gross, net, rate, hours, overtime, subsistance, bankHoliday, holiday)));
+                generateInternalEmailMessage(name, email, fullName, pps, rate, hours, overtime, subsistance, bankHoliday, holiday)));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -62,7 +62,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
                     view.hideLoadingScreen();
                 } else {
                     Call<Object> callForClient = api.sendEmail(new EmailBody(email,
-                            generateClientEmailMessage(fullName, pps, gross, net, rate, hours, overtime, subsistance, bankHoliday, holiday)));
+                            generateClientEmailMessage(fullName, pps, rate, hours, overtime, subsistance, bankHoliday, holiday)));
                     callForClient.enqueue(new Callback<Object>() {
                         @Override
                         public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -96,7 +96,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
     }
 
     private String generateInternalEmailMessage(String name, String email, String fullName, String pps,
-                                                String gross, String net, String rate, String hours, String overtime,
+                                                String rate, String hours, String overtime,
                                                 String subsistance, String bankHoliday, String holiday) {
         String period;
         if (mode == CalendarMode.WEEKS)
@@ -110,9 +110,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
                 + " with details:\n"
                 + "- salary type: " + period + "\n"
                 + "- salary date(s): " + CalendarUtils.getDatesToBeDisplayed(datesSelected) + "\n"
-                + "- gross: " + gross + "\n"
-                + "- net: " + net + "\n"
-                + "- rate per hour: " + rate + "\n"
+                + "- gross rate per hour: " + rate + "\n"
                 + "- hours: " + hours + "\n"
                 + "- overtime: " + overtime + "\n"
                 + "- subsistance: " + subsistance + "\n"
@@ -124,7 +122,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
     }
 
     private String generateClientEmailMessage(String fullName, String pps,
-                                              String gross, String net, String rate, String hours, String overtime,
+                                              String rate, String hours, String overtime,
                                               String subsistance, String bankHoliday, String holiday) {
         String period;
         if (mode == CalendarMode.WEEKS)
@@ -138,9 +136,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
                 + " with details:\n"
                 + "- salary type: " + period + "\n"
                 + "- salary date(s): " + CalendarUtils.getDatesToBeDisplayed(datesSelected) + "\n"
-                + "- gross: " + gross + "\n"
-                + "- net: " + net + "\n"
-                + "- rate per hour: " + rate + "\n"
+                + "- gross rate per hour: " + rate + "\n"
                 + "- hours: " + hours + "\n"
                 + "- overtime: " + overtime + "\n"
                 + "- subsistance: " + subsistance + "\n"
@@ -153,7 +149,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
 
     @Override
     public void onSendClick(String name, String email, String fullName, String pps,
-                            String gross, String net, String rate, String hours, String overtime,
+                            String rate, String hours, String overtime,
                             String subsistance, String bankHoliday, String holiday) {
         if (view == null)
             return;
@@ -176,7 +172,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         } else {
             view.hideKeyboard();
             view.showLoadingScreen();
-            sendInquiry(name, email, fullName, pps, gross, net, rate, hours, overtime, subsistance, bankHoliday, holiday);
+            sendInquiry(name, email, fullName, pps, rate, hours, overtime, subsistance, bankHoliday, holiday);
         }
     }
 
