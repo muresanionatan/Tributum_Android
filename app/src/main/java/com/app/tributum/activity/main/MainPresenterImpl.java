@@ -73,13 +73,7 @@ public class MainPresenterImpl implements MainPresenter {
             TributumAppHelper.saveSetting(AppKeysValues.NOTIFICATION_ALARM_SET, AppKeysValues.TRUE);
 
             Intent alarmIntent = new Intent(TributumApplication.getInstance(), AlarmReceiver.class);
-
-            PendingIntent pendingIntent;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S)
-                pendingIntent = PendingIntent.getBroadcast(TributumApplication.getInstance(), 0, alarmIntent, PendingIntent.FLAG_IMMUTABLE);
-            else
-                pendingIntent = PendingIntent.getBroadcast(TributumApplication.getInstance(), 0, alarmIntent, 0);
-
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(TributumApplication.getInstance(), 0, alarmIntent, PendingIntent.FLAG_IMMUTABLE);
             AlarmManager manager = (AlarmManager) TributumApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
             long interval = ConstantsUtils.NOTIFICATION_INTERVAL;
 

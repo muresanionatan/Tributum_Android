@@ -1,5 +1,7 @@
 package com.app.tributum.utils.receiver;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -14,7 +16,7 @@ public class DeviceBootReceiver extends BroadcastReceiver {
         if (intent != null && intent.getAction() != null && intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             /* Setting the alarm here */
             Intent alarmIntent = new Intent(context, AlarmReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, FLAG_IMMUTABLE);
 
             AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             long interval = ConstantsUtils.NOTIFICATION_INTERVAL;

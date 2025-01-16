@@ -34,12 +34,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         openVatsIntent.setAction(NotificationAction.OPEN_ACTION);
         openVatsIntent.putExtra(NotificationExtra.OPEN, NotificationIntentIds.VAT_INTENT);
 
-        PendingIntent openVatScreen;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S)
-            openVatScreen = PendingIntent.getBroadcast(context, 0, openVatsIntent, PendingIntent.FLAG_IMMUTABLE);
-        else
-            openVatScreen = PendingIntent.getBroadcast(context, 0, openVatsIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
+        PendingIntent openVatScreen = PendingIntent.getBroadcast(context, 0, openVatsIntent, PendingIntent.FLAG_IMMUTABLE);
         SystemNotificationContent systemNotificationContent = new SystemNotificationContent(
                 resources.getString(R.string.app_name),
                 resources.getString(R.string.vat_notification_string),

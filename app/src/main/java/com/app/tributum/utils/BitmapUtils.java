@@ -133,12 +133,12 @@ public class BitmapUtils {
             e.printStackTrace();
         }
 
-        FileOutputStream out = null;
+        FileOutputStream out;
         String filename = getFilename();
         try {
             out = new FileOutputStream(filename);
 
-//          write the compressed bitmap at the destination specified by filename.
+            //write the compressed bitmap at the destination specified by filename.
             scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
 
         } catch (FileNotFoundException e) {
