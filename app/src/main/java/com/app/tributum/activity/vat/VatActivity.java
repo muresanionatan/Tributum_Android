@@ -19,6 +19,9 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +36,7 @@ import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.thread.PdfAsyncTask;
+import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
@@ -83,6 +87,20 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     private VatAdapter privatesAdapter;
 
     private String fileName;
+
+    private final ActivityResultLauncher<PickVisualMediaRequest> pickPrivates =
+            registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(20), uris -> {
+                if (!uris.isEmpty()) {
+                    presenter.onPrivatesSelected(uris);
+                }
+            });
+
+    private final ActivityResultLauncher<PickVisualMediaRequest> pickInvoices =
+            registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(20), uris -> {
+                if (!uris.isEmpty()) {
+                    presenter.onInvoicesSelected(uris);
+                }
+            });
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -357,10 +375,24 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     @Override
     public void openPhotoChooserIntent(int requestId) {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), requestId);
+        if (requestId == ConstantsUtils.SELECT_PICTURES_FOR_PRIVATES) {
+            openPrivatePicker();
+        } else {
+            openInvoicesPicker();
+        }
+    }
+
+
+    private void openPrivatePicker() {
+        pickPrivates.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageAndVideo.INSTANCE)
+                .build());
+    }
+
+    private void openInvoicesPicker() {
+        pickInvoices.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageAndVideo.INSTANCE)
+                .build());
     }
 
     @Override

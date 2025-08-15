@@ -30,18 +30,22 @@ public class ContractModel {
 
     private String startingDate;
 
+    private String platform;
+
     public ContractModel(String name,
                          String address,
                          String ppsNumber,
                          String email,
                          String date,
-                         String birthday) {
+                         String birthday,
+                         String platform) {
         this.name = name;
         this.address = address;
         this.ppsNumber = ppsNumber;
         this.email = email;
         this.date = date;
         this.birthday = birthday;
+        this.platform = platform;
     }
 
     public void setName(String name) {

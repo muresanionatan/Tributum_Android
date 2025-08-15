@@ -6,9 +6,12 @@ public class EmailBody {
 
     private String message;
 
-    public EmailBody(String email, String message) {
+    private String platform;
+
+    public EmailBody(String email, String message, String platform) {
         this.email = email;
         this.message = message;
+        this.platform = platform;
     }
 
     public String getEmail() {

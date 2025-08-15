@@ -3,6 +3,7 @@ package com.app.tributum.activity.pps;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.text.Editable;
 import android.text.TextUtils;
 
@@ -93,22 +94,22 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
         if (view == null)
             return;
 
-        if (firstName.equals("")) {
+        if (firstName.isEmpty()) {
             view.showToast(R.string.please_enter_first_name);
             view.focusOnFirstName();
-        } else if (lastName.equals("")) {
+        } else if (lastName.isEmpty()) {
             view.showToast(R.string.please_enter_last_name);
             view.focusOnLastName();
-        } else if (momString.equals("")) {
+        } else if (momString.isEmpty()) {
             view.showToast(R.string.please_enter_mom_name);
             view.focusOnMomName();
-        } else if (address.equals("")) {
+        } else if (address.isEmpty()) {
             view.showToast(R.string.please_enter_address);
             view.focusOnAddress();
         } else if (!TextUtils.isEmpty(eircode) && !ValidationUtils.isEircodeValid(eircode)) {
             view.showToast(R.string.please_enter_correct_eircode);
             view.focusOnEircode();
-        } else if (phone.equals("")) {
+        } else if (phone.isEmpty()) {
             view.showToast(R.string.please_enter_phone);
             view.focusOnPhone();
         } else if (!ValidationUtils.isEmailValid(email)) {
@@ -275,7 +276,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(firstName + " " + lastName)));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(firstName + " " + lastName), "Android"));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -303,7 +304,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(email, message));
+        Call<Object> call = api.sendEmail(new EmailBody(email, message, "Android"));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -364,8 +365,15 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
     }
 
     private void pickPictureFromGallery(int requestId) {
-        if (view != null)
-            view.openFilePicker(requestId);
+        if (view == null)
+            return;
+
+        if (requestId == ConstantsUtils.SELECTED_PICTURE_REQUEST_BILL)
+            view.openBillPicker();
+        else if (requestId == ConstantsUtils.SELECTED_PICTURE_REQUEST_ID)
+            view.openIdPicker();
+        else if (requestId == ConstantsUtils.SELECTED_PICTURE_REQUEST_LETTER)
+            view.openLetterPicker();
     }
 
     @Override
@@ -377,32 +385,32 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
     }
 
     @Override
+    public void onIdSelected(Uri uri) {
+        photoState = PhotoCrop.ID_SELECT;
+        idFile = uri.getPath();
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onBillSelected(Uri uri) {
+        photoState = PhotoCrop.BILL_SELECT;
+        billFile = uri.getPath();
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onLetterSelected(Uri uri) {
+        photoState = PhotoCrop.LETTER_SELECT;
+        letterFile = uri.getPath();
+        view.startCrop(uri);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (view == null)
             return;
 
         switch (requestCode) {
-            case ConstantsUtils.SELECTED_PICTURE_REQUEST_BILL:
-                if (resultCode == Activity.RESULT_OK) {
-                    photoState = PhotoCrop.BILL_SELECT;
-                    billFile = ImageUtils.getFilePathFromGallery(data);
-                    view.startCrop(data.getData());
-                }
-                break;
-            case ConstantsUtils.SELECTED_PICTURE_REQUEST_LETTER:
-                if (resultCode == Activity.RESULT_OK) {
-                    photoState = PhotoCrop.LETTER_SELECT;
-                    letterFile = ImageUtils.getFilePathFromGallery(data);
-                    view.startCrop(data.getData());
-                }
-                break;
-            case ConstantsUtils.SELECTED_PICTURE_REQUEST_ID:
-                if (resultCode == Activity.RESULT_OK) {
-                    photoState = PhotoCrop.ID_SELECT;
-                    idFile = ImageUtils.getFilePathFromGallery(data);
-                    view.startCrop(data.getData());
-                }
-                break;
             case ConstantsUtils.CAMERA_REQUEST_BILL:
                 if (resultCode == Activity.RESULT_OK) {
                     photoState = PhotoCrop.BILL_CAMERA;

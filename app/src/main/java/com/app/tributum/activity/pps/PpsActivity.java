@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +42,6 @@ import com.canhub.cropper.CropImageContract;
 import com.canhub.cropper.CropImageContractOptions;
 import com.canhub.cropper.CropImageOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-//import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 
@@ -73,6 +74,24 @@ public class PpsActivity extends AppCompatActivity implements PpsView {
     private RequestSent requestSent;
 
     private PpsPresenterImpl presenter;
+
+    private final ActivityResultLauncher<PickVisualMediaRequest> idPicker =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                if (uri != null)
+                    presenter.onIdSelected(uri);
+            });
+
+    private final ActivityResultLauncher<PickVisualMediaRequest> billPicker =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                if (uri != null)
+                    presenter.onBillSelected(uri);
+            });
+
+    private final ActivityResultLauncher<PickVisualMediaRequest> letterPicker =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                if (uri != null)
+                    presenter.onLetterSelected(uri);
+            });
 
     ActivityResultLauncher<CropImageContractOptions> cropImage = registerForActivityResult(new CropImageContract(), result -> {
         if (result.isSuccessful()) {
@@ -305,6 +324,27 @@ public class PpsActivity extends AppCompatActivity implements PpsView {
     }
 
     @Override
+    public void openIdPicker() {
+        idPicker.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build());
+    }
+
+    @Override
+    public void openBillPicker() {
+        billPicker.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build());
+    }
+
+    @Override
+    public void openLetterPicker() {
+        letterPicker.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build());
+    }
+
+    @Override
     public void openFilePreview(String fileName) {
         previewLayout.setVisibility(View.VISIBLE);
         ImageView previewImage = findViewById(R.id.image_preview_id);
@@ -386,11 +426,6 @@ public class PpsActivity extends AppCompatActivity implements PpsView {
     @Override
     public void showToast(int stringId) {
         Toast.makeText(PpsActivity.this, getResources().getString(stringId), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void openFilePicker(int requestId) {
-        startActivityForResult(ImageUtils.getImageChooserIntent(), requestId);
     }
 
     @Override

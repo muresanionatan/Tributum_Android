@@ -17,8 +17,6 @@ public interface ContractView {
 
     void setBirthdayText(String string);
 
-    void setStartingDateText(String string);
-
     void moveBirthdayCursorToEnd();
 
     void clearSignature();
@@ -84,8 +82,6 @@ public interface ContractView {
     void setFourthCheckboxState(boolean state);
 
     void setSixthCheckboxState(boolean state);
-
-    void openFilePicker(int requestId);
 
     void takePicture(int requestId, File file, String pictureImagePath);
 
@@ -163,7 +159,13 @@ public interface ContractView {
 
     void moveEircodeCursorToEnd(int length);
 
-    void moveStartingDayCursorToEnd();
-
     void startCrop(Uri imageUri);
+
+    void pickPpsFront();
+
+    void pickPpsBack();
+
+    void pickId();
+
+    void pickMarriage();
 }

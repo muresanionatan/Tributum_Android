@@ -1,6 +1,7 @@
 package com.app.tributum.activity.pps;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.text.Editable;
 
 public interface PpsPresenter {
@@ -49,4 +50,8 @@ public interface PpsPresenter {
     void beforeEircodeChanged(int length);
 
     void afterEircodeChanged(Editable s);
+
+    void onIdSelected(Uri uri);
+    void onBillSelected(Uri uri);
+    void onLetterSelected(Uri uri);
 }

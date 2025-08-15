@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -85,8 +87,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
 
     private EditText birthday;
 
-    private EditText startingDate;
-
     private BottomSheetBehavior<View> fileChooser;
 
     private View previewLayout;
@@ -104,6 +104,30 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     private RequestSent requestSent;
 
     private ContractPresenterImpl presenter;
+
+    private final ActivityResultLauncher<PickVisualMediaRequest> ppsFrontPicker =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                if (uri != null)
+                    presenter.onPpsFrontSelected(uri);
+            });
+
+    private final ActivityResultLauncher<PickVisualMediaRequest> ppsBackPicker =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                if (uri != null)
+                    presenter.onPpsBackSelected(uri);
+            });
+
+    private final ActivityResultLauncher<PickVisualMediaRequest> idPicker =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                if (uri != null)
+                    presenter.onIdSelected(uri);
+            });
+
+    private final ActivityResultLauncher<PickVisualMediaRequest> marriagePicker =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                if (uri != null)
+                    presenter.onMarriageSelected(uri);
+            });
 
     ActivityResultLauncher<CropImageContractOptions> cropImage = registerForActivityResult(new CropImageContract(), result -> {
         if (result.isSuccessful()) {
@@ -175,9 +199,7 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
         cohabitingCheck = findViewById(R.id.cohabiting_checkbox);
 
         birthday = findViewById(R.id.edittext_birthday_id);
-        startingDate = findViewById(R.id.edittext_starting_date_id);
         UtilsGeneral.setMaxLengthEditText(birthday, 10);
-        UtilsGeneral.setMaxLengthEditText(startingDate, 10);
 
         findViewById(R.id.birthday_image_id).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,26 +215,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                                 presenter.onBirthdayDateSet(year, monthOfYear, dayOfMonth);
-                            }
-                        }, year, month, day);
-                picker.show();
-            }
-        });
-
-        findViewById(R.id.starting_date_image_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar calendar = Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH);
-                int year = calendar.get(Calendar.YEAR);
-
-                DatePickerDialog picker = new DatePickerDialog(ContractActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @SuppressLint("SetTextI18n")
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                                presenter.onStartingDateSet(year, monthOfYear, dayOfMonth);
                             }
                         }, year, month, day);
                 picker.show();
@@ -241,33 +243,12 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                 presenter.beforeBirthdayChanged(s.length());
             }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
             @SuppressLint("SetTextI18n")
             @Override
             public void afterTextChanged(Editable s) {
                 presenter.afterBirthdayChanged(s);
             }
         });
-        startingDate.addTextChangedListener(new CustomTextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                presenter.beforeStartingDateChanged(s.length());
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void afterTextChanged(Editable s) {
-                presenter.afterStartingDateChanged(s);
-            }
-        });
-
         findViewById(R.id.contract_send_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -284,7 +265,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
                         emailEditText.getText().toString(),
                         bankAccount.getText().toString(),
                         ppsNumberEditText.getText().toString(),
-                        startingDate.getText().toString(),
                         ((EditText) findViewById(R.id.number_kids_id)).getText().toString()
                 );
             }
@@ -876,11 +856,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
-    public void setStartingDateText(String string) {
-        startingDate.setText(string);
-    }
-
-    @Override
     public void setBirthdayText(String string) {
         birthday.setText(string);
     }
@@ -888,11 +863,6 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     @Override
     public void moveBirthdayCursorToEnd() {
         birthday.setSelection(birthday.getText().length());
-    }
-
-    @Override
-    public void moveStartingDayCursorToEnd() {
-        startingDate.setSelection(startingDate.getText().length());
     }
 
     @Override
@@ -981,8 +951,31 @@ public class ContractActivity extends AppCompatActivity implements ContractView 
     }
 
     @Override
-    public void openFilePicker(int requestId) {
-        startActivityForResult(ImageUtils.getImageChooserIntent(), requestId);
+    public void pickPpsFront() {
+        ppsFrontPicker.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build());
+    }
+
+    @Override
+    public void pickPpsBack() {
+        ppsBackPicker.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build());
+    }
+
+    @Override
+    public void pickId() {
+        idPicker.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build());
+    }
+
+    @Override
+    public void pickMarriage() {
+        marriagePicker.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build());
     }
 
     @Override

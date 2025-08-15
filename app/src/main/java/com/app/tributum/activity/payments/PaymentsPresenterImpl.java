@@ -139,7 +139,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, concatenateInternalMail(payer, email, month)));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, concatenateInternalMail(payer, email, month), "Android"));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -163,7 +163,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(email, concatenateClientMail(month)));
+        Call<Object> call = api.sendEmail(new EmailBody(email, concatenateClientMail(month), "Android"));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

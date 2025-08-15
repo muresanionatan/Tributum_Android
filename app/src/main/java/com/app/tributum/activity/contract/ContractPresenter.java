@@ -1,6 +1,7 @@
 package com.app.tributum.activity.contract;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.text.Editable;
 
 public interface ContractPresenter {
@@ -9,7 +10,7 @@ public interface ContractPresenter {
 
     void handleSendButtonClick(String firstName, String lastName, String address1, String address2, String address3, String eircode,
                                String birthday, String occupation, String phone, String email, String bankAccount,
-                               String pps, String startingDate, String noOfKids);
+                               String pps, String noOfKids);
 
     void onCreate();
 
@@ -89,9 +90,11 @@ public interface ContractPresenter {
 
     void afterEircodeChanged(Editable s);
 
-    void onStartingDateSet(int year, int monthOfYear, int dayOfMonth);
+    void onPpsFrontSelected(Uri uri);
 
-    void beforeStartingDateChanged(int length);
+    void onPpsBackSelected(Uri uri);
 
-    void afterStartingDateChanged(Editable string);
+    void onIdSelected(Uri uri);
+
+    void onMarriageSelected(Uri uri);
 }

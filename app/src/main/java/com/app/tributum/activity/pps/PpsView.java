@@ -24,8 +24,6 @@ public interface PpsView {
 
     void closePreview();
 
-    void openFilePicker(int requestId);
-
     void takePicture(int requestId, File file, String pictureImagePath);
 
     void resetBillLayout();
@@ -69,4 +67,10 @@ public interface PpsView {
     void scrollToBill();
 
     void scrollToLetter();
+
+    void openBillPicker();
+
+    void openLetterPicker();
+
+    void openIdPicker();
 }

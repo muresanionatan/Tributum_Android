@@ -1,9 +1,8 @@
 package com.app.tributum.activity.vat;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.MotionEvent;
-
-import androidx.annotation.NonNull;
 
 import com.app.tributum.activity.vat.model.VatModel;
 
@@ -42,4 +41,8 @@ public interface VatPresenter {
     void onBottomSheetExpanded();
 
     void onPrivatesClick();
+
+    void onPrivatesSelected(List<Uri> uris);
+
+    void onInvoicesSelected(List<Uri> uris);
 }

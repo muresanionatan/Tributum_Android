@@ -96,16 +96,16 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     @Override
     public void onSendClick(String name, String email, String startingMonth, String endingMonth) {
-        if (name.equals("")) {
+        if (name.isEmpty()) {
             vatView.showToast(resources.getString(R.string.please_enter_name));
             vatView.setFocusOnName();
-        } else if (email.equals("")) {
+        } else if (email.isEmpty()) {
             vatView.showToast(resources.getString(R.string.please_enter_correct_email));
             vatView.setFocusOnEmail();
-        } else if (startingMonth.equals("")) {
+        } else if (startingMonth.isEmpty()) {
             vatView.showToast(resources.getString(R.string.please_enter_starting_month));
             vatView.setFocusOnStartingMonth();
-        } else if (endingMonth.equals("")) {
+        } else if (endingMonth.isEmpty()) {
             vatView.showToast(resources.getString(R.string.please_enter_ending_month));
             vatView.setFocusOnEndingMonth();
         } else if (PICTURE_NUMBER > 1) {
@@ -150,30 +150,25 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
                     TributumAppHelper.saveSetting(AppKeysValues.INVOICES_TAKEN, AppKeysValues.TRUE);
                 }
             }
-        } else if (requestCode == ConstantsUtils.SELECT_PICTURES_FOR_INVOICES && resultCode == Activity.RESULT_OK) {
-            if (data.getClipData() != null) {
-                int count = data.getClipData().getItemCount();
-                PICTURE_NUMBER = count;
-                for (int i = 0; i < count; i++) {
-                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                    vatView.getFilesFromGalleryForInvoices(imageUri);
-                }
-            } else if (data.getData() != null) {
-                PICTURE_NUMBER++;
-                vatView.getFilesFromGalleryForInvoices(data.getData());
-            }
-        } else if (requestCode == ConstantsUtils.SELECT_PICTURES_FOR_PRIVATES && resultCode == Activity.RESULT_OK) {
-            if (data.getClipData() != null) {
-                int count = data.getClipData().getItemCount();
-                PICTURE_NUMBER = count;
-                for (int i = 0; i < count; i++) {
-                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                    vatView.getFilesFromGalleryForPrivates(imageUri);
-                }
-            } else if (data.getData() != null) {
-                PICTURE_NUMBER++;
-                vatView.getFilesFromGalleryForPrivates(data.getData());
-            }
+        }
+    }
+
+    @Override
+    public void onPrivatesSelected(List<Uri> uris) {
+        int count = uris.size();
+        PICTURE_NUMBER = count;
+        for (int i = 0; i < count; i++) {
+            vatView.getFilesFromGalleryForPrivates(uris.get(i));
+        }
+    }
+
+    @Override
+    public void onInvoicesSelected(List<Uri> uris) {
+        int count = uris.size();
+        PICTURE_NUMBER = count;
+        for (int i = 0; i < count; i++) {
+            Uri imageUri = uris.get(i);
+            vatView.getFilesFromGalleryForInvoices(imageUri);
         }
     }
 
@@ -235,9 +230,9 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     }
 
     private void saveListToPreferences(String name, String email) {
-        if (!name.equals(""))
+        if (!name.isEmpty())
             TributumAppHelper.saveSetting(AppKeysValues.INVOICE_NAME, name);
-        if (!email.equals(""))
+        if (!email.isEmpty())
             TributumAppHelper.saveSetting(AppKeysValues.INVOICE_EMAIL, email);
     }
 
@@ -252,12 +247,12 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(name, startingMonth, endingMonth, fileName)));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(name, startingMonth, endingMonth, fileName), "Android"));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (response.isSuccessful())
-                    sendClientEmail(email, startingMonth, endingMonth, fileName);
+                    sendClientEmail(email, startingMonth, endingMonth);
                 else
                     vatView.showToast(resources.getString(R.string.something_went_wrong));
 
@@ -272,12 +267,12 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         });
     }
 
-    private void sendClientEmail(String email, String startingMonth, String endingMonth, String fileName) {
+    private void sendClientEmail(String email, String startingMonth, String endingMonth) {
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(email, generateClientEmailMessage(startingMonth, endingMonth)));
-        call.enqueue(new Callback<Object>() {
+        Call<Object> call = api.sendEmail(new EmailBody(email, generateClientEmailMessage(startingMonth, endingMonth), "Android"));
+        call.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (response.isSuccessful()) {

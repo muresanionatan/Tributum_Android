@@ -53,7 +53,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
         Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL,
-                generateInternalEmailMessage(name, email, fullName, pps, rate, hours, overtime, subsistance, bankHoliday, holiday)));
+                generateInternalEmailMessage(name, email, fullName, pps, rate, hours, overtime, subsistance, bankHoliday, holiday), "Android"));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -62,7 +62,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
                     view.hideLoadingScreen();
                 } else {
                     Call<Object> callForClient = api.sendEmail(new EmailBody(email,
-                            generateClientEmailMessage(fullName, pps, rate, hours, overtime, subsistance, bankHoliday, holiday)));
+                            generateClientEmailMessage(fullName, pps, rate, hours, overtime, subsistance, bankHoliday, holiday), "Android"));
                     callForClient.enqueue(new Callback<Object>() {
                         @Override
                         public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
