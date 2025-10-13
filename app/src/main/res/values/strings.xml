@@ -185,4 +185,16 @@
     <string name="date_selected_label">Date selected:</string>
     <string name="please_select_date">Please select salary date from the calendar</string>
     <string name="salary_request_sent">Salary Request\nSent</string>
+    <string name="send_form_label">Send Form</string>
+    <string name="year_label">Year<font color='#f65b94'>*</font></string>
+    <string name="upload_bank_label">Upload bank statements<font color='#f65b94'>*</font></string>
+    <string name="do_you_have_rent">Do you have a rent contract?</string>
+    <string name="rent_label">Rent</string>
+    <string name="rtb_label">RTB Letter</string>
+    <string name="are_you_married_label">Are you married?</string>
+    <string name="do_kids_get_benefit">Do you have kids that have child benefit?</string>
+    <string name="upload_marriage_label">Upload marriage certificate</string>
+    <string name="wife_fisc_label">Upload wife FISC</string>
+    <string name="other_spending">Do you have any other additional spendings? (Upload invoices)</string>
+    <string name="form_11_label">FORM 11</string>
 </resources>

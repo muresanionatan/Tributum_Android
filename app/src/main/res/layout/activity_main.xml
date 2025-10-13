@@ -165,7 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="12dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -214,6 +214,42 @@
                             style="@style/MainScreeButtonDash"
                             app:tint="@color/salary" />
                     </com.app.tributum.utils.ui.CustomButton>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.app.tributum.utils.ui.CustomButton
+                        android:id="@+id/form_id"
+                        style="@style/MainScreeButton"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/main_screen_rct_button_background">
+
+                        <ImageView
+                            android:id="@+id/form_image_id"
+                            style="@style/MainScreeButtonImage"
+                            android:src="@drawable/ic_icon_rct" />
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:layout_below="@+id/form_image_id"
+                            android:text="@string/form_11_label"
+                            android:textColor="@color/rct" />
+
+                        <ImageView
+                            style="@style/MainScreeButtonDash"
+                            app:tint="@color/rct" />
+                    </com.app.tributum.utils.ui.CustomButton>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="184dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

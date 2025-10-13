@@ -185,4 +185,5 @@
     <string name="date_selected_label">Data selectata:</string>
     <string name="please_select_date">Te rugam sa introduci data de salar in calendar</string>
     <string name="salary_request_sent">Cerere Salar\nTrimisa</string>
+    <string name="rtb_label">RTB Letter</string>
 </resources>
