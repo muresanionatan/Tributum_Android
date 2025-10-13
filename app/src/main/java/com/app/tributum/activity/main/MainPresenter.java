@@ -46,4 +46,6 @@ public interface MainPresenter {
     void onUserDenyClicked();
 
     void onRequestPermissionsResult(int requestCode, @NonNull int[] grantResults);
+
+    void onFormClick();
 }

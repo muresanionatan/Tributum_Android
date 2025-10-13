@@ -119,6 +119,12 @@ public class MainPresenterImpl implements MainPresenter {
             view.startSalaryActivity();
     }
 
+    @Override
+    public void onFormClick() {
+        if (view != null)
+            view.startFormActivity();
+    }
+
     private void handleActivityStart() {
         if (view == null)
             return;

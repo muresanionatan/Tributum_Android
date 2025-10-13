@@ -24,6 +24,7 @@ import androidx.core.widget.NestedScrollView;
 import com.app.tributum.R;
 import com.app.tributum.activity.faq.FaqActivity;
 import com.app.tributum.activity.contract.ContractActivity;
+import com.app.tributum.activity.form.FormActivity;
 import com.app.tributum.activity.inquiry.InquiryActivity;
 import com.app.tributum.activity.payments.PaymentsActivity;
 import com.app.tributum.activity.pps.PpsActivity;
@@ -142,6 +143,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
             }
         });
 
+        findViewById(R.id.form_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onFormClick();
+            }
+        });
+
         findViewById(R.id.faq_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,6 +260,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void startSalaryActivity() {
         startActivity(new Intent(this, SalaryActivity.class));
+    }
+
+    @Override
+    public void startFormActivity() {
+        startActivity(new Intent(this, FormActivity.class));
     }
 
     @Override
