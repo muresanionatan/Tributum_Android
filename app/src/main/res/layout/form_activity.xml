@@ -21,7 +21,6 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/invoice_title_id"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="centerInside"
@@ -44,7 +43,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/form_title_id"
                     style="@style/TitleText"
                     android:layout_width="match_parent"
                     android:layout_marginStart="8dp"
@@ -52,7 +50,6 @@
                     android:textColor="@color/contract_1" />
 
                 <TextView
-                    android:id="@+id/asterisk_text_view_id"
                     style="@style/SubtitleText"
                     android:layout_marginStart="8dp"
                     android:text="@string/mandatory_fields" />
@@ -97,11 +94,7 @@
                         android:textSize="16sp" />
 
                     <include
-                        android:id="@+id/personal_info_id"
-                        layout="@layout/invoices_item" />
-
-                    <include
-                        android:id="@+id/personal_info_id"
+                        android:id="@+id/bank_statement_id"
                         layout="@layout/invoices_item" />
 
                     <TextView
@@ -114,38 +107,15 @@
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="24dp"
-                        android:fontFamily="@font/manrope_bold"
-                        android:text="@string/rent_label"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
                     <include
-                        android:id="@+id/personal_info_id"
-                        layout="@layout/invoices_item" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="24dp"
-                        android:fontFamily="@font/manrope_bold"
-                        android:text="@string/rtb_label"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <include
-                        android:id="@+id/personal_info_id"
-                        layout="@layout/invoices_item" />
+                        android:id="@+id/yes_no_bank_id"
+                        layout="@layout/yes_no_layout" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -153,68 +123,48 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="24dp"
                             android:fontFamily="@font/manrope_bold"
-                            android:text="@string/are_you_married_label"
+                            android:text="@string/rent_label"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <include
+                            android:id="@+id/rent_id"
+                            layout="@layout/invoices_item" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="1">
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="24dp"
+                            android:fontFamily="@font/manrope_bold"
+                            android:text="@string/rtb_label"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
 
-                            <LinearLayout
-                                android:id="@+id/yes_layout_id"
-                                android:layout_width="0dp"
-                                android:layout_height="48dp"
-                                android:layout_marginTop="25dp"
-                                android:layout_marginEnd="12dp"
-                                android:layout_weight="0.5"
-                                android:background="@drawable/white_rectangle_corners"
-                                android:gravity="center_vertical">
+                        <include
+                            android:id="@+id/rtb_id"
+                            layout="@layout/invoices_item" />
+                    </LinearLayout>
 
-                                <CheckBox
-                                    android:id="@+id/yes_checkbox"
-                                    style="@style/ContractCheckBox"
-                                    android:checked="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/manrope_bold"
+                        android:text="@string/are_you_married_label"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
-                                <TextView
-                                    android:id="@+id/no_text_id"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:fontFamily="@font/manrope_medium"
-                                    android:text="@string/yes_label"
-                                    android:textColor="@color/black"
-                                    android:textSize="16sp" />
-                            </LinearLayout>
+                    <include
+                        android:id="@+id/married_yes_no_id"
+                        layout="@layout/yes_no_layout" />
 
-                            <LinearLayout
-                                android:id="@+id/single_layout_id"
-                                android:layout_width="0dp"
-                                android:layout_height="48dp"
-                                android:layout_marginStart="12dp"
-                                android:layout_marginTop="25dp"
-                                android:layout_weight="0.5"
-                                android:background="@drawable/white_rectangle_corners"
-                                android:gravity="center_vertical">
-
-                                <CheckBox
-                                    android:id="@+id/single_checkbox"
-                                    style="@style/ContractCheckBox"
-                                    android:checked="true" />
-
-                                <TextView
-                                    android:id="@+id/single_text_id"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:fontFamily="@font/manrope_medium"
-                                    android:text="@string/no_label"
-                                    android:textColor="@color/black"
-                                    android:textSize="16sp" />
-                            </LinearLayout>
-                        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -227,7 +177,7 @@
                             android:textSize="16sp" />
 
                         <include
-                            android:id="@+id/personal_info_id"
+                            android:id="@+id/marriage_id"
                             layout="@layout/invoices_item" />
 
                         <TextView
@@ -241,53 +191,42 @@
                             android:textSize="16sp" />
 
                         <include
-                            android:id="@+id/personal_info_id"
-                            layout="@layout/invoices_item" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="24dp"
-                            android:fontFamily="@font/manrope_bold"
-                            android:text="@string/do_kids_get_benefit"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <include
-                            android:id="@+id/personal_info_id"
-                            layout="@layout/invoices_item" />
-
-                        <include
-                            android:id="@+id/personal_info_id"
-                            layout="@layout/invoices_item" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="24dp"
-                            android:fontFamily="@font/manrope_bold"
-                            android:text="@string/other_spending"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <include
-                            android:id="@+id/personal_info_id"
-                            layout="@layout/invoices_item" />
-
-                        <include
-                            android:id="@+id/personal_info_id"
-                            layout="@layout/invoices_item" />
-
-                        <include
-                            android:id="@+id/personal_info_id"
-                            layout="@layout/invoices_item" />
-
-                        <include
-                            android:id="@+id/personal_info_id"
+                            android:id="@+id/fisc_id"
                             layout="@layout/invoices_item" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/manrope_bold"
+                        android:text="@string/do_kids_get_benefit"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <include
+                        android:id="@+id/married_yes_no_id"
+                        layout="@layout/yes_no_layout" />
+
+                    <include
+                        android:id="@+id/personal_info_id"
+                        layout="@layout/invoices_item"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/manrope_bold"
+                        android:text="@string/other_spending"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <include
+                        android:id="@+id/personal_info_id"
+                        layout="@layout/invoices_item" />
                 </LinearLayout>
 
                 <View

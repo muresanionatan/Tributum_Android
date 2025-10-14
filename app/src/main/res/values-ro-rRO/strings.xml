@@ -185,5 +185,16 @@
     <string name="date_selected_label">Data selectata:</string>
     <string name="please_select_date">Te rugam sa introduci data de salar in calendar</string>
     <string name="salary_request_sent">Cerere Salar\nTrimisa</string>
-    <string name="rtb_label">RTB Letter</string>
+    <string name="send_form_label">Trimite Form</string>
+    <string name="year_label">Anul<font color='#f65b94'>*</font></string>
+    <string name="upload_bank_label">Adauga extras bancar<font color='#f65b94'>*</font></string>
+    <string name="do_you_have_rent">Ai un contract pentru chirie?</string>
+    <string name="rent_label">Chirie</string>
+    <string name="rtb_label">RTB</string>
+    <string name="are_you_married_label">Stare civila</string>
+    <string name="do_kids_get_benefit">Copii care beneficiaza de alocatie?</string>
+    <string name="upload_marriage_label">Adauga certificatul de casatorie</string>
+    <string name="wife_fisc_label">Adauga venitul ANAF al sotiei</string>
+    <string name="other_spending">Alte cheltuieli adiacente (scule, echipamente). Adauga bonuri</string>
+    <string name="form_11_label">FORM 11</string>
 </resources>

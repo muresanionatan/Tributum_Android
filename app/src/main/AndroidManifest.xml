@@ -14,7 +14,7 @@
         android:required="true" />
 
     <application
-        android:name="com.app.tributum.application.TributumApplication"
+        android:name=".application.TributumApplication"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="false"
@@ -25,7 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.app.tributum.activity.main.MainActivity"
+            android:name=".activity.form.FormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.main.MainActivity"
             android:configChanges="locale|orientation|keyboardHidden"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -37,48 +40,47 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.app.tributum.activity.contract.ContractActivity"
+            android:name=".activity.contract.ContractActivity"
             android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.app.tributum.activity.payments.PaymentsActivity"
+            android:name=".activity.payments.PaymentsActivity"
             android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.app.tributum.activity.vat.VatActivity"
+            android:name=".activity.vat.VatActivity"
             android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.app.tributum.activity.inquiry.InquiryActivity"
+            android:name=".activity.inquiry.InquiryActivity"
             android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.app.tributum.activity.pps.PpsActivity"
+            android:name=".activity.pps.PpsActivity"
             android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.app.tributum.activity.salary.SalaryActivity"
+            android:name=".activity.salary.SalaryActivity"
             android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.app.tributum.activity.faq.FaqActivity"
+            android:name=".activity.faq.FaqActivity"
             android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -94,14 +96,14 @@
         </provider>
 
         <receiver
-            android:name="com.app.tributum.utils.receiver.AlarmReceiver"
+            android:name=".utils.receiver.AlarmReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.app.tributum.utils.receiver.DeviceBootReceiver"
+            android:name=".utils.receiver.DeviceBootReceiver"
             android:enabled="false"
             android:exported="false">
             <intent-filter>
@@ -109,12 +111,17 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.google.android.gms.metadata.ModuleDependencies" android:enabled="false" android:exported="false">
+        <service
+            android:name="com.google.android.gms.metadata.ModuleDependencies"
+            android:enabled="false"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
             </intent-filter>
 
-            <meta-data android:name="photopicker_activity:0:required" android:value="" />
+            <meta-data
+                android:name="photopicker_activity:0:required"
+                android:value="" />
         </service>
     </application>
 
