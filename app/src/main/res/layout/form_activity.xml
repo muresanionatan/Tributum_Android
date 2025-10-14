@@ -12,13 +12,7 @@
 
         <LinearLayout
             android:id="@+id/form_back_id"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/white_circle"
-            android:gravity="center"
-            android:orientation="vertical">
+            style="@style/BackLayout">
 
             <ImageView
                 android:layout_width="36dp"
@@ -84,28 +78,16 @@
                         android:inputType="textEmailAddress" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="24dp"
-                        android:fontFamily="@font/manrope_bold"
-                        android:text="@string/upload_bank_label"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        style="@style/MostUsedText"
+                        android:text="@string/upload_bank_label"/>
 
                     <include
                         android:id="@+id/bank_statement_id"
                         layout="@layout/invoices_item" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="24dp"
-                        android:fontFamily="@font/manrope_bold"
-                        android:text="@string/do_you_have_rent"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        style="@style/MostUsedText"
+                        android:text="@string/do_you_have_rent" />
 
                     <include
                         android:id="@+id/yes_no_bank_id"
@@ -118,28 +100,16 @@
                         android:visibility="gone">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="24dp"
-                            android:fontFamily="@font/manrope_bold"
-                            android:text="@string/rent_label"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            style="@style/MostUsedText"
+                            android:text="@string/rent_label"/>
 
                         <include
                             android:id="@+id/rent_id"
                             layout="@layout/invoices_item" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="24dp"
-                            android:fontFamily="@font/manrope_bold"
-                            android:text="@string/rtb_label"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            style="@style/MostUsedText"
+                            android:text="@string/rtb_label"/>
 
                         <include
                             android:id="@+id/rtb_id"
@@ -147,14 +117,8 @@
                     </LinearLayout>
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="24dp"
-                        android:fontFamily="@font/manrope_bold"
-                        android:text="@string/are_you_married_label"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        style="@style/MostUsedText"
+                        android:text="@string/are_you_married_label"/>
 
                     <include
                         android:id="@+id/married_yes_no_id"
@@ -167,28 +131,16 @@
                         android:visibility="gone">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="24dp"
-                            android:fontFamily="@font/manrope_bold"
-                            android:text="@string/upload_marriage_label"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            style="@style/MostUsedText"
+                            android:text="@string/upload_marriage_label" />
 
                         <include
                             android:id="@+id/marriage_id"
                             layout="@layout/invoices_item" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="24dp"
-                            android:fontFamily="@font/manrope_bold"
-                            android:text="@string/wife_fisc_label"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            style="@style/MostUsedText"
+                            android:text="@string/wife_fisc_label" />
 
                         <include
                             android:id="@+id/fisc_id"
@@ -196,36 +148,24 @@
                     </LinearLayout>
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="24dp"
-                        android:fontFamily="@font/manrope_bold"
-                        android:text="@string/do_kids_get_benefit"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        style="@style/MostUsedText"
+                        android:text="@string/do_kids_get_benefit"/>
 
                     <include
-                        android:id="@+id/married_yes_no_id"
+                        android:id="@+id/kids_yes_no_id"
                         layout="@layout/yes_no_layout" />
 
                     <include
-                        android:id="@+id/personal_info_id"
+                        android:id="@+id/kids_id"
                         layout="@layout/invoices_item"
                         android:visibility="gone" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="24dp"
-                        android:fontFamily="@font/manrope_bold"
-                        android:text="@string/other_spending"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        style="@style/MostUsedText"
+                        android:text="@string/other_spending"/>
 
                     <include
-                        android:id="@+id/personal_info_id"
+                        android:id="@+id/invoices_id"
                         layout="@layout/invoices_item" />
                 </LinearLayout>
 
@@ -238,12 +178,11 @@
                     android:background="@color/grey_2" />
 
                 <com.app.tributum.utils.ui.CustomButton
-                    android:id="@+id/contract_send_layout_id"
+                    android:id="@+id/form_send_layout_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/contract_send_id"
                         style="@style/SendButton"
                         android:layout_marginTop="32dp"
                         android:layout_marginBottom="32dp"

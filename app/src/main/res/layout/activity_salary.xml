@@ -9,13 +9,7 @@
 
     <LinearLayout
         android:id="@+id/salary_back_id"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/white_circle"
-        android:gravity="center"
-        android:orientation="vertical">
+        style="@style/BackLayout">
 
         <ImageView
             android:id="@+id/invoice_title_id"

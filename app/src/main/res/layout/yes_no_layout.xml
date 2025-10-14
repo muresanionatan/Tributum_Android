@@ -16,7 +16,7 @@
         <CheckBox
             android:id="@+id/yes_checkbox"
             style="@style/ContractCheckBox"
-            android:checked="true" />
+            android:checked="false" />
 
         <TextView
             android:id="@+id/no_text_id"
