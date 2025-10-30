@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_1"
@@ -69,31 +70,57 @@
                         android:hint="@string/email_label"
                         android:inputType="textEmailAddress" />
 
-                    <EditText
-                        android:id="@+id/year_edit_text"
-                        style="@style/CustomEditText"
+                    <TextView
+                        style="@style/MostUsedText"
+                        android:text="@string/year_label" />
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:hint="@string/year_label"
-                        android:inputType="textEmailAddress" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
+
+                        <Spinner
+                            android:id="@+id/spinner1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/spinner"
+                            android:elevation="2dp"
+                            android:spinnerMode="dropdown" />
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="18dp"
+                            android:elevation="2dp"
+                            android:rotation="270"
+                            android:src="@drawable/ic_icon_back" />
+                    </RelativeLayout>
 
                     <TextView
                         style="@style/MostUsedText"
-                        android:text="@string/upload_bank_label"/>
+                        android:text="@string/upload_bank_label" />
 
-                    <include
-                        android:id="@+id/bank_statement_id"
-                        layout="@layout/invoices_item" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/form_bank_recycler_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="24dp"
+                        tools:listitem="@layout/invoices_item" />
 
                     <TextView
                         style="@style/MostUsedText"
                         android:text="@string/do_you_have_rent" />
 
                     <include
-                        android:id="@+id/yes_no_bank_id"
+                        android:id="@+id/yes_no_rent_id"
                         layout="@layout/yes_no_layout" />
 
                     <LinearLayout
+                        android:id="@+id/rent_layout_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -101,15 +128,23 @@
 
                         <TextView
                             style="@style/MostUsedText"
-                            android:text="@string/rent_label"/>
+                            android:text="@string/rent_label" />
 
                         <include
                             android:id="@+id/rent_id"
                             layout="@layout/invoices_item" />
 
+                        <EditText
+                            android:id="@+id/rent_edit_text"
+                            style="@style/CustomEditText"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:hint="@string/how_much_rent"
+                            android:inputType="textEmailAddress" />
+
                         <TextView
                             style="@style/MostUsedText"
-                            android:text="@string/rtb_label"/>
+                            android:text="@string/rtb_label" />
 
                         <include
                             android:id="@+id/rtb_id"
@@ -118,13 +153,14 @@
 
                     <TextView
                         style="@style/MostUsedText"
-                        android:text="@string/are_you_married_label"/>
+                        android:text="@string/are_you_married_label" />
 
                     <include
                         android:id="@+id/married_yes_no_id"
                         layout="@layout/yes_no_layout" />
 
                     <LinearLayout
+                        android:id="@+id/marriage_layout_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -143,30 +179,62 @@
                             android:text="@string/wife_fisc_label" />
 
                         <include
-                            android:id="@+id/fisc_id"
+                            android:id="@+id/fisc_1_id"
                             layout="@layout/invoices_item" />
+
+                        <include
+                            android:id="@+id/fisc_2_id"
+                            layout="@layout/invoices_item" />
+
+                        <TextView
+                            style="@style/MostUsedText"
+                            android:text="@string/do_kids_get_benefit" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/form_child_recycler_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="24dp"
+                            tools:listitem="@layout/invoices_item" />
                     </LinearLayout>
 
                     <TextView
                         style="@style/MostUsedText"
-                        android:text="@string/do_kids_get_benefit"/>
+                        android:text="@string/other_spending" />
 
                     <include
-                        android:id="@+id/kids_yes_no_id"
+                        android:id="@+id/expenses_yes_no_id"
                         layout="@layout/yes_no_layout" />
 
-                    <include
-                        android:id="@+id/kids_id"
-                        layout="@layout/invoices_item"
-                        android:visibility="gone" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/form_expenses_recycler_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="24dp"
+                        android:visibility="gone"
+                        tools:listitem="@layout/invoices_item" />
 
                     <TextView
                         style="@style/MostUsedText"
-                        android:text="@string/other_spending"/>
+                        android:text="@string/medical_spending" />
 
                     <include
-                        android:id="@+id/invoices_id"
-                        layout="@layout/invoices_item" />
+                        android:id="@+id/medical_yes_no_id"
+                        layout="@layout/yes_no_layout" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/form_medical_recycler_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="24dp"
+                        android:visibility="gone"
+                        tools:listitem="@layout/invoices_item" />
                 </LinearLayout>
 
                 <View
@@ -192,10 +260,6 @@
             </LinearLayout>
         </com.app.tributum.utils.ui.CustomScrollView>
     </RelativeLayout>
-
-    <include
-        layout="@layout/image_preview_layout"
-        android:visibility="gone" />
 
     <include layout="@layout/file_chooser_layout" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -33,6 +33,18 @@ public class DropboxUtils {
         }
     }
 
+    public static void uploadToFormDropbox(String username, String fileName, File uploadFile) throws FileNotFoundException {
+        try {
+            InputStream inputStream = new FileInputStream(uploadFile);
+            getDropBoxClient().files().uploadBuilder("/FORM11/" + username.toUpperCase() + "/" + fileName + ".pdf")
+                    .withMode(WriteMode.ADD)
+                    .uploadAndFinish(inputStream);
+            Log.d("Upload Status", "Success");
+        } catch (DbxException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void uploadInquiryOnDropbox(String username, String uploadFile, String inquiryPhotoName) throws FileNotFoundException {
         try {
             InputStream inputStream = new FileInputStream(uploadFile);

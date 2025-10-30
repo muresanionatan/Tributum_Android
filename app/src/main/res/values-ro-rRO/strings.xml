@@ -191,10 +191,10 @@
     <string name="do_you_have_rent">Ai un contract pentru chirie?</string>
     <string name="rent_label">Chirie</string>
     <string name="rtb_label">RTB</string>
-    <string name="are_you_married_label">Stare civila</string>
+    <string name="are_you_married_label">Sunteti casatorit(a)?</string>
     <string name="do_kids_get_benefit">Copii care beneficiaza de alocatie?</string>
     <string name="upload_marriage_label">Adauga certificatul de casatorie</string>
     <string name="wife_fisc_label">Adauga venitul ANAF al sotiei</string>
-    <string name="other_spending">Alte cheltuieli adiacente (scule, echipamente). Adauga bonuri</string>
+    <string name="other_spending">Alte cheltuieli adiacente (scule, echipamente, materiale de cosntructii)?</string>
     <string name="form_11_label">FORM 11</string>
 </resources>

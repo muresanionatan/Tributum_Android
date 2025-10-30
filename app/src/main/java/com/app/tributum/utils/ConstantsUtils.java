@@ -26,6 +26,14 @@ public class ConstantsUtils {
     public static final short SELECTED_PICTURE_REQUEST_BILL = 888;
 
     public static final short SELECTED_PICTURE_REQUEST_LETTER = 889;
+    public static final short SELECTED_PICTURE_REQUEST_BANK = 221;
+    public static final short SELECTED_PICTURE_REQUEST_KIDS = 222;
+    public static final short SELECTED_PICTURE_REQUEST_EXPENSES = 223;
+    public static final short SELECTED_PICTURE_REQUEST_RENT = 224;
+    public static final short SELECTED_PICTURE_REQUEST_RTB = 225;
+    public static final short SELECTED_PICTURE_REQUEST_MARRIAGE_FORM = 226;
+    public static final short SELECTED_PICTURE_REQUEST_FISC_1 = 227;
+    public static final short SELECTED_PICTURE_REQUEST_FISC_2 = 228;
 
     public static final short CAMERA_REQUEST_PPS_FRONT = 1001;
 
@@ -42,6 +50,15 @@ public class ConstantsUtils {
     public static final short CAMERA_REQUEST_INVOICES_ID = 7;
 
     public static final short CAMERA_REQUEST_PRIVATES_ID = 8;
+    public static final short CAMERA_REQUEST_BANK_ID = 234;
+    public static final short CAMERA_REQUEST_KIDS_ID = 345;
+    public static final short CAMERA_REQUEST_EXPENSES_ID = 456;
+    public static final short CAMERA_REQUEST_MEDICAL_ID = 0123;
+    public static final short CAMERA_REQUEST_RENT_ID = 567;
+    public static final short CAMERA_REQUEST_RTB_ID = 678;
+    public static final short CAMERA_REQUEST_MARRIAGE_ID = 789;
+    public static final short CAMERA_REQUEST_FISC_1_ID = 890;
+    public static final short CAMERA_REQUEST_FISC_2_ID = 901;
 
     public static final byte STORAGE_PERMISSION_REQUEST_CODE_VAT = 3;
 

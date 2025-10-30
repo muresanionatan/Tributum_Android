@@ -189,7 +189,7 @@
     <string name="year_label">Year<font color='#f65b94'>*</font></string>
     <string name="upload_bank_label">Upload bank statements<font color='#f65b94'>*</font></string>
     <string name="do_you_have_rent">Do you have a rent contract?</string>
-    <string name="rent_label">Rent</string>
+    <string name="rent_label">Rent contract (first page)</string>
     <string name="rtb_label">RTB Letter</string>
     <string name="are_you_married_label">Are you married?</string>
     <string name="do_kids_get_benefit">Do you have kids that have child benefit?</string>
@@ -197,4 +197,9 @@
     <string name="wife_fisc_label">Upload wife FISC</string>
     <string name="other_spending">Do you have any other additional spendings? (Upload invoices)</string>
     <string name="form_11_label">FORM 11</string>
+    <string name="how_much_rent">How much did you pay rent this month?</string>
+    <string name="medical_spending">Do you have medical expenses?</string>
+    <string name="please_enter_rent">Please enter the amount of rent paid</string>
+    <string name="please_add_bank_statement">Please add bank statement</string>
+    <string name="form_sent">Form 11 sent</string>
 </resources>

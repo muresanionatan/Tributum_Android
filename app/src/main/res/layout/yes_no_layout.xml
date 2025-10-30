@@ -19,7 +19,7 @@
             android:checked="false" />
 
         <TextView
-            android:id="@+id/no_text_id"
+            android:id="@+id/yes_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -30,7 +30,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/single_layout_id"
+        android:id="@+id/no_layout_id"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="12dp"
@@ -39,12 +39,12 @@
         android:gravity="center_vertical">
 
         <CheckBox
-            android:id="@+id/single_checkbox"
+            android:id="@+id/no_checkbox"
             style="@style/ContractCheckBox"
             android:checked="true" />
 
         <TextView
-            android:id="@+id/single_text_id"
+            android:id="@+id/no_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
