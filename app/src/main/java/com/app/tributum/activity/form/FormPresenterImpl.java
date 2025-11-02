@@ -327,15 +327,19 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
                             // Update UI on main thread
                             if (view != null) {
                                 ((Activity) view).runOnUiThread(() -> {
-                                    if (state == FormAdapterState.BANK)
+                                    if (state == FormAdapterState.BANK) {
                                         bankPdfFile = pdfFile;
-                                    else if (state == FormAdapterState.KIDS)
+                                        view.addItemToBankList(new VatModel(getFileName(pdfUri), true));
+                                    } else if (state == FormAdapterState.KIDS) {
                                         kidsPdfFile = pdfFile;
-                                    else if (state == FormAdapterState.EXPENSES)
+                                        view.addItemToKidsList(new VatModel(getFileName(pdfUri), true));
+                                    } else if (state == FormAdapterState.EXPENSES) {
                                         expensesPdfFile = pdfFile;
-                                    else if (state == FormAdapterState.MEDICAL)
+                                        view.addItemToExpensesList(new VatModel(getFileName(pdfUri), true));
+                                    } else if (state == FormAdapterState.MEDICAL) {
                                         medicalPdfFile = pdfFile;
-                                    else if (state == FormState.RENT) {
+                                        view.addItemToMedicalList(new VatModel(getFileName(pdfUri), true));
+                                    } else if (state == FormState.RENT) {
                                         rentPdfFile = pdfFile;
                                         view.setPdfDefaultImage(R.id.rent_id);
                                     } else if (state == FormState.RTB) {
@@ -500,6 +504,9 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
             onTakePhotoClick();
         } else if (requestCode == ConstantsUtils.CAMERA_REQUEST_EXPENSES_ID && resultCode == Activity.RESULT_OK) {
             view.addItemToExpensesList(new VatModel(pictureImagePath));
+            onTakePhotoClick();
+        } else if (requestCode == ConstantsUtils.CAMERA_REQUEST_MEDICAL_ID && resultCode == Activity.RESULT_OK) {
+            view.addItemToMedicalList(new VatModel(pictureImagePath));
             onTakePhotoClick();
         } else if (requestCode == ConstantsUtils.CAMERA_REQUEST_RENT_ID && resultCode == Activity.RESULT_OK) {
             view.setImage(pictureImagePath, R.id.rent_id);

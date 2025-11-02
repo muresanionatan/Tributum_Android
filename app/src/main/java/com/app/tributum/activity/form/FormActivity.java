@@ -1,5 +1,6 @@
 package com.app.tributum.activity.form;
 
+import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import android.animation.Animator;
@@ -404,7 +405,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void hideRentLayout() {
-        findViewById(R.id.rent_layout_id).setVisibility(View.GONE);
+        findViewById(R.id.rent_layout_id).setVisibility(GONE);
         ((CheckBox) findViewById(R.id.yes_no_rent_id).findViewById(R.id.yes_checkbox)).setChecked(false);
         ((CheckBox) findViewById(R.id.yes_no_rent_id).findViewById(R.id.no_checkbox)).setChecked(true);
     }
@@ -418,7 +419,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void hideMarriageLayout() {
-        findViewById(R.id.marriage_layout_id).setVisibility(View.GONE);
+        findViewById(R.id.marriage_layout_id).setVisibility(GONE);
         ((CheckBox) findViewById(R.id.married_yes_no_id).findViewById(R.id.yes_checkbox)).setChecked(false);
         ((CheckBox) findViewById(R.id.married_yes_no_id).findViewById(R.id.no_checkbox)).setChecked(true);
     }
@@ -432,7 +433,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void hideExpensesLayout() {
-        findViewById(R.id.form_expenses_recycler_id).setVisibility(View.GONE);
+        findViewById(R.id.form_expenses_recycler_id).setVisibility(GONE);
         ((CheckBox) findViewById(R.id.expenses_yes_no_id).findViewById(R.id.yes_checkbox)).setChecked(false);
         ((CheckBox) findViewById(R.id.expenses_yes_no_id).findViewById(R.id.no_checkbox)).setChecked(true);
     }
@@ -446,7 +447,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void hideMedicalLayout() {
-        findViewById(R.id.form_medical_recycler_id).setVisibility(View.GONE);
+        findViewById(R.id.form_medical_recycler_id).setVisibility(GONE);
         ((CheckBox) findViewById(R.id.medical_yes_no_id).findViewById(R.id.yes_checkbox)).setChecked(false);
         ((CheckBox) findViewById(R.id.medical_yes_no_id).findViewById(R.id.no_checkbox)).setChecked(true);
     }
@@ -559,7 +560,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
                 new CustomAnimatorListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        findViewById(R.id.file_chooser_top_id).setVisibility(View.GONE);
+                        findViewById(R.id.file_chooser_top_id).setVisibility(GONE);
                     }
                 }).start();
     }
@@ -675,6 +676,8 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void setImage(String file, int resourceId) {
+        findViewById(resourceId).findViewById(R.id.preview_thumbnail_id).setVisibility(GONE);
+        findViewById(resourceId).findViewById(R.id.photo_holder_divider_id).setVisibility(GONE);
         findViewById(resourceId).findViewById(R.id.photo_uploaded_id).setVisibility(VISIBLE);
         Glide.with(this)
                 .load(file)
@@ -687,6 +690,9 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void setPdfDefaultImage(int resourceId) {
-        ((ImageView) findViewById(resourceId).findViewById(R.id.vat_preview_image_id)).setImageResource(R.drawable.pdf_svg);
+        findViewById(resourceId).findViewById(R.id.photo_uploaded_id).setVisibility(VISIBLE);
+        findViewById(resourceId).findViewById(R.id.preview_thumbnail_id).setVisibility(GONE);
+        findViewById(resourceId).findViewById(R.id.photo_holder_divider_id).setVisibility(GONE);
+        ((ImageView) findViewById(resourceId).findViewById(R.id.vat_preview_image_id)).setImageResource(R.drawable.pdf_final);
     }
 }

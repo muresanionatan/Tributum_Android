@@ -1,5 +1,8 @@
 package com.app.tributum.activity.form.adapter;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
@@ -34,7 +37,7 @@ public class FormAdapter extends RecyclerView.Adapter<FormItemViewHolder> {
 
     private Resources resources;
 
-    private @FormAdapterState int  state;
+    private @FormAdapterState int state;
 
     public FormAdapter(Activity activity, List<VatModel> list, FormItemClickListener formItemClickListener, InvoicesDeleteListener invoicesDeleteListener,
                        int state) {
@@ -73,9 +76,15 @@ public class FormAdapter extends RecyclerView.Adapter<FormItemViewHolder> {
             }
         } else if (position < ConstantsUtils.MAXIMUM_PICTURES_IN_ATTACHMENT) {
             photoUploadedView.setVisibility(View.VISIBLE);
-            Glide.with(activity).load("file://" + model.getFilePath()).thumbnail(0.5f)
-                    .transform(new CenterCrop(), new RoundedCorners(resources.getDimensionPixelOffset(R.dimen.global_radius)))
-                    .into((ImageView) photoUploadedView.findViewById(R.id.vat_preview_image_id));
+            photoUploadedView.findViewById(R.id.preview_thumbnail_id).setVisibility(GONE);
+            photoUploadedView.findViewById(R.id.photo_holder_divider_id).setVisibility(GONE);
+            if (model.isPdf()) {
+                ((ImageView) photoUploadedView.findViewById(R.id.vat_preview_image_id)).setImageResource(R.drawable.pdf_final);
+            } else {
+                Glide.with(activity).load("file://" + model.getFilePath()).thumbnail(0.5f)
+                        .transform(new CenterCrop(), new RoundedCorners(resources.getDimensionPixelOffset(R.dimen.global_radius)))
+                        .into((ImageView) photoUploadedView.findViewById(R.id.vat_preview_image_id));
+            }
             holder.deleteImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
