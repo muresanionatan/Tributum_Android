@@ -48,4 +48,6 @@ public interface FormPresenter {
     void onAddPdfClick();
 
     void handlePdfSelected(ActivityResult result);
+
+    void onDeleteClickForSingleFile(int state);
 }

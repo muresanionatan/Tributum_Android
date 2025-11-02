@@ -63,10 +63,10 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
     private String email;
     private String year;
     private String rent;
-    private File bankPdfFile;
-    private File kidsPdfFile;
-    private File expensesPdfFile;
-    private File medicalPdfFile;
+    private List<File> bankPdfList;
+    private List<File> kidsPdfList;
+    private List<File> expensesPdfList;
+    private List<File> medicalPdfList;
     private File rentPdfFile;
     private File rtbPdfFile;
     private File marriagePdfFile;
@@ -107,6 +107,12 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
 
         medicalList = new ArrayList<>();
         medicalList.add(new VatModel(""));
+
+        // Initialize PDF lists
+        bankPdfList = new ArrayList<>();
+        kidsPdfList = new ArrayList<>();
+        expensesPdfList = new ArrayList<>();
+        medicalPdfList = new ArrayList<>();
     }
 
     @Override
@@ -156,8 +162,7 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
 
     @Override
     public void onOkClicked() {
-        if (view != null)
-            view.closeActivity();
+        view.closeActivity();
     }
 
     @Override
@@ -193,8 +198,7 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
 
     @Override
     public void onBottomSheetExpanded() {
-        if (view != null)
-            view.showTopViewBottomSheet();
+        view.showTopViewBottomSheet();
     }
 
     @Override
@@ -207,9 +211,7 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
 
     @Override
     public void onTopViewClick() {
-        if (view != null) {
-            collapseBottomSheet();
-        }
+        collapseBottomSheet();
     }
 
     @Override
@@ -219,18 +221,14 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
 
     @Override
     public void onPlusCLick(int state) {
-        if (view != null) {
-            isBottomSheetVisible = true;
-            this.state = state;
-            view.showBottomSheet();
-        }
+        isBottomSheetVisible = true;
+        this.state = state;
+        view.showBottomSheet();
     }
 
     @Override
     public void onDeleteClick(String filePath, int photoIndex, int state) {
-        if (view != null) {
-            removeItemFromList(photoIndex, state);
-        }
+        removeItemFromList(photoIndex, state);
     }
 
     private void removeItemFromList(int photoClicked, int state) {
@@ -242,6 +240,31 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
             view.removeItemFromExpenses(photoClicked);
         else if (state == FormAdapterState.MEDICAL)
             view.removeItemFromMedical(photoClicked);
+    }
+
+    @Override
+    public void onDeleteClickForSingleFile(int state) {
+        if (state == FormState.RENT) {
+            rentFile = null;
+            rentPdfFile = null;
+            view.clearHolder(R.id.rent_id);
+        } else if (state == FormState.RTB) {
+            rtbFile = null;
+            rtbPdfFile = null;
+            view.clearHolder(R.id.rtb_id);
+        } else if (state == FormState.MARRIAGE) {
+            marriageFile = null;
+            marriagePdfFile = null;
+            view.clearHolder(R.id.marriage_id);
+        }else if (state == FormState.FISC_1) {
+            fisc1File = null;
+            fisc1PdfFile = null;
+            view.clearHolder(R.id.fisc_1_id);
+        } else if (state == FormState.FISC_2) {
+            fisc2File = null;
+            fisc2PdfFile = null;
+            view.clearHolder(R.id.fisc_2_id);
+        }
     }
 
     @Override
@@ -271,8 +294,8 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
             requestCode = ConstantsUtils.CAMERA_REQUEST_FISC_1_ID;
         else
             requestCode = ConstantsUtils.CAMERA_REQUEST_FISC_2_ID;
-        if (view != null)
-            view.takePhoto(pictureImagePath, requestCode);
+
+        view.takePhoto(pictureImagePath, requestCode);
     }
 
     @Override
@@ -282,9 +305,6 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
     }
 
     private void pickPictureFromGallery() {
-        if (view == null)
-            return;
-
         if (state == FormAdapterState.BANK)
             view.pickBank();
         else if (state == FormAdapterState.KIDS)
@@ -307,8 +327,7 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
 
     @Override
     public void onAddPdfClick() {
-        if (view != null)
-            view.openPdfIntent();
+        view.openPdfIntent();
     }
 
     @Override
@@ -325,54 +344,48 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
                         if (pdfFile != null && pdfFile.exists()) {
                             // Store the PDF file based on current state
                             // Update UI on main thread
-                            if (view != null) {
-                                ((Activity) view).runOnUiThread(() -> {
-                                    if (state == FormAdapterState.BANK) {
-                                        bankPdfFile = pdfFile;
-                                        view.addItemToBankList(new VatModel(getFileName(pdfUri), true));
-                                    } else if (state == FormAdapterState.KIDS) {
-                                        kidsPdfFile = pdfFile;
-                                        view.addItemToKidsList(new VatModel(getFileName(pdfUri), true));
-                                    } else if (state == FormAdapterState.EXPENSES) {
-                                        expensesPdfFile = pdfFile;
-                                        view.addItemToExpensesList(new VatModel(getFileName(pdfUri), true));
-                                    } else if (state == FormAdapterState.MEDICAL) {
-                                        medicalPdfFile = pdfFile;
-                                        view.addItemToMedicalList(new VatModel(getFileName(pdfUri), true));
-                                    } else if (state == FormState.RENT) {
-                                        rentPdfFile = pdfFile;
-                                        view.setPdfDefaultImage(R.id.rent_id);
-                                    } else if (state == FormState.RTB) {
-                                        rtbPdfFile = pdfFile;
-                                        view.setPdfDefaultImage(R.id.rtb_id);
-                                    } else if (state == FormState.MARRIAGE) {
-                                        marriagePdfFile = pdfFile;
-                                        view.setPdfDefaultImage(R.id.marriage_id);
-                                    } else if (state == FormState.FISC_1) {
-                                        fisc1PdfFile = pdfFile;
-                                        view.setPdfDefaultImage(R.id.fisc_1_id);
-                                    } else if (state == FormState.FISC_2) {
-                                        fisc2PdfFile = pdfFile;
-                                        view.setPdfDefaultImage(R.id.fisc_2_id);
-                                    }
+                            ((Activity) view).runOnUiThread(() -> {
+                                if (state == FormAdapterState.BANK) {
+                                    bankPdfList.add(pdfFile);
+                                    view.addItemToBankList(new VatModel(getFileName(pdfUri), true));
+                                } else if (state == FormAdapterState.KIDS) {
+                                    kidsPdfList.add(pdfFile);
+                                    view.addItemToKidsList(new VatModel(getFileName(pdfUri), true));
+                                } else if (state == FormAdapterState.EXPENSES) {
+                                    expensesPdfList.add(pdfFile);
+                                    view.addItemToExpensesList(new VatModel(getFileName(pdfUri), true));
+                                } else if (state == FormAdapterState.MEDICAL) {
+                                    medicalPdfList.add(pdfFile);
+                                    view.addItemToMedicalList(new VatModel(getFileName(pdfUri), true));
+                                } else if (state == FormState.RENT) {
+                                    rentPdfFile = pdfFile;
+                                    view.setPdfDefaultImage(R.id.rent_id);
+                                } else if (state == FormState.RTB) {
+                                    rtbPdfFile = pdfFile;
+                                    view.setPdfDefaultImage(R.id.rtb_id);
+                                } else if (state == FormState.MARRIAGE) {
+                                    marriagePdfFile = pdfFile;
+                                    view.setPdfDefaultImage(R.id.marriage_id);
+                                } else if (state == FormState.FISC_1) {
+                                    fisc1PdfFile = pdfFile;
+                                    view.setPdfDefaultImage(R.id.fisc_1_id);
+                                } else if (state == FormState.FISC_2) {
+                                    fisc2PdfFile = pdfFile;
+                                    view.setPdfDefaultImage(R.id.fisc_2_id);
+                                }
 
-                                    view.hideBottomSheet();
-                                });
-                            }
+                                view.hideBottomSheet();
+                            });
                         } else {
-                            if (view != null) {
-                                ((Activity) view).runOnUiThread(() ->
-                                        view.showToast(R.string.something_went_wrong)
-                                );
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        if (view != null) {
                             ((Activity) view).runOnUiThread(() ->
                                     view.showToast(R.string.something_went_wrong)
                             );
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ((Activity) view).runOnUiThread(() ->
+                                view.showToast(R.string.something_went_wrong)
+                        );
                     }
                 }).start();
             }
@@ -443,10 +456,13 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
             view.showToast(R.string.please_enter_full_name);
         else if (email.isEmpty())
             view.showToast(R.string.please_enter_correct_email);
-        else if (rentFile != null && rent.isEmpty())
+        else if ((rentFile != null || rentPdfFile != null) && rent.isEmpty())
             view.showToast(R.string.please_enter_rent);
-        else if (bankList.isEmpty())
+        else if (bankList.size() == 1 && bankList.get(0).getFilePath().isEmpty())
             view.showToast(R.string.please_add_bank_statement);
+        else if ((marriageFile != null || marriagePdfFile != null) && (fisc1File == null || fisc1PdfFile == null)
+                && (fisc2File == null || fisc2PdfFile == null))
+            view.showToast(R.string.please_add_fisc);
         else
             handleSendButtonClick(fullName, email, year, rent);
     }
@@ -458,7 +474,7 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
         this.rent = rent;
         view.hideKeyboard();
         view.showLoadingScreen();
-        CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, bankList, fullName, "bs", bankPdfFile);
+        CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, bankList, fullName, "bs", bankPdfList);
         combinePhotosInPdfTask.execute();
     }
 
@@ -478,7 +494,7 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
         UploadAsyncTask uploadMultipleFilesTask = new UploadAsyncTask(
                 fullName,
                 uploadList,
-                null,
+                this,
                 UploadAsyncTask.UploadType.MULTIPLE,
                 "FORM11");
         uploadMultipleFilesTask.setProcess("uploadPdfs");
@@ -612,37 +628,51 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
 
     @Override
     public void onTaskCompleted(String process) {
-        if (process.equals("uploadPdfs")) {
-            Map<String, File> uploadList = new HashMap<>();
-            if (rentPdfFile != null)
-                uploadList.put("RENT", rentPdfFile);
-            if (rtbPdfFile != null)
-                uploadList.put("RTB", rtbPdfFile);
-            if (marriagePdfFile != null)
-                uploadList.put("MARRIAGE", marriagePdfFile);
-            if (fisc1PdfFile != null)
-                uploadList.put("FISC1", fisc1PdfFile);
-            if (fisc2PdfFile != null)
-                uploadList.put("FISC2", fisc2PdfFile);
+        switch (process) {
+            case "uploadPdfs":
+                if (rentPdfFile != null || rtbPdfFile != null
+                        || marriagePdfFile != null || fisc1PdfFile != null || fisc2PdfFile != null) {
+                    Map<String, File> uploadList = new HashMap<>();
+                    if (rentPdfFile != null)
+                        uploadList.put("RENT", rentPdfFile);
+                    if (rtbPdfFile != null)
+                        uploadList.put("RTB", rtbPdfFile);
+                    if (marriagePdfFile != null)
+                        uploadList.put("MARRIAGE", marriagePdfFile);
+                    if (fisc1PdfFile != null)
+                        uploadList.put("FISC1", fisc1PdfFile);
+                    if (fisc2PdfFile != null)
+                        uploadList.put("FISC2", fisc2PdfFile);
 
-            UploadAsyncTask uploadMultipleFilesTask = new UploadAsyncTask(
-                    fullName,
-                    uploadList,
-                    null,
-                    UploadAsyncTask.UploadType.PDFS);
-            uploadMultipleFilesTask.setProcess("userInfo");
-            uploadMultipleFilesTask.execute();
-        } else if (process.equals("userInfo")) {
-            UploadAsyncTask uploadOneFileTask = new UploadAsyncTask(
-                    fullName,
-                    FileUtils.createFile(generateUserInfo(fullName, year, rent), fullName + "_info"),
-                    this,
-                    UploadAsyncTask.UploadType.USER_INFO,
-                    "FORM11");
-            uploadOneFileTask.execute();
-        } else {
-            sendEmails();
+                    UploadAsyncTask uploadMultipleFilesTask = new UploadAsyncTask(
+                            fullName,
+                            uploadList,
+                            this,
+                            UploadAsyncTask.UploadType.PDFS);
+                    uploadMultipleFilesTask.setProcess("userInfo");
+                    uploadMultipleFilesTask.execute();
+                } else {
+                    uploadUserInfo();
+                }
+                break;
+            case "userInfo":
+                uploadUserInfo();
+                break;
+            case "sendEmails":
+                sendEmails();
+                break;
         }
+    }
+
+    private void uploadUserInfo() {
+        UploadAsyncTask uploadOneFileTask = new UploadAsyncTask(
+                fullName,
+                FileUtils.createFile(generateUserInfo(fullName, year, rent), fullName + "_info"),
+                this,
+                UploadAsyncTask.UploadType.USER_INFO,
+                "FORM11");
+        uploadOneFileTask.setProcess("sendEmails");
+        uploadOneFileTask.execute();
     }
 
     private void sendEmails() {
@@ -705,17 +735,54 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
 
     @Override
     public void onPdfCompleted(String process) {
-        if (process.equals("bs") && kidsList.size() > 1) {
-            CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, kidsList, fullName, "kids", kidsPdfFile);
-            combinePhotosInPdfTask.execute();
-        } else if (process.equals("kids") && expencesList.size() > 1) {
-            CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, expencesList, fullName, "expenses", expensesPdfFile);
-            combinePhotosInPdfTask.execute();
-        } else if (process.equals("expenses") && medicalList.size() > 1) {
-            CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, medicalList, fullName, "medical", medicalPdfFile);
-            combinePhotosInPdfTask.execute();
-        } else {
+        if (process.equals("bs")) {
+            if (kidsList.size() > 1 || !kidsList.get(0).getFilePath().isEmpty()) {
+                CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, kidsList, fullName, "kids", kidsPdfList);
+                combinePhotosInPdfTask.execute();
+            } else if (expencesList.size() > 1 || !expencesList.get(0).getFilePath().isEmpty()) {
+                CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, expencesList, fullName, "expenses", expensesPdfList);
+                combinePhotosInPdfTask.execute();
+            } else if (medicalList.size() > 1 || !medicalList.get(0).getFilePath().isEmpty()) {
+                CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, medicalList, fullName, "medical", medicalPdfList);
+                combinePhotosInPdfTask.execute();
+            } else if (rentFile != null || rentPdfFile != null || rtbFile != null || rtbPdfFile != null
+                    || marriageFile != null || marriagePdfFile != null || fisc1File != null || fisc1PdfFile != null
+                    || fisc2File != null || fisc2PdfFile != null) {
+                uploadSeparateFiles();
+            } else {
+                uploadUserInfo();
+            }
+        } else if (process.equals("kids")) {
+            if (expencesList.size() > 1 || !expencesList.get(0).getFilePath().isEmpty()) {
+                CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, expencesList, fullName, "expenses", expensesPdfList);
+                combinePhotosInPdfTask.execute();
+            } else if (medicalList.size() > 1 || !medicalList.get(0).getFilePath().isEmpty()) {
+                CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, medicalList, fullName, "medical", medicalPdfList);
+                combinePhotosInPdfTask.execute();
+            } else if (rentFile != null || rentPdfFile != null || rtbFile != null || rtbPdfFile != null
+                    || marriageFile != null || marriagePdfFile != null || fisc1File != null || fisc1PdfFile != null
+                    || fisc2File != null || fisc2PdfFile != null) {
+                uploadSeparateFiles();
+            } else {
+                uploadUserInfo();
+            }
+        } else if (process.equals("expenses")) {
+            if (medicalList.size() > 1 || !medicalList.get(0).getFilePath().isEmpty()) {
+                CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, medicalList, fullName, "medical", medicalPdfList);
+                combinePhotosInPdfTask.execute();
+            } else if (rentFile != null || rentPdfFile != null || rtbFile != null || rtbPdfFile != null
+                    || marriageFile != null || marriagePdfFile != null || fisc1File != null || fisc1PdfFile != null
+                    || fisc2File != null || fisc2PdfFile != null) {
+                uploadSeparateFiles();
+            } else {
+                uploadUserInfo();
+            }
+        } else if (rentFile != null || rentPdfFile != null || rtbFile != null || rtbPdfFile != null
+                || marriageFile != null || marriagePdfFile != null || fisc1File != null || fisc1PdfFile != null
+                || fisc2File != null || fisc2PdfFile != null) {
             uploadSeparateFiles();
+        } else {
+            uploadUserInfo();
         }
     }
 }

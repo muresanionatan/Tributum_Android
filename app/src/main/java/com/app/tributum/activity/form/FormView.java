@@ -72,4 +72,6 @@ public interface FormView {
     void showMedicalLayout();
     void hideMedicalLayout();
     void openPdfIntent();
+
+    void clearHolder(int resourceId);
 }

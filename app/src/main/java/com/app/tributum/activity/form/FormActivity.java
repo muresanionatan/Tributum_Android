@@ -362,6 +362,36 @@ public class FormActivity extends AppCompatActivity implements FormView {
                 presenter.onPlusCLick(FormState.FISC_2);
             }
         });
+        findViewById(R.id.rent_id).findViewById(R.id.remove__thumbnail_photo_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onDeleteClickForSingleFile(FormState.RENT);
+            }
+        });
+        findViewById(R.id.rtb_id).findViewById(R.id.remove__thumbnail_photo_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onDeleteClickForSingleFile(FormState.RTB);
+            }
+        });
+        findViewById(R.id.marriage_id).findViewById(R.id.remove__thumbnail_photo_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onDeleteClickForSingleFile(FormState.MARRIAGE);
+            }
+        });
+        findViewById(R.id.fisc_1_id).findViewById(R.id.remove__thumbnail_photo_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onDeleteClickForSingleFile(FormState.FISC_1);
+            }
+        });
+        findViewById(R.id.fisc_2_id).findViewById(R.id.remove__thumbnail_photo_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onDeleteClickForSingleFile(FormState.FISC_2);
+            }
+        });
         findViewById(R.id.form_send_layout_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -685,5 +715,10 @@ public class FormActivity extends AppCompatActivity implements FormView {
         findViewById(resourceId).findViewById(R.id.preview_thumbnail_id).setVisibility(GONE);
         findViewById(resourceId).findViewById(R.id.photo_holder_divider_id).setVisibility(GONE);
         ((ImageView) findViewById(resourceId).findViewById(R.id.vat_preview_image_id)).setImageResource(R.drawable.pdf_final);
+    }
+
+    @Override
+    public void clearHolder(int resourceId) {
+        findViewById(resourceId).findViewById(R.id.photo_uploaded_id).setVisibility(View.GONE);
     }
 }

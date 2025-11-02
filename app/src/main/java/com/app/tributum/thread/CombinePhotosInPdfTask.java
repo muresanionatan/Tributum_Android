@@ -31,9 +31,9 @@ public class CombinePhotosInPdfTask extends AsyncTask<Void, Void, Void> {
     private static String imageFileName;
     private static String fileName;
 
-    private File pdfFile;
+    private List<File> pdfFile;
 
-    public CombinePhotosInPdfTask(CombinePdfListener listener, List<VatModel> photosList, String username, String fileName, File pdfFile) {
+    public CombinePhotosInPdfTask(CombinePdfListener listener, List<VatModel> photosList, String username, String fileName, List<File> pdfFile) {
         this.listener = listener;
         this.photosList = photosList;
         this.username = username;
@@ -53,7 +53,7 @@ public class CombinePhotosInPdfTask extends AsyncTask<Void, Void, Void> {
                 int pageCount = addPhotosToPdf(pdfDocument, photosList);
 
                 // Add PDF pages after photos (if pdfFile exists)
-                if (pdfFile != null && pdfFile.exists()) {
+                if (pdfFile != null) {
                     addPdfPagesToPdf(pdfDocument, pdfFile, pageCount);
                 }
 
@@ -91,50 +91,64 @@ public class CombinePhotosInPdfTask extends AsyncTask<Void, Void, Void> {
         return pageNumber;
     }
 
-    private void addPdfPagesToPdf(PdfDocument pdfDocument, File pdfFile, int startPageNumber) {
-        ParcelFileDescriptor fileDescriptor = null;
-        PdfRenderer pdfRenderer = null;
+    private void addPdfPagesToPdf(PdfDocument pdfDocument, List<File> pdfFiles, int startPageNumber) {
+        if (pdfFiles == null || pdfFiles.isEmpty()) {
+            return;
+        }
 
-        try {
-            fileDescriptor = ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY);
-            pdfRenderer = new PdfRenderer(fileDescriptor);
+        int currentPageNumber = startPageNumber;
 
-            int pageCount = pdfRenderer.getPageCount();
-
-            for (int i = 0; i < pageCount; i++) {
-                PdfRenderer.Page page = pdfRenderer.openPage(i);
-
-                // Create a bitmap for the page
-                Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(), Bitmap.Config.ARGB_8888);
-
-                // Render the page to the bitmap
-                page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-
-                // Add the bitmap as a new page in the output PDF
-                int pageNumber = startPageNumber + i + 1;
-                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), pageNumber).create();
-                PdfDocument.Page pdfPage = pdfDocument.startPage(pageInfo);
-                Canvas canvas = pdfPage.getCanvas();
-                canvas.drawBitmap(bitmap, 0f, 0f, null);
-                pdfDocument.finishPage(pdfPage);
-
-                // Clean up
-                bitmap.recycle();
-                page.close();
+        // Iterate through each PDF file in the list
+        for (File pdfFile : pdfFiles) {
+            if (pdfFile == null || !pdfFile.exists()) {
+                continue;
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            // Close resources
-            if (pdfRenderer != null) {
-                pdfRenderer.close();
-            }
-            if (fileDescriptor != null) {
-                try {
-                    fileDescriptor.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            ParcelFileDescriptor fileDescriptor = null;
+            PdfRenderer pdfRenderer = null;
+
+            try {
+                fileDescriptor = ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY);
+                pdfRenderer = new PdfRenderer(fileDescriptor);
+
+                int pageCount = pdfRenderer.getPageCount();
+
+                // Add all pages from this PDF file
+                for (int i = 0; i < pageCount; i++) {
+                    PdfRenderer.Page page = pdfRenderer.openPage(i);
+
+                    // Create a bitmap for the page
+                    Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(), Bitmap.Config.ARGB_8888);
+
+                    // Render the page to the bitmap
+                    page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+
+                    // Add the bitmap as a new page in the output PDF
+                    currentPageNumber++;
+                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), currentPageNumber).create();
+                    PdfDocument.Page pdfPage = pdfDocument.startPage(pageInfo);
+                    Canvas canvas = pdfPage.getCanvas();
+                    canvas.drawBitmap(bitmap, 0f, 0f, null);
+                    pdfDocument.finishPage(pdfPage);
+
+                    // Clean up
+                    bitmap.recycle();
+                    page.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                // Close resources for this PDF file
+                if (pdfRenderer != null) {
+                    pdfRenderer.close();
+                }
+                if (fileDescriptor != null) {
+                    try {
+                        fileDescriptor.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

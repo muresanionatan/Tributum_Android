@@ -203,4 +203,5 @@
     <string name="please_add_bank_statement">Please add bank statement</string>
     <string name="form_sent">Form 11 sent</string>
     <string name="add_pdf">Add PDF file</string>
+    <string name="please_add_fisc">Please add wife\'s FISC documents</string>
 </resources>
