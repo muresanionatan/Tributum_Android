@@ -16,6 +16,8 @@ public class UploadAsyncTask extends AsyncTask {
 
     private Map<String, String> uploadList;
 
+    private Map<String, File> pdfList;
+
     private AsyncListener asyncListener;
 
     private File file;
@@ -26,6 +28,8 @@ public class UploadAsyncTask extends AsyncTask {
 
     private String path;
 
+    private String process;
+
     @UploadType
     private int type;
 
@@ -35,6 +39,13 @@ public class UploadAsyncTask extends AsyncTask {
         this.asyncListener = asyncListener;
         this.type = type;
         this.path = path;
+    }
+
+    public UploadAsyncTask(String userName, Map<String, File> uploadList, AsyncListener asyncListener, @UploadType int type) {
+        this.userName = userName;
+        this.pdfList = uploadList;
+        this.asyncListener = asyncListener;
+        this.type = type;
     }
 
     public UploadAsyncTask(String userName, File message, AsyncListener asyncListener, @UploadType int type, String path) {
@@ -62,6 +73,8 @@ public class UploadAsyncTask extends AsyncTask {
                 DropboxUtils.addUserInfoFile(file, userName, path);
             } else if (type == UploadType.INQUIRY) {
                 DropboxUtils.uploadInquiryOnDropbox(userName, filePath, inquiryPhotoName);
+            } else if (type == UploadType.PDFS) {
+                DropboxUtils.uploadMultipleFiles(userName, pdfList);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -73,13 +86,22 @@ public class UploadAsyncTask extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         if (asyncListener != null)
-            asyncListener.onTaskCompleted();
+            asyncListener.onTaskCompleted(process);
+    }
+
+    public void setProcess(String process) {
+        this.process = process;
+    }
+
+    public String getProcess() {
+        return process;
     }
 
     @IntDef
     public @interface UploadType {
         int MULTIPLE = 0,
                 USER_INFO = 1,
-                INQUIRY = 2;
+                INQUIRY = 2,
+                PDFS = 3;
     }
 }

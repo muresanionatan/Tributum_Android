@@ -2,9 +2,12 @@ package com.app.tributum.activity.form;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.provider.OpenableColumns;
 import android.view.MotionEvent;
 
+import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
@@ -24,7 +27,7 @@ import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.UploadAsyncTask;
 import com.app.tributum.utils.ui.FileUtils;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -60,6 +63,15 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
     private String email;
     private String year;
     private String rent;
+    private File bankPdfFile;
+    private File kidsPdfFile;
+    private File expensesPdfFile;
+    private File medicalPdfFile;
+    private File rentPdfFile;
+    private File rtbPdfFile;
+    private File marriagePdfFile;
+    private File fisc1PdfFile;
+    private File fisc2PdfFile;
 
     public FormPresenterImpl(FormView view) {
         this.view = view;
@@ -238,6 +250,32 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
     }
 
     @Override
+    public void onTakePhotoClick() {
+        collapseBottomSheet();
+        int requestCode;
+        if (state == FormAdapterState.BANK)
+            requestCode = ConstantsUtils.CAMERA_REQUEST_BANK_ID;
+        else if (state == FormAdapterState.KIDS)
+            requestCode = ConstantsUtils.CAMERA_REQUEST_KIDS_ID;
+        else if (state == FormAdapterState.EXPENSES)
+            requestCode = ConstantsUtils.CAMERA_REQUEST_EXPENSES_ID;
+        else if (state == FormAdapterState.MEDICAL)
+            requestCode = ConstantsUtils.CAMERA_REQUEST_MEDICAL_ID;
+        else if (state == FormState.RENT)
+            requestCode = ConstantsUtils.CAMERA_REQUEST_RENT_ID;
+        else if (state == FormState.RTB)
+            requestCode = ConstantsUtils.CAMERA_REQUEST_RTB_ID;
+        else if (state == FormState.MARRIAGE)
+            requestCode = ConstantsUtils.CAMERA_REQUEST_MARRIAGE_ID;
+        else if (state == FormState.FISC_1)
+            requestCode = ConstantsUtils.CAMERA_REQUEST_FISC_1_ID;
+        else
+            requestCode = ConstantsUtils.CAMERA_REQUEST_FISC_2_ID;
+        if (view != null)
+            view.takePhoto(pictureImagePath, requestCode);
+    }
+
+    @Override
     public void onAddFromGalleryClick() {
         pickPictureFromGallery();
         view.hideBottomSheet();
@@ -268,6 +306,134 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
     }
 
     @Override
+    public void onAddPdfClick() {
+        if (view != null)
+            view.openPdfIntent();
+    }
+
+    @Override
+    public void handlePdfSelected(ActivityResult result) {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            Intent data = result.getData();
+            if (data != null && data.getData() != null) {
+                Uri pdfUri = data.getData();
+
+                // Copy PDF to internal storage on background thread
+                new Thread(() -> {
+                    try {
+                        File pdfFile = copyPdfToInternalStorage(pdfUri);
+                        if (pdfFile != null && pdfFile.exists()) {
+                            // Store the PDF file based on current state
+                            // Update UI on main thread
+                            if (view != null) {
+                                ((Activity) view).runOnUiThread(() -> {
+                                    if (state == FormAdapterState.BANK)
+                                        bankPdfFile = pdfFile;
+                                    else if (state == FormAdapterState.KIDS)
+                                        kidsPdfFile = pdfFile;
+                                    else if (state == FormAdapterState.EXPENSES)
+                                        expensesPdfFile = pdfFile;
+                                    else if (state == FormAdapterState.MEDICAL)
+                                        medicalPdfFile = pdfFile;
+                                    else if (state == FormState.RENT) {
+                                        rentPdfFile = pdfFile;
+                                        view.setPdfDefaultImage(R.id.rent_id);
+                                    } else if (state == FormState.RTB) {
+                                        rtbPdfFile = pdfFile;
+                                        view.setPdfDefaultImage(R.id.rtb_id);
+                                    } else if (state == FormState.MARRIAGE) {
+                                        marriagePdfFile = pdfFile;
+                                        view.setPdfDefaultImage(R.id.marriage_id);
+                                    } else if (state == FormState.FISC_1) {
+                                        fisc1PdfFile = pdfFile;
+                                        view.setPdfDefaultImage(R.id.fisc_1_id);
+                                    } else if (state == FormState.FISC_2) {
+                                        fisc2PdfFile = pdfFile;
+                                        view.setPdfDefaultImage(R.id.fisc_2_id);
+                                    }
+
+                                    view.hideBottomSheet();
+                                });
+                            }
+                        } else {
+                            if (view != null) {
+                                ((Activity) view).runOnUiThread(() ->
+                                        view.showToast(R.string.something_went_wrong)
+                                );
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        if (view != null) {
+                            ((Activity) view).runOnUiThread(() ->
+                                    view.showToast(R.string.something_went_wrong)
+                            );
+                        }
+                    }
+                }).start();
+            }
+        }
+    }
+
+    private File copyPdfToInternalStorage(Uri pdfUri) {
+        try {
+            // Get the filename
+            String fileName = getFileName(pdfUri);
+            if (fileName == null) {
+                fileName = "document_" + System.currentTimeMillis() + ".pdf";
+            }
+
+            // Create directory in internal storage
+            File pdfDir = new File(TributumApplication.getInstance().getFilesDir(), "pdfs");
+            if (!pdfDir.exists()) {
+                pdfDir.mkdirs();
+            }
+
+            // Create the output file
+            File outputFile = new File(pdfDir, fileName);
+
+            // Copy content from URI to file using try-with-resources
+            try (java.io.InputStream inputStream = TributumApplication.getInstance()
+                    .getContentResolver().openInputStream(pdfUri);
+                 java.io.FileOutputStream outputStream = new java.io.FileOutputStream(outputFile)) {
+
+                if (inputStream == null) {
+                    return null;
+                }
+
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            }
+
+            return outputFile;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            try (Cursor cursor = TributumApplication.getInstance().getContentResolver().query(uri, null, null, null, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (columnIndex != -1) {
+                        result = cursor.getString(columnIndex);
+                    }
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getLastPathSegment();
+        }
+        return result;
+    }
+
+    @Override
     public void onSendClick(String fullName, String email, String year, String rent) {
         if (fullName.isEmpty())
             view.showToast(R.string.please_enter_full_name);
@@ -288,7 +454,7 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
         this.rent = rent;
         view.hideKeyboard();
         view.showLoadingScreen();
-        CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, bankList, fullName, "bs");
+        CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, bankList, fullName, "bs", bankPdfFile);
         combinePhotosInPdfTask.execute();
     }
 
@@ -311,14 +477,8 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
                 null,
                 UploadAsyncTask.UploadType.MULTIPLE,
                 "FORM11");
+        uploadMultipleFilesTask.setProcess("uploadPdfs");
         uploadMultipleFilesTask.execute();
-        UploadAsyncTask uploadOneFileTask = new UploadAsyncTask(
-                fullName,
-                FileUtils.createFile(generateUserInfo(fullName, year, rent), fullName + "_info"),
-                this,
-                UploadAsyncTask.UploadType.USER_INFO,
-                "FORM11");
-        uploadOneFileTask.execute();
     }
 
     private String generateUserInfo(String name, String year, String rent) {
@@ -444,34 +604,38 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
     }
 
     @Override
-    public void onTakePhotoClick() {
-        collapseBottomSheet();
-        int requestCode;
-        if (state == FormAdapterState.BANK)
-            requestCode = ConstantsUtils.CAMERA_REQUEST_BANK_ID;
-        else if (state == FormAdapterState.KIDS)
-            requestCode = ConstantsUtils.CAMERA_REQUEST_KIDS_ID;
-        else if (state == FormAdapterState.EXPENSES)
-            requestCode = ConstantsUtils.CAMERA_REQUEST_EXPENSES_ID;
-        else if (state == FormAdapterState.MEDICAL)
-            requestCode = ConstantsUtils.CAMERA_REQUEST_MEDICAL_ID;
-        else if (state == FormState.RENT)
-            requestCode = ConstantsUtils.CAMERA_REQUEST_RENT_ID;
-        else if (state == FormState.RTB)
-            requestCode = ConstantsUtils.CAMERA_REQUEST_RTB_ID;
-        else if (state == FormState.MARRIAGE)
-            requestCode = ConstantsUtils.CAMERA_REQUEST_MARRIAGE_ID;
-        else if (state == FormState.FISC_1)
-            requestCode = ConstantsUtils.CAMERA_REQUEST_FISC_1_ID;
-        else
-            requestCode = ConstantsUtils.CAMERA_REQUEST_FISC_2_ID;
-        if (view != null)
-            view.takePhoto(pictureImagePath, requestCode);
-    }
+    public void onTaskCompleted(String process) {
+        if (process.equals("uploadPdfs")) {
+            Map<String, File> uploadList = new HashMap<>();
+            if (rentPdfFile != null)
+                uploadList.put("RENT", rentPdfFile);
+            if (rtbPdfFile != null)
+                uploadList.put("RTB", rtbPdfFile);
+            if (marriagePdfFile != null)
+                uploadList.put("MARRIAGE", marriagePdfFile);
+            if (fisc1PdfFile != null)
+                uploadList.put("FISC1", fisc1PdfFile);
+            if (fisc2PdfFile != null)
+                uploadList.put("FISC2", fisc2PdfFile);
 
-    @Override
-    public void onTaskCompleted() {
-        sendEmails();
+            UploadAsyncTask uploadMultipleFilesTask = new UploadAsyncTask(
+                    fullName,
+                    uploadList,
+                    null,
+                    UploadAsyncTask.UploadType.PDFS);
+            uploadMultipleFilesTask.setProcess("userInfo");
+            uploadMultipleFilesTask.execute();
+        } else if (process.equals("userInfo")) {
+            UploadAsyncTask uploadOneFileTask = new UploadAsyncTask(
+                    fullName,
+                    FileUtils.createFile(generateUserInfo(fullName, year, rent), fullName + "_info"),
+                    this,
+                    UploadAsyncTask.UploadType.USER_INFO,
+                    "FORM11");
+            uploadOneFileTask.execute();
+        } else {
+            sendEmails();
+        }
     }
 
     private void sendEmails() {
@@ -535,13 +699,13 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
     @Override
     public void onPdfCompleted(String process) {
         if (process.equals("bs") && kidsList.size() > 1) {
-            CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, kidsList, fullName, "kids");
+            CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, kidsList, fullName, "kids", kidsPdfFile);
             combinePhotosInPdfTask.execute();
         } else if (process.equals("kids") && expencesList.size() > 1) {
-            CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, expencesList, fullName, "expenses");
+            CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, expencesList, fullName, "expenses", expensesPdfFile);
             combinePhotosInPdfTask.execute();
         } else if (process.equals("expenses") && medicalList.size() > 1) {
-            CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, medicalList, fullName, "medical");
+            CombinePhotosInPdfTask combinePhotosInPdfTask = new CombinePhotosInPdfTask(this, medicalList, fullName, "medical", medicalPdfFile);
             combinePhotosInPdfTask.execute();
         } else {
             uploadSeparateFiles();

@@ -75,6 +75,22 @@ public class DropboxUtils {
         }
     }
 
+    public static void uploadMultipleFiles(String username, Map<String, File> uploadList) throws FileNotFoundException {
+        try {
+            InputStream inputStream;
+            for (String key : uploadList.keySet()) {
+                File file = uploadList.get(key);
+                inputStream = new FileInputStream(file);
+                getDropBoxClient().files().uploadBuilder("/" + "FORM11" + "/" + username.toUpperCase() + "/" + key + ".pdf")
+                        .withMode(WriteMode.ADD)
+                        .uploadAndFinish(inputStream);
+            }
+            Log.d("Upload Status", "Success");
+        } catch (DbxException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void addUserInfoFile(File uploadFile, String username, String path) {
         try {
             InputStream inputStream = new FileInputStream(uploadFile);

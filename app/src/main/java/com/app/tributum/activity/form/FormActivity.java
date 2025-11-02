@@ -1,5 +1,7 @@
 package com.app.tributum.activity.form;
 
+import static android.view.View.VISIBLE;
+
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -122,6 +124,11 @@ public class FormActivity extends AppCompatActivity implements FormView {
             presenter.handleCropping(result.getUriFilePath(getApplicationContext(), true));
         }
     });
+
+    private ActivityResultLauncher<Intent> pdfBankPickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                presenter.handlePdfSelected(result);
+            });
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -327,6 +334,12 @@ public class FormActivity extends AppCompatActivity implements FormView {
                 presenter.onTakePhotoClick();
             }
         });
+        findViewById(R.id.add_pdf_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onAddPdfClick();
+            }
+        });
         findViewById(R.id.rent_id).findViewById(R.id.plus_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -361,18 +374,30 @@ public class FormActivity extends AppCompatActivity implements FormView {
             @Override
             public void onClick(View view) {
                 presenter.onSendClick(
-                        ((EditText)findViewById(R.id.full_name_edit_text)).getText().toString(),
-                        ((EditText)findViewById(R.id.email_edit_text)).getText().toString(),
+                        ((EditText) findViewById(R.id.full_name_edit_text)).getText().toString(),
+                        ((EditText) findViewById(R.id.email_edit_text)).getText().toString(),
                         dropdown.getSelectedItem().toString(),
-                        ((EditText)findViewById(R.id.rent_edit_text)).getText().toString()
-                        );
+                        ((EditText) findViewById(R.id.rent_edit_text)).getText().toString()
+                );
             }
         });
     }
 
     @Override
+    public void onBackPressed() {
+        presenter.onBackPressed();
+    }
+
+    @Override
+    public void openPdfIntent() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("application/pdf");
+        pdfBankPickerLauncher.launch(intent);
+    }
+
+    @Override
     public void showRentLayout() {
-        findViewById(R.id.rent_layout_id).setVisibility(View.VISIBLE);
+        findViewById(R.id.rent_layout_id).setVisibility(VISIBLE);
         ((CheckBox) findViewById(R.id.yes_no_rent_id).findViewById(R.id.yes_checkbox)).setChecked(true);
         ((CheckBox) findViewById(R.id.yes_no_rent_id).findViewById(R.id.no_checkbox)).setChecked(false);
     }
@@ -386,7 +411,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void showMarriageLayout() {
-        findViewById(R.id.marriage_layout_id).setVisibility(View.VISIBLE);
+        findViewById(R.id.marriage_layout_id).setVisibility(VISIBLE);
         ((CheckBox) findViewById(R.id.married_yes_no_id).findViewById(R.id.yes_checkbox)).setChecked(true);
         ((CheckBox) findViewById(R.id.married_yes_no_id).findViewById(R.id.no_checkbox)).setChecked(false);
     }
@@ -400,7 +425,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void showExpensesLayout() {
-        findViewById(R.id.form_expenses_recycler_id).setVisibility(View.VISIBLE);
+        findViewById(R.id.form_expenses_recycler_id).setVisibility(VISIBLE);
         ((CheckBox) findViewById(R.id.expenses_yes_no_id).findViewById(R.id.yes_checkbox)).setChecked(true);
         ((CheckBox) findViewById(R.id.expenses_yes_no_id).findViewById(R.id.no_checkbox)).setChecked(false);
     }
@@ -414,7 +439,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void showMedicalLayout() {
-        findViewById(R.id.form_medical_recycler_id).setVisibility(View.VISIBLE);
+        findViewById(R.id.form_medical_recycler_id).setVisibility(VISIBLE);
         ((CheckBox) findViewById(R.id.medical_yes_no_id).findViewById(R.id.yes_checkbox)).setChecked(true);
         ((CheckBox) findViewById(R.id.medical_yes_no_id).findViewById(R.id.no_checkbox)).setChecked(false);
     }
@@ -541,6 +566,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void showBottomSheet() {
+        findViewById(R.id.add_pdf_id).setVisibility(VISIBLE);
         fileChooser.setState(BottomSheetBehavior.STATE_EXPANDED);
         fileChooser.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -558,7 +584,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void showTopViewBottomSheet() {
-        findViewById(R.id.file_chooser_top_id).setVisibility(View.VISIBLE);
+        findViewById(R.id.file_chooser_top_id).setVisibility(VISIBLE);
         AnimUtils.getFadeInAnimator(findViewById(R.id.file_chooser_top_id),
                 AnimUtils.DURATION_200,
                 AnimUtils.NO_DELAY,
@@ -649,7 +675,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
 
     @Override
     public void setImage(String file, int resourceId) {
-        findViewById(resourceId).findViewById(R.id.photo_uploaded_id).setVisibility(View.VISIBLE);
+        findViewById(resourceId).findViewById(R.id.photo_uploaded_id).setVisibility(VISIBLE);
         Glide.with(this)
                 .load(file)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -657,5 +683,10 @@ public class FormActivity extends AppCompatActivity implements FormView {
                 .thumbnail(0.5f)
                 .transform(new CenterCrop(), new RoundedCorners(getResources().getDimensionPixelOffset(R.dimen.global_radius)))
                 .into((ImageView) findViewById(resourceId).findViewById(R.id.vat_preview_image_id));
+    }
+
+    @Override
+    public void setPdfDefaultImage(int resourceId) {
+        ((ImageView) findViewById(resourceId).findViewById(R.id.vat_preview_image_id)).setImageResource(R.drawable.pdf_svg);
     }
 }

@@ -377,7 +377,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
     }
 
     @Override
-    public void onTaskCompleted() {
+    public void onTaskCompleted(String process) {
         if (view != null) {
             view.hideLoadingScreen();
             view.showRequestSentScreen();

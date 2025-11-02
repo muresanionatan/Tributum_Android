@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.MotionEvent;
 
+import androidx.activity.result.ActivityResult;
+
 import com.app.tributum.activity.vat.model.VatModel;
 
 import java.util.List;
@@ -42,4 +44,8 @@ public interface FormPresenter {
     void onMedicalNoClick();
     String[] getFormYears();
     void onSendClick(String fullName, String email, String year, String rent);
+
+    void onAddPdfClick();
+
+    void handlePdfSelected(ActivityResult result);
 }

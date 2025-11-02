@@ -18,7 +18,7 @@
     <LinearLayout
         android:id="@+id/file_chooser_bottom_id"
         android:layout_width="match_parent"
-        android:layout_height="162dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="16dp"
@@ -45,7 +45,8 @@
         <com.app.tributum.utils.ui.CustomButton
             android:id="@+id/add_from_gallery_id"
             style="@style/CtaWhiteButton"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -53,6 +54,22 @@
                 android:fontFamily="@font/manrope_bold"
                 android:gravity="center"
                 android:text="@string/add_from_gallery"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </com.app.tributum.utils.ui.CustomButton>
+
+        <com.app.tributum.utils.ui.CustomButton
+            android:id="@+id/add_pdf_id"
+            style="@style/CtaWhiteButton"
+            android:layout_marginBottom="24dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/manrope_bold"
+                android:gravity="center"
+                android:text="@string/add_pdf"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </com.app.tributum.utils.ui.CustomButton>

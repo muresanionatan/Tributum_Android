@@ -2,5 +2,5 @@ package com.app.tributum.listener;
 
 public interface AsyncListener {
 
-    void onTaskCompleted();
+    void onTaskCompleted(String process);
 }

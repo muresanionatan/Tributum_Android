@@ -147,7 +147,7 @@ public class InquiryPresenterImpl implements InquiryPresenter, RequestSentListen
     }
 
     @Override
-    public void onTaskCompleted() {
+    public void onTaskCompleted(String process) {
         if (view != null) {
             view.hideLoadingScreen();
             view.showRequestSent();

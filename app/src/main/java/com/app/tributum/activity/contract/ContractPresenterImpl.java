@@ -828,7 +828,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
     }
 
     @Override
-    public void onTaskCompleted() {
+    public void onTaskCompleted(String process) {
         if (view != null) {
             view.hideLoadingScreen();
             view.showRequestSentScreen();

@@ -48,6 +48,7 @@ public interface FormView {
     void addItemToMedicalList(VatModel vatModel);
 
     void setImage(String file, int resourceId);
+    void setPdfDefaultImage(int resourceId);
 
     void hideBottomSheet();
 
@@ -72,4 +73,5 @@ public interface FormView {
     void hideExpensesLayout();
     void showMedicalLayout();
     void hideMedicalLayout();
+    void openPdfIntent();
 }

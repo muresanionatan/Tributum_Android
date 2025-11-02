@@ -421,7 +421,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     }
 
     @Override
-    public void onTaskCompleted() {
+    public void onTaskCompleted(String process) {
         presenter.onTaskCompleted(name.getText().toString().trim(),
                 payerEmail.getText().toString().trim(),
                 startingMonth.getText().toString().trim(),
