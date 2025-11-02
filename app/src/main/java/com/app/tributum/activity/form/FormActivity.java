@@ -53,22 +53,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class FormActivity extends AppCompatActivity implements FormView {
-
     private BottomSheetBehavior<View> fileChooser;
-
     private FormPresenterImpl presenter;
-
-    private RecyclerView bsRecyclerView;
-    private RecyclerView childRecyclerView;
-    private RecyclerView expensesRecyclerView;
-    private RecyclerView medicalRecyclerView;
     private FormAdapter bsAdapter;
     private FormAdapter kidsAdapter;
     private FormAdapter expensesAdapter;
     private FormAdapter medicalAdapter;
-
     private LoadingScreen loadingScreen;
-
     private RequestSent requestSent;
     private final ActivityResultLauncher<PickVisualMediaRequest> pickBank =
             registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(20), uris -> {
@@ -126,12 +117,12 @@ public class FormActivity extends AppCompatActivity implements FormView {
         }
     });
 
-    private ActivityResultLauncher<Intent> pdfBankPickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    private final ActivityResultLauncher<Intent> pdfBankPickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 presenter.handlePdfSelected(result);
             });
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "CutPasteId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,11 +135,11 @@ public class FormActivity extends AppCompatActivity implements FormView {
         presenter = new FormPresenterImpl(this);
         presenter.onCreate();
 
-        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_vat, R.color.vat_1);
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_vat, R.color.inquiry_1);
         loadingScreen.setText(getString(R.string.might_take_pictures));
-        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_vat, getString(R.string.form_sent), presenter);
+        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_inquiry, getString(R.string.form_sent), presenter);
 
-        bsRecyclerView = findViewById(R.id.form_bank_recycler_id);
+        RecyclerView bsRecyclerView = findViewById(R.id.form_bank_recycler_id);
         bsRecyclerView.setHasFixedSize(true);
         bsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -162,7 +153,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
             }
         });
 
-        childRecyclerView = findViewById(R.id.form_child_recycler_id);
+        RecyclerView childRecyclerView = findViewById(R.id.form_child_recycler_id);
         childRecyclerView.setHasFixedSize(true);
         childRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -176,7 +167,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
             }
         });
 
-        expensesRecyclerView = findViewById(R.id.form_expenses_recycler_id);
+        RecyclerView expensesRecyclerView = findViewById(R.id.form_expenses_recycler_id);
         expensesRecyclerView.setHasFixedSize(true);
         expensesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -190,7 +181,7 @@ public class FormActivity extends AppCompatActivity implements FormView {
             }
         });
 
-        medicalRecyclerView = findViewById(R.id.form_medical_recycler_id);
+        RecyclerView medicalRecyclerView = findViewById(R.id.form_medical_recycler_id);
         medicalRecyclerView.setHasFixedSize(true);
         medicalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

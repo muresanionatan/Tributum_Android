@@ -142,22 +142,22 @@
                         style="@style/MainScreeButton"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
-                        android:background="@drawable/main_screen_rct_button_background">
+                        android:background="@drawable/main_screen_inquiry_button_background">
 
                         <ImageView
                             android:id="@+id/form_image_id"
                             style="@style/MainScreeButtonImage"
-                            android:src="@drawable/ic_icon_rct" />
+                            android:src="@drawable/ic_icon_inquiry" />
 
                         <TextView
                             style="@style/MainScreeButtonTitle"
                             android:layout_below="@+id/form_image_id"
                             android:text="@string/form_11_label"
-                            android:textColor="@color/rct" />
+                            android:textColor="@color/inquiry_1" />
 
                         <ImageView
                             style="@style/MainScreeButtonDash"
-                            app:tint="@color/rct" />
+                            app:tint="@color/inquiry_1" />
                     </com.app.tributum.utils.ui.CustomButton>
                 </LinearLayout>
 

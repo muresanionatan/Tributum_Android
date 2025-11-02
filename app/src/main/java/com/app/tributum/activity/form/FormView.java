@@ -4,8 +4,6 @@ import android.net.Uri;
 
 import com.app.tributum.activity.vat.model.VatModel;
 
-import java.io.File;
-
 public interface FormView {
 
     void showToast(int stringId);

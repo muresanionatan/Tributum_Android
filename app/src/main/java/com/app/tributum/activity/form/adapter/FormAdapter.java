@@ -1,7 +1,6 @@
 package com.app.tributum.activity.form.adapter;
 
 import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

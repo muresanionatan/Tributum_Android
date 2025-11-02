@@ -20,7 +20,7 @@
                 android:layout_height="36dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_icon_back"
-                app:tint="@color/contract_1" />
+                app:tint="@color/inquiry_1" />
         </LinearLayout>
 
         <com.app.tributum.utils.ui.CustomScrollView
@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginStart="8dp"
                     android:text="Form 11"
-                    android:textColor="@color/contract_1" />
+                    android:textColor="@color/inquiry_1" />
 
                 <TextView
                     style="@style/SubtitleText"
@@ -254,7 +254,7 @@
                         style="@style/SendButton"
                         android:layout_marginTop="32dp"
                         android:layout_marginBottom="32dp"
-                        android:background="@drawable/contract_send"
+                        android:background="@drawable/inquiry_send"
                         android:text="@string/send_form_label" />
                 </com.app.tributum.utils.ui.CustomButton>
             </LinearLayout>
