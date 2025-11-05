@@ -21,16 +21,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class CombinePhotosInPdfTask extends AsyncTask<Void, Void, Void> {
-
     private CombinePdfListener listener;
-
     private List<VatModel> photosList;
-
     private String username;
-
-    private static String imageFileName;
-    private static String fileName;
-
+    private String imageFileName;
+    private String fileName;
     private List<File> pdfFile;
 
     public CombinePhotosInPdfTask(CombinePdfListener listener, List<VatModel> photosList, String username, String fileName, List<File> pdfFile) {

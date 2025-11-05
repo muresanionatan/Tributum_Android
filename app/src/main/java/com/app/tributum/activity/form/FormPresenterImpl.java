@@ -503,7 +503,7 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
 
     private String generateUserInfo(String name, String year, String rent) {
         return "Name: " + name
-                + "\nClose year: " + year
+                + "\nClosing year: " + year
                 + "\nRent paid: " + rent;
     }
 
