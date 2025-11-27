@@ -159,7 +159,7 @@
                             android:id="@+id/privates_checkbox_id"
                             style="@style/CheckBox"
                             android:layout_marginStart="14dp"
-                            android:button="@drawable/payment_selector"
+                            android:background="@drawable/vat_selector"
                             android:checked="false" />
 
                         <TextView

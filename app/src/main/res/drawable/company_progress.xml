@@ -16,7 +16,7 @@
         <scale android:scaleWidth="100%">
             <shape>
                 <corners android:radius="8dp" />
-                <solid android:color="@color/salary" />
+                <solid android:color="@color/company_1" />
             </shape>
         </scale>
     </item>

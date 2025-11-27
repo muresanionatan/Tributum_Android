@@ -23,7 +23,7 @@
                 android:layout_height="36dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_icon_back"
-                app:tint="@color/salary" />
+                app:tint="@color/company_1" />
         </LinearLayout>
 
         <LinearLayout
@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginStart="8dp"
                     android:text="@string/company_foundation_label"
-                    android:textColor="@color/salary" />
+                    android:textColor="@color/company_1" />
 
                 <TextView
                     style="@style/SubtitleText"
@@ -132,8 +132,8 @@
                         style="@style/SendButton"
                         android:layout_marginTop="32dp"
                         android:layout_marginBottom="32dp"
-                        android:background="@drawable/salary_send"
-                        android:text="@string/send_form_label" />
+                        android:background="@drawable/company_send"
+                        android:text="@string/continue_label" />
                 </com.app.tributum.utils.ui.CustomButton>
             </LinearLayout>
         </com.app.tributum.utils.ui.CustomScrollView>

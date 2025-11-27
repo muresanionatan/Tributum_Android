@@ -118,8 +118,9 @@
                         android:id="@+id/net_checkbox"
                         style="@style/CheckBox"
                         android:layout_marginStart="14dp"
-                        android:button="@drawable/payment_selector"
-                        android:checked="true" />
+                        android:background="@drawable/payment_selector"
+                        android:checked="true"
+                        app:buttonCompat="@null" />
 
                     <TextView
                         android:id="@+id/net_text_id"
@@ -145,8 +146,9 @@
                         android:id="@+id/gross_checkbox"
                         style="@style/CheckBox"
                         android:layout_marginStart="20dp"
-                        android:button="@drawable/payment_selector"
-                        android:checked="false" />
+                        android:background="@drawable/payment_selector"
+                        android:checked="false"
+                        app:buttonCompat="@null" />
 
                     <TextView
                         android:id="@+id/gross_text_id"

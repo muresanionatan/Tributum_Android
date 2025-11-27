@@ -142,22 +142,22 @@
                         style="@style/MainScreeButton"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
-                        android:background="@drawable/main_screen_inquiry_button_background">
+                        android:background="@drawable/main_screen_form_button_background">
 
                         <ImageView
                             android:id="@+id/form_image_id"
                             style="@style/MainScreeButtonImage"
-                            android:src="@drawable/ic_icon_inquiry" />
+                            android:src="@drawable/ic_icon_form" />
 
                         <TextView
                             style="@style/MainScreeButtonTitle"
                             android:layout_below="@+id/form_image_id"
                             android:text="@string/form_11_label"
-                            android:textColor="@color/inquiry_1" />
+                            android:textColor="@color/form_1" />
 
                         <ImageView
                             style="@style/MainScreeButtonDash"
-                            app:tint="@color/inquiry_1" />
+                            app:tint="@color/form_1" />
                     </com.app.tributum.utils.ui.CustomButton>
                 </LinearLayout>
 
@@ -251,22 +251,22 @@
                         style="@style/MainScreeButton"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
-                        android:background="@drawable/main_screen_inquiry_button_background">
+                        android:background="@drawable/main_screen_company_button_background">
 
                         <ImageView
                             android:id="@+id/company_image_id"
                             style="@style/MainScreeButtonImage"
-                            android:src="@drawable/ic_icon_inquiry" />
+                            android:src="@drawable/ic_icon_company" />
 
                         <TextView
                             style="@style/MainScreeButtonTitle"
                             android:layout_below="@+id/company_image_id"
                             android:text="@string/company_foundation_label"
-                            android:textColor="@color/inquiry_2" />
+                            android:textColor="@color/company_2" />
 
                         <ImageView
                             style="@style/MainScreeButtonDash"
-                            app:tint="@color/inquiry_2" />
+                            app:tint="@color/company_2" />
                     </com.app.tributum.utils.ui.CustomButton>
                 </LinearLayout>
             </LinearLayout>

@@ -20,6 +20,8 @@
     <color name="pps_2">#A7DD51</color>
     <color name="salary">#EEC545</color>
     <color name="salary_2">#CDA842</color>
+    <color name="company_1">#2F7488</color>
+    <color name="company_2">#2F8857</color>
     <color name="error">#f65b94</color>
 
     <color name="contract_rectangle_1">#3194C1</color>
@@ -28,4 +30,6 @@
     <color name="rct_rectangle_2">#A66CB8</color>
     <color name="inquiry_1">#BA6796</color>
     <color name="inquiry_2">#D16A6A</color>
+    <color name="form_1">#DCAE6C</color>
+    <color name="form_2">#DC826C</color>
 </resources>
