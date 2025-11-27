@@ -34,6 +34,9 @@ import com.app.tributum.R;
 import com.app.tributum.activity.form.adapter.FormAdapter;
 import com.app.tributum.activity.form.adapter.FormAdapterState;
 import com.app.tributum.activity.vat.model.VatModel;
+import com.app.tributum.application.AppKeysValues;
+import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
 import com.app.tributum.utils.animation.CustomAnimatorListener;
@@ -126,7 +129,9 @@ public class FormActivity extends AppCompatActivity implements FormView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.form_activity);
+        StatusBarUtils.makeStatusBarTransparent(this);
 
         RelativeLayout llBottomSheet = findViewById(R.id.file_chooser_id);
         fileChooser = BottomSheetBehavior.from(llBottomSheet);

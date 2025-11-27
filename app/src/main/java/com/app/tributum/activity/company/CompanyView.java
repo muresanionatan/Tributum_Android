@@ -21,4 +21,20 @@ public interface CompanyView {
     void hideThirdDirector();
 
     void showThirdDirector();
+
+    void hideCompanyView();
+
+    void showCompanyView();
+
+    void hideDirectorViewToLeft();
+    void hideDirectorViewToRight();
+
+    void showDirectorViewFromRight();
+    void showDirectorViewFromLeft();
+
+    void hideSecretaryView();
+
+    void showSecretaryView();
+
+    void setConfirmationButtonText(int continueLabel);
 }

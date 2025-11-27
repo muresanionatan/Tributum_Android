@@ -10,4 +10,6 @@ public interface CompanyPresenter {
 
     void onDirector2Click();
     void onDirector3Click();
+
+    void onMainButtonClick();
 }

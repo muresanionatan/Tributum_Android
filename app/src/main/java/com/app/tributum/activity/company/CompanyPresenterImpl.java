@@ -1,31 +1,7 @@
 package com.app.tributum.activity.company;
 
-import android.app.Activity;
-import android.content.Intent;
-
-import androidx.annotation.NonNull;
-
 import com.app.tributum.R;
-import com.app.tributum.activity.inquiry.InquiryPresenter;
-import com.app.tributum.activity.inquiry.InquiryView;
-import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.AsyncListener;
-import com.app.tributum.listener.RequestSentListener;
-import com.app.tributum.model.EmailBody;
-import com.app.tributum.retrofit.InterfaceAPI;
-import com.app.tributum.retrofit.RetrofitClientInstance;
-import com.app.tributum.utils.CalendarUtils;
-import com.app.tributum.utils.ConstantsUtils;
-import com.app.tributum.utils.ImageUtils;
-import com.app.tributum.utils.UploadAsyncTask;
-import com.app.tributum.utils.ValidationUtils;
-
-import java.io.File;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter {
 
@@ -34,6 +10,9 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter {
     private boolean hasSecondDirector;
 
     private boolean hasThirdDirector;
+
+    @CompanyProgressState
+    private int state = CompanyProgressState.COMPANY;
 
     public CompanyPresenterImpl(CompanyView view) {
         this.view = view;
@@ -96,6 +75,41 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter {
 //    }
 
     @Override
+    public void onMainButtonClick() {
+        if (state == CompanyProgressState.COMPANY) {
+            moveToDirectorScreen();
+        } else if (state == CompanyProgressState.DIRECTOR) {
+            moveToSecretaryScreen();
+        } else {
+            sendInfo();
+        }
+    }
+
+    private void moveToCompanyScreen() {
+        state = CompanyProgressState.COMPANY;
+        view.hideDirectorViewToLeft();
+        view.showCompanyView();
+    }
+
+    private void moveToDirectorScreen() {
+        state = CompanyProgressState.DIRECTOR;
+        view.hideCompanyView();
+        view.showDirectorViewFromRight();
+        view.setConfirmationButtonText(R.string.continue_label);
+    }
+
+    private void moveToSecretaryScreen() {
+        state = CompanyProgressState.SECRETARY;
+        view.hideDirectorViewToLeft();
+        view.showSecretaryView();
+        view.setConfirmationButtonText(R.string.send_form_label);
+    }
+
+    private void sendInfo() {
+
+    }
+
+    @Override
     public void onSendClick(String name, String email, String description) {
         if (view == null)
             return;
@@ -139,7 +153,18 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter {
         if (view == null)
             return;
 
-        view.closeActivity();
+        if (state == CompanyProgressState.SECRETARY) {
+            state = CompanyProgressState.DIRECTOR;
+            view.hideSecretaryView();
+            view.showDirectorViewFromLeft();
+            view.setConfirmationButtonText(R.string.continue_label);
+        } else if (state == CompanyProgressState.DIRECTOR) {
+            state = CompanyProgressState.COMPANY;
+            view.hideDirectorViewToRight();
+            view.showCompanyView();
+        } else if (state == CompanyProgressState.COMPANY) {
+            view.closeActivity();
+        }
     }
 
     @Override

@@ -1,30 +1,64 @@
 package com.app.tributum.activity.company;
 
+import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
+import com.app.tributum.application.AppKeysValues;
+import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.utils.StatusBarUtils;
+import com.app.tributum.utils.UtilsGeneral;
+import com.app.tributum.utils.animation.AnimUtils;
+import com.app.tributum.utils.animation.CustomAnimatorListener;
+import com.app.tributum.utils.ui.CustomScrollView;
+import com.app.tributum.utils.ui.UiUtils;
 
 public class CompanyActivity extends AppCompatActivity implements CompanyView {
 
     private CompanyPresenterImpl presenter;
 
+    private NestedScrollView scrollView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.activity_company);
+        StatusBarUtils.makeStatusBarTransparent(this);
 
         presenter = new CompanyPresenterImpl(this);
 
         setupViesAndClicks();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setupViesAndClicks() {
+        scrollView = findViewById(R.id.scrollView);
+        findViewById(R.id.company_back_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onBackPressed();
+            }
+        });
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event != null && event.getAction() == MotionEvent.ACTION_MOVE) {
+                    UtilsGeneral.hideSoftKeyboard(CompanyActivity.this);
+                }
+                return false;
+            }
+        });
+
         findViewById(R.id.director_2_layout_checkbox_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +83,12 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
                 presenter.onDirector3Click();
             }
         });
+        findViewById(R.id.company_send_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onMainButtonClick();
+            }
+        });
     }
 
     @Override
@@ -70,6 +110,149 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     }
 
     @Override
+    public void hideCompanyView() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.company_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.company_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                0, -UiUtils.getScreenWidth()).start();
+    }
+
+    @Override
+    public void showCompanyView() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.company_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        findViewById(R.id.company_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                0).start();
+    }
+
+    @Override
+    public void hideDirectorViewToLeft() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.directors_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.directors_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                -UiUtils.getScreenWidth()).start();
+    }
+
+    @Override
+    public void hideDirectorViewToRight() {
+        setCompletionProgress(R.id.second_progress_id, false);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.directors_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.directors_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                UiUtils.getScreenWidth()).start();
+    }
+
+    @Override
+    public void showDirectorViewFromRight() {
+        setCompletionProgress(R.id.second_progress_id, true);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.directors_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        scrollView.scrollTo(0, 0);
+                        findViewById(R.id.directors_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                UiUtils.getScreenWidth(), 0).start();
+    }
+
+    @Override
+    public void showDirectorViewFromLeft() {
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.directors_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        findViewById(R.id.directors_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                0).start();
+    }
+
+    @Override
+    public void hideSecretaryView() {
+        setCompletionProgress(R.id.third_progress_id, false);
+        ((CustomScrollView) scrollView).setScrollingEnabled(true);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.director_2_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        findViewById(R.id.director_2_layout_id).setVisibility(View.GONE);
+                    }
+                },
+                UiUtils.getScreenWidth()).start();
+    }
+
+    @Override
+    public void showSecretaryView() {
+        setCompletionProgress(R.id.third_progress_id, true);
+        ((CustomScrollView) scrollView).setScrollingEnabled(false);
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.director_2_layout_id),
+                AnimUtils.DURATION_500,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                new CustomAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        scrollView.scrollTo(0, 0);
+                        findViewById(R.id.director_2_layout_id).setVisibility(View.VISIBLE);
+                    }
+                },
+                UiUtils.getScreenWidth(), 0).start();
+    }
+
+    @Override
+    public void setConfirmationButtonText(int stringRes) {
+        ((TextView) findViewById(R.id.company_send_text_id)).setText(stringRes);
+    }
+
+    private void setCompletionProgress(int progressId, boolean forward) {
+        int progress = forward ? 100 : 0;
+        AnimUtils.getProgressAnimator(findViewById(progressId),
+                AnimUtils.DURATION_300,
+                AnimUtils.NO_DELAY,
+                new DecelerateInterpolator(),
+                null,
+                progress).start();
+    }
+
+    @Override
     public void hideThirdDirector() {
         ((CheckBox) findViewById(R.id.director_3_checkbox_id)).setChecked(false);
         findViewById(R.id.director_3_layout_id).setVisibility(View.GONE);
@@ -82,7 +265,7 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
 
     @Override
     public void closeActivity() {
-
+        finish();
     }
 
     @Override
@@ -103,5 +286,10 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     @Override
     public void showRequestSent() {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        presenter.onBackPressed();
     }
 }
