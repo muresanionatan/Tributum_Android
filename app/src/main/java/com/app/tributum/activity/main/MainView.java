@@ -58,4 +58,6 @@ public interface MainView {
     void startSalaryActivity();
 
     void startFormActivity();
+
+    void startCompanyActivity();
 }

@@ -22,6 +22,7 @@ import androidx.core.splashscreen.SplashScreen;
 import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
+import com.app.tributum.activity.CompanyActivity;
 import com.app.tributum.activity.faq.FaqActivity;
 import com.app.tributum.activity.contract.ContractActivity;
 import com.app.tributum.activity.form.FormActivity;
@@ -150,6 +151,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
             }
         });
 
+        findViewById(R.id.company_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onCompanyClick();
+            }
+        });
+
         findViewById(R.id.faq_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -265,6 +273,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void startFormActivity() {
         startActivity(new Intent(this, FormActivity.class));
+    }
+
+    @Override
+    public void startCompanyActivity() {
+        startActivity(new Intent(this, CompanyActivity.class));
     }
 
     @Override

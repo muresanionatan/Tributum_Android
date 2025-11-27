@@ -246,10 +246,28 @@
                             app:tint="@color/inquiry_2" />
                     </com.app.tributum.utils.ui.CustomButton>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="184dp"
-                        android:layout_weight="1" />
+                    <com.app.tributum.utils.ui.CustomButton
+                        android:id="@+id/company_id"
+                        style="@style/MainScreeButton"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/main_screen_inquiry_button_background">
+
+                        <ImageView
+                            android:id="@+id/company_image_id"
+                            style="@style/MainScreeButtonImage"
+                            android:src="@drawable/ic_icon_inquiry" />
+
+                        <TextView
+                            style="@style/MainScreeButtonTitle"
+                            android:layout_below="@+id/company_image_id"
+                            android:text="@string/company_foundation_label"
+                            android:textColor="@color/inquiry_2" />
+
+                        <ImageView
+                            style="@style/MainScreeButtonDash"
+                            app:tint="@color/inquiry_2" />
+                    </com.app.tributum.utils.ui.CustomButton>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

@@ -48,4 +48,6 @@ public interface MainPresenter {
     void onRequestPermissionsResult(int requestCode, @NonNull int[] grantResults);
 
     void onFormClick();
+
+    void onCompanyClick();
 }

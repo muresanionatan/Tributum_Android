@@ -231,4 +231,6 @@
     <string name="secretary_home_address_label">Company Secretary Home Address</string>
     <string name="secretary_email_label">Company Secretary email</string>
     <string name="secretary_pps_label">Company Secretary PPS Number</string>
+    <string name="director_2_label">Director 2 Information (optional)</string>
+    <string name="director_3_label">Director 3 Information (optional)</string>
 </resources>

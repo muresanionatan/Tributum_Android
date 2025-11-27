@@ -95,120 +95,33 @@
                     android:layout_marginStart="8dp"
                     android:text="@string/mandatory_fields" />
 
-                <include layout="@layout/company_layout"/>
+                <include layout="@layout/company_layout" />
 
-                <include layout="@layout/director_layout"/>
+                <TextView
+                    style="@style/MostUsedText"
+                    android:text="@string/director_1_label" />
 
-                <include layout="@layout/director_layout"/>
+                <include
+                    android:id="@+id/director_1_layout_id"
+                    layout="@layout/director_layout" />
 
-                <include layout="@layout/director_layout"/>
+                <TextView
+                    style="@style/MostUsedText"
+                    android:text="@string/director_2_label" />
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="vertical">-->
+                <include
+                    android:id="@+id/director_2_layout_id"
+                    layout="@layout/director_layout" />
 
-<!--                    <EditText-->
-<!--                        android:id="@+id/full_name_edit_text"-->
-<!--                        style="@style/CustomEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_marginTop="12dp"-->
-<!--                        android:hint="@string/first_name_label"-->
-<!--                        android:inputType="textCapWords" />-->
+                <TextView
+                    style="@style/MostUsedText"
+                    android:text="@string/director_3_label" />
 
-<!--                    <EditText-->
-<!--                        android:id="@+id/sur_name_edit_text"-->
-<!--                        style="@style/CustomEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_marginTop="12dp"-->
-<!--                        android:hint="@string/sur_name_label"-->
-<!--                        android:inputType="textCapWords" />-->
+                <include
+                    android:id="@+id/director_3_layout_id"
+                    layout="@layout/director_layout" />
 
-<!--                    <EditText-->
-<!--                        android:id="@+id/email_edit_text"-->
-<!--                        style="@style/CustomEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:hint="@string/email_label"-->
-<!--                        android:inputType="textEmailAddress" />-->
-
-<!--                    <EditText-->
-<!--                        android:id="@+id/phone_edit_text"-->
-<!--                        style="@style/CustomEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:hint="@string/phone_label"-->
-<!--                        android:inputType="phone" />-->
-
-<!--                    <EditText-->
-<!--                        android:id="@+id/company_edit_text"-->
-<!--                        style="@style/CustomEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:hint="@string/company_name_label"-->
-<!--                        android:inputType="textCapWords" />-->
-
-<!--                    <EditText-->
-<!--                        android:id="@+id/proposed_edit_text"-->
-<!--                        style="@style/CustomEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:hint="@string/proposed_name_label"-->
-<!--                        android:inputType="textCapWords" />-->
-
-<!--                    <TextView-->
-<!--                        style="@style/MostUsedText"-->
-<!--                        android:text="@string/address_label" />-->
-
-<!--                    <EditText-->
-<!--                        android:id="@+id/street_edit_text"-->
-<!--                        style="@style/CustomEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:hint="@string/street_address_label"-->
-<!--                        android:inputType="textCapWords" />-->
-
-<!--                    <EditText-->
-<!--                        android:id="@+id/town_edit_text"-->
-<!--                        style="@style/CustomEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:hint="@string/town_city_label"-->
-<!--                        android:inputType="textCapWords" />-->
-
-<!--                    <EditText-->
-<!--                        android:id="@+id/country_edit_text"-->
-<!--                        style="@style/CustomEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:hint="@string/country_label"-->
-<!--                        android:inputType="textCapWords" />-->
-
-<!--                    <EditText-->
-<!--                        android:id="@+id/company_activities_edit_text"-->
-<!--                        style="@style/CustomEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:hint="@string/company_activities_label"-->
-<!--                        android:inputType="textCapWords" />-->
-
-<!--                    <TextView-->
-<!--                        style="@style/MostUsedText"-->
-<!--                        android:fontFamily="@font/manrope_regular"-->
-<!--                        android:text="@string/we_can_provide" />-->
-
-<!--                    <EditText-->
-<!--                        android:id="@+id/registered_edit_text"-->
-<!--                        style="@style/CustomEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="120dp"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:gravity="top|start"-->
-<!--                        android:hint="@string/registered_label"-->
-<!--                        android:inputType="textCapWords"-->
-<!--                        android:maxLines="5" />-->
-
-<!--                </LinearLayout>-->
+                <include layout="@layout/secretary_layout" />
 
                 <com.app.tributum.utils.ui.CustomButton
                     android:id="@+id/company_send_layout_id"

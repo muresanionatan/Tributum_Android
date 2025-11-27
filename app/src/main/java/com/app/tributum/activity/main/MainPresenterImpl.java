@@ -125,6 +125,12 @@ public class MainPresenterImpl implements MainPresenter {
             view.startFormActivity();
     }
 
+    @Override
+    public void onCompanyClick() {
+        if (view != null)
+            view.startCompanyActivity();
+    }
+
     private void handleActivityStart() {
         if (view == null)
             return;
