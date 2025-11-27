@@ -1,0 +1,24 @@
+package com.app.tributum.activity.company;
+
+public interface CompanyView {
+
+    void showToast(String message);
+
+    void closeActivity();
+
+    void hideKeyboard();
+
+    void showLoadingScreen();
+
+    void hideLoadingScreen();
+
+    void showRequestSent();
+
+    void hideSecondDirector();
+
+    void showSecondDirector();
+
+    void hideThirdDirector();
+
+    void showThirdDirector();
+}

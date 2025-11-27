@@ -22,7 +22,7 @@ import androidx.core.splashscreen.SplashScreen;
 import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
-import com.app.tributum.activity.CompanyActivity;
+import com.app.tributum.activity.company.CompanyActivity;
 import com.app.tributum.activity.faq.FaqActivity;
 import com.app.tributum.activity.contract.ContractActivity;
 import com.app.tributum.activity.form.FormActivity;

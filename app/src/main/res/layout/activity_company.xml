@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey_1"
     android:fitsSystemWindows="true"
-    tools:context=".activity.CompanyActivity"
+    tools:context=".activity.company.CompanyActivity"
     tools:ignore="Autofill">
 
     <RelativeLayout
@@ -23,7 +23,8 @@
                 android:layout_height="36dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_icon_back"
-                app:tint="@color/company_1" />
+                app:tint="@color/company_1"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
 
         <LinearLayout
@@ -105,21 +106,61 @@
                     android:id="@+id/director_1_layout_id"
                     layout="@layout/director_layout" />
 
-                <TextView
-                    style="@style/MostUsedText"
-                    android:text="@string/director_2_label" />
+                <LinearLayout
+                    android:id="@+id/director_2_layout_checkbox_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="-8dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/white_rectangle_corners"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/director_2_checkbox_id"
+                        style="@style/CheckBox"
+                        android:layout_marginStart="14dp"
+                        android:background="@drawable/company_selector"
+                        android:checked="false" />
+
+                    <TextView
+                        style="@style/MostUsedText"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/director_2_label" />
+                </LinearLayout>
 
                 <include
                     android:id="@+id/director_2_layout_id"
-                    layout="@layout/director_layout" />
+                    layout="@layout/director_layout"
+                    android:visibility="gone" />
 
-                <TextView
-                    style="@style/MostUsedText"
-                    android:text="@string/director_3_label" />
+                <LinearLayout
+                    android:id="@+id/director_3_layout_checkbox_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="-8dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/white_rectangle_corners"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/director_3_checkbox_id"
+                        style="@style/CheckBox"
+                        android:layout_marginStart="14dp"
+                        android:background="@drawable/company_selector"
+                        android:checked="false" />
+
+                    <TextView
+                        style="@style/MostUsedText"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/director_3_label" />
+                </LinearLayout>
 
                 <include
                     android:id="@+id/director_3_layout_id"
-                    layout="@layout/director_layout" />
+                    layout="@layout/director_layout"
+                    android:visibility="gone" />
 
                 <include layout="@layout/secretary_layout" />
 
