@@ -206,14 +206,14 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     public void hideSecretaryView() {
         setCompletionProgress(R.id.third_progress_id, false);
         ((CustomScrollView) scrollView).setScrollingEnabled(true);
-        AnimUtils.getTranslationXAnimator(findViewById(R.id.director_2_layout_id),
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.secretary_layout_id),
                 AnimUtils.DURATION_500,
                 AnimUtils.NO_DELAY,
                 new DecelerateInterpolator(),
                 new CustomAnimatorListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        findViewById(R.id.director_2_layout_id).setVisibility(View.GONE);
+                        findViewById(R.id.secretary_layout_id).setVisibility(View.GONE);
                     }
                 },
                 UiUtils.getScreenWidth()).start();
@@ -223,7 +223,7 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     public void showSecretaryView() {
         setCompletionProgress(R.id.third_progress_id, true);
         ((CustomScrollView) scrollView).setScrollingEnabled(false);
-        AnimUtils.getTranslationXAnimator(findViewById(R.id.director_2_layout_id),
+        AnimUtils.getTranslationXAnimator(findViewById(R.id.secretary_layout_id),
                 AnimUtils.DURATION_500,
                 AnimUtils.NO_DELAY,
                 new DecelerateInterpolator(),
@@ -231,7 +231,7 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
                     @Override
                     public void onAnimationStart(Animator animation) {
                         scrollView.scrollTo(0, 0);
-                        findViewById(R.id.director_2_layout_id).setVisibility(View.VISIBLE);
+                        findViewById(R.id.secretary_layout_id).setVisibility(View.VISIBLE);
                     }
                 },
                 UiUtils.getScreenWidth(), 0).start();

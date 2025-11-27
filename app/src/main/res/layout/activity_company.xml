@@ -172,7 +172,10 @@
                         android:visibility="gone" />
                 </LinearLayout>
 
-                <include layout="@layout/secretary_layout" />
+                <include
+                    android:id="@+id/secretary_layout_id"
+                    layout="@layout/secretary_layout"
+                    android:visibility="gone" />
 
                 <com.app.tributum.utils.ui.CustomButton
                     android:id="@+id/company_send_layout_id"
