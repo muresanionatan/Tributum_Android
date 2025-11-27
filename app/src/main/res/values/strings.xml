@@ -204,4 +204,31 @@
     <string name="form_sent">Form 11 sent</string>
     <string name="add_pdf">Add PDF file</string>
     <string name="please_add_fisc">Please add wife\'s FISC documents</string>
+    <string name="company_foundation_label">Company Foundation</string>
+    <string name="phone_label">Phone</string>
+    <string name="sur_name_label">Surname<font color='#f65b94'>*</font></string>
+    <string name="company_name_label">Company Name (If you are business entity)<font color='#f65b94'>*</font></string>
+    <string name="proposed_name_label">Proposed Company Name<font color='#f65b94'>*</font></string>
+    <string name="street_address_label">Street Address<font color='#f65b94'>*</font></string>
+    <string name="town_city_label">Town/City<font color='#f65b94'>*</font></string>
+    <string name="country_label">Country<font color='#f65b94'>*</font></string>
+    <string name="company_activities_label">Company Activities<font color='#f65b94'>*</font></string>
+    <string name="we_can_provide">We can provide you with a Registered Office Address or you can provide your own address<font color='#f65b94'>*</font></string>
+    <string name="registered_label">Registered Office Address</string>
+    <string name="director_1_label">Director 1 Information</string>
+    <string name="director_name_label">Director First Name</string>
+    <string name="director_sur_name_label">Director Surname</string>
+    <string name="director_pps_label">Director PPS Number</string>
+    <string name="director_nationality_label">Director Nationality</string>
+    <string name="director_occupation_label">Director Occupation</string>
+    <string name="director_home_address_label">Director Home Address</string>
+    <string name="director_other_directorships_label">Other Directorships (if any)</string>
+    <string name="director_other_company_label">Other Company\'s Registration Number</string>
+    <string name="company_secretary_label">Company Secretary</string>
+    <string name="secretary_name_label">Company Secretary First Name</string>
+    <string name="secretary_sur_name_label">Company Secretary Sur Name</string>
+    <string name="secretary_nationality_label">Company Secretary Nationality</string>
+    <string name="secretary_home_address_label">Company Secretary Home Address</string>
+    <string name="secretary_email_label">Company Secretary email</string>
+    <string name="secretary_pps_label">Company Secretary PPS Number</string>
 </resources>

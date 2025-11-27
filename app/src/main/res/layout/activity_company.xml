@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_1"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.CompanyActivity"
+    tools:ignore="Autofill">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/company_back_id"
+            style="@style/BackLayout">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_icon_back"
+                app:tint="@color/salary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/progress_layout_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="98dp"
+            android:layout_toEndOf="@+id/company_back_id"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ProgressBar
+                android:id="@+id/first_progress_id"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1"
+                android:progress="100"
+                android:progressDrawable="@drawable/company_progress" />
+
+            <ProgressBar
+                android:id="@+id/second_progress_id"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1"
+                android:progress="0"
+                android:progressDrawable="@drawable/company_progress" />
+
+            <ProgressBar
+                android:id="@+id/third_progress_id"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:progress="0"
+                android:progressDrawable="@drawable/company_progress" />
+        </LinearLayout>
+
+        <com.app.tributum.utils.ui.CustomScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/company_back_id"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TitleText"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/company_foundation_label"
+                    android:textColor="@color/salary" />
+
+                <TextView
+                    style="@style/SubtitleText"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/mandatory_fields" />
+
+                <include layout="@layout/company_layout"/>
+
+                <include layout="@layout/director_layout"/>
+
+                <include layout="@layout/director_layout"/>
+
+                <include layout="@layout/director_layout"/>
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/full_name_edit_text"-->
+<!--                        style="@style/CustomEditText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="12dp"-->
+<!--                        android:hint="@string/first_name_label"-->
+<!--                        android:inputType="textCapWords" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/sur_name_edit_text"-->
+<!--                        style="@style/CustomEditText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="12dp"-->
+<!--                        android:hint="@string/sur_name_label"-->
+<!--                        android:inputType="textCapWords" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/email_edit_text"-->
+<!--                        style="@style/CustomEditText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:hint="@string/email_label"-->
+<!--                        android:inputType="textEmailAddress" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/phone_edit_text"-->
+<!--                        style="@style/CustomEditText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:hint="@string/phone_label"-->
+<!--                        android:inputType="phone" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/company_edit_text"-->
+<!--                        style="@style/CustomEditText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:hint="@string/company_name_label"-->
+<!--                        android:inputType="textCapWords" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/proposed_edit_text"-->
+<!--                        style="@style/CustomEditText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:hint="@string/proposed_name_label"-->
+<!--                        android:inputType="textCapWords" />-->
+
+<!--                    <TextView-->
+<!--                        style="@style/MostUsedText"-->
+<!--                        android:text="@string/address_label" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/street_edit_text"-->
+<!--                        style="@style/CustomEditText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:hint="@string/street_address_label"-->
+<!--                        android:inputType="textCapWords" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/town_edit_text"-->
+<!--                        style="@style/CustomEditText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:hint="@string/town_city_label"-->
+<!--                        android:inputType="textCapWords" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/country_edit_text"-->
+<!--                        style="@style/CustomEditText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:hint="@string/country_label"-->
+<!--                        android:inputType="textCapWords" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/company_activities_edit_text"-->
+<!--                        style="@style/CustomEditText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:hint="@string/company_activities_label"-->
+<!--                        android:inputType="textCapWords" />-->
+
+<!--                    <TextView-->
+<!--                        style="@style/MostUsedText"-->
+<!--                        android:fontFamily="@font/manrope_regular"-->
+<!--                        android:text="@string/we_can_provide" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/registered_edit_text"-->
+<!--                        style="@style/CustomEditText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="120dp"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:gravity="top|start"-->
+<!--                        android:hint="@string/registered_label"-->
+<!--                        android:inputType="textCapWords"-->
+<!--                        android:maxLines="5" />-->
+
+<!--                </LinearLayout>-->
+
+                <com.app.tributum.utils.ui.CustomButton
+                    android:id="@+id/company_send_layout_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/SendButton"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="32dp"
+                        android:background="@drawable/salary_send"
+                        android:text="@string/send_form_label" />
+                </com.app.tributum.utils.ui.CustomButton>
+            </LinearLayout>
+        </com.app.tributum.utils.ui.CustomScrollView>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
