@@ -12,6 +12,9 @@ import android.provider.OpenableColumns;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.app.tributum.activity.company.model.Company;
+import com.app.tributum.activity.company.model.Director;
+import com.app.tributum.activity.company.model.Secretary;
 import com.app.tributum.application.TributumApplication;
 
 import java.io.File;
@@ -23,6 +26,83 @@ import java.io.InputStream;
 public class FileUtils {
 
     private FileUtils() {
+    }
+
+    public static File createComapnyFile(Company company, Director director1, Director director2, Director director3, Secretary secretary) {
+        String text = "Company\n" +
+                "First Name: " + company.getFirstName() + "\n" +
+                "Sur Name: " + company.getSurName() + "\n" +
+                "Email: " + company.getEmail() + "\n" +
+                "Phone: " + company.getPhone() + "\n" +
+                "Company Name: " + company.getCompanyName() + "\n" +
+                "Proposed Company Name: " + company.getProposedCompanyName() + "\n" +
+                "Address: " + company.getAddress() + "\n" +
+                "Town: " + company.getTown() + "\n" +
+                "Country: " + company.getCountry() + "\n" +
+                "Activities: " + company.getActivities() + "\n" +
+                "Registered Office Address: " + company.getRegisteredOffice() + "\n\n" +
+                "Director" + "\n" +
+                "First Name: " + director1.getFirstName() + "\n" +
+                "Sur Name: " + director1.getSurName() + "\n" +
+                "Birthday: " + director1.getBirthday() + "\n" +
+                "PPS Number: " + director1.getPps() + "\n" +
+                "Nationality: " + director1.getNationality() + "\n" +
+                "Occupation: " + director1.getOccupation() + "\n" +
+                "Address: " + director1.getAddress() + "\n" +
+                "Directorships: " + director1.getDirectorships() + "\n" +
+                "Other Company's Registration Number: " + director1.getOther() + "\n\n";
+        if (!director2.getFirstName().isEmpty()) {
+            text = text +
+                    "Director2" + "\n" +
+                    "First Name: " + director2.getFirstName() + "\n" +
+                    "Sur Name: " + director2.getSurName() + "\n" +
+                    "Birthday: " + director2.getBirthday() + "\n" +
+                    "PPS Number: " + director2.getPps() + "\n" +
+                    "Nationality: " + director2.getNationality() + "\n" +
+                    "Occupation: " + director2.getOccupation() + "\n" +
+                    "Address: " + director2.getAddress() + "\n" +
+                    "Directorships: " + director2.getDirectorships() + "\n" +
+                    "Other Company's Registration Number: " + director2.getOther() + "\n\n";
+        }
+        if (!director3.getFirstName().isEmpty()) {
+            text = text +
+                    "Director3" + "\n" +
+                    "First Name: " + director3.getFirstName() + "\n" +
+                    "Sur Name: " + director3.getSurName() + "\n" +
+                    "Birthday: " + director3.getBirthday() + "\n" +
+                    "PPS Number: " + director3.getPps() + "\n" +
+                    "Nationality: " + director3.getNationality() + "\n" +
+                    "Occupation: " + director3.getOccupation() + "\n" +
+                    "Address: " + director3.getAddress() + "\n" +
+                    "Directorships: " + director3.getDirectorships() + "\n" +
+                    "Other Company's Registration Number: " + director3.getOther() + "\n\n";
+        }
+        text = text +
+                "Secretary" + "\n" +
+                "First Name: " + secretary.getFirstName() + "\n" +
+                "Sur Name: " + secretary.getSurName() + "\n" +
+                "Birthday: " + secretary.getBirthday() + "\n" +
+                "Email: " + secretary.getEmail() + "\n" +
+                "PPS Number: " + secretary.getPps() + "\n" +
+                "Nationality: " + secretary.getNationality() + "\n" +
+                "Address: " + secretary.getAddress() + "\n";
+
+        File file = null;
+        try {
+            File root = new File(TributumApplication.getInstance().getExternalFilesDir(null), "Files");
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            file = new File(root, company.getCompanyName());
+            FileWriter writer = new FileWriter(file);
+            writer.append(text);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return file;
     }
 
     public static File createFile(String message, String sFileName) {

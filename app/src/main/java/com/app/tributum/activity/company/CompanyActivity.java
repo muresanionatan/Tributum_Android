@@ -7,12 +7,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
+import com.app.tributum.activity.company.model.Company;
+import com.app.tributum.activity.company.model.Director;
+import com.app.tributum.activity.company.model.Secretary;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.utils.StatusBarUtils;
@@ -205,7 +209,6 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     @Override
     public void hideSecretaryView() {
         setCompletionProgress(R.id.third_progress_id, false);
-        ((CustomScrollView) scrollView).setScrollingEnabled(true);
         AnimUtils.getTranslationXAnimator(findViewById(R.id.secretary_layout_id),
                 AnimUtils.DURATION_500,
                 AnimUtils.NO_DELAY,
@@ -222,7 +225,6 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     @Override
     public void showSecretaryView() {
         setCompletionProgress(R.id.third_progress_id, true);
-        ((CustomScrollView) scrollView).setScrollingEnabled(false);
         AnimUtils.getTranslationXAnimator(findViewById(R.id.secretary_layout_id),
                 AnimUtils.DURATION_500,
                 AnimUtils.NO_DELAY,
@@ -291,5 +293,70 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     @Override
     public void onBackPressed() {
         presenter.onBackPressed();
+    }
+
+    @Override
+    public Company getCompanyDetails() {
+        return new Company(((EditText) findViewById(R.id.full_name_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.sur_name_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.email_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.phone_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.company_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.proposed_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.street_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.town_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.country_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.company_activities_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.registered_edit_text)).getText().toString().trim());
+    }
+
+    @Override
+    public Director getDirector1Details() {
+        return new Director(((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_first_name_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_sur_name_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_birthday_id)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_pps_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_nationality_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_occupation_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_home_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_other_directorships_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_other_company_edit_text)).getText().toString().trim());
+    }
+
+    @Override
+    public Director getDirector2Details() {
+        return new Director(((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_first_name_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_sur_name_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_birthday_id)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_pps_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_nationality_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_occupation_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_home_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_other_directorships_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_other_company_edit_text)).getText().toString().trim());
+    }
+
+    @Override
+    public Director getDirector3Details() {
+        return new Director(((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_first_name_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_sur_name_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_birthday_id)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_pps_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_nationality_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_occupation_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_home_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_other_directorships_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_other_company_edit_text)).getText().toString().trim());
+    }
+
+    @Override
+    public Secretary getSecretaryDetails() {
+        return new Secretary(((EditText) findViewById(R.id.secretary_first_name_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.secretary_sur_name_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.secretary_birthday_id)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.secretary_email_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.secretary_pps_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.secretary_nationality_edit_text)).getText().toString().trim(),
+                ((EditText) findViewById(R.id.secretary_home_edit_text)).getText().toString().trim());
     }
 }

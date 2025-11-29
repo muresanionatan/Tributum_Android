@@ -1,5 +1,9 @@
 package com.app.tributum.activity.company;
 
+import com.app.tributum.activity.company.model.Company;
+import com.app.tributum.activity.company.model.Director;
+import com.app.tributum.activity.company.model.Secretary;
+
 public interface CompanyView {
 
     void showToast(String message);
@@ -37,4 +41,11 @@ public interface CompanyView {
     void showSecretaryView();
 
     void setConfirmationButtonText(int continueLabel);
+
+    Company getCompanyDetails();
+
+    Director getDirector1Details();
+    Director getDirector2Details();
+    Director getDirector3Details();
+    Secretary getSecretaryDetails();
 }

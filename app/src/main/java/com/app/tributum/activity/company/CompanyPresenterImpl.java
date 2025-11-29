@@ -1,6 +1,9 @@
 package com.app.tributum.activity.company;
 
 import com.app.tributum.R;
+import com.app.tributum.activity.company.model.Company;
+import com.app.tributum.activity.company.model.Director;
+import com.app.tributum.activity.company.model.Secretary;
 import com.app.tributum.listener.AsyncListener;
 
 public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter {
@@ -10,6 +13,14 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter {
     private boolean hasSecondDirector;
 
     private boolean hasThirdDirector;
+
+    private Company company;
+
+    private Director director1;
+    private Director director2 = new Director();
+    private Director director3 = new Director();
+
+    private Secretary secretary;
 
     @CompanyProgressState
     private int state = CompanyProgressState.COMPANY;
@@ -106,7 +117,13 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter {
     }
 
     private void sendInfo() {
-
+        company = view.getCompanyDetails();
+        director1 = view.getDirector1Details();
+        if (hasSecondDirector)
+            director2 = view.getDirector2Details();
+        if (hasThirdDirector)
+            director3 = view.getDirector3Details();
+        secretary = view.getSecretaryDetails();
     }
 
     @Override
