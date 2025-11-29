@@ -6,7 +6,7 @@ import com.app.tributum.activity.company.model.Secretary;
 
 public interface CompanyView {
 
-    void showToast(String message);
+    void showToast(int stringResource);
 
     void closeActivity();
 

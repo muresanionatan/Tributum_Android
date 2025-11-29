@@ -140,9 +140,9 @@ public class FormActivity extends AppCompatActivity implements FormView {
         presenter = new FormPresenterImpl(this);
         presenter.onCreate();
 
-        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_vat, R.color.inquiry_1);
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_form, R.color.form_1);
         loadingScreen.setText(getString(R.string.might_take_pictures));
-        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_inquiry, getString(R.string.form_sent), presenter);
+        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_form, getString(R.string.form_sent), presenter);
 
         RecyclerView bsRecyclerView = findViewById(R.id.form_bank_recycler_id);
         bsRecyclerView.setHasFixedSize(true);

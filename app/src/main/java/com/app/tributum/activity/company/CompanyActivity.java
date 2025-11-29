@@ -9,6 +9,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
@@ -23,7 +24,8 @@ import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
 import com.app.tributum.utils.animation.CustomAnimatorListener;
-import com.app.tributum.utils.ui.CustomScrollView;
+import com.app.tributum.utils.ui.LoadingScreen;
+import com.app.tributum.utils.ui.RequestSent;
 import com.app.tributum.utils.ui.UiUtils;
 
 public class CompanyActivity extends AppCompatActivity implements CompanyView {
@@ -31,6 +33,10 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     private CompanyPresenterImpl presenter;
 
     private NestedScrollView scrollView;
+
+    private LoadingScreen loadingScreen;
+
+    private RequestSent requestSent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +50,11 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
         setupViesAndClicks();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "CutPasteId"})
     private void setupViesAndClicks() {
         scrollView = findViewById(R.id.scrollView);
+        loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_company, R.color.company_1);
+        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_company, getString(R.string.vat_receipts_sent), presenter);
         findViewById(R.id.company_back_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -261,13 +269,14 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     }
 
     @Override
-    public void showToast(String message) {
-
+    public void showToast(int stringResource) {
+        Toast.makeText(this, getString(stringResource), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void closeActivity() {
-        finish();
+//        finish();
+
     }
 
     @Override
@@ -277,17 +286,17 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
 
     @Override
     public void showLoadingScreen() {
-
+        loadingScreen.show();
     }
 
     @Override
     public void hideLoadingScreen() {
-
+        loadingScreen.hide();
     }
 
     @Override
     public void showRequestSent() {
-
+        requestSent.show();
     }
 
     @Override

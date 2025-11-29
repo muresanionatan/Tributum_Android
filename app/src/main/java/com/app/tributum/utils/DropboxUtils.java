@@ -25,7 +25,7 @@ public class DropboxUtils {
         try {
             InputStream inputStream = new FileInputStream(uploadFile);
             getDropBoxClient().files().uploadBuilder("/VATS/" + username.toUpperCase() + "/" + months + ".pdf")
-                    .withMode(WriteMode.ADD)
+                    .withMode(WriteMode.OVERWRITE)
                     .uploadAndFinish(inputStream);
             Log.d("Upload Status", "Success");
         } catch (DbxException | IOException e) {
@@ -66,7 +66,7 @@ public class DropboxUtils {
                     continue;
                 inputStream = new FileInputStream(file);
                 getDropBoxClient().files().uploadBuilder("/" + path + "/" + username.toUpperCase() + "/" + key + ".png")
-                        .withMode(WriteMode.ADD)
+                        .withMode(WriteMode.OVERWRITE)
                         .uploadAndFinish(inputStream);
             }
             Log.d("Upload Status", "Success");
@@ -95,7 +95,7 @@ public class DropboxUtils {
         try {
             InputStream inputStream = new FileInputStream(uploadFile);
             getDropBoxClient().files().uploadBuilder("/" + path + "/" + username.toUpperCase() + "/" + "user_info.txt")
-                    .withMode(WriteMode.ADD)
+                    .withMode(WriteMode.OVERWRITE)
                     .uploadAndFinish(inputStream);
             Log.d("Upload Status", "Success");
         } catch (DbxException | IOException e) {

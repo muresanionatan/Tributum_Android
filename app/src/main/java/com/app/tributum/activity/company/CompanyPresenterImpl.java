@@ -1,12 +1,27 @@
 package com.app.tributum.activity.company;
 
+import androidx.annotation.NonNull;
+
 import com.app.tributum.R;
 import com.app.tributum.activity.company.model.Company;
 import com.app.tributum.activity.company.model.Director;
 import com.app.tributum.activity.company.model.Secretary;
+import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.AsyncListener;
+import com.app.tributum.listener.RequestSentListener;
+import com.app.tributum.model.EmailBody;
+import com.app.tributum.retrofit.InterfaceAPI;
+import com.app.tributum.retrofit.RetrofitClientInstance;
+import com.app.tributum.utils.ConstantsUtils;
+import com.app.tributum.utils.UploadAsyncTask;
+import com.app.tributum.utils.ui.FileUtils;
 
-public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, RequestSentListener {
 
     final private CompanyView view;
 
@@ -15,12 +30,8 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter {
     private boolean hasThirdDirector;
 
     private Company company;
-
-    private Director director1;
     private Director director2 = new Director();
     private Director director3 = new Director();
-
-    private Secretary secretary;
 
     @CompanyProgressState
     private int state = CompanyProgressState.COMPANY;
@@ -117,34 +128,21 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter {
     }
 
     private void sendInfo() {
+        view.showLoadingScreen();
         company = view.getCompanyDetails();
-        director1 = view.getDirector1Details();
+        Director director1 = view.getDirector1Details();
         if (hasSecondDirector)
             director2 = view.getDirector2Details();
         if (hasThirdDirector)
             director3 = view.getDirector3Details();
-        secretary = view.getSecretaryDetails();
-    }
-
-    @Override
-    public void onSendClick(String name, String email, String description) {
-        if (view == null)
-            return;
-
-//        if (name.equals("")) {
-//            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_name));
-//            view.setFocusOnName();
-//        } else if (!ValidationUtils.isEmailValid(email)) {
-//            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_correct_email));
-//            view.setFocusOnEmail();
-//        } else if (description.equals("")) {
-//            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_description));
-//            view.setFocusOnDescription();
-//        } else {
-//            view.hideKeyboard();
-//            view.showLoadingScreen();
-//            sendInquiry(name, email, description);
-//        }
+        Secretary secretary = view.getSecretaryDetails();
+        UploadAsyncTask uploadOneFileTask = new UploadAsyncTask(
+                company.getFirstName() + " " + company.getSurName(),
+                FileUtils.createCompanyFile(company, director1, director2, director3, secretary),
+                this,
+                UploadAsyncTask.UploadType.USER_INFO,
+                "COMPANY_FOUNDATION");
+        uploadOneFileTask.execute();
     }
 
     @Override
@@ -192,9 +190,60 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter {
 
     @Override
     public void onTaskCompleted(String process) {
-        if (view != null) {
-            view.hideLoadingScreen();
-            view.showRequestSent();
-        }
+        Retrofit retrofit = RetrofitClientInstance.getInstance();
+        final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(company.getFirstName() + " " + company.getSurName()), "Android"));
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                if (!response.isSuccessful()) {
+                    view.showToast(R.string.something_went_wrong);
+                } else {
+                    sendClientMail(company.getEmail(), TributumApplication.getInstance().getString(R.string.contract_mail_message));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                view.hideLoadingScreen();
+                view.showToast(R.string.something_went_wrong);
+            }
+        });
+    }
+
+    private String generateInternalEmailMessage(String name) {
+        String formattedString = name.toUpperCase();
+        formattedString = formattedString.replaceAll(" ", "%20");
+        return "New Company request for " + company.getFirstName() + " " + company.getSurName()
+                + "\n\n" + "Click on below link to access files\n\n"
+                + "https://www.dropbox.com/home/Apps/Tributum/COMPANY_FOUNDATION/"
+                + formattedString;
+    }
+
+    private void sendClientMail(String email, String message) {
+        Retrofit retrofit = RetrofitClientInstance.getInstance();
+        final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+
+        Call<Object> call = api.sendEmail(new EmailBody(email, message, "Android"));
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                if (response.isSuccessful()) {
+                    view.hideLoadingScreen();
+                    view.showRequestSent();
+                } else {
+                    view.showToast(R.string.something_went_wrong);
+                }
+
+                view.hideLoadingScreen();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                view.hideLoadingScreen();
+                view.showToast(R.string.something_went_wrong);
+            }
+        });
     }
 }

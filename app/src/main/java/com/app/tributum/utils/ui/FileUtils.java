@@ -28,7 +28,7 @@ public class FileUtils {
     private FileUtils() {
     }
 
-    public static File createComapnyFile(Company company, Director director1, Director director2, Director director3, Secretary secretary) {
+    public static File createCompanyFile(Company company, Director director1, Director director2, Director director3, Secretary secretary) {
         String text = "Company\n" +
                 "First Name: " + company.getFirstName() + "\n" +
                 "Sur Name: " + company.getSurName() + "\n" +
@@ -51,7 +51,7 @@ public class FileUtils {
                 "Address: " + director1.getAddress() + "\n" +
                 "Directorships: " + director1.getDirectorships() + "\n" +
                 "Other Company's Registration Number: " + director1.getOther() + "\n\n";
-        if (!director2.getFirstName().isEmpty()) {
+        if (director2.getFirstName() != null) {
             text = text +
                     "Director2" + "\n" +
                     "First Name: " + director2.getFirstName() + "\n" +
@@ -64,7 +64,7 @@ public class FileUtils {
                     "Directorships: " + director2.getDirectorships() + "\n" +
                     "Other Company's Registration Number: " + director2.getOther() + "\n\n";
         }
-        if (!director3.getFirstName().isEmpty()) {
+        if (director3.getFirstName() != null) {
             text = text +
                     "Director3" + "\n" +
                     "First Name: " + director3.getFirstName() + "\n" +
@@ -93,7 +93,7 @@ public class FileUtils {
             if (!root.exists()) {
                 root.mkdirs();
             }
-            file = new File(root, company.getCompanyName());
+            file = new File(root, company.getFirstName() + " " + company.getSurName());
             FileWriter writer = new FileWriter(file);
             writer.append(text);
             writer.flush();
