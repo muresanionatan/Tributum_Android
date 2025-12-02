@@ -205,7 +205,7 @@
     <string name="add_pdf">Add PDF file</string>
     <string name="please_add_fisc">Please add wife\'s FISC documents</string>
     <string name="company_foundation_label">Company Foundation</string>
-    <string name="phone_label">Phone</string>
+    <string name="phone_label">Phone<font color='#f65b94'>*</font></string>
     <string name="sur_name_label">Surname<font color='#f65b94'>*</font></string>
     <string name="company_name_label">Company Name (If you are business entity)<font color='#f65b94'>*</font></string>
     <string name="proposed_name_label">Proposed Company Name<font color='#f65b94'>*</font></string>
@@ -213,24 +213,24 @@
     <string name="town_city_label">Town/City<font color='#f65b94'>*</font></string>
     <string name="country_label">Country<font color='#f65b94'>*</font></string>
     <string name="company_activities_label">Company Activities<font color='#f65b94'>*</font></string>
-    <string name="we_can_provide">We can provide you with a Registered Office Address or you can provide your own address<font color='#f65b94'>*</font></string>
-    <string name="registered_label">Registered Office Address</string>
-    <string name="director_1_label">Director 1 Information</string>
-    <string name="director_name_label">Director First Name</string>
-    <string name="director_sur_name_label">Director Surname</string>
-    <string name="director_pps_label">Director PPS Number</string>
-    <string name="director_nationality_label">Director Nationality</string>
-    <string name="director_occupation_label">Director Occupation</string>
-    <string name="director_home_address_label">Director Home Address</string>
+    <string name="we_can_provide">We can provide you with a Registered Office Address or you can provide your own address</string>
+    <string name="registered_label">Registered Office Address<font color='#f65b94'>*</font></string>
+    <string name="director_1_label">Director 1 Information<font color='#f65b94'>*</font></string>
+    <string name="director_name_label">Director First Name<font color='#f65b94'>*</font></string>
+    <string name="director_sur_name_label">Director Surname<font color='#f65b94'>*</font></string>
+    <string name="director_pps_label">Director PPS Number<font color='#f65b94'>*</font></string>
+    <string name="director_nationality_label">Director Nationality<font color='#f65b94'>*</font></string>
+    <string name="director_occupation_label">Director Occupation<font color='#f65b94'>*</font></string>
+    <string name="director_home_address_label">Director Home Address<font color='#f65b94'>*</font></string>
     <string name="director_other_directorships_label">Other Directorships (if any)</string>
     <string name="director_other_company_label">Other Company\'s Registration Number</string>
-    <string name="company_secretary_label">Company Secretary</string>
-    <string name="secretary_name_label">Company Secretary First Name</string>
-    <string name="secretary_sur_name_label">Company Secretary Sur Name</string>
-    <string name="secretary_nationality_label">Company Secretary Nationality</string>
-    <string name="secretary_home_address_label">Company Secretary Home Address</string>
-    <string name="secretary_email_label">Company Secretary email</string>
-    <string name="secretary_pps_label">Company Secretary PPS Number</string>
+    <string name="company_secretary_label">Company Secretary<font color='#f65b94'>*</font></string>
+    <string name="secretary_name_label">Company Secretary First Name<font color='#f65b94'>*</font></string>
+    <string name="secretary_sur_name_label">Company Secretary Sur Name<font color='#f65b94'>*</font></string>
+    <string name="secretary_nationality_label">Company Secretary Nationality<font color='#f65b94'>*</font></string>
+    <string name="secretary_home_address_label">Company Secretary Home Address<font color='#f65b94'>*</font></string>
+    <string name="secretary_email_label">Company Secretary email<font color='#f65b94'>*</font></string>
+    <string name="secretary_pps_label">Company Secretary PPS Number<font color='#f65b94'>*</font></string>
     <string name="director_2_label">Director 2 Information (optional)</string>
     <string name="director_3_label">Director 3 Information (optional)</string>
     <string name="agree_checkbox_text">I confirm the information provided above is correct and I agree to submit it.</string>
@@ -239,7 +239,7 @@
     <string name="please_enter_proposed">Please enter Proposed Company name</string>
     <string name="please_enter_town">Please enter town</string>
     <string name="please_enter_country">Please enter country</string>
-    <string name="please_enter_activities">PLease enter Company Activities</string>
+    <string name="please_enter_activities">Please enter Company Activities</string>
     <string name="please_enter_registered_address">Please enter Registered Office Address</string>
     <string name="please_enter_nationality">Please enter nationality</string>
     <string name="please_accept_terms">Please accept the terms</string>

@@ -121,9 +121,9 @@
     <string name="please_enter_payment_month">Te rugam introdu luna pentru care se face plata</string>
     <string name="please_enter_first_name">Te rugam sa introduci prenumele</string>
     <string name="please_enter_last_name">Te rugam sa introduci numele de familie</string>
-    <string name="please_enter_address1">Te rugam sa introduci addresa 1</string>
-    <string name="please_enter_address2">Te rugam sa introduci addresa 2</string>
-    <string name="please_enter_address">Te rugam sa introduci addresa</string>
+    <string name="please_enter_address1">Te rugam sa introduci adresa 1</string>
+    <string name="please_enter_address2">Te rugam sa introduci adresa 2</string>
+    <string name="please_enter_address">Te rugam sa introduci adresa</string>
     <string name="please_enter_occupation">Te rugam sa introduci ocupatia</string>
     <string name="please_enter_phone">Te rugam sa introduci numarul de telefon</string>
     <string name="please_add_id">Te rugam adauga poza cu buletinul/pasaportul</string>
@@ -204,4 +204,43 @@
     <string name="form_sent">Form 11 trimis</string>
     <string name="add_pdf">Adauga PDF</string>
     <string name="please_add_fisc">Te rugam adauga documentele FISC ale sotiei</string>
+    <string name="company_foundation_label">Infiintare Companie</string>
+    <string name="phone_label">Telefon<font color='#f65b94'>*</font></string>
+    <string name="sur_name_label">Prenume<font color='#f65b94'>*</font></string>
+    <string name="company_name_label">Numele Companiei (Daca esti entitate business)<font color='#f65b94'>*</font></string>
+    <string name="proposed_name_label">Numele Propus al Companiei<font color='#f65b94'>*</font></string>
+    <string name="street_address_label">Strada<font color='#f65b94'>*</font></string>
+    <string name="town_city_label">Oras<font color='#f65b94'>*</font></string>
+    <string name="country_label">Tara<font color='#f65b94'>*</font></string>
+    <string name="company_activities_label">Activitatile Companiei<font color='#f65b94'>*</font></string>
+    <string name="we_can_provide">Putem oferi adresa sediului sau poti introduce adresa detinute</string>
+    <string name="registered_label">Adresa Sediului<font color='#f65b94'>*</font></string>
+    <string name="director_1_label">Informatii Director 1<font color='#f65b94'>*</font></string>
+    <string name="director_name_label">Nume Director<font color='#f65b94'>*</font></string>
+    <string name="director_sur_name_label">Prenume Director<font color='#f65b94'>*</font></string>
+    <string name="director_pps_label">PPS Director<font color='#f65b94'>*</font></string>
+    <string name="director_nationality_label">Nationalitate Director<font color='#f65b94'>*</font></string>
+    <string name="director_occupation_label">Ocupatie Director<font color='#f65b94'>*</font></string>
+    <string name="director_home_address_label">Adresa Director<font color='#f65b94'>*</font></string>
+    <string name="director_other_directorships_label">Alte Companii Detinute (daca exista)</string>
+    <string name="director_other_company_label">Alte Numere de inregistrare ale companiilor detinute</string>
+    <string name="company_secretary_label">Secretar Companie<font color='#f65b94'>*</font></string>
+    <string name="secretary_name_label">Nume Secretar<font color='#f65b94'>*</font></string>
+    <string name="secretary_sur_name_label">Prenume Secretar<font color='#f65b94'>*</font></string>
+    <string name="secretary_nationality_label">Nationalitate Secretar<font color='#f65b94'>*</font></string>
+    <string name="secretary_home_address_label">Adresa Secretar<font color='#f65b94'>*</font></string>
+    <string name="secretary_email_label">Email Secretar<font color='#f65b94'>*</font></string>
+    <string name="secretary_pps_label">PPS Secretar<font color='#f65b94'>*</font></string>
+    <string name="director_2_label">Informatii Director 2 (optional)</string>
+    <string name="director_3_label">Informatii Director 3 (optional)</string>
+    <string name="agree_checkbox_text">Confirm ca informatiile oferite mai sus sunt corecte si sunt de acord cu prelucrarea lor.</string>
+    <string name="please_enter_sur_name">Te rugam introdu prenumele</string>
+    <string name="please_enter_company_name">Te rugam introdu nume companiei</string>
+    <string name="please_enter_proposed">Te rugam introdu numele propus pentru companie</string>
+    <string name="please_enter_town">Te rugam introdu orasul</string>
+    <string name="please_enter_country">Te rugam introdu tara</string>
+    <string name="please_enter_activities">Te rugam introdu activitatile companiei</string>
+    <string name="please_enter_registered_address">Te rugam introdu Adresa sediului</string>
+    <string name="please_enter_nationality">Te rugam intro nationalitatea</string>
+    <string name="please_accept_terms">Te rugam sa accepti termenii</string>
 </resources>
