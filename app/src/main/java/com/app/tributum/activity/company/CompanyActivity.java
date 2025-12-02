@@ -3,6 +3,7 @@ package com.app.tributum.activity.company;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -20,6 +21,7 @@ import com.app.tributum.activity.company.model.Director;
 import com.app.tributum.activity.company.model.Secretary;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 import com.app.tributum.utils.animation.AnimUtils;
@@ -47,14 +49,71 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
 
         presenter = new CompanyPresenterImpl(this);
 
-        setupViesAndClicks();
+        setupViewsAndClicks();
     }
 
     @SuppressLint({"ClickableViewAccessibility", "CutPasteId"})
-    private void setupViesAndClicks() {
+    private void setupViewsAndClicks() {
         scrollView = findViewById(R.id.scrollView);
         loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_company, R.color.company_1);
-        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_company, getString(R.string.vat_receipts_sent), presenter);
+        requestSent = new RequestSent(findViewById(android.R.id.content), R.drawable.request_sent_company, getString(R.string.request_sent), presenter);
+
+        UtilsGeneral.setMaxLengthEditText(findViewById(R.id.director_1_layout_id).findViewById(R.id.director_birthday_id), 10);
+        UtilsGeneral.setMaxLengthEditText(findViewById(R.id.director_2_layout_id).findViewById(R.id.director_birthday_id), 10);
+        UtilsGeneral.setMaxLengthEditText(findViewById(R.id.director_3_layout_id).findViewById(R.id.director_birthday_id), 10);
+        UtilsGeneral.setMaxLengthEditText(findViewById(R.id.secretary_birthday_id), 10);
+        UtilsGeneral.setMaxLengthAndAllCapsToEditText(findViewById(R.id.director_1_layout_id).findViewById(R.id.director_pps_edit_text), 9, true);
+        UtilsGeneral.setMaxLengthAndAllCapsToEditText(findViewById(R.id.director_2_layout_id).findViewById(R.id.director_pps_edit_text), 9, true);
+        UtilsGeneral.setMaxLengthAndAllCapsToEditText(findViewById(R.id.director_3_layout_id).findViewById(R.id.director_pps_edit_text), 9, true);
+        UtilsGeneral.setMaxLengthAndAllCapsToEditText(findViewById(R.id.secretary_pps_edit_text), 9, true);
+
+        ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_birthday_id)).addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                presenter.beforeBirthdayChanged(s.length(), R.id.director_1_layout_id);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                presenter.afterBirthdayChanged(s, R.id.director_1_layout_id);
+            }
+        });
+
+        ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_birthday_id)).addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                presenter.beforeBirthdayChanged(s.length(), R.id.director_2_layout_id);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                presenter.afterBirthdayChanged(s, R.id.director_2_layout_id);
+            }
+        });
+
+        ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_birthday_id)).addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                presenter.beforeBirthdayChanged(s.length(), R.id.director_3_layout_id);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                presenter.afterBirthdayChanged(s, R.id.director_3_layout_id);
+            }
+        });
+
+        ((EditText) findViewById(R.id.secretary_birthday_id)).addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                presenter.beforeBirthdayChanged(s.length(), R.id.secretary_birthday_id);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                presenter.afterBirthdayChanged(s, R.id.secretary_birthday_id);
+            }
+        });
         findViewById(R.id.company_back_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +152,18 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
             @Override
             public void onClick(View view) {
                 presenter.onDirector3Click();
+            }
+        });
+        findViewById(R.id.agree_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onAgreeTermsClick(false);
+            }
+        });
+        findViewById(R.id.agree_checkbox_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onAgreeTermsClick(true);
             }
         });
         findViewById(R.id.company_send_layout_id).setOnClickListener(new View.OnClickListener() {
@@ -275,7 +346,7 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
 
     @Override
     public void closeActivity() {
-//        finish();
+        finish();
 
     }
 
@@ -367,5 +438,28 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
                 ((EditText) findViewById(R.id.secretary_pps_edit_text)).getText().toString().trim(),
                 ((EditText) findViewById(R.id.secretary_nationality_edit_text)).getText().toString().trim(),
                 ((EditText) findViewById(R.id.secretary_home_edit_text)).getText().toString().trim());
+    }
+
+    @Override
+    public void setBirthdayText(String text, int id) {
+        if (id != R.id.secretary_birthday_id)
+            ((EditText) findViewById(id).findViewById(R.id.director_birthday_id)).setText(text);
+        else
+            ((EditText) findViewById(R.id.secretary_birthday_id)).setText(text);
+    }
+
+    @Override
+    public void moveBirthdayCursorToEnd(int id) {
+        if (id != R.id.secretary_birthday_id)
+            ((EditText) findViewById(id).findViewById(R.id.director_birthday_id))
+                    .setSelection(((EditText) findViewById(id).findViewById(R.id.director_birthday_id)).getText().length());
+        else
+            ((EditText) findViewById(R.id.secretary_birthday_id))
+                    .setSelection(((EditText) findViewById(R.id.secretary_birthday_id)).getText().length());
+    }
+
+    @Override
+    public void checkTheAgreeBox(boolean acceptTerms) {
+        ((CheckBox) findViewById(R.id.agree_checkbox_id)).setChecked(acceptTerms);
     }
 }

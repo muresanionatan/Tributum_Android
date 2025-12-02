@@ -48,4 +48,10 @@ public interface CompanyView {
     Director getDirector2Details();
     Director getDirector3Details();
     Secretary getSecretaryDetails();
+
+    void setBirthdayText(String string1, int id);
+
+    void moveBirthdayCursorToEnd(int id);
+
+    void checkTheAgreeBox(boolean acceptTerms);
 }

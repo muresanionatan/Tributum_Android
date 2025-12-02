@@ -234,4 +234,13 @@
     <string name="director_2_label">Director 2 Information (optional)</string>
     <string name="director_3_label">Director 3 Information (optional)</string>
     <string name="agree_checkbox_text">I confirm the information provided above is correct and I agree to submit it.</string>
+    <string name="please_enter_sur_name">Please enter your surname</string>
+    <string name="please_enter_company_name">Please enter company name</string>
+    <string name="please_enter_proposed">Please enter Proposed Company name</string>
+    <string name="please_enter_town">Please enter town</string>
+    <string name="please_enter_country">Please enter country</string>
+    <string name="please_enter_activities">PLease enter Company Activities</string>
+    <string name="please_enter_registered_address">Please enter Registered Office Address</string>
+    <string name="please_enter_nationality">Please enter nationality</string>
+    <string name="please_accept_terms">Please accept the terms</string>
 </resources>
