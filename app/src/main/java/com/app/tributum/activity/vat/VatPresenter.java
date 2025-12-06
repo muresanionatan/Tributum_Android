@@ -51,4 +51,6 @@ public interface VatPresenter {
     void onAddPdfClick();
 
     void handlePdfSelected(ActivityResult result);
+
+    void onVanClick(boolean checkboxClicked);
 }

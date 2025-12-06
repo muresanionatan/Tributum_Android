@@ -39,7 +39,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     private int photoClicked;
 
-    public int PICTURE_NUMBER = 1;
+    public int PICTURE_NUMBER;
 
     private boolean isPreview;
 
@@ -59,6 +59,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     private boolean hasPrivates;
 
     private int previewState = 0;
+    private boolean hasVan;
 
     VatPresenterImpl(VatView vatView) {
         this.vatView = vatView;
@@ -104,6 +105,13 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     }
 
     @Override
+    public void onVanClick(boolean checkboxClicked) {
+        hasVan = !hasVan;
+        if (!checkboxClicked)
+            vatView.checkVan(hasVan);
+    }
+
+    @Override
     public void onSendClick(String name, String email, String startingMonth, String endingMonth) {
         if (name.isEmpty()) {
             vatView.showToast(resources.getString(R.string.please_enter_name));
@@ -111,7 +119,11 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         } else if (email.isEmpty()) {
             vatView.showToast(resources.getString(R.string.please_enter_correct_email));
             vatView.setFocusOnEmail();
-        } else if (PICTURE_NUMBER > 1) {
+        } else if (PICTURE_NUMBER > 0 &&
+                (!invoicesList.get(0).getFilePath().isEmpty())
+                || !invoicesPdfList.isEmpty()
+                || !privatesList.get(0).getFilePath().isEmpty()
+                || !privatesPdfList.isEmpty()) {
             vatView.hideKeyboard();
             vatView.showLoadingScreen();
             vatView.startPdfCreation(invoicesList, hasPrivates ? privatesList : null, invoicesPdfList, privatesPdfList);
@@ -343,7 +355,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     private String generateInternalEmailMessage(String name, String startingMonth, String endingMonth, String fileName) {
         String formattedString = name.toUpperCase();
         formattedString = formattedString.replaceAll(" ", "%20");
-        return resources.getString(R.string.invoices_message_email) + name
+        String result = resources.getString(R.string.invoices_message_email) + name
                 + resources.getString(R.string.invoices_message_email_part2) + startingMonth.replaceAll(" ", "_")
                 + " - " + endingMonth.replaceAll(" ", "_")
                 + "\n\n" + "Click on below link to access the pdf\n\n"
@@ -351,6 +363,10 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
                 + formattedString + "?preview="
                 + fileName
                 + ".pdf";
+        if (hasVan)
+            result = result + "\n\n" + "Note that the client has a VAN";
+
+        return result;
     }
 
     private String generateClientEmailMessage(String startingMonth, String endingMonth) {

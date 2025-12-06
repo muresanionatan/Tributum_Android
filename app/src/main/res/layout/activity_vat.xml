@@ -87,6 +87,46 @@
                         android:layout_marginTop="20dp"
                         android:hint="@string/email_label" />
 
+                    <LinearLayout
+                        android:id="@+id/van_layout_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="-8dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/white_rectangle_corners"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/van_checkbox_id"
+                            style="@style/CheckBox"
+                            android:layout_marginStart="14dp"
+                            android:background="@drawable/vat_selector"
+                            android:checked="false" />
+
+                        <TextView
+                            android:id="@+id/van_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/manrope_medium"
+                            android:paddingEnd="14dp"
+                            android:text="@string/own_van"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/manrope_medium"
+                        android:paddingEnd="14dp"
+                        android:text="@string/own_van_description"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
                     <TextView
                         android:id="@+id/payer_id_subtitle"
                         android:layout_width="wrap_content"

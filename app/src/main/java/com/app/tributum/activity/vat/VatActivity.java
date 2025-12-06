@@ -245,6 +245,23 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
                 presenter.onPrivatesClick();
             }
         });
+        findViewById(R.id.van_checkbox_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onVanClick(true);
+            }
+        });
+        findViewById(R.id.van_layout_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onVanClick(false);
+            }
+        });
+    }
+
+    @Override
+    public void checkVan(boolean hasVan) {
+        ((CheckBox) findViewById(R.id.van_checkbox_id)).setChecked(hasVan);
     }
 
     @Override

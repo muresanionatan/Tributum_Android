@@ -240,6 +240,8 @@
     <string name="please_enter_nationality">Please enter nationality</string>
     <string name="please_accept_terms">Please accept the terms</string>
     <string name="to_label">to</string>
+    <string name="own_van">Do you own a van?</string>
+    <string name="own_van_description">Note: If the van is not registered to your name you cannot deduce diesel.</string>
 
     <string-array name="months">
         <item>January</item>

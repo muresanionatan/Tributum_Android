@@ -60,4 +60,6 @@ public interface VatView {
     void addItemToPrivatesList(VatModel vatModel);
 
     void openPdfIntent();
+
+    void checkVan(boolean hasVan);
 }

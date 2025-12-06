@@ -240,6 +240,8 @@
     <string name="please_enter_nationality">Te rugam intro nationalitatea</string>
     <string name="please_accept_terms">Te rugam sa accepti termenii</string>
     <string name="to_label">la</string>
+    <string name="own_van">Detineti un van?</string>
+    <string name="own_van_description">Nota: Daca van-ul nu este inregistrat pe numele dumneavoastra, nu se poate deduce motorina.</string>
 
     <string-array name="months">
         <item>Ianuarie</item>
