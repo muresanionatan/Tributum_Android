@@ -102,12 +102,6 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         } else if (email.isEmpty()) {
             vatView.showToast(resources.getString(R.string.please_enter_correct_email));
             vatView.setFocusOnEmail();
-        } else if (startingMonth.isEmpty()) {
-            vatView.showToast(resources.getString(R.string.please_enter_starting_month));
-            vatView.setFocusOnStartingMonth();
-        } else if (endingMonth.isEmpty()) {
-            vatView.showToast(resources.getString(R.string.please_enter_ending_month));
-            vatView.setFocusOnEndingMonth();
         } else if (PICTURE_NUMBER > 1) {
             vatView.hideKeyboard();
             vatView.showLoadingScreen();

@@ -46,8 +46,6 @@
     <string name="vats_action">Incepe</string>
     <string name="email_label">Adresa e-mail<font color='#f65b94'>*</font></string>
     <string name="receipts_months">Perioada bonurilor (luni)</string>
-    <string name="starting_month_label">Luna inceput<font color='#f65b94'>*</font></string>
-    <string name="ending_month_label">Luna sfarsit<font color='#f65b94'>*</font></string>
     <string name="month_label">Luna<font color='#f65b94'>*</font></string>
     <string name="you_receive_copy">Vei primi un e-mail legat de aceasta plata</string>
     <string name="you_receive_copy_salary">Vei primi un e-mail legat de aceast salar</string>
@@ -116,8 +114,6 @@
     <string name="permission_denied">Permisiune respinsa anterior</string>
     <string name="permission_denied_explained">Pentru a putea folosi aceasta functie este nevoie sa mergi la setarile aplicatie si sa fii de acord cu permisiunile.</string>
     <string name="please_enter_name">Te rugam introdu numele</string>
-    <string name="please_enter_starting_month">Te rugam introdu luna de incepe a VAT-urilor</string>
-    <string name="please_enter_ending_month">Te rugam introdu luna de final a VAT-urilor</string>
     <string name="please_enter_payment_month">Te rugam introdu luna pentru care se face plata</string>
     <string name="please_enter_first_name">Te rugam sa introduci prenumele</string>
     <string name="please_enter_last_name">Te rugam sa introduci numele de familie</string>
@@ -243,4 +239,20 @@
     <string name="please_enter_registered_address">Te rugam introdu Adresa sediului</string>
     <string name="please_enter_nationality">Te rugam intro nationalitatea</string>
     <string name="please_accept_terms">Te rugam sa accepti termenii</string>
+    <string name="to_label">la</string>
+
+    <string-array name="months">
+        <item>Ianuarie</item>
+        <item>Februarie</item>
+        <item>Martie</item>
+        <item>Aprilie</item>
+        <item>Mai</item>
+        <item>Iunie</item>
+        <item>Iulie</item>
+        <item>August</item>
+        <item>Septembrie</item>
+        <item>Octombrie</item>
+        <item>Noiembrie</item>
+        <item>Decembrie</item>
+    </string-array>
 </resources>

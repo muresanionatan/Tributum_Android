@@ -48,10 +48,6 @@ public interface VatView {
 
     void setFocusOnEmail();
 
-    void setFocusOnStartingMonth();
-
-    void setFocusOnEndingMonth();
-
     void setPrivatesStates(boolean state);
 
     void setPrivatesFont(int font);

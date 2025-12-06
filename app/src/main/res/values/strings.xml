@@ -46,8 +46,6 @@
     <string name="vats_action">Get started</string>
     <string name="email_label">Email<font color='#f65b94'>*</font></string>
     <string name="receipts_months">Receipts period (months)</string>
-    <string name="starting_month_label">Starting month<font color='#f65b94'>*</font></string>
-    <string name="ending_month_label">Ending month<font color='#f65b94'>*</font></string>
     <string name="month_label">Month<font color='#f65b94'>*</font></string>
     <string name="you_receive_copy">You will receive an email regarding this payment</string>
     <string name="you_receive_copy_salary">You will receive an email regarding this salary</string>
@@ -116,8 +114,6 @@
     <string name="permission_denied">Permission denied previously</string>
     <string name="permission_denied_explained">In order to use this feature you need to go to app settings and enable permissions</string>
     <string name="please_enter_name">Please enter a name</string>
-    <string name="please_enter_starting_month">Please enter the VAT starting month</string>
-    <string name="please_enter_ending_month">Please enter VAT ending month</string>
     <string name="please_enter_payment_month">Please enter payment month</string>
     <string name="please_enter_first_name">Please enter first name</string>
     <string name="please_enter_last_name">Please enter last name</string>
@@ -243,4 +239,20 @@
     <string name="please_enter_registered_address">Please enter Registered Office Address</string>
     <string name="please_enter_nationality">Please enter nationality</string>
     <string name="please_accept_terms">Please accept the terms</string>
+    <string name="to_label">to</string>
+
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 </resources>

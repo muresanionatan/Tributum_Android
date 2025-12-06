@@ -12,11 +12,13 @@ import android.provider.MediaStore;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -66,9 +68,9 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     private LoadingScreen loadingScreen;
 
-    private EditText startingMonth;
+    private Spinner firstMonth;
 
-    private EditText endingMonth;
+    private Spinner secondMonth;
 
     private VatPresenterImpl presenter;
 
@@ -120,15 +122,21 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         previewLayout = findViewById(R.id.preview_layout_id);
         name = findViewById(R.id.payer_edit_text);
         payerEmail = findViewById(R.id.payer_email_edit_text);
-        startingMonth = findViewById(R.id.start_month_edit_text);
-        endingMonth = findViewById(R.id.end_month_edit_text);
         scrollView = findViewById(R.id.vat_scroll_view_id);
         privatesText = findViewById(R.id.privates_layout_id);
 
+        firstMonth = findViewById(R.id.spinner1);
+        ArrayAdapter<String> firstMonthAdapter = new ArrayAdapter<>(VatActivity.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.months));
+        firstMonth.setAdapter(firstMonthAdapter);
+        firstMonth.setSelection(0);
+
+        secondMonth = findViewById(R.id.spinner2);
+        ArrayAdapter<String> secondMonthAdapter = new ArrayAdapter<>(VatActivity.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.months));
+        secondMonth.setAdapter(secondMonthAdapter);
+        secondMonth.setSelection(0);
+
         name.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         payerEmail.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        startingMonth.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        endingMonth.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         loadingScreen = new LoadingScreen(findViewById(android.R.id.content), R.drawable.ic_icon_loader_vat, R.color.vat_1);
         loadingScreen.setText(getString(R.string.might_take_pictures));
@@ -160,8 +168,8 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
             public void onClick(View v) {
                 presenter.onSendClick(name.getText().toString().trim(),
                         payerEmail.getText().toString().trim(),
-                        startingMonth.getText().toString().trim(),
-                        endingMonth.getText().toString().trim());
+                        firstMonth.getSelectedItem().toString(),
+                        secondMonth.getSelectedItem().toString());
             }
         });
 
@@ -340,8 +348,8 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     @Override
     public void startPdfCreation(List<VatModel> invoices, List<VatModel> privates) {
-        fileName = startingMonth.getText().toString().replaceAll(" ", "_").trim()
-                + "_" + endingMonth.getText().toString().replaceAll(" ", "_").trim() + "_" + System.currentTimeMillis();
+        fileName = firstMonth.getSelectedItem().toString()
+                + "_" + secondMonth.getSelectedItem().toString() + "_" + System.currentTimeMillis();
         PdfAsyncTask asyncTask = new PdfAsyncTask(VatActivity.this, invoices, privates, name.getText().toString().trim(),
                 fileName);
         asyncTask.execute();
@@ -424,8 +432,8 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     public void onTaskCompleted(String process) {
         presenter.onTaskCompleted(name.getText().toString().trim(),
                 payerEmail.getText().toString().trim(),
-                startingMonth.getText().toString().trim(),
-                endingMonth.getText().toString().trim(),
+                firstMonth.getSelectedItem().toString(),
+                secondMonth.getSelectedItem().toString(),
                 fileName);
     }
 
@@ -439,18 +447,6 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     public void setFocusOnEmail() {
         UtilsGeneral.setFocusOnInput(payerEmail);
         scrollToEditText(payerEmail);
-    }
-
-    @Override
-    public void setFocusOnStartingMonth() {
-        UtilsGeneral.setFocusOnInput(startingMonth);
-        scrollToEditText(startingMonth);
-    }
-
-    @Override
-    public void setFocusOnEndingMonth() {
-        UtilsGeneral.setFocusOnInput(endingMonth);
-        scrollToEditText(endingMonth);
     }
 
     @Override
