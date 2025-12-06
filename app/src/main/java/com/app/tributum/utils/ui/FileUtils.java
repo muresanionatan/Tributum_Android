@@ -3,9 +3,14 @@ package com.app.tributum.utils.ui;
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.pdf.PdfDocument;
+import android.graphics.pdf.PdfRenderer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
@@ -22,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class FileUtils {
 
@@ -366,6 +372,127 @@ public class FileUtils {
 
     private static String getFilePathForWhatsApp(Uri uri) {
         return copyFileToInternalStorage(uri, "whatsapp");
+    }
+
+    public static File copyPdfToInternalStorage(Uri pdfUri) {
+        try {
+            // Get the filename
+            String fileName = getFileName(pdfUri);
+            if (fileName == null) {
+                fileName = "document_" + System.currentTimeMillis() + ".pdf";
+            }
+
+            // Create directory in internal storage
+            File pdfDir = new File(TributumApplication.getInstance().getFilesDir(), "pdfs");
+            if (!pdfDir.exists()) {
+                pdfDir.mkdirs();
+            }
+
+            // Create the output file
+            File outputFile = new File(pdfDir, fileName);
+
+            // Copy content from URI to file using try-with-resources
+            try (java.io.InputStream inputStream = TributumApplication.getInstance()
+                    .getContentResolver().openInputStream(pdfUri);
+                 java.io.FileOutputStream outputStream = new java.io.FileOutputStream(outputFile)) {
+
+                if (inputStream == null) {
+                    return null;
+                }
+
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            }
+
+            return outputFile;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            try (Cursor cursor = TributumApplication.getInstance().getContentResolver().query(uri, null, null, null, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (columnIndex != -1) {
+                        result = cursor.getString(columnIndex);
+                    }
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getLastPathSegment();
+        }
+        return result;
+    }
+
+    public static void addPdfPagesToPdf(PdfDocument pdfDocument, List<File> pdfFiles, int startPageNumber) {
+        if (pdfFiles == null || pdfFiles.isEmpty()) {
+            return;
+        }
+
+        int currentPageNumber = startPageNumber;
+
+        // Iterate through each PDF file in the list
+        for (File pdfFile : pdfFiles) {
+            if (pdfFile == null || !pdfFile.exists()) {
+                continue;
+            }
+
+            ParcelFileDescriptor fileDescriptor = null;
+            PdfRenderer pdfRenderer = null;
+
+            try {
+                fileDescriptor = ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY);
+                pdfRenderer = new PdfRenderer(fileDescriptor);
+
+                int pageCount = pdfRenderer.getPageCount();
+
+                // Add all pages from this PDF file
+                for (int i = 0; i < pageCount; i++) {
+                    PdfRenderer.Page page = pdfRenderer.openPage(i);
+
+                    // Create a bitmap for the page
+                    Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(), Bitmap.Config.ARGB_8888);
+
+                    // Render the page to the bitmap
+                    page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+
+                    // Add the bitmap as a new page in the output PDF
+                    currentPageNumber++;
+                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), currentPageNumber).create();
+                    PdfDocument.Page pdfPage = pdfDocument.startPage(pageInfo);
+                    Canvas canvas = pdfPage.getCanvas();
+                    canvas.drawBitmap(bitmap, 0f, 0f, null);
+                    pdfDocument.finishPage(pdfPage);
+
+                    // Clean up
+                    bitmap.recycle();
+                    page.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                // Close resources for this PDF file
+                if (pdfRenderer != null) {
+                    pdfRenderer.close();
+                }
+                if (fileDescriptor != null) {
+                    try {
+                        fileDescriptor.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 
     private static String getDataColumn(Uri uri, String selection, String[] selectionArgs) {

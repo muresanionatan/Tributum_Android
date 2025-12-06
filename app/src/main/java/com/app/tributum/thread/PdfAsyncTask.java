@@ -12,6 +12,7 @@ import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.utils.BitmapUtils;
 import com.app.tributum.utils.DropboxUtils;
+import com.app.tributum.utils.ui.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,6 +27,8 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
     private List<VatModel> invoicesList;
 
     private List<VatModel> privatesList;
+    private List<File> privatesPdfList;
+    private List<File> invoicesPdfList;
 
     private String username;
 
@@ -33,13 +36,16 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private String months;
 
-    public PdfAsyncTask(AsyncListener listener, List<VatModel> invoicesList, List<VatModel> privatesList, String username, String months) {
+    public PdfAsyncTask(AsyncListener listener, List<VatModel> invoicesList, List<VatModel> privatesList, String username, String months,
+                        List<File> invoicesPdfList, List<File> privatesPdfList) {
         this.listener = listener;
         this.invoicesList = invoicesList;
         this.privatesList = privatesList;
         this.username = username;
         months = months.replaceAll(" ", "_");
         this.months = months;
+        this.invoicesPdfList = invoicesPdfList;
+        this.privatesPdfList = privatesPdfList;
     }
 
     @Override
@@ -51,11 +57,20 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
                 PdfDocument pdfDocument = new PdfDocument();
 
                 pdfDocument.finishPage(addPageWithText(pdfDocument, username, months));
-                addPhotosToPdf(pdfDocument, invoicesList);
+                int invoicesCount = addPhotosToPdf(pdfDocument, invoicesList);
 
+                if (invoicesPdfList != null) {
+                    FileUtils.addPdfPagesToPdf(pdfDocument, invoicesPdfList, invoicesCount);
+                }
+
+                int privatesCount = 0;
                 if (privatesList != null && privatesList.size() > 1) {
                     pdfDocument.finishPage(addPageWithText(pdfDocument, "Private Jobs", ""));
-                    addPhotosToPdf(pdfDocument, privatesList);
+                    privatesCount = addPhotosToPdf(pdfDocument, privatesList);
+                }
+
+                if (privatesPdfList != null) {
+                    FileUtils.addPdfPagesToPdf(pdfDocument, privatesPdfList, privatesCount);
                 }
                 pdfDocument.writeTo(fileOutputStream);
                 pdfDocument.close();
@@ -72,12 +87,14 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
-    private void addPhotosToPdf(PdfDocument pdfDocument, List<VatModel> photoList) {
+    private int addPhotosToPdf(PdfDocument pdfDocument, List<VatModel> photoList) {
+        int pageNumber = 0;
         for (int i = 0; i < photoList.size() - 1; i++) {
             VatModel model = photoList.get(i);
             Bitmap myBitmap = BitmapFactory.decodeFile(BitmapUtils.compressBitmap(model.getFilePath(), true));
             if (myBitmap == null)
                 continue;
+            pageNumber++;
             PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(myBitmap.getWidth(), myBitmap.getHeight(), (i + 1)).create();
             PdfDocument.Page page = pdfDocument.startPage(pageInfo);
             Canvas canvas = page.getCanvas();
@@ -85,6 +102,8 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
             pdfDocument.finishPage(page);
             myBitmap.recycle();
         }
+
+        return pageNumber;
     }
 
     private PdfDocument.Page addPageWithText(PdfDocument pdfDocument, String name, String months) {

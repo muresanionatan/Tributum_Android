@@ -2,9 +2,7 @@ package com.app.tributum.activity.form;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.OpenableColumns;
 import android.view.MotionEvent;
 
 import androidx.activity.result.ActivityResult;
@@ -340,23 +338,23 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
                 // Copy PDF to internal storage on background thread
                 new Thread(() -> {
                     try {
-                        File pdfFile = copyPdfToInternalStorage(pdfUri);
+                        File pdfFile = FileUtils.copyPdfToInternalStorage(pdfUri);
                         if (pdfFile != null && pdfFile.exists()) {
                             // Store the PDF file based on current state
                             // Update UI on main thread
                             ((Activity) view).runOnUiThread(() -> {
                                 if (state == FormAdapterState.BANK) {
                                     bankPdfList.add(pdfFile);
-                                    view.addItemToBankList(new VatModel(getFileName(pdfUri), true));
+                                    view.addItemToBankList(new VatModel(FileUtils.getFileName(pdfUri), true));
                                 } else if (state == FormAdapterState.KIDS) {
                                     kidsPdfList.add(pdfFile);
-                                    view.addItemToKidsList(new VatModel(getFileName(pdfUri), true));
+                                    view.addItemToKidsList(new VatModel(FileUtils.getFileName(pdfUri), true));
                                 } else if (state == FormAdapterState.EXPENSES) {
                                     expensesPdfList.add(pdfFile);
-                                    view.addItemToExpensesList(new VatModel(getFileName(pdfUri), true));
+                                    view.addItemToExpensesList(new VatModel(FileUtils.getFileName(pdfUri), true));
                                 } else if (state == FormAdapterState.MEDICAL) {
                                     medicalPdfList.add(pdfFile);
-                                    view.addItemToMedicalList(new VatModel(getFileName(pdfUri), true));
+                                    view.addItemToMedicalList(new VatModel(FileUtils.getFileName(pdfUri), true));
                                 } else if (state == FormState.RENT) {
                                     rentPdfFile = pdfFile;
                                     view.setPdfDefaultImage(R.id.rent_id);
@@ -390,64 +388,6 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
                 }).start();
             }
         }
-    }
-
-    private File copyPdfToInternalStorage(Uri pdfUri) {
-        try {
-            // Get the filename
-            String fileName = getFileName(pdfUri);
-            if (fileName == null) {
-                fileName = "document_" + System.currentTimeMillis() + ".pdf";
-            }
-
-            // Create directory in internal storage
-            File pdfDir = new File(TributumApplication.getInstance().getFilesDir(), "pdfs");
-            if (!pdfDir.exists()) {
-                pdfDir.mkdirs();
-            }
-
-            // Create the output file
-            File outputFile = new File(pdfDir, fileName);
-
-            // Copy content from URI to file using try-with-resources
-            try (java.io.InputStream inputStream = TributumApplication.getInstance()
-                    .getContentResolver().openInputStream(pdfUri);
-                 java.io.FileOutputStream outputStream = new java.io.FileOutputStream(outputFile)) {
-
-                if (inputStream == null) {
-                    return null;
-                }
-
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-            }
-
-            return outputFile;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private String getFileName(Uri uri) {
-        String result = null;
-        if (uri.getScheme().equals("content")) {
-            try (Cursor cursor = TributumApplication.getInstance().getContentResolver().query(uri, null, null, null, null)) {
-                if (cursor != null && cursor.moveToFirst()) {
-                    int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                    if (columnIndex != -1) {
-                        result = cursor.getString(columnIndex);
-                    }
-                }
-            }
-        }
-        if (result == null) {
-            result = uri.getLastPathSegment();
-        }
-        return result;
     }
 
     @Override

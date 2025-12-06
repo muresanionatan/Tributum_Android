@@ -133,6 +133,7 @@
 
                         <TextView
                             style="@style/MostUsedText"
+                            android:layout_marginStart="0dp"
                             android:text="@string/to_label" />
 
                         <RelativeLayout

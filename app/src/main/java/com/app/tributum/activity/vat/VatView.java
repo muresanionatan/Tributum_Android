@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import com.app.tributum.activity.vat.model.VatModel;
 
+import java.io.File;
 import java.util.List;
 
 public interface VatView {
@@ -14,7 +15,7 @@ public interface VatView {
 
     void hideKeyboard();
 
-    void startPdfCreation(List<VatModel> invoices, List<VatModel> privates);
+    void startPdfCreation(List<VatModel> invoices, List<VatModel> privates, List<File> invoicePdfs, List<File> privatePdfs);
 
     void hideLoadingScreen();
 
@@ -57,4 +58,6 @@ public interface VatView {
     void getFilesFromGalleryForPrivates(Uri imageUri);
 
     void addItemToPrivatesList(VatModel vatModel);
+
+    void openPdfIntent();
 }

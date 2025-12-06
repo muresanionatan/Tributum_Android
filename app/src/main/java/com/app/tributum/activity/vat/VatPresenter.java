@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.MotionEvent;
 
+import androidx.activity.result.ActivityResult;
+
 import com.app.tributum.activity.vat.model.VatModel;
 
 import java.util.List;
@@ -45,4 +47,8 @@ public interface VatPresenter {
     void onPrivatesSelected(List<Uri> uris);
 
     void onInvoicesSelected(List<Uri> uris);
+
+    void onAddPdfClick();
+
+    void handlePdfSelected(ActivityResult result);
 }

@@ -1,5 +1,7 @@
 package com.app.tributum.activity.vat;
 
+import static android.view.View.VISIBLE;
+
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -89,6 +91,11 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     private VatAdapter privatesAdapter;
 
     private String fileName;
+
+    private final ActivityResultLauncher<Intent> pdfBankPickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                presenter.handlePdfSelected(result);
+            });
 
     private final ActivityResultLauncher<PickVisualMediaRequest> pickPrivates =
             registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(20), uris -> {
@@ -220,6 +227,12 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
                 presenter.onTopViewClick();
             }
         });
+        findViewById(R.id.add_pdf_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onAddPdfClick();
+            }
+        });
         findViewById(R.id.privates_checkbox_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,6 +245,13 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
                 presenter.onPrivatesClick();
             }
         });
+    }
+
+    @Override
+    public void openPdfIntent() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("application/pdf");
+        pdfBankPickerLauncher.launch(intent);
     }
 
     private void scrollInvoicesListToBottom() {
@@ -256,6 +276,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     @Override
     public void openBottomSheet() {
+        findViewById(R.id.add_pdf_id).setVisibility(VISIBLE);
         fileChooser.setState(BottomSheetBehavior.STATE_EXPANDED);
         fileChooser.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -347,11 +368,12 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     }
 
     @Override
-    public void startPdfCreation(List<VatModel> invoices, List<VatModel> privates) {
+    public void startPdfCreation(List<VatModel> invoices, List<VatModel> privates, List<File> invoicePdfs, List<File> privatePdfs) {
         fileName = firstMonth.getSelectedItem().toString()
                 + "_" + secondMonth.getSelectedItem().toString() + "_" + System.currentTimeMillis();
+
         PdfAsyncTask asyncTask = new PdfAsyncTask(VatActivity.this, invoices, privates, name.getText().toString().trim(),
-                fileName);
+                fileName, invoicePdfs, privatePdfs);
         asyncTask.execute();
     }
 

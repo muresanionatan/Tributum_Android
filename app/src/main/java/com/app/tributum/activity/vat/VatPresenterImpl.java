@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
@@ -21,7 +22,9 @@ import com.app.tributum.model.EmailBody;
 import com.app.tributum.retrofit.InterfaceAPI;
 import com.app.tributum.retrofit.RetrofitClientInstance;
 import com.app.tributum.utils.ConstantsUtils;
+import com.app.tributum.utils.ui.FileUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +53,9 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     private List<VatModel> privatesList;
 
+    private List<File> invoicesPdfList;
+    private List<File> privatesPdfList;
+
     private boolean hasPrivates;
 
     private int previewState = 0;
@@ -66,6 +72,9 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
         privatesList = new ArrayList<>();
         privatesList.add(new VatModel(""));
+
+        invoicesPdfList = new ArrayList<>();
+        privatesPdfList = new ArrayList<>();
     }
 
     @Override
@@ -105,8 +114,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         } else if (PICTURE_NUMBER > 1) {
             vatView.hideKeyboard();
             vatView.showLoadingScreen();
-//            vatView.startPdfCreation(invoicesList, privatesList);
-            vatView.startPdfCreation(invoicesList, hasPrivates ? privatesList : null);
+            vatView.startPdfCreation(invoicesList, hasPrivates ? privatesList : null, invoicesPdfList, privatesPdfList);
         } else {
             vatView.showToast(resources.getString(R.string.no_photo_taken));
         }
@@ -212,6 +220,52 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         pickPictureFromGallery();
         collapseBottomSheet();
     }
+
+    @Override
+    public void onAddPdfClick() {
+        vatView.openPdfIntent();
+    }
+
+    @Override
+    public void handlePdfSelected(ActivityResult result) {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            PICTURE_NUMBER++;
+            Intent data = result.getData();
+            if (data != null && data.getData() != null) {
+                Uri pdfUri = data.getData();
+
+                // Copy PDF to internal storage on background thread
+                new Thread(() -> {
+                    try {
+                        File pdfFile = FileUtils.copyPdfToInternalStorage(pdfUri);
+                        if (pdfFile != null && pdfFile.exists()) {
+                            // Store the PDF file based on current state
+                            // Update UI on main thread
+                            ((Activity) vatView).runOnUiThread(() -> {
+                                if (previewState == 1) {
+                                    invoicesPdfList.add(pdfFile);
+                                    vatView.addItemToInvoicesList(new VatModel(FileUtils.getFileName(pdfUri), true));
+                                } else if (previewState == 2) {
+                                    privatesPdfList.add(pdfFile);
+                                    vatView.addItemToPrivatesList(new VatModel(FileUtils.getFileName(pdfUri), true));
+                                }
+
+                                vatView.collapseBottomSheet();
+                            });
+                        } else {
+                            ((Activity) vatView).runOnUiThread(() ->
+                                    vatView.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong)));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ((Activity) vatView).runOnUiThread(() ->
+                                vatView.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong)));
+                    }
+                }).start();
+            }
+        }
+    }
+
 
     private void pickPictureFromGallery() {
         if (vatView != null)
