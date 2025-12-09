@@ -86,4 +86,32 @@ public class ConstantsUtils {
      * notification, and show only the next ones
      */
     public static long APP_START_TIME = 0;
+
+
+    public static final int SELECT_PIC_DIRECTOR_1_FRONT = 111111111;
+    public static final int SELECT_PIC_DIRECTOR_1_BACK = 111111112;
+    public static final int SELECT_PIC_DIRECTOR_1_ID = 111111113;
+    public static final int SELECT_PIC_DIRECTOR_1_PASS = 111111114;
+    public static final int SELECT_PIC_DIRECTOR_2_FRONT = 111111115;
+    public static final int SELECT_PIC_DIRECTOR_2_BACK = 111111116;
+    public static final int SELECT_PIC_DIRECTOR_2_ID = 111111117;
+    public static final int SELECT_PIC_DIRECTOR_2_PASS = 111111118;
+    public static final int SELECT_PIC_DIRECTOR_3_FRONT = 111111119;
+    public static final int SELECT_PIC_DIRECTOR_3_BACK = 111111120;
+    public static final int SELECT_PIC_DIRECTOR_3_ID = 111111121;
+    public static final int SELECT_PIC_DIRECTOR_3_PASS = 111111122;
+
+
+    public static final int CAM_PIC_DIRECTOR_1_FRONT = 211111111;
+    public static final int CAM_PIC_DIRECTOR_1_BACK = 211111112;
+    public static final int CAM_PIC_DIRECTOR_1_ID = 211111113;
+    public static final int CAM_PIC_DIRECTOR_1_PASS = 211111114;
+    public static final int CAM_PIC_DIRECTOR_2_FRONT = 211111115;
+    public static final int CAM_PIC_DIRECTOR_2_BACK = 211111116;
+    public static final int CAM_PIC_DIRECTOR_2_ID = 211111117;
+    public static final int CAM_PIC_DIRECTOR_2_PASS = 211111118;
+    public static final int CAM_PIC_DIRECTOR_3_FRONT = 211111119;
+    public static final int CAM_PIC_DIRECTOR_3_BACK = 211111120;
+    public static final int CAM_PIC_DIRECTOR_3_ID = 211111121;
+    public static final int CAM_PIC_DIRECTOR_3_PASS = 211111122;
 }

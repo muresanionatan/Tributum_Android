@@ -1,6 +1,9 @@
 package com.app.tributum.activity.company;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.icu.util.Calendar;
+import android.net.Uri;
 import android.text.Editable;
 
 import androidx.annotation.NonNull;
@@ -9,6 +12,7 @@ import com.app.tributum.R;
 import com.app.tributum.activity.company.model.Company;
 import com.app.tributum.activity.company.model.Director;
 import com.app.tributum.activity.company.model.Secretary;
+import com.app.tributum.activity.contract.PhotoCrop;
 import com.app.tributum.application.TributumApplication;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.listener.RequestSentListener;
@@ -16,9 +20,12 @@ import com.app.tributum.model.EmailBody;
 import com.app.tributum.retrofit.InterfaceAPI;
 import com.app.tributum.retrofit.RetrofitClientInstance;
 import com.app.tributum.utils.ConstantsUtils;
+import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.UploadAsyncTask;
 import com.app.tributum.utils.ValidationUtils;
 import com.app.tributum.utils.ui.FileUtils;
+
+import java.io.File;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +52,13 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     private boolean acceptedTerms;
 
+    private boolean isPreview;
+
+    private File file;
+    private String filePath;
+    @PhotoCrop
+    private int photoState;
+
     @CompanyProgressState
     private int state = CompanyProgressState.COMPANY;
 
@@ -67,8 +81,10 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
     public void onBackPressed() {
         if (view == null)
             return;
-
-        if (state == CompanyProgressState.SECRETARY) {
+        if (isPreview) {
+            isPreview = false;
+            view.closePreview();
+        } else if (state == CompanyProgressState.SECRETARY) {
             state = CompanyProgressState.DIRECTOR;
             view.hideSecretaryView();
             view.showDirectorViewFromLeft();
@@ -149,6 +165,22 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
                 || (hasSecondDirector && director2.getAddress().isEmpty())
                 || (hasThirdDirector && director3.getAddress().isEmpty()))
             view.showToast(R.string.please_enter_address);
+        else if (director1.getPpsFrontFile() == null
+                || (hasSecondDirector && director2.getPpsFrontFile() == null)
+                || (hasThirdDirector && director3.getPpsFrontFile() == null))
+            view.showToast(R.string.please_add_pps_front);
+        else if (director1.getPpsBackFile() == null
+                || (hasSecondDirector && director2.getPpsBackFile() == null)
+                || (hasThirdDirector && director3.getPpsBackFile() == null))
+            view.showToast(R.string.please_add_pps_back);
+        else if (director1.getIdFile() == null
+                || (hasSecondDirector && director2.getIdFile() == null)
+                || (hasThirdDirector && director3.getIdFile() == null))
+            view.showToast(R.string.please_add_id_mandatory);
+        else if (director1.getPassport() == null
+                || (hasSecondDirector && director2.getPassport() == null)
+                || (hasThirdDirector && director3.getPassport() == null))
+            view.showToast(R.string.please_add_passport);
         else {
             state = CompanyProgressState.SECRETARY;
             view.hideDirectorViewToLeft();
@@ -185,6 +217,663 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
                     "COMPANY_FOUNDATION");
             uploadOneFileTask.execute();
         }
+    }
+
+    @Override
+    public void onBottomSheetExpanded() {
+        if (view != null)
+            view.setFileChooserToVisible();
+    }
+
+    @Override
+    public void onAddFromGalleryClicked(int requestCode) {
+        pickPictureFromGallery(requestCode);
+        view.hideBottomSheet();
+    }
+
+    @Override
+    public void onTakePhotoClicked(String name, int requestId) {
+        if (view == null)
+            return;
+
+        file = new File(ImageUtils.getImagePath(name + requestId));
+        view.takePicture(requestId, file, filePath);
+        view.hideBottomSheet();
+    }
+
+    @Override
+    public void onFileChooserTopClicked() {
+        if (view != null)
+            view.hideBottomSheet();
+    }
+
+    private void pickPictureFromGallery(int requestId) {
+        if (view == null)
+            return;
+
+        if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_1_FRONT)
+            view.pickDirector1PpsFront();
+        else if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_1_BACK)
+            view.pickDirector1PpsBack();
+        else if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_1_ID)
+            view.pickDirector1Id();
+        else if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_1_PASS)
+            view.pickDirector1Pass();
+        else if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_2_FRONT)
+            view.pickDirector2PpsFront();
+        else if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_2_BACK)
+            view.pickDirector2PpsBack();
+        else if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_2_ID)
+            view.pickDirector2Id();
+        else if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_2_PASS)
+            view.pickDirector2Pass();
+        else if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_3_FRONT)
+            view.pickDirector3PpsFront();
+        else if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_3_BACK)
+            view.pickDirector3PpsBack();
+        else if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_3_ID)
+            view.pickDirector3Id();
+        else if (requestId == ConstantsUtils.SELECT_PIC_DIRECTOR_3_PASS)
+            view.pickDirector3Pass();
+    }
+
+    @Override
+    public void setFilePath(String pictureImagePath) {
+        filePath = pictureImagePath;
+    }
+
+    @Override
+    public void onRemovePhotoClicked(String fileName) {
+        if (fileName == null)
+            return;
+
+        if (fileName.equals(director1.getPpsFrontFile())) {
+            view.resetDirector1PpsFrontLayout();
+            director1.setPpsFrontFile(null);
+        } else if (fileName.equals(director1.getPpsBackFile())) {
+            view.resetDirector1PpsBackLayout();
+            director1.setPpsBackFile(null);
+        } else if (fileName.equals(director1.getIdFile())) {
+            view.resetDirector1IdLayout();
+            director1.setIdFile(null);
+        } else if (fileName.equals(director1.getPassport())) {
+            view.resetDirector1PassLayout();
+            director1.setPassport(null);
+        } else if (fileName.equals(director2.getPpsFrontFile())) {
+            view.resetDirector2PpsFrontLayout();
+            director2.setPpsFrontFile(null);
+        } else if (fileName.equals(director2.getPpsBackFile())) {
+            view.resetDirector2PpsBackLayout();
+            director2.setPpsBackFile(null);
+        } else if (fileName.equals(director2.getIdFile())) {
+            view.resetDirector2IdLayout();
+            director2.setIdFile(null);
+        } else if (fileName.equals(director2.getPassport())) {
+            view.resetDirector2PassLayout();
+            director2.setPassport(null);
+        } else if (fileName.equals(director3.getPpsFrontFile())) {
+            view.resetDirector3PpsFrontLayout();
+            director3.setPpsFrontFile(null);
+        } else if (fileName.equals(director3.getPpsBackFile())) {
+            view.resetDirector3PpsBackLayout();
+            director3.setPpsBackFile(null);
+        } else if (fileName.equals(director3.getIdFile())) {
+            view.resetDirector3IdLayout();
+            director3.setIdFile(null);
+        } else if (fileName.equals(director3.getPassport())) {
+            view.resetDirector3PassLayout();
+            director3.setPassport(null);
+        }
+
+        isPreview = false;
+        view.closePreview();
+    }
+
+    @Override
+    public void onDirector1PpsFrontPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_1_FRONT_SELECT;
+        director1.setPpsFrontFile(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onDirector1PpsBackPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_1_BACK_SELECT;
+        director1.setPpsBackFile(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onDirector1IdPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_1_ID_SELECT;
+        director1.setIdFile(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onDirector1PassPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_1_PASS_SELECT;
+        director1.setPassport(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onDirector2PpsFrontPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_2_FRONT_SELECT;
+        director2.setPpsFrontFile(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onDirector2PpsBackPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_2_BACK_SELECT;
+        director2.setPpsBackFile(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onDirector2IdPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_2_ID_SELECT;
+        director2.setIdFile(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onDirector2PassPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_2_PASS_SELECT;
+        director2.setPassport(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onDirector3PpsFrontPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_3_FRONT_SELECT;
+        director3.setPpsFrontFile(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onDirector3PpsBackPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_3_BACK_SELECT;
+        director3.setPpsBackFile(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onDirector3IdPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_3_ID_SELECT;
+        director3.setIdFile(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void onDirector3PassPicker(Uri uri) {
+        photoState = PhotoCrop.DIR_3_PASS_SELECT;
+        director3.setPassport(uri.getPath());
+        view.startCrop(uri);
+    }
+
+    @Override
+    public void handleCropping(String result) {
+        switch (photoState) {
+            case PhotoCrop.DIR_1_FRONT_SELECT:
+            case PhotoCrop.DIR_1_FRONT_CAMERA:
+                director1.setPpsFrontFile(result);
+                if (result != null)
+                    view.setDirector1PpsFrontImage(result);
+                break;
+            case PhotoCrop.DIR_1_BACK_SELECT:
+            case PhotoCrop.DIR_1_BACK_CAMERA:
+                director1.setPpsBackFile(result);
+                if (result != null)
+                    view.setDirector1PpsBackImage(result);
+                break;
+            case PhotoCrop.DIR_1_ID_SELECT:
+            case PhotoCrop.DIR_1_ID_CAMERA:
+                director1.setIdFile(result);
+                if (result != null)
+                    view.setDirector1IdImage(result);
+                break;
+            case PhotoCrop.DIR_1_PASS_SELECT:
+            case PhotoCrop.DIR_1_PASS_CAMERA:
+                director1.setPassport(result);
+                if (result != null)
+                    view.setDirector1PassImage(result);
+                break;
+            case PhotoCrop.DIR_2_FRONT_SELECT:
+            case PhotoCrop.DIR_2_FRONT_CAMERA:
+                director2.setPpsFrontFile(result);
+                if (result != null)
+                    view.setDirector2PpsFrontImage(result);
+                break;
+            case PhotoCrop.DIR_2_BACK_SELECT:
+            case PhotoCrop.DIR_2_BACK_CAMERA:
+                director2.setPpsBackFile(result);
+                if (result != null)
+                    view.setDirector2PpsBackImage(result);
+                break;
+            case PhotoCrop.DIR_2_ID_SELECT:
+            case PhotoCrop.DIR_2_ID_CAMERA:
+                director2.setIdFile(result);
+                if (result != null)
+                    view.setDirector2IdImage(result);
+                break;
+            case PhotoCrop.DIR_2_PASS_SELECT:
+            case PhotoCrop.DIR_2_PASS_CAMERA:
+                director2.setPassport(result);
+                if (result != null)
+                    view.setDirector2PassImage(result);
+                break;
+            case PhotoCrop.DIR_3_FRONT_SELECT:
+            case PhotoCrop.DIR_3_FRONT_CAMERA:
+                director3.setPpsFrontFile(result);
+                if (result != null)
+                    view.setDirector3PpsFrontImage(result);
+                break;
+            case PhotoCrop.DIR_3_BACK_SELECT:
+            case PhotoCrop.DIR_3_BACK_CAMERA:
+                director3.setPpsBackFile(result);
+                if (result != null)
+                    view.setDirector3PpsBackImage(result);
+                break;
+            case PhotoCrop.DIR_3_ID_SELECT:
+            case PhotoCrop.DIR_3_ID_CAMERA:
+                director3.setIdFile(result);
+                if (result != null)
+                    view.setDirector3IdImage(result);
+                break;
+            case PhotoCrop.DIR_3_PASS_SELECT:
+            case PhotoCrop.DIR_3_PASS_CAMERA:
+                director3.setPassport(result);
+                if (result != null)
+                    view.setDirector3PassImage(result);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onDirector1PpsFrontClick() {
+        director1 = view.getDirector1Details();
+        if (director1.getPpsFrontFile() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_1_FRONT,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_1_FRONT);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onDirector1PpsBackClick() {
+        director1 = view.getDirector1Details();
+        if (director1.getPpsBackFile() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_1_BACK,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_1_BACK);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onDirector1IdClick() {
+        director1 = view.getDirector1Details();
+        if (director1.getIdFile() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_1_ID,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_1_ID);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onDirector1PassClick() {
+        director1 = view.getDirector1Details();
+        if (director1.getPassport() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_1_PASS,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_1_PASS);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onDirector2PpsFrontClick() {
+        director2 = view.getDirector2Details();
+        if (director2.getPpsFrontFile() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_2_FRONT,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_2_FRONT);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onDirector2PpsBackClick() {
+        director2 = view.getDirector2Details();
+        if (director2.getPpsBackFile() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_2_BACK,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_2_BACK);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onDirector2IdClick() {
+        director2 = view.getDirector2Details();
+        if (director2.getIdFile() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_2_ID,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_2_ID);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onDirector2PassClick() {
+        director2 = view.getDirector2Details();
+        if (director2.getPassport() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_2_PASS,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_2_PASS);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onDirector3PpsFrontClick() {
+        director3 = view.getDirector3Details();
+        if (director3.getPpsFrontFile() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_3_FRONT,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_3_FRONT);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onDirector3PpsBackClick() {
+        director3 = view.getDirector3Details();
+        if (director3.getPpsBackFile() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_3_BACK,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_3_BACK);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onDirector3IdClick() {
+        director3 = view.getDirector3Details();
+        if (director3.getIdFile() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_3_ID,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_3_ID);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onDirector3PassClick() {
+        director3 = view.getDirector3Details();
+        if (director3.getPassport() == null) {
+            view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_3_PASS,
+                    ConstantsUtils.CAM_PIC_DIRECTOR_3_PASS);
+            view.hideKeyboard();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (view == null)
+            return;
+
+        switch (requestCode) {
+            case ConstantsUtils.CAM_PIC_DIRECTOR_1_FRONT:
+                if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.DIR_1_FRONT_CAMERA;
+                    director1.setPpsFrontFile(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            case ConstantsUtils.CAM_PIC_DIRECTOR_1_BACK:
+                if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.DIR_1_BACK_CAMERA;
+                    director1.setPpsBackFile(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            case ConstantsUtils.CAM_PIC_DIRECTOR_1_ID:
+                if (resultCode == Activity.RESULT_OK && file != null) {
+                    photoState = PhotoCrop.DIR_1_ID_CAMERA;
+                    director1.setIdFile(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            case ConstantsUtils.CAM_PIC_DIRECTOR_1_PASS:
+                if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.DIR_1_PASS_CAMERA;
+                    director1.setPassport(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            case ConstantsUtils.CAM_PIC_DIRECTOR_2_FRONT:
+                if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.DIR_2_FRONT_CAMERA;
+                    director2.setPpsFrontFile(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            case ConstantsUtils.CAM_PIC_DIRECTOR_2_BACK:
+                if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.DIR_2_BACK_CAMERA;
+                    director2.setPpsBackFile(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            case ConstantsUtils.CAM_PIC_DIRECTOR_2_ID:
+                if (resultCode == Activity.RESULT_OK && file != null) {
+                    photoState = PhotoCrop.DIR_2_ID_CAMERA;
+                    director2.setIdFile(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            case ConstantsUtils.CAM_PIC_DIRECTOR_2_PASS:
+                if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.DIR_2_PASS_CAMERA;
+                    director2.setPassport(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            case ConstantsUtils.CAM_PIC_DIRECTOR_3_FRONT:
+                if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.DIR_3_FRONT_CAMERA;
+                    director3.setPpsFrontFile(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            case ConstantsUtils.CAM_PIC_DIRECTOR_3_BACK:
+                if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.DIR_3_BACK_CAMERA;
+                    director3.setPpsBackFile(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            case ConstantsUtils.CAM_PIC_DIRECTOR_3_ID:
+                if (resultCode == Activity.RESULT_OK && file != null) {
+                    photoState = PhotoCrop.DIR_3_ID_CAMERA;
+                    director3.setIdFile(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            case ConstantsUtils.CAM_PIC_DIRECTOR_3_PASS:
+                if (resultCode == Activity.RESULT_OK) {
+                    photoState = PhotoCrop.DIR_3_PASS_CAMERA;
+                    director3.setPassport(file.getAbsolutePath());
+                    view.startCrop(ImageUtils.getUriFromFile(file));
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onDirector1PpsFrontPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director1.getPpsFrontFile());
+    }
+
+    @Override
+    public void onDirector1PpsBackPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director1.getPpsBackFile());
+    }
+
+    @Override
+    public void onDirector1IdPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director1.getIdFile());
+    }
+
+    @Override
+    public void onDirector1PassPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director1.getPassport());
+    }
+
+    @Override
+    public void onDirector1PpsFrontDelete() {
+        if (view != null)
+            view.resetDirector1PpsFrontLayout();
+        director1.setPpsFrontFile(null);
+    }
+
+    @Override
+    public void onDirector1PpsBackDelete() {
+        if (view != null)
+            view.resetDirector1PpsBackLayout();
+        director1.setPpsBackFile(null);
+    }
+
+    @Override
+    public void onDirector1IdDelete() {
+        if (view != null)
+            view.resetDirector1IdLayout();
+        director1.setIdFile(null);
+    }
+
+    @Override
+    public void onDirector1PassDelete() {
+        if (view != null)
+            view.resetDirector1PassLayout();
+        director1.setPassport(null);
+    }
+
+    @Override
+    public void onDirector2PpsFrontPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director2.getPpsFrontFile());
+    }
+
+    @Override
+    public void onDirector2PpsBackPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director2.getPpsBackFile());
+    }
+
+    @Override
+    public void onDirector2IdPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director2.getIdFile());
+    }
+
+    @Override
+    public void onDirector2PassPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director2.getPassport());
+    }
+
+    @Override
+    public void onDirector2PpsFrontDelete() {
+        if (view != null)
+            view.resetDirector2PpsFrontLayout();
+        director2.setPpsFrontFile(null);
+    }
+
+    @Override
+    public void onDirector2PpsBackDelete() {
+        if (view != null)
+            view.resetDirector2PpsBackLayout();
+        director2.setPpsBackFile(null);
+    }
+
+    @Override
+    public void onDirector2IdDelete() {
+        if (view != null)
+            view.resetDirector2IdLayout();
+        director2.setIdFile(null);
+    }
+
+    @Override
+    public void onDirector2PassDelete() {
+        if (view != null)
+            view.resetDirector2PassLayout();
+        director2.setPassport(null);
+    }
+
+    @Override
+    public void onDirector3PpsFrontPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director3.getPpsFrontFile());
+    }
+
+    @Override
+    public void onDirector3PpsBackPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director3.getPpsBackFile());
+    }
+
+    @Override
+    public void onDirector3IdPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director3.getIdFile());
+    }
+
+    @Override
+    public void onDirector3PassPreview() {
+        isPreview = true;
+        if (view != null)
+            view.openFilePreview(director3.getPassport());
+    }
+
+    @Override
+    public void onDirector3PpsFrontDelete() {
+        if (view != null)
+            view.resetDirector3PpsFrontLayout();
+        director3.setPpsFrontFile(null);
+    }
+
+    @Override
+    public void onDirector3PpsBackDelete() {
+        if (view != null)
+            view.resetDirector3PpsBackLayout();
+        director3.setPpsBackFile(null);
+    }
+
+    @Override
+    public void onDirector3IdDelete() {
+        if (view != null)
+            view.resetDirector3IdLayout();
+        director3.setIdFile(null);
+    }
+
+    @Override
+    public void onDirector3PassDelete() {
+        if (view != null)
+            view.resetDirector3PassLayout();
+        director3.setPassport(null);
     }
 
     @Override

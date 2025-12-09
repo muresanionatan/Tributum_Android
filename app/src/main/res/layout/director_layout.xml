@@ -54,6 +54,38 @@
         android:hint="@string/director_pps_label"
         android:inputType="textCapWords" />
 
+    <TextView
+        style="@style/MostUsedText"
+        android:text="@string/add_pps_front" />
+
+    <include
+        android:id="@+id/director_pps_front"
+        layout="@layout/company_item" />
+
+    <TextView
+        style="@style/MostUsedText"
+        android:text="@string/add_pps_back_mandatory" />
+
+    <include
+        android:id="@+id/director_pps_back"
+        layout="@layout/company_item" />
+
+    <TextView
+        style="@style/MostUsedText"
+        android:text="@string/add_id_label" />
+
+    <include
+        android:id="@+id/director_id"
+        layout="@layout/company_item" />
+
+    <TextView
+        style="@style/MostUsedText"
+        android:text="@string/passport_label" />
+
+    <include
+        android:id="@+id/director_pass"
+        layout="@layout/company_item" />
+
     <EditText
         android:id="@+id/director_nationality_edit_text"
         style="@style/CustomEditText"
