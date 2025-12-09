@@ -12,6 +12,11 @@ public class Director {
     private String directorships;
     private String other;
 
+    private String ppsFrontFile;
+    private String ppsBackFile;
+    private String idFile;
+    private String passport;
+
     public Director() {
     }
 
@@ -97,5 +102,37 @@ public class Director {
 
     public void setOther(String other) {
         this.other = other;
+    }
+
+    public String getPpsFrontFile() {
+        return ppsFrontFile;
+    }
+
+    public void setPpsFrontFile(String ppsFrontFile) {
+        this.ppsFrontFile = ppsFrontFile;
+    }
+
+    public String getPpsBackFile() {
+        return ppsBackFile;
+    }
+
+    public void setPpsBackFile(String ppsBackFile) {
+        this.ppsBackFile = ppsBackFile;
+    }
+
+    public String getIdFile() {
+        return idFile;
+    }
+
+    public void setIdFile(String idFile) {
+        this.idFile = idFile;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
     }
 }

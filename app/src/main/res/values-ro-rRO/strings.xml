@@ -54,6 +54,7 @@
     <string name="invoices_message_email_part2">\u0020for period:\u0020</string>
     <string name="add_pps_front">Adauga poza PPS fata<font color='#f65b94'>*</font></string>
     <string name="add_pps_back">Adauga poza PPS spate (optional)</string>
+    <string name="add_pps_back_mandatory">Adauga poza PPS spate<font color='#f65b94'>*</font></string>
     <string name="add_from_gallery">Adauga poze din galerie</string>
     <string name="phone_number_label">Numar telefon<font color='#f65b94'>*</font></string>
     <string name="contract_mail_message">Cererea ta a fost inregistrata si va fi procesata in cel mai scurt timp posibil.</string>
@@ -242,6 +243,11 @@
     <string name="to_label">la</string>
     <string name="own_van">Detineti un van?</string>
     <string name="own_van_description">Nota: Daca van-ul nu este inregistrat pe numele dumneavoastra, nu se poate deduce motorina.</string>
+    <string name="add_id_label">Adauga ID<font color='#f65b94'>*</font></string>
+    <string name="passport_label">Adauga un selfie tinand pasaportul<font color='#f65b94'>*</font></string>
+    <string name="please_add_pps_back">Te rugam adauga poza PPS spate</string>
+    <string name="please_add_id_mandatory">Te rugam adauga poza ID</string>
+    <string name="please_add_passport">Te rugam adauga poza pasaport</string>
 
     <string-array name="months">
         <item>Ianuarie</item>
