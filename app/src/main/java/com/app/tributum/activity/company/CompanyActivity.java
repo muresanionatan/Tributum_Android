@@ -706,7 +706,7 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     @Override
     public void resetDirector2PpsFrontLayout() {
         findViewById(R.id.director_2_layout_id).findViewById(R.id.director_pps_front)
-            .findViewById(R.id.photo_uploaded_id).setVisibility(View.GONE);
+                .findViewById(R.id.photo_uploaded_id).setVisibility(View.GONE);
     }
 
     @Override
@@ -1151,8 +1151,9 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     }
 
     @Override
-    public Director getDirector1Details() {
-        return new Director(((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_first_name_edit_text)).getText().toString().trim(),
+    public void getDirector1Details() {
+        presenter.setDirector1Details(
+                ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_first_name_edit_text)).getText().toString().trim(),
                 ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_sur_name_edit_text)).getText().toString().trim(),
                 ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_birthday_id)).getText().toString().trim(),
                 ((EditText) findViewById(R.id.director_1_layout_id).findViewById(R.id.director_pps_edit_text)).getText().toString().trim(),
@@ -1164,8 +1165,9 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     }
 
     @Override
-    public Director getDirector2Details() {
-        return new Director(((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_first_name_edit_text)).getText().toString().trim(),
+    public void getDirector2Details() {
+        presenter.setDirector2Details(
+                ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_first_name_edit_text)).getText().toString().trim(),
                 ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_sur_name_edit_text)).getText().toString().trim(),
                 ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_birthday_id)).getText().toString().trim(),
                 ((EditText) findViewById(R.id.director_2_layout_id).findViewById(R.id.director_pps_edit_text)).getText().toString().trim(),
@@ -1177,8 +1179,9 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     }
 
     @Override
-    public Director getDirector3Details() {
-        return new Director(((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_first_name_edit_text)).getText().toString().trim(),
+    public void getDirector3Details() {
+        presenter.setDirector3Details(
+                ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_first_name_edit_text)).getText().toString().trim(),
                 ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_sur_name_edit_text)).getText().toString().trim(),
                 ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_birthday_id)).getText().toString().trim(),
                 ((EditText) findViewById(R.id.director_3_layout_id).findViewById(R.id.director_pps_edit_text)).getText().toString().trim(),

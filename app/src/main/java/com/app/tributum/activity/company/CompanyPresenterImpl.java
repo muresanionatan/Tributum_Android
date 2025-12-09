@@ -26,6 +26,8 @@ import com.app.tributum.utils.ValidationUtils;
 import com.app.tributum.utils.ui.FileUtils;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,7 +48,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
     private int previousSecretaryLength;
 
     private Company company;
-    private Director director1;
+    private Director director1 = new Director();
     private Director director2 = new Director();
     private Director director3 = new Director();
 
@@ -131,11 +133,11 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
     }
 
     private void moveToSecretaryScreen() {
-        director1 = view.getDirector1Details();
+        view.getDirector1Details();
         if (hasSecondDirector)
-            director2 = view.getDirector2Details();
+            view.getDirector2Details();
         if (hasThirdDirector)
-            director3 = view.getDirector3Details();
+            view.getDirector3Details();
 
         if (director1.getFirstName().isEmpty()
                 || (hasSecondDirector && director2.getFirstName().isEmpty())
@@ -215,8 +217,51 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
                     this,
                     UploadAsyncTask.UploadType.USER_INFO,
                     "COMPANY_FOUNDATION");
+            uploadOneFileTask.setProcess("user_info");
             uploadOneFileTask.execute();
         }
+    }
+
+    @Override
+    public void setDirector1Details(String firstName, String surName, String birthday,
+                                    String pps, String nationality, String occupation, String home, String directorships, String other) {
+        director1.setFirstName(firstName);
+        director1.setSurName(surName);
+        director1.setBirthday(birthday);
+        director1.setPps(pps);
+        director1.setNationality(nationality);
+        director1.setOccupation(occupation);
+        director1.setAddress(home);
+        director1.setDirectorships(directorships);
+        director1.setOther(other);
+    }
+
+    @Override
+    public void setDirector2Details(String firstName, String surName, String birthday,
+                                    String pps, String nationality, String occupation, String home, String directorships, String other) {
+        director2.setFirstName(firstName);
+        director2.setSurName(surName);
+        director2.setBirthday(birthday);
+        director2.setPps(pps);
+        director2.setNationality(nationality);
+        director2.setOccupation(occupation);
+        director2.setAddress(home);
+        director2.setDirectorships(directorships);
+        director2.setOther(other);
+    }
+
+    @Override
+    public void setDirector3Details(String firstName, String surName, String birthday,
+                                    String pps, String nationality, String occupation, String home, String directorships, String other) {
+        director3.setFirstName(firstName);
+        director3.setSurName(surName);
+        director3.setBirthday(birthday);
+        director3.setPps(pps);
+        director3.setNationality(nationality);
+        director3.setOccupation(occupation);
+        director3.setAddress(home);
+        director3.setDirectorships(directorships);
+        director3.setOther(other);
     }
 
     @Override
@@ -495,7 +540,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector1PpsFrontClick() {
-        director1 = view.getDirector1Details();
+        view.getDirector1Details();
         if (director1.getPpsFrontFile() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_1_FRONT,
                     ConstantsUtils.CAM_PIC_DIRECTOR_1_FRONT);
@@ -505,7 +550,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector1PpsBackClick() {
-        director1 = view.getDirector1Details();
+        view.getDirector1Details();
         if (director1.getPpsBackFile() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_1_BACK,
                     ConstantsUtils.CAM_PIC_DIRECTOR_1_BACK);
@@ -515,7 +560,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector1IdClick() {
-        director1 = view.getDirector1Details();
+        view.getDirector1Details();
         if (director1.getIdFile() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_1_ID,
                     ConstantsUtils.CAM_PIC_DIRECTOR_1_ID);
@@ -525,7 +570,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector1PassClick() {
-        director1 = view.getDirector1Details();
+        view.getDirector1Details();
         if (director1.getPassport() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_1_PASS,
                     ConstantsUtils.CAM_PIC_DIRECTOR_1_PASS);
@@ -535,7 +580,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector2PpsFrontClick() {
-        director2 = view.getDirector2Details();
+        view.getDirector2Details();
         if (director2.getPpsFrontFile() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_2_FRONT,
                     ConstantsUtils.CAM_PIC_DIRECTOR_2_FRONT);
@@ -545,7 +590,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector2PpsBackClick() {
-        director2 = view.getDirector2Details();
+        view.getDirector2Details();
         if (director2.getPpsBackFile() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_2_BACK,
                     ConstantsUtils.CAM_PIC_DIRECTOR_2_BACK);
@@ -555,7 +600,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector2IdClick() {
-        director2 = view.getDirector2Details();
+        view.getDirector2Details();
         if (director2.getIdFile() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_2_ID,
                     ConstantsUtils.CAM_PIC_DIRECTOR_2_ID);
@@ -565,7 +610,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector2PassClick() {
-        director2 = view.getDirector2Details();
+        view.getDirector2Details();
         if (director2.getPassport() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_2_PASS,
                     ConstantsUtils.CAM_PIC_DIRECTOR_2_PASS);
@@ -575,7 +620,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector3PpsFrontClick() {
-        director3 = view.getDirector3Details();
+        view.getDirector3Details();
         if (director3.getPpsFrontFile() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_3_FRONT,
                     ConstantsUtils.CAM_PIC_DIRECTOR_3_FRONT);
@@ -585,7 +630,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector3PpsBackClick() {
-        director3 = view.getDirector3Details();
+        view.getDirector3Details();
         if (director3.getPpsBackFile() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_3_BACK,
                     ConstantsUtils.CAM_PIC_DIRECTOR_3_BACK);
@@ -595,7 +640,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector3IdClick() {
-        director3 = view.getDirector3Details();
+        view.getDirector3Details();
         if (director3.getIdFile() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_3_ID,
                     ConstantsUtils.CAM_PIC_DIRECTOR_3_ID);
@@ -605,7 +650,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onDirector3PassClick() {
-        director3 = view.getDirector3Details();
+        view.getDirector3Details();
         if (director3.getPassport() == null) {
             view.showFileChooser(ConstantsUtils.SELECT_PIC_DIRECTOR_3_PASS,
                     ConstantsUtils.CAM_PIC_DIRECTOR_3_PASS);
@@ -1029,26 +1074,54 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onTaskCompleted(String process) {
-        Retrofit retrofit = RetrofitClientInstance.getInstance();
-        final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+        if (process.equals("user_info")) {
+            Map<String, String> uploadList = new HashMap<>();
+            uploadList.put("DIRECTOR_1_PPS_FRONT", director1.getPpsFrontFile().replace("file://", ""));
+            uploadList.put("DIRECTOR_1_PPS_BACK", director1.getPpsBackFile().replace("file://", ""));
+            uploadList.put("DIRECTOR_1_ID", director1.getIdFile().replace("file://", ""));
+            uploadList.put("DIRECTOR_1_PASSPORT", director1.getPassport().replace("file://", ""));
+            if (hasSecondDirector) {
+                uploadList.put("DIRECTOR_2_PPS_FRONT", director2.getPpsFrontFile().replace("file://", ""));
+                uploadList.put("DIRECTOR_2_PPS_BACK", director2.getPpsBackFile().replace("file://", ""));
+                uploadList.put("DIRECTOR_2_ID", director2.getIdFile().replace("file://", ""));
+                uploadList.put("DIRECTOR_2_PASSPORT", director2.getPassport().replace("file://", ""));
+            }
+            if (hasThirdDirector) {
+                uploadList.put("DIRECTOR_3_PPS_FRONT", director3.getPpsFrontFile().replace("file://", ""));
+                uploadList.put("DIRECTOR_3_PPS_BACK", director3.getPpsBackFile().replace("file://", ""));
+                uploadList.put("DIRECTOR_3_ID", director3.getIdFile().replace("file://", ""));
+                uploadList.put("DIRECTOR_3_PASSPORT", director3.getPassport().replace("file://", ""));
+            }
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(company.getFirstName() + " " + company.getSurName()), "Android"));
-        call.enqueue(new Callback<Object>() {
-            @Override
-            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                if (!response.isSuccessful()) {
-                    view.showToast(R.string.something_went_wrong);
-                } else {
-                    sendClientMail(company.getEmail(), TributumApplication.getInstance().getString(R.string.contract_mail_message));
+            UploadAsyncTask uploadMultipleFilesTask = new UploadAsyncTask(
+                    company.getFirstName() + " " + company.getSurName(),
+                    uploadList,
+                    this,
+                    UploadAsyncTask.UploadType.MULTIPLE,
+                    "COMPANY_FOUNDATION");
+            uploadMultipleFilesTask.execute();
+        } else {
+            Retrofit retrofit = RetrofitClientInstance.getInstance();
+            final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+
+            Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(company.getFirstName() + " " + company.getSurName()), "Android"));
+            call.enqueue(new Callback<Object>() {
+                @Override
+                public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                    if (!response.isSuccessful()) {
+                        view.showToast(R.string.something_went_wrong);
+                    } else {
+                        sendClientMail(company.getEmail(), TributumApplication.getInstance().getString(R.string.contract_mail_message));
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
-                view.hideLoadingScreen();
-                view.showToast(R.string.something_went_wrong);
-            }
-        });
+                @Override
+                public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                    view.hideLoadingScreen();
+                    view.showToast(R.string.something_went_wrong);
+                }
+            });
+        }
     }
 
     private String generateInternalEmailMessage(String name) {

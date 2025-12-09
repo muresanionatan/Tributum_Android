@@ -48,9 +48,9 @@ public interface CompanyView {
 
     Company getCompanyDetails();
 
-    Director getDirector1Details();
-    Director getDirector2Details();
-    Director getDirector3Details();
+    void getDirector1Details();
+    void getDirector2Details();
+    void getDirector3Details();
     Secretary getSecretaryDetails();
 
     void setBirthdayText(String string1, int id);

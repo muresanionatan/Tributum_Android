@@ -11,6 +11,7 @@ public interface CompanyPresenter {
     void onOkClicked();
 
     void onDirector2Click();
+
     void onDirector3Click();
 
     void onMainButtonClick();
@@ -132,4 +133,11 @@ public interface CompanyPresenter {
     void onDirector3IdDelete();
 
     void onDirector3PassDelete();
+
+    void setDirector1Details(String firstName, String surName, String birthday, String pps,
+                             String nationality, String occupation, String home, String directorships, String other);
+    void setDirector2Details(String firstName, String surName, String birthday, String pps,
+                             String nationality, String occupation, String home, String directorships, String other);
+    void setDirector3Details(String firstName, String surName, String birthday, String pps,
+                             String nationality, String occupation, String home, String directorships, String other);
 }
