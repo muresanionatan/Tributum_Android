@@ -15,12 +15,14 @@ import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.application.AppKeysValues;
 import com.app.tributum.application.TributumAppHelper;
 import com.app.tributum.application.TributumApplication;
+import com.app.tributum.listener.CombinePdfListener;
 import com.app.tributum.listener.InvoiceItemClickListener;
 import com.app.tributum.listener.InvoicesDeleteListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
 import com.app.tributum.retrofit.InterfaceAPI;
 import com.app.tributum.retrofit.RetrofitClientInstance;
+import com.app.tributum.thread.CombinePhotosInPdfTask;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.ui.FileUtils;
 
@@ -33,7 +35,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, InvoiceItemClickListener, RequestSentListener {
+public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, InvoiceItemClickListener, RequestSentListener,
+        CombinePdfListener {
 
     private final VatView vatView;
 
@@ -62,6 +65,11 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     private int previewState = 0;
     private boolean hasVan;
+    private String name;
+    private String startingMonth;
+    private String endingMonth;
+    private String email;
+    private String fileName;
 
     VatPresenterImpl(VatView vatView) {
         this.vatView = vatView;
@@ -140,6 +148,11 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
                 || !invoicesPdfList.isEmpty()
                 || !privatesList.get(0).getFilePath().isEmpty()
                 || !privatesPdfList.isEmpty()) {
+            this.name = name;
+            this.email = email;
+            this.startingMonth = startingMonth;
+            this.endingMonth = endingMonth;
+
             vatView.hideKeyboard();
             vatView.showLoadingScreen();
             vatView.startPdfCreation(invoicesList, hasPrivates ? privatesList : null, invoicesPdfList, privatesPdfList);
@@ -179,6 +192,13 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
                 if (!TributumAppHelper.getBooleanSetting(AppKeysValues.INVOICES_TAKEN)) {
                     TributumAppHelper.saveSetting(AppKeysValues.INVOICES_TAKEN, AppKeysValues.TRUE);
                 }
+            }
+        } else if (requestCode == ConstantsUtils.CAMERA_REQUEST_STATEMENTS_ID && resultCode == Activity.RESULT_OK) {
+            vatView.addItemToStatementsList(new VatModel(pictureImagePath));
+
+            if (PICTURE_NUMBER < ConstantsUtils.MAXIMUM_PICTURES_IN_ATTACHMENT) {
+                onTakePhotoClick();
+                PICTURE_NUMBER++;
             }
         }
     }
@@ -229,8 +249,13 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     public void onTaskCompleted(String name, String email, String startingMonth, String endingMonth, String fileName) {
         if (vatView == null)
             return;
+
+        this.fileName = fileName;
         saveListToPreferences(name, email);
-        sendInternalEmail(name, email, startingMonth, endingMonth, fileName);
+        CombinePhotosInPdfTask combinePhotosInPdfTask =
+                new CombinePhotosInPdfTask(this, statementsList, name,
+                        ("bank_statements" + "_" + startingMonth + "_" + endingMonth), statementsPdfList, "vat");
+        combinePhotosInPdfTask.execute();
     }
 
     @Override
@@ -483,5 +508,10 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         vatView.setPrivatesStates(hasPrivates);
         vatView.setPrivatesFont(hasPrivates ? R.font.manrope_bold : R.font.manrope_medium);
         vatView.setRecyclerViewVisibility(hasPrivates ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onPdfCompleted(String process) {
+        sendInternalEmail(name, email, startingMonth, endingMonth, fileName);
     }
 }

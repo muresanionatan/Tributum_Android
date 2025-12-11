@@ -27,12 +27,24 @@ public class CombinePhotosInPdfTask extends AsyncTask<Void, Void, Void> {
     private String fileName;
     private List<File> pdfFile;
 
+    private String path;
+
     public CombinePhotosInPdfTask(CombinePdfListener listener, List<VatModel> photosList, String username, String fileName, List<File> pdfFile) {
         this.listener = listener;
         this.photosList = photosList;
         this.username = username;
         this.fileName = fileName;
         this.pdfFile = pdfFile;
+    }
+
+    public CombinePhotosInPdfTask(CombinePdfListener listener, List<VatModel> photosList,
+                                  String username, String fileName, List<File> pdfFile, String path) {
+        this.listener = listener;
+        this.photosList = photosList;
+        this.username = username;
+        this.fileName = fileName;
+        this.pdfFile = pdfFile;
+        this.path = path;
     }
 
     @Override
@@ -59,7 +71,10 @@ public class CombinePhotosInPdfTask extends AsyncTask<Void, Void, Void> {
             }
 
             try {
-                DropboxUtils.uploadToFormDropbox(username, fileName, file);
+                if (path.equals("vat"))
+                    DropboxUtils.uploadVatOnDropbox(username, fileName, file);
+                else
+                    DropboxUtils.uploadToFormDropbox(username, fileName, file);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -84,7 +99,6 @@ public class CombinePhotosInPdfTask extends AsyncTask<Void, Void, Void> {
         }
         return pageNumber;
     }
-
 
 
     @Override
