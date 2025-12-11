@@ -32,6 +32,7 @@ public interface VatView {
     void showImagePreview(String filePath);
 
     void getFilesFromGalleryForInvoices(Uri imageUri);
+    void getFilesFromGalleryForStatements(Uri imageUri);
 
     void closeActivity();
 
@@ -62,4 +63,8 @@ public interface VatView {
     void openPdfIntent();
 
     void checkVan(boolean hasVan);
+
+    void addItemToStatementsList(VatModel vatModel);
+
+    void removeItemFromStatementsList(int photoClicked);
 }

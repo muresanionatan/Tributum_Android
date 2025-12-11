@@ -1,8 +1,5 @@
 package com.app.tributum.activity.vat.adapter;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
@@ -31,21 +28,21 @@ public class VatAdapter extends RecyclerView.Adapter<VatItemViewHolder> {
 
     private List<VatModel> list;
 
-    private InvoiceItemClickListener invoiceItemClickListener;
+    private final InvoiceItemClickListener invoiceItemClickListener;
 
-    private InvoicesDeleteListener invoicesDeleteListener;
+    private final InvoicesDeleteListener invoicesDeleteListener;
 
     private Resources resources;
 
-    private boolean arePrivates;
+    private final int mode;
 
     public VatAdapter(Activity activity, List<VatModel> list, InvoiceItemClickListener invoiceItemClickListener, InvoicesDeleteListener invoicesDeleteListener,
-                      boolean arePrivates) {
+                      int mode) {
         this.activity = activity;
         this.list = list;
         this.invoiceItemClickListener = invoiceItemClickListener;
         this.invoicesDeleteListener = invoicesDeleteListener;
-        this.arePrivates = arePrivates;
+        this.mode = mode;
     }
 
     @NonNull
@@ -58,11 +55,11 @@ public class VatAdapter extends RecyclerView.Adapter<VatItemViewHolder> {
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull VatItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull VatItemViewHolder holder, @SuppressLint("RecyclerView") int position) {
         VatModel model = list.get(position);
         View plusImage = holder.plusImage;
         if (model.isPdf())
-            plusImage.setVisibility(GONE);
+            plusImage.setVisibility(View.GONE);
         View photoUploadedView = holder.photoUploadedView;
         if (position == list.size() - 1 || plusImage == null) {
             if (list.size() - 1 < ConstantsUtils.MAXIMUM_PICTURES_IN_ATTACHMENT && plusImage != null) {
@@ -72,17 +69,19 @@ public class VatAdapter extends RecyclerView.Adapter<VatItemViewHolder> {
                     @Override
                     public void onClick(View v) {
                         if (invoiceItemClickListener != null && !model.isPdf())
-                            invoiceItemClickListener.onPlusCLick(arePrivates);
+                            invoiceItemClickListener.onPlusCLick(mode);
                     }
                 });
             }
         } else if (position < ConstantsUtils.MAXIMUM_PICTURES_IN_ATTACHMENT) {
             photoUploadedView.setVisibility(View.VISIBLE);
             if (model.isPdf()) {
-                photoUploadedView.findViewById(R.id.preview_thumbnail_id).setVisibility(GONE);
-                photoUploadedView.findViewById(R.id.photo_holder_divider_id).setVisibility(GONE);
+                photoUploadedView.findViewById(R.id.preview_thumbnail_id).setVisibility(View.GONE);
+                photoUploadedView.findViewById(R.id.photo_holder_divider_id).setVisibility(View.GONE);
                 ((ImageView) photoUploadedView.findViewById(R.id.vat_preview_image_id)).setImageResource(R.drawable.pdf_final);
             } else {
+                photoUploadedView.findViewById(R.id.preview_thumbnail_id).setVisibility(View.VISIBLE);
+                photoUploadedView.findViewById(R.id.photo_holder_divider_id).setVisibility(View.VISIBLE);
                 Glide.with(activity).load("file://" + model.getFilePath()).thumbnail(0.5f)
                         .transform(new CenterCrop(), new RoundedCorners(resources.getDimensionPixelOffset(R.dimen.global_radius)))
                         .into((ImageView) photoUploadedView.findViewById(R.id.vat_preview_image_id));
@@ -91,24 +90,26 @@ public class VatAdapter extends RecyclerView.Adapter<VatItemViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (invoiceItemClickListener != null)
-                        invoiceItemClickListener.onPreviewPhotoClick(model.getFilePath(), position, arePrivates);
+                        invoiceItemClickListener.onPreviewPhotoClick(model.getFilePath(), position, mode);
                 }
             });
             holder.deleteImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (invoiceItemClickListener != null)
-                        invoiceItemClickListener.onDeleteClick(model.getFilePath(), position, arePrivates);
+                        invoiceItemClickListener.onDeleteClick(model.getFilePath(), position, mode);
                 }
             });
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addItemToList(VatModel model) {
         list.add(getItemCount() - 1, model);
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void remove(int photoIndex) {
         list.remove(photoIndex);
         notifyDataSetChanged();

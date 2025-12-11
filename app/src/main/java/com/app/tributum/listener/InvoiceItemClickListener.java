@@ -2,9 +2,9 @@ package com.app.tributum.listener;
 
 public interface InvoiceItemClickListener {
 
-    void onPreviewPhotoClick(String filePath, int photoIndex, boolean arePrivates);
+    void onPreviewPhotoClick(String filePath, int photoIndex, int mode);
 
-    void onPlusCLick(boolean privates);
+    void onPlusCLick(int mode);
 
-    void onDeleteClick(String filePath, int photoIndex, boolean arePrivates);
+    void onDeleteClick(String filePath, int photoIndex, int mode);
 }

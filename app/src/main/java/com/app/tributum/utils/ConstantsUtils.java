@@ -50,6 +50,7 @@ public class ConstantsUtils {
     public static final short CAMERA_REQUEST_INVOICES_ID = 7;
 
     public static final short CAMERA_REQUEST_PRIVATES_ID = 8;
+    public static final short CAMERA_REQUEST_STATEMENTS_ID = 80;
     public static final short CAMERA_REQUEST_BANK_ID = 234;
     public static final short CAMERA_REQUEST_KIDS_ID = 345;
     public static final short CAMERA_REQUEST_EXPENSES_ID = 456;
@@ -78,6 +79,7 @@ public class ConstantsUtils {
     public static final int SELECT_PICTURES_FOR_INVOICES = 555;
 
     public static final int SELECT_PICTURES_FOR_PRIVATES = 777;
+    public static final int SELECT_PICTURES_FOR_STATEMENTS = 707;
 
     public static long NOTIFICATION_INTERVAL = 1000 * 60 * 60 * 24 * 60;
 

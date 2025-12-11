@@ -27,6 +27,7 @@ public interface VatPresenter {
     List<VatModel> getInvoicesList();
 
     List<VatModel> getPrivatesList();
+    List<VatModel> getStatementsList();
 
     void onCreate();
 
@@ -53,4 +54,6 @@ public interface VatPresenter {
     void handlePdfSelected(ActivityResult result);
 
     void onVanClick(boolean checkboxClicked);
+
+    void onStatementsSelected(List<Uri> uris);
 }

@@ -52,9 +52,11 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     private List<VatModel> invoicesList;
 
     private List<VatModel> privatesList;
+    private List<VatModel> statementsList;
 
     private List<File> invoicesPdfList;
     private List<File> privatesPdfList;
+    private List<File> statementsPdfList;
 
     private boolean hasPrivates;
 
@@ -74,24 +76,30 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         privatesList = new ArrayList<>();
         privatesList.add(new VatModel(""));
 
+        statementsList = new ArrayList<>();
+        statementsList.add(new VatModel(""));
+
         invoicesPdfList = new ArrayList<>();
         privatesPdfList = new ArrayList<>();
+        statementsPdfList = new ArrayList<>();
     }
 
     @Override
     public void onRemovePhotoClick() {
         if (vatView == null)
             return;
-        removeItemFromList(photoClicked, false);
+        removeItemFromList(photoClicked, previewState);
         previewState = 0;
         clearPreview();
     }
 
-    private void removeItemFromList(int photoClicked, boolean arePrivates) {
-        if (previewState == 1 || !arePrivates)
+    private void removeItemFromList(int photoClicked, int mode) {
+        if (mode == 1)
             vatView.removeItemFromInvoicesList(photoClicked);
-        else if (previewState == 2 || arePrivates)
+        else if (mode == 2)
             vatView.removeItemFromPrivatesList(photoClicked);
+        else if (mode == 3)
+            vatView.removeItemFromStatementsList(photoClicked);
     }
 
     @Override
@@ -102,6 +110,11 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     @Override
     public List<VatModel> getPrivatesList() {
         return privatesList;
+    }
+
+    @Override
+    public List<VatModel> getStatementsList() {
+        return statementsList;
     }
 
     @Override
@@ -119,6 +132,9 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         } else if (email.isEmpty()) {
             vatView.showToast(resources.getString(R.string.please_enter_correct_email));
             vatView.setFocusOnEmail();
+        } else if ((statementsList.size() == 1 && statementsList.get(0).getFilePath().isEmpty())
+                && statementsPdfList.isEmpty()) {
+            vatView.showToast(resources.getString(R.string.please_add_bank_statement));
         } else if (PICTURE_NUMBER > 0 &&
                 (!invoicesList.get(0).getFilePath().isEmpty())
                 || !invoicesPdfList.isEmpty()
@@ -187,6 +203,16 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     }
 
     @Override
+    public void onStatementsSelected(List<Uri> uris) {
+        int count = uris.size();
+        PICTURE_NUMBER = count;
+        for (int i = 0; i < count; i++) {
+            Uri imageUri = uris.get(i);
+            vatView.getFilesFromGalleryForStatements(imageUri);
+        }
+    }
+
+    @Override
     public boolean onRecyclerViewTouch(MotionEvent event) {
         if (vatView != null && event != null && event.getAction() == MotionEvent.ACTION_MOVE) {
             vatView.hideKeyboard();
@@ -223,8 +249,15 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     @Override
     public void onTakePhotoClick() {
         collapseBottomSheet();
+        int state;
+        if (previewState == 1)
+            state = ConstantsUtils.CAMERA_REQUEST_INVOICES_ID;
+        else if (previewState == 2)
+            state = ConstantsUtils.CAMERA_REQUEST_PRIVATES_ID;
+        else
+            state = ConstantsUtils.CAMERA_REQUEST_STATEMENTS_ID;
         if (vatView != null)
-            vatView.takePhoto(pictureImagePath, previewState == 2 ? ConstantsUtils.CAMERA_REQUEST_PRIVATES_ID : ConstantsUtils.CAMERA_REQUEST_INVOICES_ID);
+            vatView.takePhoto(pictureImagePath, state);
     }
 
     @Override
@@ -260,6 +293,9 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
                                 } else if (previewState == 2) {
                                     privatesPdfList.add(pdfFile);
                                     vatView.addItemToPrivatesList(new VatModel(FileUtils.getFileName(pdfUri), true));
+                                } else if (previewState == 3) {
+                                    statementsPdfList.add(pdfFile);
+                                    vatView.addItemToStatementsList(new VatModel(FileUtils.getFileName(pdfUri), true));
                                 }
 
                                 vatView.collapseBottomSheet();
@@ -280,8 +316,15 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
 
     private void pickPictureFromGallery() {
+        int state;
+        if (previewState == 1)
+            state = ConstantsUtils.SELECT_PICTURES_FOR_INVOICES;
+        else if (previewState == 2)
+            state = ConstantsUtils.SELECT_PICTURES_FOR_PRIVATES;
+        else
+            state = ConstantsUtils.SELECT_PICTURES_FOR_STATEMENTS;
         if (vatView != null)
-            vatView.openPhotoChooserIntent(previewState == 2 ? ConstantsUtils.SELECT_PICTURES_FOR_PRIVATES : ConstantsUtils.SELECT_PICTURES_FOR_INVOICES);
+            vatView.openPhotoChooserIntent(state);
     }
 
     private void collapseBottomSheet() {
@@ -297,7 +340,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     }
 
     private void clearFormStarted() {
-        PICTURE_NUMBER = 1;
+        PICTURE_NUMBER = 0;
         if (TributumAppHelper.getBooleanSetting(AppKeysValues.INVOICES_TAKEN)) {
             TributumAppHelper.saveSetting(AppKeysValues.INVOICES_TAKEN, AppKeysValues.FALSE);
         }
@@ -387,28 +430,28 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
     }
 
     @Override
-    public void onPreviewPhotoClick(String filePath, int photoIndex, boolean arePrivates) {
+    public void onPreviewPhotoClick(String filePath, int photoIndex, int mode) {
         if (vatView == null)
             return;
         isPreview = true;
         photoClicked = photoIndex;
-        previewState = arePrivates ? 2 : 1;
+        previewState = mode;
         vatView.showImagePreview(filePath);
     }
 
     @Override
-    public void onPlusCLick(boolean privates) {
+    public void onPlusCLick(int mode) {
         if (vatView != null) {
             isBottomSheetVisible = true;
-            previewState = privates ? 2 : 1;
+            previewState = mode;
             vatView.openBottomSheet();
         }
     }
 
     @Override
-    public void onDeleteClick(String filePath, int photoIndex, boolean arePrivates) {
+    public void onDeleteClick(String filePath, int photoIndex, int mode) {
         if (vatView != null) {
-            removeItemFromList(photoIndex, arePrivates);
+            removeItemFromList(photoIndex, mode);
             previewState = 0;
         }
     }

@@ -87,8 +87,10 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     private View privatesText;
 
     private RecyclerView privatesRecyclerView;
+    private RecyclerView statementsRecyclerView;
 
     private VatAdapter privatesAdapter;
+    private VatAdapter statementsAdapter;
 
     private String fileName;
 
@@ -108,6 +110,13 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
             registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(20), uris -> {
                 if (!uris.isEmpty()) {
                     presenter.onInvoicesSelected(uris);
+                }
+            });
+
+    private final ActivityResultLauncher<PickVisualMediaRequest> pickStatements =
+            registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(20), uris -> {
+                if (!uris.isEmpty()) {
+                    presenter.onStatementsSelected(uris);
                 }
             });
 
@@ -153,15 +162,22 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         invoicesRecyclerView.setHasFixedSize(true);
         invoicesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        invoicesAdapter = new VatAdapter(this, presenter.getInvoicesList(), presenter, presenter, false);
+        invoicesAdapter = new VatAdapter(this, presenter.getInvoicesList(), presenter, presenter, 1);
         invoicesRecyclerView.setAdapter(invoicesAdapter);
 
         privatesRecyclerView = findViewById(R.id.privates_recycler_id);
         privatesRecyclerView.setHasFixedSize(true);
         privatesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        privatesAdapter = new VatAdapter(this, presenter.getPrivatesList(), presenter, presenter, true);
+        privatesAdapter = new VatAdapter(this, presenter.getPrivatesList(), presenter, presenter, 2);
         privatesRecyclerView.setAdapter(privatesAdapter);
+
+        statementsRecyclerView = findViewById(R.id.vat_bank_recycler_id);
+        statementsRecyclerView.setHasFixedSize(true);
+        statementsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        statementsAdapter = new VatAdapter(this, presenter.getStatementsList(), presenter, presenter, 3);
+        statementsRecyclerView.setAdapter(statementsAdapter);
 
         findViewById(R.id.remove_photo_id).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +205,14 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         });
 
         privatesRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return presenter.onRecyclerViewTouch(event);
+            }
+        });
+
+        statementsRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -291,6 +315,16 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         }, 100);
     }
 
+    private void scrollStatementsListToBottom() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                statementsRecyclerView.scrollToPosition(statementsAdapter.getItemCount() - 1);
+                scrollView.scrollTo(0, statementsRecyclerView.getBottom());
+            }
+        }, 100);
+    }
+
     @Override
     public void openBottomSheet() {
         findViewById(R.id.add_pdf_id).setVisibility(VISIBLE);
@@ -363,6 +397,12 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     }
 
     @Override
+    public void addItemToStatementsList(VatModel vatModel) {
+        statementsAdapter.addItemToList(vatModel);
+        scrollStatementsListToBottom();
+    }
+
+    @Override
     public void removeItemFromInvoicesList(int photoClicked) {
         invoicesAdapter.remove(photoClicked);
     }
@@ -370,6 +410,11 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     public void removeItemFromPrivatesList(int photoClicked) {
         privatesAdapter.remove(photoClicked);
+    }
+
+    @Override
+    public void removeItemFromStatementsList(int photoClicked) {
+        statementsAdapter.remove(photoClicked);
     }
 
     @Override
@@ -382,6 +427,12 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     public void getFilesFromGalleryForPrivates(Uri imageUri) {
         privatesAdapter.addItemToList(new VatModel(FileUtils.getPath(imageUri)));
         scrollPrivatesListToBottom();
+    }
+
+    @Override
+    public void getFilesFromGalleryForStatements(Uri imageUri) {
+        statementsAdapter.addItemToList(new VatModel(FileUtils.getPath(imageUri)));
+        scrollStatementsListToBottom();
     }
 
     @Override
@@ -424,8 +475,10 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     public void openPhotoChooserIntent(int requestId) {
         if (requestId == ConstantsUtils.SELECT_PICTURES_FOR_PRIVATES) {
             openPrivatePicker();
-        } else {
+        } else if (requestId == ConstantsUtils.SELECT_PICTURES_FOR_INVOICES) {
             openInvoicesPicker();
+        } else {
+            openStatementsPicker();
         }
     }
 
@@ -438,6 +491,12 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
 
     private void openInvoicesPicker() {
         pickInvoices.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageAndVideo.INSTANCE)
+                .build());
+    }
+
+    private void openStatementsPicker() {
+        pickStatements.launch(new PickVisualMediaRequest.Builder()
                 .setMediaType(ActivityResultContracts.PickVisualMedia.ImageAndVideo.INSTANCE)
                 .build());
     }
