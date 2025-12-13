@@ -249,18 +249,21 @@
     <string name="please_add_id_mandatory">Please add ID</string>
     <string name="please_add_passport">Please add passport</string>
 
-    <string-array name="months">
+    <string-array name="odd_months">
         <item>January</item>
-        <item>February</item>
         <item>March</item>
-        <item>April</item>
         <item>May</item>
-        <item>June</item>
         <item>July</item>
-        <item>August</item>
         <item>September</item>
-        <item>October</item>
         <item>November</item>
+    </string-array>
+
+    <string-array name="even_months">
+        <item>February</item>
+        <item>April</item>
+        <item>June</item>
+        <item>August</item>
+        <item>October</item>
         <item>December</item>
     </string-array>
 </resources>

@@ -142,12 +142,12 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
         privatesText = findViewById(R.id.privates_layout_id);
 
         firstMonth = findViewById(R.id.spinner1);
-        ArrayAdapter<String> firstMonthAdapter = new ArrayAdapter<>(VatActivity.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.months));
+        ArrayAdapter<String> firstMonthAdapter = new ArrayAdapter<>(VatActivity.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.odd_months));
         firstMonth.setAdapter(firstMonthAdapter);
         firstMonth.setSelection(0);
 
         secondMonth = findViewById(R.id.spinner2);
-        ArrayAdapter<String> secondMonthAdapter = new ArrayAdapter<>(VatActivity.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.months));
+        ArrayAdapter<String> secondMonthAdapter = new ArrayAdapter<>(VatActivity.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.even_months));
         secondMonth.setAdapter(secondMonthAdapter);
         secondMonth.setSelection(0);
 

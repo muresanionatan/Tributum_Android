@@ -249,18 +249,21 @@
     <string name="please_add_id_mandatory">Te rugam adauga poza ID</string>
     <string name="please_add_passport">Te rugam adauga poza pasaport</string>
 
-    <string-array name="months">
+    <string-array name="odd_months">
         <item>Ianuarie</item>
-        <item>Februarie</item>
         <item>Martie</item>
-        <item>Aprilie</item>
         <item>Mai</item>
-        <item>Iunie</item>
         <item>Iulie</item>
-        <item>August</item>
         <item>Septembrie</item>
-        <item>Octombrie</item>
         <item>Noiembrie</item>
+    </string-array>
+
+    <string-array name="even_months">
+        <item>Februarie</item>
+        <item>Aprilie</item>
+        <item>Iunie</item>
+        <item>August</item>
+        <item>Octombrie</item>
         <item>Decembrie</item>
     </string-array>
 </resources>

@@ -3,6 +3,7 @@ package com.app.tributum.activity.vat;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.app.tributum.utils.ui.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -254,7 +256,8 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         saveListToPreferences(name, email);
         CombinePhotosInPdfTask combinePhotosInPdfTask =
                 new CombinePhotosInPdfTask(this, statementsList, name,
-                        ("bank_statements" + "_" + startingMonth + "_" + endingMonth), statementsPdfList, "vat");
+                        ("bank_statements" + "_" + startingMonth + "_" + endingMonth
+                        + "_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date())), statementsPdfList, "vat");
         combinePhotosInPdfTask.execute();
     }
 
