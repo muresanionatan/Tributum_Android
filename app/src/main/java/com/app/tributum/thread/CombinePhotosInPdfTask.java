@@ -27,7 +27,7 @@ public class CombinePhotosInPdfTask extends AsyncTask<Void, Void, Void> {
     private String fileName;
     private List<File> pdfFile;
 
-    private String path;
+    private String path = "";
 
     public CombinePhotosInPdfTask(CombinePdfListener listener, List<VatModel> photosList, String username, String fileName, List<File> pdfFile) {
         this.listener = listener;
