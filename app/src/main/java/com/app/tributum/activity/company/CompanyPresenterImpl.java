@@ -1074,7 +1074,7 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
 
     @Override
     public void onTaskCompleted(String process) {
-        if (process.equals("user_info")) {
+        if (process != null && process.equals("user_info")) {
             Map<String, String> uploadList = new HashMap<>();
             uploadList.put("DIRECTOR_1_PPS_FRONT", director1.getPpsFrontFile().replace("file://", ""));
             uploadList.put("DIRECTOR_1_PPS_BACK", director1.getPpsBackFile().replace("file://", ""));
