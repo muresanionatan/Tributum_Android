@@ -14,8 +14,8 @@ import androidx.annotation.NonNull;
 import com.app.tributum.R;
 import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.application.AppKeysValues;
-import com.app.tributum.application.TributumAppHelper;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexAppHelper;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.listener.CombinePdfListener;
 import com.app.tributum.listener.InvoiceItemClickListener;
 import com.app.tributum.listener.InvoicesDeleteListener;
@@ -75,7 +75,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     VatPresenterImpl(VatView vatView) {
         this.vatView = vatView;
-        this.resources = TributumApplication.getInstance().getResources();
+        this.resources = FintrexApplication.getInstance().getResources();
     }
 
     @Override
@@ -180,8 +180,8 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
                 onTakePhotoClick();
                 PICTURE_NUMBER++;
 
-                if (!TributumAppHelper.getBooleanSetting(AppKeysValues.INVOICES_TAKEN)) {
-                    TributumAppHelper.saveSetting(AppKeysValues.INVOICES_TAKEN, AppKeysValues.TRUE);
+                if (!FintrexAppHelper.getBooleanSetting(AppKeysValues.INVOICES_TAKEN)) {
+                    FintrexAppHelper.saveSetting(AppKeysValues.INVOICES_TAKEN, AppKeysValues.TRUE);
                 }
             }
         } else if (requestCode == ConstantsUtils.CAMERA_REQUEST_PRIVATES_ID && resultCode == Activity.RESULT_OK) {
@@ -191,8 +191,8 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
                 onTakePhotoClick();
                 PICTURE_NUMBER++;
 
-                if (!TributumAppHelper.getBooleanSetting(AppKeysValues.INVOICES_TAKEN)) {
-                    TributumAppHelper.saveSetting(AppKeysValues.INVOICES_TAKEN, AppKeysValues.TRUE);
+                if (!FintrexAppHelper.getBooleanSetting(AppKeysValues.INVOICES_TAKEN)) {
+                    FintrexAppHelper.saveSetting(AppKeysValues.INVOICES_TAKEN, AppKeysValues.TRUE);
                 }
             }
         } else if (requestCode == ConstantsUtils.CAMERA_REQUEST_STATEMENTS_ID && resultCode == Activity.RESULT_OK) {
@@ -330,12 +330,12 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
                             });
                         } else {
                             ((Activity) vatView).runOnUiThread(() ->
-                                    vatView.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong)));
+                                    vatView.showToast(FintrexApplication.getInstance().getResources().getString(R.string.something_went_wrong)));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                         ((Activity) vatView).runOnUiThread(() ->
-                                vatView.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong)));
+                                vatView.showToast(FintrexApplication.getInstance().getResources().getString(R.string.something_went_wrong)));
                     }
                 }).start();
             }
@@ -362,15 +362,15 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
 
     private void saveListToPreferences(String name, String email) {
         if (!name.isEmpty())
-            TributumAppHelper.saveSetting(AppKeysValues.INVOICE_NAME, name);
+            FintrexAppHelper.saveSetting(AppKeysValues.INVOICE_NAME, name);
         if (!email.isEmpty())
-            TributumAppHelper.saveSetting(AppKeysValues.INVOICE_EMAIL, email);
+            FintrexAppHelper.saveSetting(AppKeysValues.INVOICE_EMAIL, email);
     }
 
     private void clearFormStarted() {
         PICTURE_NUMBER = 0;
-        if (TributumAppHelper.getBooleanSetting(AppKeysValues.INVOICES_TAKEN)) {
-            TributumAppHelper.saveSetting(AppKeysValues.INVOICES_TAKEN, AppKeysValues.FALSE);
+        if (FintrexAppHelper.getBooleanSetting(AppKeysValues.INVOICES_TAKEN)) {
+            FintrexAppHelper.saveSetting(AppKeysValues.INVOICES_TAKEN, AppKeysValues.FALSE);
         }
     }
 
@@ -378,7 +378,7 @@ public class VatPresenterImpl implements VatPresenter, InvoicesDeleteListener, I
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(name, startingMonth, endingMonth, fileName), "Android"));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.FINTREX_EMAIL, generateInternalEmailMessage(name, startingMonth, endingMonth, fileName), "Android"));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

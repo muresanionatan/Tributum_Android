@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.app.tributum.R;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.utils.animation.AnimUtils;
 import com.app.tributum.utils.animation.CustomAnimatorListener;
 
@@ -42,13 +42,13 @@ public class LoadingScreen {
 
     @SuppressLint("ResourceType")
     public void show() {
-        inflatedView = LayoutInflater.from(TributumApplication.getInstance()).inflate(R.layout.loading_screen, null);
+        inflatedView = LayoutInflater.from(FintrexApplication.getInstance()).inflate(R.layout.loading_screen, null);
         viewGroup.addView(inflatedView);
         imageView = inflatedView.findViewById(R.id.loading_animation_id);
         imageView.setImageResource(imageId);
         if (loadingText != null)
             ((TextView) inflatedView.findViewById(R.id.loading_screen_text_id)).setText(loadingText);
-        ((TextView) inflatedView.findViewById(R.id.loading_screen_text_id)).setTextColor(ContextCompat.getColor(TributumApplication.getInstance(), colorId));
+        ((TextView) inflatedView.findViewById(R.id.loading_screen_text_id)).setTextColor(ContextCompat.getColor(FintrexApplication.getInstance(), colorId));
         animate();
     }
 

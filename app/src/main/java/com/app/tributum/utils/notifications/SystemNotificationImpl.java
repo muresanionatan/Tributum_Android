@@ -8,7 +8,7 @@ import android.content.Context;
 
 import androidx.core.app.NotificationCompat;
 
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.utils.UtilsGeneral;
 
 /**
@@ -29,14 +29,14 @@ public class SystemNotificationImpl implements SystemNotification {
 
     @Override
     public void showNotification(int notificationId) {
-        NotificationManager notificationManager = (NotificationManager) TributumApplication.getInstance().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) FintrexApplication.getInstance().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null)
             notificationManager.notify(notificationId, getNotification());
     }
 
     @Override
     public void hideNotification(int notificationId) {
-        NotificationManager notificationManager = (NotificationManager) TributumApplication.getInstance().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) FintrexApplication.getInstance().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null)
             notificationManager.cancel(notificationId);
         builder = null;
@@ -49,7 +49,7 @@ public class SystemNotificationImpl implements SystemNotification {
             channel.setDescription(description);
             channel.setShowBadge(true);
             channel.setSound(null, null);
-            NotificationManager notificationManager = TributumApplication.getInstance().getApplicationContext().getSystemService(NotificationManager.class);
+            NotificationManager notificationManager = FintrexApplication.getInstance().getApplicationContext().getSystemService(NotificationManager.class);
             if (notificationManager != null)
                 notificationManager.createNotificationChannel(channel);
         }

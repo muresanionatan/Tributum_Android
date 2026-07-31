@@ -5,7 +5,7 @@ import android.content.res.Resources;
 import com.app.tributum.R;
 import com.app.tributum.activity.faq.model.FaqItem;
 import com.app.tributum.activity.faq.model.FaqItemState;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.listener.FaqClickListener;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class FaqPresenterImpl implements FaqPresenter, FaqClickListener {
 
     @Override
     public void onCreate() {
-        Resources resources = TributumApplication.getInstance().getResources();
+        Resources resources = FintrexApplication.getInstance().getResources();
         faqItems = new ArrayList<>();
         faqItems.add(new FaqItem(resources.getString(R.string.faq_question_1),
                 resources.getString(R.string.faq_question_answer_1)));

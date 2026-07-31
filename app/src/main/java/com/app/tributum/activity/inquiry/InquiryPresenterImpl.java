@@ -6,7 +6,7 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
@@ -47,12 +47,12 @@ public class InquiryPresenterImpl implements InquiryPresenter, RequestSentListen
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(name, email, description), "Android"));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.FINTREX_EMAIL, generateInternalEmailMessage(name, email, description), "Android"));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (!response.isSuccessful()) {
-                    view.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong));
+                    view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.something_went_wrong));
                     view.hideLoadingScreen();
                 } else {
                     if (pictureImagePath != null && !pictureImagePath.equals("")) {
@@ -72,7 +72,7 @@ public class InquiryPresenterImpl implements InquiryPresenter, RequestSentListen
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 view.hideLoadingScreen();
-                view.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong));
+                view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.something_went_wrong));
             }
         });
     }
@@ -110,13 +110,13 @@ public class InquiryPresenterImpl implements InquiryPresenter, RequestSentListen
             return;
 
         if (name.equals("")) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_name));
+            view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.please_enter_name));
             view.setFocusOnName();
         } else if (!ValidationUtils.isEmailValid(email)) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_correct_email));
+            view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.please_enter_correct_email));
             view.setFocusOnEmail();
         } else if (description.equals("")) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_description));
+            view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.please_enter_description));
             view.setFocusOnDescription();
         } else {
             view.hideKeyboard();

@@ -8,13 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.exifinterface.media.ExifInterface;
 
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -150,7 +149,7 @@ public class BitmapUtils {
     }
 
     private static String getFilename() {
-        File directory = TributumApplication.getInstance().getDir("imageDir", Context.MODE_PRIVATE);
+        File directory = FintrexApplication.getInstance().getDir("imageDir", Context.MODE_PRIVATE);
         File file = new File(directory, "MyFolder/Images");
         if (!file.exists()) {
             file.mkdirs();
@@ -162,7 +161,7 @@ public class BitmapUtils {
 
     private static String getPathFromURI(String contentURI) {
         Uri contentUri = Uri.parse(contentURI);
-        Cursor cursor = TributumApplication.getInstance().getContentResolver().query(contentUri, null, null, null, null);
+        Cursor cursor = FintrexApplication.getInstance().getContentResolver().query(contentUri, null, null, null, null);
         if (cursor == null) {
             return contentUri.getPath();
         } else {

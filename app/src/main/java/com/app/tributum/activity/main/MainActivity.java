@@ -32,7 +32,7 @@ import com.app.tributum.activity.pps.PpsActivity;
 import com.app.tributum.activity.salary.SalaryActivity;
 import com.app.tributum.activity.vat.VatActivity;
 import com.app.tributum.application.AppKeysValues;
-import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.application.FintrexAppHelper;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.DialogUtils;
 import com.app.tributum.utils.StatusBarUtils;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
-        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.changeLocaleForContext(this, FintrexAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StatusBarUtils.makeStatusBarTransparent(this);

@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat;
 
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
-import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.application.FintrexAppHelper;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.StatusBarUtils;
@@ -61,7 +61,7 @@ public class InquiryActivity extends AppCompatActivity implements InquiryView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.changeLocaleForContext(this, FintrexAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.activity_inquiry);
         StatusBarUtils.makeStatusBarTransparent(this);
 

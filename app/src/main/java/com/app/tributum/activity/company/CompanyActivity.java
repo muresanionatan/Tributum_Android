@@ -26,10 +26,9 @@ import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
 import com.app.tributum.activity.company.model.Company;
-import com.app.tributum.activity.company.model.Director;
 import com.app.tributum.activity.company.model.Secretary;
 import com.app.tributum.application.AppKeysValues;
-import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.application.FintrexAppHelper;
 import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.StatusBarUtils;
@@ -144,7 +143,7 @@ public class CompanyActivity extends AppCompatActivity implements CompanyView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.changeLocaleForContext(this, FintrexAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.activity_company);
         StatusBarUtils.makeStatusBarTransparent(this);
 

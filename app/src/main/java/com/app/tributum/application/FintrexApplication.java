@@ -1,21 +1,18 @@
 package com.app.tributum.application;
 
 import android.app.Application;
-import android.content.res.Configuration;
 
 import com.app.tributum.utils.UtilsGeneral;
-
-import java.util.Locale;
 
 /**
  * defines application class
  */
-public class TributumApplication extends Application {
+public class FintrexApplication extends Application {
 
     /**
      * sample application instance
      */
-    private static TributumApplication instance;
+    private static FintrexApplication instance;
 
     /**
      * application preferences
@@ -25,7 +22,7 @@ public class TributumApplication extends Application {
     /**
      * @return a single instance of this class
      */
-    public static TributumApplication getInstance() {
+    public static FintrexApplication getInstance() {
         return instance;
     }
 
@@ -38,7 +35,7 @@ public class TributumApplication extends Application {
     /**
      * Assigns to instance an object of this class.
      */
-    private static void initializeInstance(TributumApplication application) {
+    private static void initializeInstance(FintrexApplication application) {
         instance = application;
     }
 
@@ -56,6 +53,6 @@ public class TributumApplication extends Application {
         initializeInstance(this);
         if (applicationPreferences == null)
             applicationPreferences = new ApplicationPreferences();
-        UtilsGeneral.changeLocaleForContext(TributumApplication.getInstance(), TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.changeLocaleForContext(FintrexApplication.getInstance(), FintrexAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
     }
 }

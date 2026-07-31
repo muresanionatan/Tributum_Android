@@ -4,7 +4,7 @@ import android.app.Notification;
 
 import androidx.core.app.NotificationCompat;
 
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.utils.UtilsGeneral;
 
 /**
@@ -17,7 +17,7 @@ public class SystemNotificationFactory {
     }
 
     public static SystemNotification createSystemNotification(SystemNotificationContent content, SystemNotificationProperties properties) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(TributumApplication.getInstance().getApplicationContext(), properties.getChannelId());
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(FintrexApplication.getInstance().getApplicationContext(), properties.getChannelId());
 
         String title = content.getTitle();
         String message = content.getMessage();

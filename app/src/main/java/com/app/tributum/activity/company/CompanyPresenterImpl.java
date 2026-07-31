@@ -13,7 +13,7 @@ import com.app.tributum.activity.company.model.Company;
 import com.app.tributum.activity.company.model.Director;
 import com.app.tributum.activity.company.model.Secretary;
 import com.app.tributum.activity.contract.PhotoCrop;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
@@ -1104,14 +1104,14 @@ public class CompanyPresenterImpl implements AsyncListener, CompanyPresenter, Re
             Retrofit retrofit = RetrofitClientInstance.getInstance();
             final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-            Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(company.getFirstName() + " " + company.getSurName()), "Android"));
+            Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.FINTREX_EMAIL, generateInternalEmailMessage(company.getFirstName() + " " + company.getSurName()), "Android"));
             call.enqueue(new Callback<Object>() {
                 @Override
                 public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                     if (!response.isSuccessful()) {
                         view.showToast(R.string.something_went_wrong);
                     } else {
-                        sendClientMail(company.getEmail(), TributumApplication.getInstance().getString(R.string.contract_mail_message));
+                        sendClientMail(company.getEmail(), FintrexApplication.getInstance().getString(R.string.contract_mail_message));
                     }
                 }
 

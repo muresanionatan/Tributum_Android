@@ -8,7 +8,7 @@ import android.graphics.pdf.PdfDocument;
 import android.os.AsyncTask;
 
 import com.app.tributum.activity.vat.model.VatModel;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.utils.BitmapUtils;
 import com.app.tributum.utils.DropboxUtils;
@@ -128,7 +128,7 @@ public class PdfAsyncTask extends AsyncTask<Void, Void, Void> {
     }
 
     private File getOutputFile() {
-        File root = new File(TributumApplication.getInstance().getExternalFilesDir(null), "PDFs");
+        File root = new File(FintrexApplication.getInstance().getExternalFilesDir(null), "PDFs");
 
         boolean isFolderCreated = true;
 

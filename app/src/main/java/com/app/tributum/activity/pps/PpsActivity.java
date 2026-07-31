@@ -25,7 +25,7 @@ import androidx.core.widget.NestedScrollView;
 
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
-import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.application.FintrexAppHelper;
 import com.app.tributum.utils.CustomTextWatcher;
 import com.app.tributum.utils.ImageUtils;
 import com.app.tributum.utils.StatusBarUtils;
@@ -102,7 +102,7 @@ public class PpsActivity extends AppCompatActivity implements PpsView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.changeLocaleForContext(this, FintrexAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.pps_activity);
         StatusBarUtils.makeStatusBarTransparent(this);
 

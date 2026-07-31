@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.app.tributum.R;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.utils.animation.AnimUtils;
 
 /**
@@ -126,7 +126,7 @@ public class CustomButton extends RelativeLayout {
     }
 
     public void setPrimaryLightButton(String message) {
-        textView.setTextColor(ContextCompat.getColor(TributumApplication.getInstance(), R.color.white));
+        textView.setTextColor(ContextCompat.getColor(FintrexApplication.getInstance(), R.color.white));
         setText(message);
     }
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.app.tributum.R;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.listener.RequestSentListener;
 
 public class RequestSent {
@@ -31,7 +31,7 @@ public class RequestSent {
 
     @SuppressLint("ResourceType")
     public void show() {
-        inflatedView = LayoutInflater.from(TributumApplication.getInstance()).inflate(R.layout.request_sent_screen, null);
+        inflatedView = LayoutInflater.from(FintrexApplication.getInstance()).inflate(R.layout.request_sent_screen, null);
         viewGroup.addView(inflatedView);
         inflatedView.findViewById(R.id.loading_screen_id).setBackgroundResource(drawableResourceId);
         ((TextView) inflatedView.findViewById(R.id.request_sent_text_id)).setText(title);

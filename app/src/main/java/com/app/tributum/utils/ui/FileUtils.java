@@ -20,7 +20,7 @@ import android.util.Log;
 import com.app.tributum.activity.company.model.Company;
 import com.app.tributum.activity.company.model.Director;
 import com.app.tributum.activity.company.model.Secretary;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -95,7 +95,7 @@ public class FileUtils {
 
         File file = null;
         try {
-            File root = new File(TributumApplication.getInstance().getExternalFilesDir(null), "Files");
+            File root = new File(FintrexApplication.getInstance().getExternalFilesDir(null), "Files");
             if (!root.exists()) {
                 root.mkdirs();
             }
@@ -114,7 +114,7 @@ public class FileUtils {
     public static File createFile(String message, String sFileName) {
         File file = null;
         try {
-            File root = new File(TributumApplication.getInstance().getExternalFilesDir(null), "Files");
+            File root = new File(FintrexApplication.getInstance().getExternalFilesDir(null), "Files");
             if (!root.exists()) {
                 root.mkdirs();
             }
@@ -151,7 +151,7 @@ public class FileUtils {
         // DownloadsProvider
         if (isDownloadsDocument(uri)) {
             final String id;
-            try (Cursor cursor = TributumApplication.getInstance().getContentResolver().query(uri, new String[]{MediaStore.MediaColumns.DISPLAY_NAME}, null, null, null)) {
+            try (Cursor cursor = FintrexApplication.getInstance().getContentResolver().query(uri, new String[]{MediaStore.MediaColumns.DISPLAY_NAME}, null, null, null)) {
                 if (cursor != null && cursor.moveToFirst()) {
                     String fileName = cursor.getString(0);
                     String path = Environment.getExternalStorageDirectory().toString() + "/Download/" + fileName;
@@ -279,7 +279,7 @@ public class FileUtils {
     }
 
     private static String getDriveFilePath(Uri uri) {
-        @SuppressLint("Recycle") Cursor returnCursor = TributumApplication.getInstance().getContentResolver().query(uri, null, null, null, null);
+        @SuppressLint("Recycle") Cursor returnCursor = FintrexApplication.getInstance().getContentResolver().query(uri, null, null, null, null);
         /*
          * Get the column indexes of the data in the Cursor,
          *     * move to the first row in the Cursor, get the data,
@@ -290,9 +290,9 @@ public class FileUtils {
         returnCursor.moveToFirst();
         String name = (returnCursor.getString(nameIndex));
         String size = (Long.toString(returnCursor.getLong(sizeIndex)));
-        File file = new File(TributumApplication.getInstance().getCacheDir(), name);
+        File file = new File(FintrexApplication.getInstance().getCacheDir(), name);
         try {
-            InputStream inputStream = TributumApplication.getInstance().getContentResolver().openInputStream(uri);
+            InputStream inputStream = FintrexApplication.getInstance().getContentResolver().openInputStream(uri);
             FileOutputStream outputStream = new FileOutputStream(file);
             int read;
             int maxBufferSize = 1024 * 1024;
@@ -323,7 +323,7 @@ public class FileUtils {
      * @return
      */
     private static String copyFileToInternalStorage(Uri uri, String newDirName) {
-        @SuppressLint("Recycle") Cursor returnCursor = TributumApplication.getInstance().getContentResolver().query(uri, new String[]{
+        @SuppressLint("Recycle") Cursor returnCursor = FintrexApplication.getInstance().getContentResolver().query(uri, new String[]{
                 OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE
         }, null, null, null);
 
@@ -341,16 +341,16 @@ public class FileUtils {
 
         File output;
         if (!newDirName.equals("")) {
-            File dir = new File(TributumApplication.getInstance().getFilesDir() + "/" + newDirName);
+            File dir = new File(FintrexApplication.getInstance().getFilesDir() + "/" + newDirName);
             if (!dir.exists()) {
                 dir.mkdir();
             }
-            output = new File(TributumApplication.getInstance().getFilesDir() + "/" + newDirName + "/" + name);
+            output = new File(FintrexApplication.getInstance().getFilesDir() + "/" + newDirName + "/" + name);
         } else {
-            output = new File(TributumApplication.getInstance().getFilesDir() + "/" + name);
+            output = new File(FintrexApplication.getInstance().getFilesDir() + "/" + name);
         }
         try {
-            InputStream inputStream = TributumApplication.getInstance().getContentResolver().openInputStream(uri);
+            InputStream inputStream = FintrexApplication.getInstance().getContentResolver().openInputStream(uri);
             FileOutputStream outputStream = new FileOutputStream(output);
             int read;
             int bufferSize = 1024;
@@ -383,7 +383,7 @@ public class FileUtils {
             }
 
             // Create directory in internal storage
-            File pdfDir = new File(TributumApplication.getInstance().getFilesDir(), "pdfs");
+            File pdfDir = new File(FintrexApplication.getInstance().getFilesDir(), "pdfs");
             if (!pdfDir.exists()) {
                 pdfDir.mkdirs();
             }
@@ -392,7 +392,7 @@ public class FileUtils {
             File outputFile = new File(pdfDir, fileName);
 
             // Copy content from URI to file using try-with-resources
-            try (java.io.InputStream inputStream = TributumApplication.getInstance()
+            try (java.io.InputStream inputStream = FintrexApplication.getInstance()
                     .getContentResolver().openInputStream(pdfUri);
                  java.io.FileOutputStream outputStream = new java.io.FileOutputStream(outputFile)) {
 
@@ -417,7 +417,7 @@ public class FileUtils {
     public static String getFileName(Uri uri) {
         String result = null;
         if (uri.getScheme().equals("content")) {
-            try (Cursor cursor = TributumApplication.getInstance().getContentResolver().query(uri, null, null, null, null)) {
+            try (Cursor cursor = FintrexApplication.getInstance().getContentResolver().query(uri, null, null, null, null)) {
                 if (cursor != null && cursor.moveToFirst()) {
                     int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
                     if (columnIndex != -1) {
@@ -501,7 +501,7 @@ public class FileUtils {
         final String[] projection = {column};
 
         try {
-            cursor = TributumApplication.getInstance().getContentResolver().query(uri, projection,
+            cursor = FintrexApplication.getInstance().getContentResolver().query(uri, projection,
                     selection, selectionArgs, null);
 
             if (cursor != null && cursor.moveToFirst()) {

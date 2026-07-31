@@ -74,7 +74,7 @@ public class ConstantsUtils {
 
     public static final int MAXIMUM_PICTURES_IN_ATTACHMENT = 500;
 
-    public static final String TRIBUTUM_EMAIL = "tributum@yahoo.com";
+    public static final String FINTREX_EMAIL = "fintrexlimited@gmail.com";
 
     public static final int SELECT_PICTURES_FOR_INVOICES = 555;
 

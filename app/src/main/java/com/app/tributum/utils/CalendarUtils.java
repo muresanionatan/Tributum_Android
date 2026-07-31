@@ -6,7 +6,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.app.tributum.R;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.text.DateFormat;
@@ -59,7 +59,7 @@ public class CalendarUtils {
             newDates.add(CalendarUtils.formatDate(toBeDisplayed));
         }
         if (newDates.size() == 0) {
-            return TributumApplication.getInstance().getString(R.string.date_you_choose);
+            return FintrexApplication.getInstance().getString(R.string.date_you_choose);
         } else {
             String concatenatedDates = "";
             for (int i = 0; i < newDates.size(); i++) {

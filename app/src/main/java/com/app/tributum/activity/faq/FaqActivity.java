@@ -12,7 +12,7 @@ import com.app.tributum.R;
 import com.app.tributum.activity.faq.adapter.FaqAdapter;
 import com.app.tributum.activity.faq.model.FaqItem;
 import com.app.tributum.application.AppKeysValues;
-import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.application.FintrexAppHelper;
 import com.app.tributum.utils.StatusBarUtils;
 import com.app.tributum.utils.UtilsGeneral;
 
@@ -29,7 +29,7 @@ public class FaqActivity extends AppCompatActivity implements FaqView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.changeLocaleForContext(this, FintrexAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.activity_faq);
         StatusBarUtils.makeStatusBarTransparent(this);
 

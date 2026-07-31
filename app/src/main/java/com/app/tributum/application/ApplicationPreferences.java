@@ -122,7 +122,7 @@ public class ApplicationPreferences {
     @SuppressLint("CommitPrefEdits")
     private void initPreferences() {
         if (prefs == null) {
-            prefs = TributumApplication.getInstance().getApplicationContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+            prefs = FintrexApplication.getInstance().getApplicationContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
             prefsEditor = prefs.edit();
         }
     }

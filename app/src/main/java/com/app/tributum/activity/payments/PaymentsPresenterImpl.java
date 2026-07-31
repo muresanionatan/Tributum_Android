@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import com.app.tributum.R;
 import com.app.tributum.activity.payments.model.PaymentModel;
 import com.app.tributum.application.AppKeysValues;
-import com.app.tributum.application.TributumAppHelper;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexAppHelper;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
 import com.app.tributum.retrofit.InterfaceAPI;
@@ -31,11 +31,11 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
 
     private final Resources resources;
 
-    private boolean isNet = TributumAppHelper.getBooleanSetting(AppKeysValues.NET);
+    private boolean isNet = FintrexAppHelper.getBooleanSetting(AppKeysValues.NET);
 
     PaymentsPresenterImpl(PaymentsView paymentsView) {
         this.view = paymentsView;
-        this.resources = TributumApplication.getInstance().getResources();
+        this.resources = FintrexApplication.getInstance().getResources();
     }
 
     @Override
@@ -44,13 +44,13 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
             return;
 
         view.populateInputsWithValues(
-                TributumAppHelper.getStringSetting(AppKeysValues.PAYER_NAME),
-                TributumAppHelper.getStringSetting(AppKeysValues.CLIENT_PAYMENT_EMAIL),
-                TributumAppHelper.getStringSetting(AppKeysValues.SITE),
+                FintrexAppHelper.getStringSetting(AppKeysValues.PAYER_NAME),
+                FintrexAppHelper.getStringSetting(AppKeysValues.CLIENT_PAYMENT_EMAIL),
+                FintrexAppHelper.getStringSetting(AppKeysValues.SITE),
                 CalendarUtils.getCurrentMonth()
         );
 
-        if (TributumAppHelper.getBooleanSetting(AppKeysValues.NET))
+        if (FintrexAppHelper.getBooleanSetting(AppKeysValues.NET))
             view.setNetViews();
         else
             view.setGrossViews();
@@ -123,10 +123,10 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
         for (PaymentModel model : view.getPaymentList()) {
             paymentModels.add(new PaymentModel(model.getName(), model.getPps(), model.getAmount(), model.getSite()));
         }
-        TributumAppHelper.saveSetting(AppKeysValues.PAYMENT_LIST, paymentModels);
-        TributumAppHelper.saveSetting(AppKeysValues.PAYER_NAME, payer);
-        TributumAppHelper.saveSetting(AppKeysValues.CLIENT_PAYMENT_EMAIL, email);
-        TributumAppHelper.saveSetting(AppKeysValues.NET, isNet);
+        FintrexAppHelper.saveSetting(AppKeysValues.PAYMENT_LIST, paymentModels);
+        FintrexAppHelper.saveSetting(AppKeysValues.PAYER_NAME, payer);
+        FintrexAppHelper.saveSetting(AppKeysValues.CLIENT_PAYMENT_EMAIL, email);
+        FintrexAppHelper.saveSetting(AppKeysValues.NET, isNet);
     }
 
     private void sendInternalEmail(String payer, String email, String month) {
@@ -139,7 +139,7 @@ public class PaymentsPresenterImpl implements PaymentsPresenter, RequestSentList
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, concatenateInternalMail(payer, email, month), "Android"));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.FINTREX_EMAIL, concatenateInternalMail(payer, email, month), "Android"));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

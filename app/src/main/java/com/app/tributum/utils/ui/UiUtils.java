@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 
 public class UiUtils {
 
@@ -14,12 +14,12 @@ public class UiUtils {
     }
 
     public static void setFontFamily(int fontFamily, TextView textView) {
-        Typeface typeface = ResourcesCompat.getFont(TributumApplication.getInstance(), fontFamily);
+        Typeface typeface = ResourcesCompat.getFont(FintrexApplication.getInstance(), fontFamily);
         textView.setTypeface(typeface);
     }
 
     public static float getScreenWidth() {
-        DisplayMetrics displayMetrics = TributumApplication.getInstance().getResources().getDisplayMetrics();
+        DisplayMetrics displayMetrics = FintrexApplication.getInstance().getResources().getDisplayMetrics();
         return displayMetrics.widthPixels / displayMetrics.density * 3;
     }
 }

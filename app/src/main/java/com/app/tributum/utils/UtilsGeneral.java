@@ -12,7 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.app.tributum.activity.main.MainActivity;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 
 import java.util.Locale;
 
@@ -74,7 +74,7 @@ public class UtilsGeneral {
      * Shows the soft keyboard
      */
     private static void showSoftKeyboard(View view) {
-        InputMethodManager inputMethodManager = (InputMethodManager) TributumApplication.getInstance().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) FintrexApplication.getInstance().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (inputMethodManager != null) {
             view.requestFocus();
             inputMethodManager.showSoftInput(view, 0);

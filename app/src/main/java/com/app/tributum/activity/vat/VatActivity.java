@@ -37,7 +37,7 @@ import com.app.tributum.R;
 import com.app.tributum.activity.vat.adapter.VatAdapter;
 import com.app.tributum.activity.vat.model.VatModel;
 import com.app.tributum.application.AppKeysValues;
-import com.app.tributum.application.TributumAppHelper;
+import com.app.tributum.application.FintrexAppHelper;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.thread.PdfAsyncTask;
 import com.app.tributum.utils.ConstantsUtils;
@@ -123,7 +123,7 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UtilsGeneral.changeLocaleForContext(this, TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
+        UtilsGeneral.changeLocaleForContext(this, FintrexAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE));
         setContentView(R.layout.activity_vat);
         StatusBarUtils.makeStatusBarTransparent(this);
 
@@ -227,8 +227,8 @@ public class VatActivity extends AppCompatActivity implements VatView, AsyncList
             }
         });
 
-        name.setText(TributumAppHelper.getStringSetting(AppKeysValues.INVOICE_NAME));
-        payerEmail.setText(TributumAppHelper.getStringSetting(AppKeysValues.INVOICE_EMAIL));
+        name.setText(FintrexAppHelper.getStringSetting(AppKeysValues.INVOICE_NAME));
+        payerEmail.setText(FintrexAppHelper.getStringSetting(AppKeysValues.INVOICE_EMAIL));
 
         RelativeLayout llBottomSheet = findViewById(R.id.file_chooser_id);
         fileChooser = BottomSheetBehavior.from(llBottomSheet);

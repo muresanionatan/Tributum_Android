@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
 import com.app.tributum.activity.contract.model.ContractModel;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.listener.SignatureListener;
@@ -97,7 +97,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
 
     ContractPresenterImpl(ContractView contractView) {
         this.view = contractView;
-        this.resources = TributumApplication.getInstance().getResources();
+        this.resources = FintrexApplication.getInstance().getResources();
     }
 
     @Override
@@ -815,7 +815,7 @@ public class ContractPresenterImpl implements ContractPresenter, SignatureListen
             return;
         view.setDrawingCacheEnabled();
         signatureFile = view.getSignatureFile();
-        File signature = new File(TributumApplication.getInstance().getFilesDir(), "/signature.png");
+        File signature = new File(FintrexApplication.getInstance().getFilesDir(), "/signature.png");
 
         FileOutputStream fos = null;
         try {

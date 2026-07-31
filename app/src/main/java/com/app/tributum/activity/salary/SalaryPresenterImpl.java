@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
-import com.app.tributum.application.TributumAppHelper;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexAppHelper;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
 import com.app.tributum.retrofit.InterfaceAPI;
@@ -42,8 +42,8 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
     public void onCreate() {
         if (view != null)
             view.populateInputsWithValues(
-                    TributumAppHelper.getStringSetting(AppKeysValues.SALARY_PAYER),
-                    TributumAppHelper.getStringSetting(AppKeysValues.SALARY_EMAIL));
+                    FintrexAppHelper.getStringSetting(AppKeysValues.SALARY_PAYER),
+                    FintrexAppHelper.getStringSetting(AppKeysValues.SALARY_EMAIL));
     }
 
     private void sendInquiry(String name, String email, String fullName, String pps,
@@ -52,13 +52,13 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL,
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.FINTREX_EMAIL,
                 generateInternalEmailMessage(name, email, fullName, pps, rate, hours, overtime, subsistance, bankHoliday, holiday), "Android"));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 if (!response.isSuccessful()) {
-                    view.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong));
+                    view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.something_went_wrong));
                     view.hideLoadingScreen();
                 } else {
                     Call<Object> callForClient = api.sendEmail(new EmailBody(email,
@@ -67,7 +67,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
                         @Override
                         public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                             if (!response.isSuccessful()) {
-                                view.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong));
+                                view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.something_went_wrong));
                                 view.hideLoadingScreen();
                             } else {
                                 view.hideLoadingScreen();
@@ -79,7 +79,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
                         @Override
                         public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                             view.hideLoadingScreen();
-                            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong));
+                            view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.something_went_wrong));
                         }
                     });
                     view.hideLoadingScreen();
@@ -90,7 +90,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 view.hideLoadingScreen();
-                view.showToast(TributumApplication.getInstance().getResources().getString(R.string.something_went_wrong));
+                view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.something_went_wrong));
             }
         });
     }
@@ -155,19 +155,19 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
             return;
 
         if (name.equals("")) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_name));
+            view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.please_enter_name));
             view.setFocusOnName();
         } else if (!ValidationUtils.isEmailValid(email)) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_correct_email));
+            view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.please_enter_correct_email));
             view.setFocusOnEmail();
         } else if (fullName.equals("")) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_full_name));
+            view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.please_enter_full_name));
             view.setFocusOnFullName();
         } else if (!ValidationUtils.isPpsValid(pps)) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_enter_pps));
+            view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.please_enter_pps));
             view.setFocusOnPps();
         } else if (datesSelected.size() == 0) {
-            view.showToast(TributumApplication.getInstance().getResources().getString(R.string.please_select_date));
+            view.showToast(FintrexApplication.getInstance().getResources().getString(R.string.please_select_date));
             view.scrollToCalendar();
         } else {
             view.hideKeyboard();
@@ -189,7 +189,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
         if (mode != CalendarMode.WEEKS) {
             mode = CalendarMode.WEEKS;
         }
-        view.setDate(TributumApplication.getInstance().getString(R.string.date_you_choose));
+        view.setDate(FintrexApplication.getInstance().getString(R.string.date_you_choose));
         datesSelected = new ArrayList<>();
     }
 
@@ -217,7 +217,7 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
 
     private void setMonthLayout() {
         view.deselectDateTypes();
-        view.setDate(TributumApplication.getInstance().getString(R.string.date_you_choose));
+        view.setDate(FintrexApplication.getInstance().getString(R.string.date_you_choose));
         view.clearCalendarSelection();
         if (mode != CalendarMode.MONTHS) {
             mode = CalendarMode.MONTHS;
@@ -256,8 +256,8 @@ public class SalaryPresenterImpl implements SalaryPresenter, RequestSentListener
     }
 
     private void saveListToPreferences(String payer, String email) {
-        TributumAppHelper.saveSetting(AppKeysValues.SALARY_PAYER, payer);
-        TributumAppHelper.saveSetting(AppKeysValues.SALARY_EMAIL, email);
+        FintrexAppHelper.saveSetting(AppKeysValues.SALARY_PAYER, payer);
+        FintrexAppHelper.saveSetting(AppKeysValues.SALARY_EMAIL, email);
     }
 
     @Override

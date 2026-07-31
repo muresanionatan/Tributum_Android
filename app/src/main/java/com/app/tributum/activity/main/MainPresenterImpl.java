@@ -12,8 +12,8 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.app.tributum.R;
 import com.app.tributum.application.AppKeysValues;
-import com.app.tributum.application.TributumAppHelper;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexAppHelper;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.utils.ConstantsUtils;
 import com.app.tributum.utils.notifications.NotificationExtra;
 import com.app.tributum.utils.notifications.NotificationIds;
@@ -45,16 +45,16 @@ public class MainPresenterImpl implements MainPresenter {
         if (view == null)
             return;
 
-        if (TributumAppHelper.getBooleanSetting(AppKeysValues.USER_DENIED_TERMS) || !TributumAppHelper.getBooleanSetting(AppKeysValues.USER_ACCEPTED_TERMS))
+        if (FintrexAppHelper.getBooleanSetting(AppKeysValues.USER_DENIED_TERMS) || !FintrexAppHelper.getBooleanSetting(AppKeysValues.USER_ACCEPTED_TERMS))
             view.showTermsAndConditionsScreen();
 
-        appLanguage = TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE);
+        appLanguage = FintrexAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE);
         startNotificationAlarm();
 
-        if (TributumAppHelper.getBooleanSetting(AppKeysValues.FIRST_TIME_USER)) {
-            TributumAppHelper.saveSetting(AppKeysValues.FIRST_TIME_USER, AppKeysValues.FALSE);
+        if (FintrexAppHelper.getBooleanSetting(AppKeysValues.FIRST_TIME_USER)) {
+            FintrexAppHelper.saveSetting(AppKeysValues.FIRST_TIME_USER, AppKeysValues.FALSE);
             view.showTermsAndConditionsScreen();
-            view.setWelcomeMessage(R.string.welcome_tributum_label);
+            view.setWelcomeMessage(R.string.welcome_fintrex_label);
         } else {
             view.setWelcomeMessage(R.string.welcome_back_label);
         }
@@ -62,19 +62,19 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     private void setLanguageLabel() {
-        if (TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE).equals("en"))
+        if (FintrexAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE).equals("en"))
             view.setLanguageLabel(R.string.english_label);
         else
             view.setLanguageLabel(R.string.romanian_label);
     }
 
     public void startNotificationAlarm() {
-        if (!TributumAppHelper.getBooleanSetting(AppKeysValues.NOTIFICATION_ALARM_SET)) {
-            TributumAppHelper.saveSetting(AppKeysValues.NOTIFICATION_ALARM_SET, AppKeysValues.TRUE);
+        if (!FintrexAppHelper.getBooleanSetting(AppKeysValues.NOTIFICATION_ALARM_SET)) {
+            FintrexAppHelper.saveSetting(AppKeysValues.NOTIFICATION_ALARM_SET, AppKeysValues.TRUE);
 
-            Intent alarmIntent = new Intent(TributumApplication.getInstance(), AlarmReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(TributumApplication.getInstance(), 0, alarmIntent, PendingIntent.FLAG_IMMUTABLE);
-            AlarmManager manager = (AlarmManager) TributumApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
+            Intent alarmIntent = new Intent(FintrexApplication.getInstance(), AlarmReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(FintrexApplication.getInstance(), 0, alarmIntent, PendingIntent.FLAG_IMMUTABLE);
+            AlarmManager manager = (AlarmManager) FintrexApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
             long interval = ConstantsUtils.NOTIFICATION_INTERVAL;
 
             Calendar calendar = Calendar.getInstance();
@@ -136,7 +136,7 @@ public class MainPresenterImpl implements MainPresenter {
             return;
 
         if (view.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            if (TributumAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED) && view.shouldShowStorageRationale()) {
+            if (FintrexAppHelper.getBooleanSetting(AppKeysValues.STORAGE_FIRST_DENIED) && view.shouldShowStorageRationale()) {
                 view.takeUserToAppSettings();
                 return;
             }
@@ -154,7 +154,7 @@ public class MainPresenterImpl implements MainPresenter {
         } else {
             if (view.shouldShowCameraRationale())
                 view.requestPermissions(new String[]{Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_ID);
-            else if (TributumAppHelper.getBooleanSetting(AppKeysValues.CAMERA_FIRST_DENIED)) {
+            else if (FintrexAppHelper.getBooleanSetting(AppKeysValues.CAMERA_FIRST_DENIED)) {
                 view.takeUserToAppSettings();
             } else {
                 view.requestPermissions(new String[]{Manifest.permission.CAMERA}, ConstantsUtils.CAMERA_REQUEST_ID);
@@ -185,9 +185,9 @@ public class MainPresenterImpl implements MainPresenter {
                 if (i != PackageManager.PERMISSION_GRANTED) {
                     if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                         if (requestCode == ConstantsUtils.STORAGE_PERMISSION_REQUEST_CODE_VAT) {
-                            TributumAppHelper.saveSetting(AppKeysValues.STORAGE_FIRST_DENIED, AppKeysValues.TRUE);
+                            FintrexAppHelper.saveSetting(AppKeysValues.STORAGE_FIRST_DENIED, AppKeysValues.TRUE);
                         } else {
-                            TributumAppHelper.saveSetting(AppKeysValues.CAMERA_FIRST_DENIED, AppKeysValues.TRUE);
+                            FintrexAppHelper.saveSetting(AppKeysValues.CAMERA_FIRST_DENIED, AppKeysValues.TRUE);
                         }
                     }
                     return;
@@ -216,7 +216,7 @@ public class MainPresenterImpl implements MainPresenter {
 
         languageLayoutVisible = true;
         view.showLanguageLayout();
-        if (TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE).equals("en")) {
+        if (FintrexAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE).equals("en")) {
             view.checkEnglishBox();
             view.unCheckRomanianBox();
         } else {
@@ -251,10 +251,10 @@ public class MainPresenterImpl implements MainPresenter {
             return;
 
         languageLayoutVisible = false;
-        if (appLanguage.equals(TributumAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE))) {
+        if (appLanguage.equals(FintrexAppHelper.getStringSetting(AppKeysValues.APP_LANGUAGE))) {
             view.hideLanguageLayout();
         } else {
-            TributumAppHelper.saveSetting(AppKeysValues.APP_LANGUAGE, appLanguage);
+            FintrexAppHelper.saveSetting(AppKeysValues.APP_LANGUAGE, appLanguage);
             view.restartApp();
         }
     }
@@ -264,7 +264,7 @@ public class MainPresenterImpl implements MainPresenter {
         if (intent != null && intent.getStringExtra(NotificationExtra.OPEN) != null
                 && intent.getStringExtra(NotificationExtra.OPEN).equals(NotificationIntentIds.VAT_INTENT)
                 && view != null) {
-            NotificationManagerCompat.from(TributumApplication.getInstance()).cancel(null, NotificationIds.INPUT_VAT_ID);
+            NotificationManagerCompat.from(FintrexApplication.getInstance()).cancel(null, NotificationIds.INPUT_VAT_ID);
             actToStart = ActivityToStart.VAT;
             handleActivityStart();
         }
@@ -272,8 +272,8 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onAcceptTermsClicked() {
-        TributumAppHelper.saveSetting(AppKeysValues.USER_ACCEPTED_TERMS, AppKeysValues.TRUE);
-        TributumAppHelper.saveSetting(AppKeysValues.USER_DENIED_TERMS, AppKeysValues.FALSE);
+        FintrexAppHelper.saveSetting(AppKeysValues.USER_ACCEPTED_TERMS, AppKeysValues.TRUE);
+        FintrexAppHelper.saveSetting(AppKeysValues.USER_DENIED_TERMS, AppKeysValues.FALSE);
         if (view != null)
             view.hideTermsAndConditionsScreen();
     }
@@ -302,7 +302,7 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onUserDenyClicked() {
-        TributumAppHelper.saveSetting(AppKeysValues.USER_DENIED_TERMS, true);
+        FintrexAppHelper.saveSetting(AppKeysValues.USER_DENIED_TERMS, true);
         if (view != null)
             view.closeApp();
     }

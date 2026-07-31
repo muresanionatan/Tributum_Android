@@ -8,7 +8,7 @@ import android.provider.MediaStore;
 
 import androidx.core.content.FileProvider;
 
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 
 import java.io.File;
 
@@ -19,7 +19,7 @@ public class ImageUtils {
 
     public static String getImagePath(String prefix) {
         String imageFileName = prefix + ".jpg";
-        File storageDir = TributumApplication.getInstance().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = FintrexApplication.getInstance().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         return storageDir.getAbsolutePath() + "/" + imageFileName;
     }
@@ -30,7 +30,7 @@ public class ImageUtils {
 
         if (uri == null)
             return "";
-        Cursor cursor = TributumApplication.getInstance().getContentResolver().query(uri, projection, null, null, null);
+        Cursor cursor = FintrexApplication.getInstance().getContentResolver().query(uri, projection, null, null, null);
 
         if (cursor == null)
             return "";
@@ -45,7 +45,7 @@ public class ImageUtils {
 
     public static Uri getUriFromFile(File file) {
         return FileProvider.getUriForFile(
-                TributumApplication.getInstance(),
+                FintrexApplication.getInstance(),
                 "com.app.tributum.activity.vat.provider",
                 file);
     }
@@ -55,7 +55,7 @@ public class ImageUtils {
     }
 
     public static Intent getTakePhotoIntent(File file) {
-        Uri outputFileUri = FileProvider.getUriForFile(TributumApplication.getInstance(),
+        Uri outputFileUri = FileProvider.getUriForFile(FintrexApplication.getInstance(),
                 "com.app.tributum.activity.vat.provider", file);
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);

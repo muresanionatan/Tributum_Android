@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import com.app.tributum.R;
 import com.app.tributum.activity.form.adapter.FormAdapterState;
 import com.app.tributum.activity.vat.model.VatModel;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.listener.CombinePdfListener;
 import com.app.tributum.listener.FormItemClickListener;
@@ -619,7 +619,7 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(fullName), "Android"));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.FINTREX_EMAIL, generateInternalEmailMessage(fullName), "Android"));
         call.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -642,7 +642,7 @@ public class FormPresenterImpl implements FormPresenter, RequestSentListener, In
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(email, TributumApplication.getInstance().getString(R.string.contract_mail_message), "Android"));
+        Call<Object> call = api.sendEmail(new EmailBody(email, FintrexApplication.getInstance().getString(R.string.contract_mail_message), "Android"));
         call.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

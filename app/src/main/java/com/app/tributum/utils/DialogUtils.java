@@ -9,14 +9,14 @@ import android.net.Uri;
 import android.provider.Settings;
 
 import com.app.tributum.R;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 
 public class DialogUtils {
 
     private DialogUtils() {}
 
     public static void showPermissionDeniedDialog(Context context) {
-        Resources resources = TributumApplication.getInstance().getResources();
+        Resources resources = FintrexApplication.getInstance().getResources();
         new AlertDialog.Builder(context)
                 .setTitle(resources.getString(R.string.permission_denied))
                 .setMessage(resources.getString(R.string.permission_denied_explained))

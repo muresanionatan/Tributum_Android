@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 
 import com.app.tributum.R;
 import com.app.tributum.activity.contract.PhotoCrop;
-import com.app.tributum.application.TributumApplication;
+import com.app.tributum.application.FintrexApplication;
 import com.app.tributum.listener.AsyncListener;
 import com.app.tributum.listener.RequestSentListener;
 import com.app.tributum.model.EmailBody;
@@ -60,7 +60,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
 
     PpsPresenterImpl(PpsView contractView) {
         this.view = contractView;
-        this.resources = TributumApplication.getInstance().getResources();
+        this.resources = FintrexApplication.getInstance().getResources();
     }
 
     @Override
@@ -276,7 +276,7 @@ public class PpsPresenterImpl implements PpsPresenter, AsyncListener, RequestSen
         Retrofit retrofit = RetrofitClientInstance.getInstance();
         final InterfaceAPI api = retrofit.create(InterfaceAPI.class);
 
-        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.TRIBUTUM_EMAIL, generateInternalEmailMessage(firstName + " " + lastName), "Android"));
+        Call<Object> call = api.sendEmail(new EmailBody(ConstantsUtils.FINTREX_EMAIL, generateInternalEmailMessage(firstName + " " + lastName), "Android"));
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

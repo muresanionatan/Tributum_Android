@@ -14,7 +14,7 @@
         android:required="true" />
 
     <application
-        android:name=".application.TributumApplication"
+        android:name=".application.FintrexApplication"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="false"
