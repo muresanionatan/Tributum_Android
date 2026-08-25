@@ -7,7 +7,7 @@ android {
         applicationId "com.app.mbacc"
         namespace 'com.app.tributum'
         minSdkVersion 26
-        targetSdkVersion 35
+        targetSdkVersion 36
         versionCode 41
         versionName "1.11"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
